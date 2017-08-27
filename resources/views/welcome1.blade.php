@@ -63,11 +63,11 @@
                                     <button class="submit visible-xs search-btn" style="width: auto;border:1px solid #EBEAEA;padding:5px 7px;height: auto;margin:auto;margin-top: 10px;background-color: #F5F5F5;color:#A8A8A8;border-radius: 4px">Tìm kiếm</button>
                                 </form>
                                 <div class="city">
-                                    <a target="_self" href="{{ url('/') }}/?city=1">Hà Nội</a>
-                                    <a target="_self" href="{{ url('/') }}/?city=2">TP HCM</a>
-                                    <a target="_self" href="{{ url('/') }}/?city=3">Đà Nẵng</a>
-                                    <a target="_self" href="{{ url('/') }}/?city=4">Hải Phòng</a>
-                                    <a target="_self" href="{{ url('/') }}/?city=14">Bình Dương</a>
+                                    <a target="_self" href="{{ url('/') }}/home?city=1">Hà Nội</a>
+                                    <a target="_self" href="{{ url('/') }}/home?city=2">TP HCM</a>
+                                    <a target="_self" href="{{ url('/') }}/home?city=3">Đà Nẵng</a>
+                                    <a target="_self" href="{{ url('/') }}/home?city=4">Hải Phòng</a>
+                                    <a target="_self" href="{{ url('/') }}/home?city=14">Bình Dương</a>
                                 </div>
                             </div>
                             <div class="col-md-3 clearfix">
@@ -86,10 +86,10 @@
                 <div class="row">
                     <div class="menu-left">
                         <a target="_self" href="http://spa.gmon.com.vn"><i></i>Spa</a>
-                        <a target="_self" href="{{ url('/') }}/?field=1"><i></i>Khách sạn</a>
-                        <a target="_self" href="{{ url('/') }}/?field=2"><i></i>Nhà hàng</a>
-                        <a target="_self" href="{{ url('/') }}/?field=4"><i></i>Doanh nghiệp</a>
-                        <a target="_self" href="{{ url('/') }}/?field=5"><i></i>Nhân sự tài năng</a>
+                        <a target="_self" href="{{ url('/') }}/home?field=1"><i></i>Khách sạn</a>
+                        <a target="_self" href="{{ url('/') }}/home?field=2"><i></i>Nhà hàng</a>
+                        <a target="_self" href="{{ url('/') }}/home?field=4"><i></i>Doanh nghiệp</a>
+                        <a target="_self" href="{{ url('/') }}/home?field=5"><i></i>Nhân sự tài năng</a>
                     </div>
                     <div class="menu-right">
                         @if (Auth::guest())

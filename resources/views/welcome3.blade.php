@@ -27,13 +27,13 @@
                    <div class="row">
                        <div class="col-md-4">
                            <div class="logo">
-                               <a href="#"><img src="{{ url('/') }}/public/images/logo-2.png" alt="logo"/></a>
+                               <a href="{{ url('/') }}"><img src="{{ url('/') }}/public/images/logo-2.png" alt="logo"/></a>
                            </div>
                        </div>
                        <ul class="homepage-menu col-md-8">
-                           <li class="active"><a href="http://gmon.com.vn/showmore?job=new">Việc làm</a></li>
-                           <li><a href="http://gmon.com.vn/showmore?company=new">Nhà tuyển dụng</a></li>
-                           <li><a href="#">Tư vấn nghề nghiệp</a></li>
+                           <li class="active"><a href="{{ url('/') }}/showmore?job=new">Việc làm</a></li>
+                           <li><a href="{{ url('/') }}/showmore?company=new">Nhà tuyển dụng</a></li>
+                           <li><a href="{{ url('/') }}">Tư vấn nghề nghiệp</a></li>
                        </ul>
                    </div>
                </div>
@@ -41,15 +41,15 @@
                    <ul class="homepage-menu">
                         @if (Auth::guest())
                        <li>
-                           <a class="menuLogin" href="#" data-toggle="modal" data-target="#loginHeader" onclick="onOpenLogin()"><i class="fa fa-sign-in" aria-hidden="true"></i> Đăng nhập</a></li>
-                       <li><a class="menuRegister" href="#" data-toggle="modal" data-target="#loginHeader" onclick="onOpenRegister()">Đăng ký</a></li>
+                           <a class="menuLogin" href="{{ url('/') }}" data-toggle="modal" data-target="#loginHeader" onclick="onOpenLogin()"><i class="fa fa-sign-in" aria-hidden="true"></i> Đăng nhập</a></li>
+                       <li><a class="menuRegister" href="{{ url('/') }}" data-toggle="modal" data-target="#loginHeader" onclick="onOpenRegister()">Đăng ký</a></li>
                        <li class="info">
                            <h5>dành cho nhà tuyển dụng</h5>
                            <h6 >Đăng tuyển dụng ứng viên & Tìm kiếm nhân tài</h6>
                        </li>
                        @else
                        <li class="dropdown">
-                            <a target="_self" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                            <a target="_self" href="{{ url('/') }}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                 {{ Auth::user()->name }} <span class="caret"></span>
                             </a>
 
@@ -182,17 +182,17 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm-6 col-6 left">
-                    <a href="#"><img src="{{ url('/') }}/public/images/logo-2.png" alt="logo"/></a>
+                    <a href="{{ url('/') }}"><img src="{{ url('/') }}/public/images/logo-2.png" alt="logo"/></a>
                 </div>
                 <div class="col-sm-6 col-6 right">
                     <a href="#menu" class="fa fa-bars"></a>
                     <nav id="menu">
                         <ul>
-                            <li><a href="http://gmon.com.vn/showmore?job=new">Việc làm</a></li>
-                            <li><a href="http://gmon.com.vn/showmore?company=new">Nhà tuyển dụng</a></li>
-                            <li><a href="#">Tư vấn nghề nghiệp</a></li>
-                            <li><a href="#" data-toggle="modal" data-target="#loginHeader">Đăng nhập</a></li>
-                            <li><a href="#" data-toggle="modal" data-target="#loginHeader">Đăng ký</a></li>
+                            <li><a href="{{ url('/') }}/showmore?job=new">Việc làm</a></li>
+                            <li><a href="{{ url('/') }}/showmore?company=new">Nhà tuyển dụng</a></li>
+                            <li><a href="{{ url('/') }}">Tư vấn nghề nghiệp</a></li>
+                            <li><a href="{{ url('/') }}" data-toggle="modal" data-target="#loginHeader">Đăng nhập</a></li>
+                            <li><a href="{{ url('/') }}" data-toggle="modal" data-target="#loginHeader">Đăng ký</a></li>
                         </ul>
                     </nav>
                 </div>
@@ -254,9 +254,9 @@
                         </form>
                         <div class="bottom-search">
                             <span>Tìm kiếm nhanh: </span>
-                            <a href="http://gmon.com.vn/showmore?job=new">Tất cả công việc</a>
-                            <a href="http://gmon.com.vn/showmore?job=vip1">Việc làm vip</a>
-                            <a href="http://gmon.com.vn/showmore?job=vip2">Việc làm hot</a>
+                            <a href="{{ url('/') }}/showmore?job=new">Tất cả công việc</a>
+                            <a href="{{ url('/') }}/showmore?job=vip1">Việc làm vip</a>
+                            <a href="{{ url('/') }}/showmore?job=vip2">Việc làm hot</a>
                         </div>
                     </div>
                 </div>
@@ -323,7 +323,7 @@
                             <img src="{{ url('/') }}/public/images/linh_vuc2.jpg" alt="" />
                         </div>
                         <div class="title">
-                            <a href="http://gmon.com.vn/home?field=1">Khách sạn</a>
+                            <a href="{{ url('/') }}/home?field=1">Khách sạn</a>
                         </div>
                     </div>
                     <div class="item col-md-3">
@@ -331,7 +331,7 @@
                             <img src="{{ url('/') }}/public/images/linh_vuc3.jpg" alt="" />
                         </div>
                         <div class="title">
-                            <a href="http://gmon.com.vn/home?field=2">Nhà hàng</a>
+                            <a href="{{ url('/') }}/home?field=2">Nhà hàng</a>
                         </div>
                     </div>
                     <div class="item col-md-3">
@@ -339,7 +339,7 @@
                             <img src="{{ url('/') }}/public/images/linh_vuc4.jpg" alt="" />
                         </div>
                         <div class="title">
-                            <a href="http://gmon.com.vn/home?field=4">Doanh nghiệp</a>
+                            <a href="{{ url('/') }}/home?field=4">Doanh nghiệp</a>
                         </div>
                     </div>
                 </div>
@@ -357,7 +357,7 @@
                             <img src="{{ url('/') }}/public/images/khu_vuc1.jpg" alt="" />
                         </div>
                         <div class="title">
-                            <a href="http://gmon.com.vn/home?city=1">Hà Nội</a>
+                            <a href="{{ url('/') }}/home?city=1">Hà Nội</a>
                         </div>
                     </div>
                     <div class="item col-md-3">
@@ -365,7 +365,7 @@
                             <img src="{{ url('/') }}/public/images/khu_vuc2.jpg" alt="" />
                         </div>
                         <div class="title">
-                            <a href="http://gmon.com.vn/home?city=3">Đà Nẵng</a>
+                            <a href="{{ url('/') }}/home?city=3">Đà Nẵng</a>
                         </div>
                     </div>
                     <div class="item col-md-3">
@@ -373,7 +373,7 @@
                             <img src="{{ url('/') }}/public/images/khu_vuc3.jpg" alt="" />
                         </div>
                         <div class="title">
-                            <a href="http://gmon.com.vn/home?city=2">Hồ Chí Minh</a>
+                            <a href="{{ url('/') }}/home?city=2">Hồ Chí Minh</a>
                         </div>
                     </div>
                     <div class="item col-md-3">
@@ -381,7 +381,7 @@
                             <img src="{{ url('/') }}/public/images/khu_vuc4.jpg" alt="" />
                         </div>
                         <div class="title">
-                            <a href="http://gmon.com.vn/home?city=other">Khu vực khác</a>
+                            <a href="{{ url('/') }}/home?city=other">Khu vực khác</a>
                         </div>
                     </div>
                 </div>
