@@ -123,16 +123,16 @@
                 <div class="row news">
                     <div class="col-md-6" style="margin-right: -1px">
                         <div class="top row">
-                            <div class="col-md-4 col-xs-4"><a target="_self" href="{{ url('/') }}/?city=1" @if($city == 1) class="active" @endif>Hà Nội</a></div>
-                            <div class="col-md-4 col-xs-4"><a target="_self" href="{{ url('/') }}/?city=3" @if($city == 3) class="active" @endif>Đà Nẵng</a></div>
-                            <div class="col-md-4 col-xs-4"><a target="_self" href="{{ url('/') }}/?city=2" @if($city == 2) class="active" @endif>TP.HCM</a></div>
+                            <div class="col-md-4 col-xs-4"><a target="_self" href="{{ url('/') }}/home?city=1" @if($city == 1) class="active" @endif>Hà Nội</a></div>
+                            <div class="col-md-4 col-xs-4"><a target="_self" href="{{ url('/') }}/home?city=3" @if($city == 3) class="active" @endif>Đà Nẵng</a></div>
+                            <div class="col-md-4 col-xs-4"><a target="_self" href="{{ url('/') }}/home?city=2" @if($city == 2) class="active" @endif>TP.HCM</a></div>
                         </div>
                         <div class="row title">
                             Tìm kiếm việc làm theo các quận
                         </div>
                         <div class="row contentsLeft" id="list-districts">
                             @foreach($districts as $district)
-                                <a target="_self" href="{{ url('/') }}/?district={{ $district->id }}">{{ $district->name }}</a>
+                                <a target="_self" href="{{ url('/') }}/showmore?district={{ $district->id }}">{{ $district->name }}</a>
                             @endforeach
                         </div>
                     </div>
