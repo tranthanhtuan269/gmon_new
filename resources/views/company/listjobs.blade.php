@@ -25,7 +25,7 @@
                     <div class="row">
                         <div class="navbar-header">
                             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false">
-                                <img src="{{ url('/') }}/public/images/menu.png" alt="" width="25px">
+                                <img src="http://test.gmon.com.vn/?image=menu.png" alt="" width="25px">
                             </button>
                         </div>
                         <div class="collapse navbar-collapse" id="navbar-collapse">
@@ -43,7 +43,7 @@
                                     <div id="myModal" class="modal fade" role="dialog">
                                         <div class="modal-dialog">
                                             <!-- Modal content-->
-                                            <button class="exit-login visible-xs" onclick="onCloseModalLogin()" style="margin-bottom: 5px;line-height: 0;background-color: transparent;border:1px solid #C9C9C9;padding: 5px"><img src="{{ url('/') }}/public/images/del.png" width="15px" alt=""></button>
+                                            <button class="exit-login visible-xs" onclick="onCloseModalLogin()" style="margin-bottom: 5px;line-height: 0;background-color: transparent;border:1px solid #C9C9C9;padding: 5px"><img src="http://test.gmon.com.vn/?image=del.png" width="15px" alt=""></button>
                                             <div class="modal-content">
                                                 <div class="modal-body">
                                                     <div style="margin:-15px -15px 0 -15px!important;">
@@ -145,7 +145,7 @@
                                                 @elseif(Auth::check() && Auth::user()->hasRole('master'))
                                                     <li><a target="_self" href="{{ url('/city/admin') }}">Administrator</a></li>
                                                 @elseif(Auth::check() && Auth::user()->hasRole('user'))
-                                                    @if($cv_id > 0)
+                                                    @if(isset($cv_id) && $cv_id > 0)
                                                     <li><a target="_self" href="{{ url('/') }}/curriculumvitae/view/{{ $cv_id }}">Trang hồ sơ</a></li>
                                                     @endif
                                                 @else 
@@ -176,7 +176,7 @@
     </header>
         <div class="container">
             <div class="main-menu row">
-                <div class="slide"><img src="{{ url('/') }}/public/images/{{ $company->banner }}" width="100%" height="auto" alt=""><img class="logo" src="{{ url('/') }}/public/images/{{ $company->logo }}" alt=""></div>
+                <div class="slide"><img src="http://test.gmon.com.vn/?image={{ $company->banner }}" width="100%" height="auto" alt=""><img class="logo" src="http://test.gmon.com.vn/?image={{ $company->logo }}" alt=""></div>
                 <p class="menu">
                     <a target="_self" href="{{ url('/') }}/company/{{ $company->id }}/info">Thông Tin</a>
                     <a target="_self" href="{{ url('/') }}/company/{{ $company->id }}/listjobs" class="active">Tuyển Dụng</a>
@@ -195,7 +195,7 @@
                     @foreach($jobs as $job)
                     <div class="row item-job">
                         <div class="job-image">
-                            <div style="padding: 10%;"><img src="{{ url('/') }}/public/images/{{ $company->logo }}" alt=""></div>
+                            <div style="padding: 10%;"><img src="http://test.gmon.com.vn/?image={{ $company->logo }}" alt=""></div>
                         </div>
                         <div class="job-content">
                             <div class="job-name"><a target="_self" href="{{ url('/') }}/job/view/{{ $job->id }}"> {{ $job->name }} </a></div>
@@ -217,11 +217,11 @@
                     <div class="pn-rating pn-left row">
                         <h5>Đánh giá chung</h5>
                         <p class="star-vote">
-                            <img src="{{ url('/') }}/public/images/star.png" alt="" class="vote">
-                            <img src="{{ url('/') }}/public/images/star.png" alt="" @if($votes > 1) class="vote" @else class="no-vote" @endif>
-                                 <img src="{{ url('/') }}/public/images/star.png" alt="" @if($votes > 2) class="vote" @else class="no-vote" @endif>
-                                 <img src="{{ url('/') }}/public/images/star.png" alt="" @if($votes > 3) class="vote" @else class="no-vote" @endif>
-                                 <img src="{{ url('/') }}/public/images/star.png" alt="" @if($votes > 4) class="vote" @else class="no-vote" @endif>
+                            <img src="http://test.gmon.com.vn/?image=star.png" alt="" class="vote">
+                            <img src="http://test.gmon.com.vn/?image=star.png" alt="" @if($votes > 1) class="vote" @else class="no-vote" @endif>
+                                 <img src="http://test.gmon.com.vn/?image=star.png" alt="" @if($votes > 2) class="vote" @else class="no-vote" @endif>
+                                 <img src="http://test.gmon.com.vn/?image=star.png" alt="" @if($votes > 3) class="vote" @else class="no-vote" @endif>
+                                 <img src="http://test.gmon.com.vn/?image=star.png" alt="" @if($votes > 4) class="vote" @else class="no-vote" @endif>
                         </p>
                     </div>
                     <div class="pn-left pn-hightlight row">
@@ -229,11 +229,11 @@
                         @foreach($comments as $comment)
                         <p class="content">
                             <span>{{ $comment->title }}</span>
-                            <img src="{{ url('/') }}/public/images/star.png" alt="" class="vote">
-                            <img src="{{ url('/') }}/public/images/star.png" alt="" @if($comment->star > 1) class="vote" @else class="no-vote" @endif>
-                                 <img src="{{ url('/') }}/public/images/star.png" alt="" @if($comment->star > 2) class="vote" @else class="no-vote" @endif>
-                                 <img src="{{ url('/') }}/public/images/star.png" alt="" @if($comment->star > 3) class="vote" @else class="no-vote" @endif>
-                                 <img src="{{ url('/') }}/public/images/star.png" alt="" @if($comment->star > 4) class="vote" @else class="no-vote" @endif>
+                            <img src="http://test.gmon.com.vn/?image=star.png" alt="" class="vote">
+                            <img src="http://test.gmon.com.vn/?image=star.png" alt="" @if($comment->star > 1) class="vote" @else class="no-vote" @endif>
+                                 <img src="http://test.gmon.com.vn/?image=star.png" alt="" @if($comment->star > 2) class="vote" @else class="no-vote" @endif>
+                                 <img src="http://test.gmon.com.vn/?image=star.png" alt="" @if($comment->star > 3) class="vote" @else class="no-vote" @endif>
+                                 <img src="http://test.gmon.com.vn/?image=star.png" alt="" @if($comment->star > 4) class="vote" @else class="no-vote" @endif>
                                  <span>{{ $comment->description }}</span>
                         </p>
                         @endforeach
@@ -249,13 +249,13 @@
             <div class="related-work row">
                 <p class="title"><i></i>Thêm cơ hội làm việc cho bạn</p>
                 <div class="wrapper" id="wrapper">
-                    <div class="prev" id="btPrev"><img src="{{ url('/') }}/public/images/prev.png" alt=""></div>
-                    <div class="next"  id="btNext"><img src="{{ url('/') }}/public/images/next.png" alt=""></div>
+                    <div class="prev" id="btPrev"><img src="http://test.gmon.com.vn/?image=prev.png" alt=""></div>
+                    <div class="next"  id="btNext"><img src="http://test.gmon.com.vn/?image=next.png" alt=""></div>
                     <div style="width: 100%;overflow: hidden;display: inline-block;position: relative;">
                         <div id="contents">
                             <div class="item-work" >
                                 <a target="_self" href="">
-                                    <p class="work-img"><img  src="{{ url('/') }}/public/images/nhatuyendung.png" alt=""></p>
+                                    <p class="work-img"><img  src="http://test.gmon.com.vn/?image=nhatuyendung.png" alt=""></p>
                                     <div class="details">
                                         <p class="single">Nhân viên pha chế Starbucks Coffee</p>
                                         <div class="work-view">
@@ -267,7 +267,7 @@
                             </div>
                             <div class="item-work" >
                                 <a target="_self" href="">
-                                    <p class="work-img"><img  src="{{ url('/') }}/public/images/nhatuyendung.png" alt=""></p>
+                                    <p class="work-img"><img  src="http://test.gmon.com.vn/?image=nhatuyendung.png" alt=""></p>
                                     <div class="details">
                                         <p class="single">Nhân viên pha chế Starbucks Coffee Nhân viên pha chế Starbucks Coffee Nhân viên pha chế Starbucks Coffee</p>
                                         <div class="work-view">
@@ -279,7 +279,7 @@
                             </div>
                             <div class="item-work" >
                                 <a target="_self" href="">
-                                    <p class="work-img"><img  src="{{ url('/') }}/public/images/nhatuyendung.png" alt=""></p>
+                                    <p class="work-img"><img  src="http://test.gmon.com.vn/?image=nhatuyendung.png" alt=""></p>
                                     <div class="details">
                                         <p class="single">Nhân viên pha chế Starbucks Coffee</p>
                                         <div class="work-view">
@@ -291,7 +291,7 @@
                             </div>
                             <div class="item-work" >
                                 <a target="_self" href="">
-                                    <p class="work-img"><img  src="{{ url('/') }}/public/images/nhatuyendung.png" alt=""></p>
+                                    <p class="work-img"><img  src="http://test.gmon.com.vn/?image=nhatuyendung.png" alt=""></p>
                                     <div class="details">
                                         <p class="single">Nhân viên pha chế Starbucks Coffee</p>
                                         <div class="work-view">
@@ -303,7 +303,7 @@
                             </div>
                             <div class="item-work" >
                                 <a target="_self" href="">
-                                    <p class="work-img"><img  src="{{ url('/') }}/public/images/nhatuyendung.png" alt=""></p>
+                                    <p class="work-img"><img  src="http://test.gmon.com.vn/?image=nhatuyendung.png" alt=""></p>
                                     <div class="details">
                                         <p class="single">Nhân viên pha chế Starbucks Coffee</p>
                                         <div class="work-view">
@@ -315,7 +315,7 @@
                             </div>
                             <div class="item-work" >
                                 <a target="_self" href="">
-                                    <p class="work-img"><img  src="{{ url('/') }}/public/images/nhatuyendung.png" alt=""></p>
+                                    <p class="work-img"><img  src="http://test.gmon.com.vn/?image=nhatuyendung.png" alt=""></p>
                                     <div class="details">
                                         <p class="single">Nhân viên pha chế Starbucks Coffee</p>
                                         <div class="work-view">
@@ -327,7 +327,7 @@
                             </div>
                             <div class="item-work" >
                                 <a target="_self" href="">
-                                    <p class="work-img"><img  src="{{ url('/') }}/public/images/nhatuyendung.png" alt=""></p>
+                                    <p class="work-img"><img  src="http://test.gmon.com.vn/?image=nhatuyendung.png" alt=""></p>
                                     <div class="details">
                                         <p class="single">Nhân viên pha chế Starbucks Coffee</p>
                                         <div class="work-view">
@@ -339,7 +339,7 @@
                             </div>
                             <div class="item-work" >
                                 <a target="_self" href="">
-                                    <p class="work-img"><img  src="{{ url('/') }}/public/images/nhatuyendung.png" alt=""></p>
+                                    <p class="work-img"><img  src="http://test.gmon.com.vn/?image=nhatuyendung.png" alt=""></p>
                                     <div class="details">
                                         <p class="single">Nhân viên pha chế Starbucks Coffee</p>
                                         <div class="work-view">
@@ -351,7 +351,7 @@
                             </div>
                             <div class="item-work" >
                                 <a target="_self" href="">
-                                    <p class="work-img"><img  src="{{ url('/') }}/public/images/nhatuyendung.png" alt=""></p>
+                                    <p class="work-img"><img  src="http://test.gmon.com.vn/?image=nhatuyendung.png" alt=""></p>
                                     <div class="details">
                                         <p class="single">Nhân viên pha chế Starbucks Coffee</p>
                                         <div class="work-view">
@@ -363,7 +363,7 @@
                             </div>
                             <div class="item-work" >
                                 <a target="_self" href="">
-                                    <p class="work-img"><img  src="{{ url('/') }}/public/images/nhatuyendung.png" alt=""></p>
+                                    <p class="work-img"><img  src="http://test.gmon.com.vn/?image=nhatuyendung.png" alt=""></p>
                                     <div class="details">
                                         <p class="single">Nhân viên pha chế Starbucks Coffee</p>
                                         <div class="work-view">
@@ -448,11 +448,11 @@
                                 <label for="inputScore" class="col-sm-3 control-label">Đánh giá</label>
                                 <div class="col-sm-9">
                                     <p class="star-vote" id="star-vote">
-                                        <img src="{{ url('/') }}/public/images/star.png" alt="" id="star-vote-1" class="vote">
-                                        <img src="{{ url('/') }}/public/images/star.png" alt="" id="star-vote-2" class="vote">
-                                        <img src="{{ url('/') }}/public/images/star.png" alt="" id="star-vote-3" class="vote">
-                                        <img src="{{ url('/') }}/public/images/star.png" alt="" id="star-vote-4" class="vote">
-                                        <img src="{{ url('/') }}/public/images/star.png" alt="" id="star-vote-5" class="vote">
+                                        <img src="http://test.gmon.com.vn/?image=star.png" alt="" id="star-vote-1" class="vote">
+                                        <img src="http://test.gmon.com.vn/?image=star.png" alt="" id="star-vote-2" class="vote">
+                                        <img src="http://test.gmon.com.vn/?image=star.png" alt="" id="star-vote-3" class="vote">
+                                        <img src="http://test.gmon.com.vn/?image=star.png" alt="" id="star-vote-4" class="vote">
+                                        <img src="http://test.gmon.com.vn/?image=star.png" alt="" id="star-vote-5" class="vote">
                                     </p>
                                 </div>
                             </div>

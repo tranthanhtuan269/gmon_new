@@ -30,7 +30,7 @@ class DistrictController extends Controller
         } else {
             $district = DB::table('districts')
             ->join('cities', 'cities.id', '=', 'districts.city')
-            ->select('districts.id', 'districts.name', 'cities.name as city')
+            ->select('districts.id', 'districts.name', 'cities.name as city', 'districts.active')
             ->paginate($perPage);
         }
 

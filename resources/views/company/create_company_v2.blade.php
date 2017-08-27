@@ -1,6 +1,7 @@
 @extends('layouts.layout')
 
 @section('content')
+<img src="{{ url('/') }}/../../053424014518tl2.png">
     <div class="container" style="margin-top: 15px;">
     <div class="row">
         <div class="col-md-12">
@@ -107,7 +108,7 @@
                     <div class="panel panel-default">
                         <div class="panel-heading">Thêm chi nhánh</div>
                         <div class="panel-body">
-                            <input type="hidden" name="branch" id="branch" value="">
+                            <input type="hidden" name="branchs" id="branch" value="">
                             <div class="form-branch-group">
                                 <div class="form-group" id="branch_content">
                                 </div>
@@ -140,40 +141,10 @@
                         <div class="col-md-12">
                             <input type="hidden" id="jobs" name="jobs" value="">
                             <select class="form-control selectpicker" multiple title="Chọn lĩnh vực hoạt động">
-                                <option>Làm bán thời gian</option>
-                                <option>Bán hàng</option>
-                                <option>Marketing-PR</option>
-                                <option>Bảo vệ</option>
-                                <option>Du lịch</option>
-                                <option>Sale/Marketing online</option>
-                                <option>Promotion Girl(PG)</option>
-                                <option>Thực tập</option>
-                                <option>Phụ bếp</option>
-                                <option>Người giúp việc</option>
-                                <option>Bếp chính</option>
-                                <option>Nhân viên spa</option>
-                                <option>Pha chế</option>
-                                <option>Bell man</option>
-                                <option>Chăm sóc khách hàng</option>
-                                <option>Giao nhận, ship</option>
-                                <option>Kinh doanh</option>
-                                <option>Hành chính nhân sự</option>
-                                <option>Phiên dịch</option>
-                                <option>Gia sư</option>
-                                <option>Hướng dẫn viên</option>
-                                <option>Giám sát, quản lý</option>
-                                <option>Phục vụ, bồi bàn</option>
-                                <option>Telesale</option>
-                                <option>Cộng tác viên</option>
-                                <option>Phụ bếp</option>
-                                <option>Lễ tân</option>
-                                <option>Thu ngân</option>
-                                <option>Marketing online</option>
-                                <option>Phát tờ rơi</option>
-                                <option>Buồng phòng</option>
-                                <option>Pha chế</option>
-                                <option>Shipper</option>
-                                <option>Kế toán</option>
+                                <option>Nhà hàng</option>
+                                <option>Khách sạn</option>
+                                <option>Siêu thị</option>
+                                <option>Doanh nghiệp</option>
                             </select>
                             {!! $errors->first('jobs', '<p class="help-block">:message</p>') !!}
                         </div>
@@ -237,6 +208,12 @@
                         <script async defer
                             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAhlfeeJco9hP4jLWY1ObD08l9J44v7IIE&libraries=places&callback=initMap">
                         </script>
+                        </div>
+                    </div>
+                    <div class="form-group {{ $errors->has('youtube_link') ? 'has-error' : ''}}">
+                        <div class="col-md-12">
+                            {!! Form::text('youtube_link', null, ['class' => 'form-control', 'id' => 'youtube_link', 'placeholder' => 'Thêm video']) !!}
+                            {!! $errors->first('youtube_link', '<p class="help-block">:message</p>') !!}
                         </div>
                     </div>
                     <div class="form-group {{ $errors->has('images') ? 'has-error' : ''}}">

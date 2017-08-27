@@ -30,7 +30,11 @@
                             <table class="table table-borderless">
                                 <thead>
                                     <tr>
-                                        <th>ID</th><th>Name</th><th>City</th><th>Actions</th>
+                                        <th>ID</th>
+                                        <th>Name</th>
+                                        <th>City</th>
+                                        <th>Active</th>
+                                        <th>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -40,7 +44,14 @@
                                         <td>{{ $item->name }}</td>
                                         <td>{{ $item->city }}</td>
                                         <td>
-                                            <a target="_self" href="{{ url('/admin/district/' . $item->id) }}" title="View District"><button class="btn btn-info btn-xs"><i class="fa fa-eye" aria-hidden="true"></i> View</button></a>
+                                            <div class="btn btn-default btn-xs active-district @if($item->active==1) hidden-object @else show-object @endif" data-id="{{ $item->id }}">
+                                            Unactive
+                                            </div>
+                                            <div class="btn btn-success btn-xs unactive-district @if($item->active==0) hidden-object @else show-object @endif" data-id="{{ $item->id }}">
+                                            Active
+                                            </div>
+                                        </td>
+                                        <td>
                                             <a target="_self" href="{{ url('/admin/district/' . $item->id . '/edit') }}" title="Edit District"><button class="btn btn-primary btn-xs"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></a>
                                             {!! Form::open([
                                                 'method'=>'DELETE',
