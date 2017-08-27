@@ -196,13 +196,13 @@
                             <a target="_self" href="" style="display: none;">Khai trương nhà hàng tại 156 Cầu Giấy
                                 <span class="hot-new-img"></span></a>
                             @if(Auth::user())
-                            @if($company->user != Auth::user()->id)
-                                <button type="button" class="bt-rate btn btn-primary" data-toggle="modal" data-target="#add-comment"><i></i>Thêm đánh giá</button>
-                            @else
-                                <button id="create_job_btn" class="bt-rate btn btn-primary"><i></i>Tạo tuyển dụng</button>
-                            @endif
+                                @if($company->user != Auth::user()->id)
+                                    <button type="button" class="bt-rate btn btn-primary" data-toggle="modal" data-target="#add-comment"><i></i>Thêm đánh giá</button>
+                                @else
+                                    <button id="create_job_btn" class="bt-rate btn btn-primary"><i></i>Tạo tuyển dụng</button>
+                                @endif
                             @else  
-                                
+                                <button  type="button" class="bt-rate btn btn-primary" data-toggle="modal" data-target="#add-comment"><i></i>Thêm đánh giá</button>
                             @endif
                         </div>
                     </div>
@@ -497,21 +497,15 @@
                     </div>
                     <div class="modal-body">
                         <form class="form-horizontal">
-                            <input type="hidden" name="company" value="{{ $company->id }}">
+                            <input type="hidden" name="company-id" value="{{ $company->id }}">
                             <div class="form-group">
-                                <label for="inputTitle" class="col-sm-3 control-label">Tiêu đề</label>
+                                <label for="inputDescription" class="col-sm-3 control-label">Đánh giá</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" id="inputTitle" placeholder="Tiêu đề">
+                                    <input type="text" class="form-control" id="inputDescription" placeholder="">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="inputDescription" class="col-sm-3 control-label">Mô tả chi tiết</label>
-                                <div class="col-sm-9">
-                                    <textarea class="form-control" rows="5" id="inputDescription"></textarea>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="inputScore" class="col-sm-3 control-label">Đánh giá</label>
+                                <label for="inputScore" class="col-sm-3 control-label">Cho điểm</label>
                                 <div class="col-sm-9">
                                     <p class="star-vote" id="star-vote">
                                         <img src="http://test.gmon.com.vn/?image=star.png" alt="" id="star-vote-1" class="vote">
@@ -742,9 +736,9 @@
             });
             $('#send-comment').click(function () {
                 var countStar = $('#star-vote>img.vote').length;
-                var title = $('#inputTitle').val();
+                var title = '';
                 var description = $('#inputDescription').val();
-                var company = $('input[name=company]').val()
+                var company = $('input[name=company-id]').val();
                 var request = $.ajax({
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -764,7 +758,10 @@
                     if (msg.code == 200) {
                         $('#add-comment').modal('toggle');
                         swal("Thông báo", "Thêm đánh giá thành công!", "success");
-                    } else {
+                    } else if(msg.code == 404 && msg.message == "unauthen"){
+                        $('#add-comment').modal('toggle');
+                        swal("Cảnh báo", "Bạn phải đăng nhập để có thể sử dụng chức năng này!", "error");
+                    }else{
                         $('#add-comment').modal('toggle');
                         swal("Cảnh báo", msg.message, "error");
                     }

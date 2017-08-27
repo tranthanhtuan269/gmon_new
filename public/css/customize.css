@@ -3,13 +3,15 @@ body{background-color: #f5f8fa !important;font-family: 'Noto Sans', sans-serif;}
 img.vote{
     padding: 8px;
     background-color: blue;
-    border-radius: 6px;
+    border-radius: 50%;
+    opacity: 1;
 }
 
 img.no-vote{
     padding: 8px;
     background-color: #bbb;
-    border-radius: 6px;
+    border-radius: 50%;
+    opacity: .1;
 }
 
 /*#unfollow-btn{

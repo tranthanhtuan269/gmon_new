@@ -176,8 +176,8 @@ a{text-decoration: none !important;}
 .pn-hightlight p.content{word-break: break-all;margin: 0;margin-top: 10px}
 .pn-hightlight p.content span{display: block;}
 .pn-hightlight p.content span:nth-child(1){font-size: 13px;color:#575757;font-weight: bold;margin-bottom: 10px;}
-.pn-hightlight p.content span:last-child{color:#E9E9E9;font-size: 11px;margin-top: 10px}
-.pn-hightlight p.content img{opacity: 0.1;border-radius: 50%;background: #0970B1;padding: 5px;margin-right: -1px}
+.pn-hightlight p.content span:last-child{color:#504d4d;font-size: 13px;margin-top: 10px}
+.pn-hightlight p.content img{border-radius: 50%;background: #0970B1;padding: 5px;margin-right: -1px}
 .pn-hightlight p.content img.active{opacity: 1}
 .pn-hightlight .bot{text-align: center;margin-top: -5px}
 .pn-hightlight .bot span{width: 8px;height: 8px;border-radius: 50%;background: white;display: inline-block;margin-right: 1px;border:1px solid #D4D4D4;}

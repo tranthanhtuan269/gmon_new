@@ -56,12 +56,6 @@
                                                         <div id="register" class="tab-pane fade">
                                                             <h3>ĐĂNG KÝ TÀI KHOẢN GMON NGAY !</h3>
                                                             <form method="post">
-                                                                <!-- <div class="row text-center">
-                                                                    <p>Tiếp tục với</p>
-                                                                    <a target="_self" href="#" class="facebook"><i></i> Facebook</a>
-                                                                    <a target="_self" href="#" class="google"><i></i> Google</a>
-                                                                    <span class="col-md-12" style="display: inline-block;margin-bottom: 30px"><hr style="float: left;width: 40%;margin-top: 25px">Hoặc<hr style="float: right;width: 40%;margin-top: 25px"></span>
-                                                                </div> -->
                                                                 <div class="row">
                                                                     <div class="col-md-6 form-group ">
                                                                         <input type="text" class="form-control" id="firstname" placeholder="Họ" required autofocus><span class="required">*</span>
@@ -114,6 +108,7 @@
                                                                         <input type="password" class="form-control" id="login-password" placeholder="Mật khẩu" required>
                                                                     </div>
                                                                 </div>
+                                                                <p class="text-center text-danger" id="login-message" style="display: none;">Tài khoản không chính xác!</p>
                                                                 <div class="text-center">
                                                                     <div id="login-btn" class="btn btn-primary">ĐĂNG NHẬP</div>
                                                                 </div>
@@ -180,16 +175,20 @@
                 <p class="menu">
                     <a target="_self" href="{{ url('/') }}/company/{{ $company->id }}/info">Thông Tin</a>
                     <a target="_self" href="{{ url('/') }}/company/{{ $company->id }}/listjobs" class="active">Tuyển Dụng</a>
-                    <button type="button" class="btn btn-primary" id="follow-btn" @if($followed) style="display: none;" @else style="display: block;" @endif><i></i>Theo dõi</button>
-                    <button type="button" class="btn btn-danger" id="unfollow-btn" @if($followed) style="display: block;" @else style="display: none;" @endif><i></i>Bỏ theo dõi</button>
+                    <button type="button" data-id="{{ $company->id }}" class="btn btn-primary" id="follow-btn" @if($followed) style="display: none;" @else style="display: block;" @endif><i></i>Theo dõi</button>
+                    <button type="button" data-id="{{ $company->id }}" class="btn btn-danger" id="unfollow-btn" @if($followed) style="display: block;" @else style="display: none;" @endif><i></i>Bỏ theo dõi</button>
                 </p>
             </div>
             <div class="main-content row">
                 <div class="col-left col-md-9 col-xs-12">
                     <div class="row">
                         <div class="hot-new"><span style="color:#f99f3c">Tin nóng: </span><a target="_self" href="">Khai trương nhà hàng tại 156 Cầu Giấy
-                                <span class="hot-new-img"></span></a>
+                            <span class="hot-new-img"></span></a>
+                            @if (Auth::guest())
+                            <button class="bt-rate btn btn-primary" data-toggle="modal" data-target="#myModal" onclick="onOpenLogin()"><i></i>Thêm đánh giá</button>
+                            @else
                             <button  type="button" class="bt-rate btn btn-primary" data-toggle="modal" data-target="#add-comment"><i></i>Thêm đánh giá</button>
+                            @endif
                         </div>
                     </div>
                     @foreach($jobs as $job)
@@ -230,11 +229,12 @@
                         <p class="content">
                             <span>{{ $comment->title }}</span>
                             <img src="http://test.gmon.com.vn/?image=star.png" alt="" class="vote">
-                            <img src="http://test.gmon.com.vn/?image=star.png" alt="" @if($comment->star > 1) class="vote" @else class="no-vote" @endif>
-                                 <img src="http://test.gmon.com.vn/?image=star.png" alt="" @if($comment->star > 2) class="vote" @else class="no-vote" @endif>
-                                 <img src="http://test.gmon.com.vn/?image=star.png" alt="" @if($comment->star > 3) class="vote" @else class="no-vote" @endif>
-                                 <img src="http://test.gmon.com.vn/?image=star.png" alt="" @if($comment->star > 4) class="vote" @else class="no-vote" @endif>
-                                 <span>{{ $comment->description }}</span>
+                            <img src="http://test.gmon.com.vn/?image=star.png" alt="" 
+                            @if($comment->star > 1) class="vote" @else class="no-vote" @endif>
+                            <img src="http://test.gmon.com.vn/?image=star.png" alt="" @if($comment->star > 2) class="vote" @else class="no-vote" @endif>
+                            <img src="http://test.gmon.com.vn/?image=star.png" alt="" @if($comment->star > 3) class="vote" @else class="no-vote" @endif>
+                            <img src="http://test.gmon.com.vn/?image=star.png" alt="" @if($comment->star > 4) class="vote" @else class="no-vote" @endif>
+                            <span>{{ $comment->description }}</span>
                         </p>
                         @endforeach
                         <div class="bot">
@@ -433,19 +433,13 @@
                         <form class="form-horizontal">
                             <input type="hidden" name="company" value="{{ $company->id }}">
                             <div class="form-group">
-                                <label for="inputTitle" class="col-sm-3 control-label">Tiêu đề</label>
+                                <label for="inputDescription" class="col-sm-3 control-label">Đánh giá</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" id="inputTitle" placeholder="Tiêu đề">
+                                    <input type="text" class="form-control" id="inputDescription" placeholder="">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="inputDescription" class="col-sm-3 control-label">Mô tả chi tiết</label>
-                                <div class="col-sm-9">
-                                    <textarea class="form-control" rows="5" id="inputDescription"></textarea>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="inputScore" class="col-sm-3 control-label">Đánh giá</label>
+                                <label for="inputScore" class="col-sm-3 control-label">Cho điểm</label>
                                 <div class="col-sm-9">
                                     <p class="star-vote" id="star-vote">
                                         <img src="http://test.gmon.com.vn/?image=star.png" alt="" id="star-vote-1" class="vote">
@@ -467,214 +461,312 @@
         </div>
 
         <script>
-window.onload = function ()
-{
-    var w = screen.width;
-    var w2 = $("#wrapper").outerWidth();
-    var w3;
-    if (w > 768) {
-        w3 = w2 / 5;
-    } else if (w > 600) {
-        w3 = w2 / 3;
+        function onCloseModalLogin() {
+            $("#myModal").modal('toggle');
+        }
+        function onOpenRegister() {
+            $("#register").addClass("in active");
+            $("#login").removeClass("in active");
+            $(".header-tab-login li:nth-child(1)").removeClass("active");
+            $(".header-tab-login li:nth-child(2)").addClass("active");
+        }
+        function onOpenLogin() {
+            $("#login").addClass("in active");
+            $("#register").removeClass("in active");
+            $(".header-tab-login li:nth-child(2)").removeClass("active");
+            $(".header-tab-login li:nth-child(1)").addClass("active");
+        }
+        function onFocusCandidates(event) {
+            $(event.target).find(".view").animate({top: 0 + 'px'}, 300);
+        }
+        function onDisFocusCandidates(event) {
+            $(event.target).find(".view").animate({top: 200 + 'px'});
+        }
+        window.onload = function ()
+        {
+            var w = screen.width;
+            var w2 = $("#wrapper").outerWidth();
+            var w3;
+            if (w > 768) {
+                w3 = w2 / 5;
+            } else if (w > 600) {
+                w3 = w2 / 3;
 
-    } else {
-        w3 = w2;
-    }
-    $(".item-work").css("width", w3 + "px");
-    var n = w3 * ($("#contents .item-work").length);
-    $("#contents").css("width", n + "px");
-    setTimeout(function () {
-        onNext(false);
-    }, 2000);
-};
-var isR = false;
-var action;
-$("#btPrev").click(function () {
-    onPrev(true);
-});
-$("#btNext").click(function () {
-    onNext(true);
-});
-function onNext(b) {
-    if (b)
-        clearTimeout(action);
-    if (isR)
-        return;
-    isR = true;
-    var w = $(".item-work").outerWidth();
-    var n = parseFloat($("#contents").css("margin-left"));
-    var w2 = $("#contents").outerWidth();
-    var w3 = $("#wrapper").outerWidth();
-    var n2 = n - w;
-    if (n2 + w2 - w3 >= 0) {
-        $("#contents").animate({marginLeft: n2 + 'px'}, {duration: 300, complete: function () {
+            } else {
+                w3 = w2;
+            }
+            $(".item-work").css("width", w3 + "px");
+            var n = w3 * ($("#contents .item-work").length);
+            $("#contents").css("width", n + "px");
+            setTimeout(function () {
+                onNext(false);
+            }, 2000);
+        };
+        var isR = false;
+        var action;
+        $("#btPrev").click(function () {
+            onPrev(true);
+        });
+        $("#btNext").click(function () {
+            onNext(true);
+        });
+        function onNext(b) {
+            if (b)
+                clearTimeout(action);
+            if (isR)
+                return;
+            isR = true;
+            var w = $(".item-work").outerWidth();
+            var n = parseFloat($("#contents").css("margin-left"));
+            var w2 = $("#contents").outerWidth();
+            var w3 = $("#wrapper").outerWidth();
+            var n2 = n - w;
+            if (n2 + w2 - w3 >= 0) {
+                $("#contents").animate({marginLeft: n2 + 'px'}, {duration: 300, complete: function () {
+                        isR = false;
+                    }});
+                action = setTimeout(function () {
+                    onNext(false);
+                }, 2000);
+            } else {
                 isR = false;
-            }});
-        action = setTimeout(function () {
-            onNext(false);
-        }, 2000);
-    } else {
-        isR = false;
-        action = setTimeout(function () {
-            onPrev(false);
-        }, 2000);
-    }
-}
-function onPrev(b) {
-    if (b)
-        clearTimeout(action);
-    if (isR)
-        return;
-    isR = true;
-    var w = $(".item-work").outerWidth();
-    var n = parseFloat($("#contents").css("margin-left"));
-    var w2 = $("#contents").outerWidth();
-    var n2 = n + w;
-    if (n2 <= 0) {
-        $("#contents").animate({marginLeft: n2 + 'px'}, {duration: 300, complete: function () {
+                action = setTimeout(function () {
+                    onPrev(false);
+                }, 2000);
+            }
+        }
+        function onPrev(b) {
+            if (b)
+                clearTimeout(action);
+            if (isR)
+                return;
+            isR = true;
+            var w = $(".item-work").outerWidth();
+            var n = parseFloat($("#contents").css("margin-left"));
+            var w2 = $("#contents").outerWidth();
+            var n2 = n + w;
+            if (n2 <= 0) {
+                $("#contents").animate({marginLeft: n2 + 'px'}, {duration: 300, complete: function () {
+                        isR = false;
+                    }});
+                action = setTimeout(function () {
+                    onPrev(false);
+                }, 2000);
+            } else {
                 isR = false;
-            }});
-        action = setTimeout(function () {
-            onPrev(false);
-        }, 2000);
-    } else {
-        isR = false;
-        action = setTimeout(function () {
-            onNext(false);
-        }, 2000);
-    }
-}
-$('#star-vote>img').click(function () {
-    switch ($(this).attr('id')) {
-        case 'star-vote-1':
-            $('#star-vote-1').removeClass('no-vote').addClass('vote');
-            $('#star-vote-2').removeClass('vote').addClass('no-vote');
-            $('#star-vote-3').removeClass('vote').addClass('no-vote');
-            $('#star-vote-4').removeClass('vote').addClass('no-vote');
-            $('#star-vote-5').removeClass('vote').addClass('no-vote');
-            break;
-        case 'star-vote-2':
-            $('#star-vote-1').removeClass('no-vote').addClass('vote');
-            $('#star-vote-2').removeClass('no-vote').addClass('vote');
-            $('#star-vote-3').removeClass('vote').addClass('no-vote');
-            $('#star-vote-4').removeClass('vote').addClass('no-vote');
-            $('#star-vote-5').removeClass('vote').addClass('no-vote');
-            break;
-        case 'star-vote-3':
-            $('#star-vote-1').removeClass('no-vote').addClass('vote');
-            $('#star-vote-2').removeClass('no-vote').addClass('vote');
-            $('#star-vote-3').removeClass('no-vote').addClass('vote');
-            $('#star-vote-4').removeClass('vote').addClass('no-vote');
-            $('#star-vote-5').removeClass('vote').addClass('no-vote');
-            break;
-        case 'star-vote-4':
-            $('#star-vote-1').removeClass('no-vote').addClass('vote');
-            $('#star-vote-2').removeClass('no-vote').addClass('vote');
-            $('#star-vote-3').removeClass('no-vote').addClass('vote');
-            $('#star-vote-4').removeClass('no-vote').addClass('vote');
-            $('#star-vote-5').removeClass('vote').addClass('no-vote');
-            break;
-        case 'star-vote-5':
-            $('#star-vote-1').removeClass('no-vote').addClass('vote');
-            $('#star-vote-2').removeClass('no-vote').addClass('vote');
-            $('#star-vote-3').removeClass('no-vote').addClass('vote');
-            $('#star-vote-4').removeClass('no-vote').addClass('vote');
-            $('#star-vote-5').removeClass('no-vote').addClass('vote');
-            break;
-        default:
-            break;
-    }
-});
-$('#send-comment').click(function () {
-    var countStar = $('#star-vote>img.vote').length;
-    var title = $('#inputTitle').val();
-    var description = $('#inputDescription').val();
-    var company = $('input[name=company]').val()
-    var request = $.ajax({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        },
-        url: "{{ url('/') }}/send-comment",
-        method: "POST",
-        data: {
-            'company': company,
-            'title': title,
-            'description': description,
-            'countStar': countStar,
-        },
-        dataType: "json"
-    });
-
-    request.done(function (msg) {
-        if (msg.code == 200) {
-            $('#add-comment').modal('toggle');
-            swal("Thông báo", "Thêm đánh giá thành công!", "success");
-        } else {
-            $('#add-comment').modal('toggle');
-            swal("Cảnh báo", msg.message, "error");
+                action = setTimeout(function () {
+                    onNext(false);
+                }, 2000);
+            }
         }
-    });
+        $('#star-vote>img').click(function () {
+            switch ($(this).attr('id')) {
+                case 'star-vote-1':
+                    $('#star-vote-1').removeClass('no-vote').addClass('vote');
+                    $('#star-vote-2').removeClass('vote').addClass('no-vote');
+                    $('#star-vote-3').removeClass('vote').addClass('no-vote');
+                    $('#star-vote-4').removeClass('vote').addClass('no-vote');
+                    $('#star-vote-5').removeClass('vote').addClass('no-vote');
+                    break;
+                case 'star-vote-2':
+                    $('#star-vote-1').removeClass('no-vote').addClass('vote');
+                    $('#star-vote-2').removeClass('no-vote').addClass('vote');
+                    $('#star-vote-3').removeClass('vote').addClass('no-vote');
+                    $('#star-vote-4').removeClass('vote').addClass('no-vote');
+                    $('#star-vote-5').removeClass('vote').addClass('no-vote');
+                    break;
+                case 'star-vote-3':
+                    $('#star-vote-1').removeClass('no-vote').addClass('vote');
+                    $('#star-vote-2').removeClass('no-vote').addClass('vote');
+                    $('#star-vote-3').removeClass('no-vote').addClass('vote');
+                    $('#star-vote-4').removeClass('vote').addClass('no-vote');
+                    $('#star-vote-5').removeClass('vote').addClass('no-vote');
+                    break;
+                case 'star-vote-4':
+                    $('#star-vote-1').removeClass('no-vote').addClass('vote');
+                    $('#star-vote-2').removeClass('no-vote').addClass('vote');
+                    $('#star-vote-3').removeClass('no-vote').addClass('vote');
+                    $('#star-vote-4').removeClass('no-vote').addClass('vote');
+                    $('#star-vote-5').removeClass('vote').addClass('no-vote');
+                    break;
+                case 'star-vote-5':
+                    $('#star-vote-1').removeClass('no-vote').addClass('vote');
+                    $('#star-vote-2').removeClass('no-vote').addClass('vote');
+                    $('#star-vote-3').removeClass('no-vote').addClass('vote');
+                    $('#star-vote-4').removeClass('no-vote').addClass('vote');
+                    $('#star-vote-5').removeClass('no-vote').addClass('vote');
+                    break;
+                default:
+                    break;
+            }
+        });
+        $('#send-comment').click(function () {
+            var countStar = $('#star-vote>img.vote').length;
+            var title = '';
+            var description = $('#inputDescription').val();
+            var company = $('#follow-btn').attr('data-id');
+            var request = $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                url: "{{ url('/') }}/send-comment",
+                method: "POST",
+                data: {
+                    'company': company,
+                    'title': title,
+                    'description': description,
+                    'countStar': countStar,
+                },
+                dataType: "json"
+            });
 
-    request.fail(function (jqXHR, textStatus) {
-        alert("Request failed: " + textStatus);
-    });
-});
-$('#follow-btn').click(function () {
-    var company = $('input[name=company-id]').val();
-    var request = $.ajax({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        },
-        url: "{{ url('/') }}/follow-company",
-        method: "POST",
-        data: {
-            'company': company
-        },
-        dataType: "json"
-    });
+            request.done(function (msg) {
+                if (msg.code == 200) {
+                    $('#add-comment').modal('toggle');
+                    swal("Thông báo", "Thêm đánh giá thành công!", "success");
+                } else if(msg.code == 404 && msg.message == "unauthen"){
+                    $('#add-comment').modal('toggle');
+                    swal("Cảnh báo", "Bạn phải đăng nhập để có thể sử dụng chức năng này!", "error");
+                }else{
+                    $('#add-comment').modal('toggle');
+                    swal("Cảnh báo", msg.message, "error");
+                }
+            });
 
-    request.done(function (msg) {
-        if (msg.code == 200) {
-            // thong bao khi follow thanh cong
-            $('#follow-btn').hide();
-            $('#unfollow-btn').show();
-        } else {
-            swal("Cảnh báo", "Đã có lỗi khi thêm đánh giá!", "error");
-        }
-    });
+            request.fail(function (jqXHR, textStatus) {
+                alert("Request failed: " + textStatus);
+            });
+        });
+        $('#follow-btn').click(function () {
+            var company = $('#follow-btn').attr('data-id');
+            var request = $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                url: "{{ url('/') }}/follow-company",
+                method: "POST",
+                data: {
+                    'company': company
+                },
+                dataType: "json"
+            });
 
-    request.fail(function (jqXHR, textStatus) {
-        alert("Request failed: " + textStatus);
-    });
-});
-$('#unfollow-btn').click(function () {
-    var company = $('input[name=company-id]').val();
-    var request = $.ajax({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        },
-        url: "{{ url('/') }}/unfollow-company",
-        method: "POST",
-        data: {
-            'company': company
-        },
-        dataType: "json"
-    });
+            request.done(function (msg) {
+                if (msg.code == 200) {
+                    // thong bao khi follow thanh cong
+                    $('#follow-btn').hide();
+                    $('#unfollow-btn').show();
+                } else {
+                    swal("Cảnh báo", "Đã có lỗi khi thêm đánh giá!", "error");
+                }
+            });
 
-    request.done(function (msg) {
-        if (msg.code == 200) {
-            // thong bao khi unfollow thanh cong
-            $('#follow-btn').show();
-            $('#unfollow-btn').hide();
-        } else {
-            swal("Cảnh báo", "Đã có lỗi khi thêm đánh giá!", "error");
-        }
-    });
+            request.fail(function (jqXHR, textStatus) {
+                alert("Request failed: " + textStatus);
+            });
+        });
+        $('#unfollow-btn').click(function () {
+            var company = $('#unfollow-btn').attr('data-id');
+            var request = $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                url: "{{ url('/') }}/unfollow-company",
+                method: "POST",
+                data: {
+                    'company': company
+                },
+                dataType: "json"
+            });
 
-    request.fail(function (jqXHR, textStatus) {
-        alert("Request failed: " + textStatus);
-    });
-});
+            request.done(function (msg) {
+                if (msg.code == 200) {
+                    // thong bao khi unfollow thanh cong
+                    $('#follow-btn').show();
+                    $('#unfollow-btn').hide();
+                } else {
+                    swal("Cảnh báo", "Đã có lỗi khi thêm đánh giá!", "error");
+                }
+            });
+
+            request.fail(function (jqXHR, textStatus) {
+                alert("Request failed: " + textStatus);
+            });
+        });
+        $(document).ready(function () {
+            onOpenLogin();
+            $('#login-btn').click(function () {
+                var loginEmail = $('#login-email').val();
+                var loginPassword = $('#login-password').val();
+                var request = $.ajax({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    url: "{{ url('/') }}/auth/login",
+                    method: "POST",
+                    data: {
+                        'email': loginEmail,
+                        'password': loginPassword
+                    },
+                    dataType: "json"
+                });
+
+                request.done(function (msg) {
+                    if (msg.code == 200) {
+                        location.reload();
+                    }else{
+                        $('#login-message').show();
+                    }
+                });
+
+                request.fail(function (jqXHR, textStatus) {
+                    alert("Request failed: " + textStatus);
+                });
+            });
+
+            $('#register-btn').click(function () {
+                $('#register-message').hide();
+                var registerFirstname = $('#firstname').val();
+                var registerLastname = $('#lastname').val();
+                var username = registerFirstname + ' ' + registerLastname;
+                var registersdt = $('#sdt').val();
+                var registerEmail = $('#register-email').val();
+                var registerPassword = $('#register-password').val();
+                var rPassword = $('#r_password').val();
+                var role = $('#areyou').val();
+                if (registerPassword != rPassword) {
+                    return false;
+                }
+
+                var request = $.ajax({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    url: "{{ url('/') }}/auth/register",
+                    method: "POST",
+                    data: {
+                        'username': username,
+                        'password': registerPassword,
+                        'email': registerEmail,
+                        'phone': registersdt,
+                        'role': role
+                    },
+                    dataType: "json"
+                });
+
+                request.done(function (msg) {
+                    if (msg.code == 200) {
+                        location.reload();
+                    }else{
+                        $('#register-message').show();
+                    }
+                });
+
+                request.fail(function (jqXHR, textStatus) {
+                    alert("Request failed: " + textStatus);
+                });
+            });
+        });
         </script>
 
     </body>

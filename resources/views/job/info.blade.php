@@ -466,22 +466,6 @@
                                 </a>
                             </div>
                         </div>
-                        <!-- @foreach($job_relatives as $job_relative)
-                        <div class="item-work" >
-                            <div class="border-item">
-                                <a target="_self" href="">
-                                    <p class="work-img"><a href="{{ url('/') }}/job/view/{{ $job_relative->id }}"><img  src="http://test.gmon.com.vn/?image={{ $job_relative->logo }}" alt=""></a></p>
-                                    <div class="details">
-                                        <div class="single"><p>{{ $job_relative->name }}</p></div>
-                                        <div class="work-view">
-                                            <p class="location"><i></i>{{ $job_relative->district }}, {{ $job_relative->city }}</p>
-                                            <p class="salary"><i></i>{{ $job_relative->salary }}</p>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                        @endforeach -->
                     </div>
                 </div>
             </div>
