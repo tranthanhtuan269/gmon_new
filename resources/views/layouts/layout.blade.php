@@ -14,7 +14,6 @@
         <link href="https://fonts.googleapis.com/css?family=Noto+Sans" rel="stylesheet"> 
         <script src="{{ url('/') }}/public/sweetalert/sweetalert.min.js"></script>
         <link rel="stylesheet" type="text/css" href="{{ url('/') }}/public/sweetalert/sweetalert.css">
-        <script src="{{ url('/') }}/public/js/jquery.cookie.js"></script>
         <link rel="stylesheet" href="{{ url('/') }}/public/css/home.css">
         <link href="{{ url('/') }}/public/css/customize.css" rel="stylesheet">
     </head>

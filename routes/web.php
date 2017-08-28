@@ -13,13 +13,7 @@
   
 Auth::routes();
 
-// Route::get('/', 'HomeController@welcome')->name('welcome');
-Route::get('/', 'HomeController@homenew2')->name('welcome');
-Route::get('/google2fa952a6c07ee729.html', function(){
-    echo 'google-site-verification: google2fa952a6c07ee729.html';
-});
-Route::get('hello', 'HomeController@homenew2');
-Route::get('welcome', 'HomeController@homenew');
+Route::get('/', 'HomeController@welcome')->name('welcome');
 Route::get('/showmore', 'HomeController@showmore')->name('showmore');
 Route::get('/home', 'HomeController@welcome')->name('home');
 Route::get('auth/facebook', 'Auth\RegisterController@redirectToFacebook');
@@ -31,12 +25,10 @@ Route::post('auth/register', 'SiteController@registerApi');
 Route::get('curriculumvitae', 'CurriculumVitaeController@indexCurriculumVitae');
 Route::get('curriculumvitae/view/{id}', 'CurriculumVitaeController@showCurriculumVitae');
 Route::get('/job/view/{id}', 'JobController@info');
-
 Route::post('/job/join', 'JobController@join');
 Route::get('company/{id}/info', 'CompanyController@info');
 Route::get('company/{id}/listjobs', 'CompanyController@listjobs');
 Route::get('/getDistrict/{id}', 'HomeController@getDistrict');
-Route::get('/getDistrictli/{id}', 'HomeController@getDistrictLi');
 Route::get('/getTown/{id}', 'HomeController@getTown');
 
 Route::group(['middleware' => 'auth'], function(){
@@ -80,7 +72,6 @@ Route::group(['middleware' => ['auth', 'roles'], 'roles' => 'admin'], function (
     Route::resource('admin/town', 'TownController');
     Route::resource('admin/curriculum-vitae', 'CurriculumVitaeController');
     Route::resource('admin/company', 'CompanyController');
-    Route::resource('admin/companytype', 'CompanyTypeController');
     Route::resource('admin/job-type', 'JobTypeController');
     Route::resource('Admin/company-size', 'CompanySizeController');
     Route::resource('admin/job', 'JobController');
@@ -104,6 +95,5 @@ Route::group(['middleware' => ['auth', 'roles'], 'roles' => 'master'], function 
     Route::post('job/unvip', 'JobController@unvip');
 
     Route::get('apply/admin', 'ApplyController@admin');
-    Route::resource('admin/companytype', 'CompanyTypeController');
 });
 Route::resource('branch', 'BranchController');

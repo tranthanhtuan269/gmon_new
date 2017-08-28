@@ -1,14 +1,14 @@
 @extends('layouts.layout')
 
 @section('content')
-    <header>
+    <header class="header-spa">
         <div class="header-mid">
             <div class="container" >
                 <div class="clearfix row" style="padding-bottom: 30px">
                     <div class="col-md-3">
                         <a target="_self" href="" class="logo row"><img src="http://test.gmon.com.vn/?image=home.png" alt=""></a>
                     </div>
-                    <div class="col-md-9" style="margin-top: 30px">
+                    <div class="col-md-9 search-form">
                         <div class="">
                             <div class="col-md-9">
                                 <form class="search">
@@ -86,10 +86,10 @@
                 <div class="row">
                     <div class="menu-left">
                         <a target="_self" href="http://spa.gmon.com.vn"><i></i>Spa</a>
-                        <a target="_self" href="{{ url('/') }}/home?field=1"><i></i>Khách sạn</a>
-                        <a target="_self" href="{{ url('/') }}/home?field=2"><i></i>Nhà hàng</a>
-                        <a target="_self" href="{{ url('/') }}/home?field=4"><i></i>Doanh nghiệp</a>
-                        <a target="_self" href="{{ url('/') }}/home?field=5"><i></i>Nhân sự tài năng</a>
+                        <a target="_self" href="http://gmon.com.vn/home?field=1"><i></i>Khách sạn</a>
+                        <a target="_self" href="http://gmon.com.vn/home?field=2"><i></i>Nhà hàng</a>
+                        <a target="_self" href="http://gmon.com.vn/home?field=4"><i></i>Doanh nghiệp</a>
+                        <a target="_self" href="http://gmon.com.vn/home?field=5"><i></i>Nhân sự tài năng</a>
                     </div>
                     <div class="menu-right">
                         @if (Auth::guest())
@@ -210,12 +210,8 @@
             <div class="title clearfix"><span>Việc làm mới </span><i class="new"></i></div>
             <div class="wrapper" id="wrapper3">
                 <div style="width: 100%;overflow: visible;display: inline-block;position: relative;">
-                    <?php $count = 0; ?>
                     @foreach($jobs as $job)
-                    <?php 
-                        $count++;
-                    ?>
-                    <div class="row item-job job-list-<?php echo intval($count / 10); ?>">
+                    <div class="row item-job">
                         <div class="job-image">
                             <div style="padding: 10%;"><img src="http://test.gmon.com.vn/?image={{ $job->logo }}" alt=""></div>
                         </div>
@@ -353,18 +349,8 @@
             </div>
         </div>
     </footer>
-
     <script type="text/javascript">
-        var $i = 0;
-        $(window).scroll(function() {
-            if($(window).scrollTop() == $(document).height() - $(window).height()) {
-                   $i++;
-                   $('.job-list-' + $i).show();
-            }
-        });
         $(document).ready(function(){
-            $('.item-job').show();
-            $('.job-list-0').show();
             var site_url = $('base').attr('href');
             $('.search-btn').click(function(){
                 var new_link = site_url + '/showmore?';
