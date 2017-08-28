@@ -66,10 +66,12 @@
                                             <div class="col-md-4">Từ {{ $edu->thang_bat_dau }}/{{ $edu->nam_bat_dau }} </div>
                                             <div class="col-md-4">@if( $edu->student_process == 0) Đến nay @else Đến {{ $edu->thang_ket_thuc }}/{{ $edu->nam_ket_thuc }} @endif </div>
                                         </div>
+                                        @if( $edu->bang_cap != 2)
                                         <div class="row">
                                             <div class="col-md-4">Chuyên ngành </div>
                                             <div class="col-md-8">{{ $edu->chuyen_nganh }} </div>
                                         </div>
+                                        @endif
                                         @if(isset($edu->loai_tot_nghiep))
                                         <div class="row">
                                             <div class="col-md-4">Thành tích học tập </div>
