@@ -743,7 +743,7 @@ header .top-menu-mobile .right .fa {
     .header-homepage .top-search,
     header .top-search {
         padding: 20px;
-        left: 0
+        left: 0;
     }
     .header-homepage .top-search .wrapper-header .form-search .form-group,
     header .top-search .wrapper-header .form-search .form-group {
