@@ -33,6 +33,7 @@
                                         <th>ID</th>
                                         <th>Name</th>
                                         <th>Expiration Date</th>
+                                        <th>City</th>
                                         <th>VIP</th>
                                         <th>Actions</th>
                                     </tr>
@@ -43,6 +44,7 @@
                                         <td>{{ $item->id }}</td>
                                         <td><a href="{{ url('/') }}//job/view/{{ $item->id }}">{{ $item->name }}</a></td>
                                         <td>{{ $item->expiration_date }}</td>
+                                        <td>{{ $item->city }}</td>
                                         <td>
                                             <div class="btn btn-danger btn-xs vip-job @if($item->vip==2) show-object @else hidden-object @endif" data-id="{{ $item->id }}">
                                             Vip2
