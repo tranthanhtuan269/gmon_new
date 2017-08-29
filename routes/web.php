@@ -107,3 +107,5 @@ Route::group(['middleware' => ['auth', 'roles'], 'roles' => 'master'], function 
     Route::resource('admin/companytype', 'CompanyTypeController');
 });
 Route::resource('branch', 'BranchController');
+Route::resource('master/category', 'CategoryController');
+Route::resource('master/post', 'PostController');
