@@ -24,28 +24,36 @@ class JobController extends Controller
         $perPage = 25;
 
         if (!empty($keyword)) {
-            $job = Job::where('name', 'LIKE', "%$keyword%")
-				->orWhere('number', 'LIKE', "%$keyword%")
-				->orWhere('expiration_date', 'LIKE', "%$keyword%")
-				->orWhere('work_time', 'LIKE', "%$keyword%")
-				->orWhere('public', 'LIKE', "%$keyword%")
-				->orWhere('description', 'LIKE', "%$keyword%")
-				->orWhere('required', 'LIKE', "%$keyword%")
-				->orWhere('benefit', 'LIKE', "%$keyword%")
-				->orWhere('city', 'LIKE', "%$keyword%")
-				->orWhere('district', 'LIKE', "%$keyword%")
-				->orWhere('position', 'LIKE', "%$keyword%")
-				->orWhere('experience', 'LIKE', "%$keyword%")
-				->orWhere('work_type', 'LIKE', "%$keyword%")
-				->orWhere('job_type', 'LIKE', "%$keyword%")
-				->orWhere('salary', 'LIKE', "%$keyword%")
-				->orWhere('gender', 'LIKE', "%$keyword%")
-				->orWhere('age', 'LIKE', "%$keyword%")
-				->orWhere('company', 'LIKE', "%$keyword%")
-                ->latest()
-				->paginate($perPage);
+            $job = \DB::table('jobs')
+                ->join('companies', 'companies.id', '=', 'jobs.company')
+                ->join('cities', 'cities.id', '=', 'companies.city')
+                ->where('jobs.name', 'LIKE', "%$keyword%")
+                ->orWhere('jobs.expiration_date', 'LIKE', "%$keyword%")
+                ->orWhere('cities.id', 'LIKE', "%$keyword%")
+                ->select(
+                    'jobs.id',
+                    'jobs.name',
+                    'companies.name as salary',
+                    'jobs.vip as vip',
+                    'jobs.expiration_date as expiration_date',
+                    'cities.name as city'
+                )
+                ->orderBy('jobs.created_at', 'desc')
+                ->paginate($perPage);
         } else {
-            $job = Job::latest()->paginate($perPage);
+            $job = \DB::table('jobs')
+                ->join('companies', 'companies.id', '=', 'jobs.company')
+                ->join('cities', 'cities.id', '=', 'companies.city')
+                ->select(
+                    'jobs.id',
+                    'jobs.name',
+                    'companies.name as salary',
+                    'jobs.vip as vip',
+                    'jobs.expiration_date as expiration_date',
+                    'cities.name as city'
+                )
+                ->orderBy('jobs.created_at', 'desc')
+                ->paginate($perPage);
         }
 
         return view('job.index', compact('job'));
