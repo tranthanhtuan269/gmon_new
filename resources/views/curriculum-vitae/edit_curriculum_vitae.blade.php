@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <base href="{{ url('/') }}" target="_blank">
+    <base href="{{ url('/') }}" target="_self">
     <title>{{ config('app.name', 'Gmon') }}</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -623,7 +623,7 @@
                                     for($i = 0; $i < count($languages); $i++){
                                         $langs = json_decode($languages[$i]);
                                         ?>
-                                        <label for="ten_ngoai_ngu" data-json="{{ $languages[$i] }}" class="col-md-4 language-json" id="language-{{ $i }}"><div class="col-md-12"> - <span class="ngoai-ngu">{{ $langs->ten_ngoai_ngu }}</span> - Trình độ: <span class="ngoai-ngu">{{ $langs->trinh_do_ngoai_ngu }}</span><span class="language-delete" id="language-delete-{{ $i }}">&nbsp;x&nbsp;</span></div></label>
+                                        <label for="ten_ngoai_ngu" data-json="{{ $languages[$i] }}" class="col-md-4 language-json" id="language-{{ $i }}"><div class="col-md-12"> - <span class="ngoai-ngu">{{ $langs->ten_ngoai_ngu }}</span> - Trình độ: <span class="trinh-do-ngoai-ngu">{{ $langs->trinh_do_ngoai_ngu }}</span><span class="language-delete" id="language-delete-{{ $i }}">&nbsp;x&nbsp;</span></div></label>
                                 <?php
                                     }
                                 ?>
@@ -652,13 +652,15 @@
                             <div class="form-ngon-ngu-group">
                                 <div class="form-group" id="qualification_content">
                                     <?php
-                                        $cv_user->qualification=ltrim($cv_user->qualification,";");
-                                        $qualifications = explode(";",$cv_user->qualification);
-                                        for($i = 0; $i < count($qualifications); $i++){
-                                            $quals = json_decode($qualifications[$i]);
-                                            ?>
-                                            <label for="ten_ky_nang" data-json="{{ $qualifications[$i] }}" class="col-md-4 qualification-holder" id="qualification-{{ $i }}"><div class="col-md-12"> - Thông thạo <span class="ngoai-ngu">{{ $quals->ten_ky_nang }}</span><span class="qualification-delete" id="qualification-delete-{{ $i }}">&nbsp;x&nbsp;</span></div></label>
+                                        if(strlen($cv_user->qualification) > 0){
+                                            $cv_user->qualification=ltrim($cv_user->qualification,";");
+                                            $qualifications = explode(";",$cv_user->qualification);
+                                            for($i = 0; $i < count($qualifications); $i++){
+                                                $quals = json_decode($qualifications[$i]);
+                                                ?>
+                                                <label for="ten_ky_nang" data-json="{{ $qualifications[$i] }}" class="col-md-4 qualification-holder" id="qualification-{{ $i }}"><div class="col-md-12"> - Thông thạo <span class="ky-nang">{{ $quals->ten_ky_nang }}</span><span class="qualification-delete" id="qualification-delete-{{ $i }}">&nbsp;x&nbsp;</span></div></label>
                                     <?php
+                                            }
                                         }
                                     ?>
                                 </div>
@@ -831,18 +833,18 @@
         $('.language-delete').click(function () {
             var id_obj = $(this).attr('id');
             id_obj = id_obj.substring(16, id_obj.length);
-            $('#language-' + id_obj).hide();
-            $('#language-' + id_obj).addClass('removed');
+            $('#language-' + id_obj).remove();
+            re_render_language(id_obj);
+            count_language--;
         });
         
         $('.qualification-delete').click(function () {
             var id_obj = $(this).attr('id');
             id_obj = id_obj.substring(21, id_obj.length);
-            $('#qualification-' + id_obj).hide();
-            $('#qualification-' + id_obj).addClass('removed');
+            $('#qualification-' + id_obj).remove();
+            re_render_qualification(id_obj);
+            count_qualification--;
         });
-
-
     });
 </script>
 </body>

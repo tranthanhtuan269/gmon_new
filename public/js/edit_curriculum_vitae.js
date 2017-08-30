@@ -3,10 +3,10 @@ $(document).ready(function () {
     CKEDITOR.replace('references');
     CKEDITOR.replace('active');
     var url_site = $('base').attr('href');
-    var count_hoc_tap = 0;
-    var count_kinh_nghiem = 0;
-    var count_language = 0;
-    var count_qualification = 0;
+    var count_hoc_tap = $(".form-hoc-tap-group").length;
+    var count_kinh_nghiem = $(".form-kinh-nghiem-group").length;
+    var count_language = $('.language-json').length;
+    var count_qualification = $('.qualification-holder').length;
     $('#add-qualification').click(function () {
         if ($('#ten_ky_nang').val().length <= 1) {
             swal("Tên kỹ năng trống!", "Xin hãy điền tên kỹ năng trước khi thêm mới!");
@@ -16,7 +16,7 @@ $(document).ready(function () {
         renderJsonKyNang();
         count_qualification++;
         var html = "<label for='ten_ky_nang' class='col-md-4 qualification-holder' id='qualification-" + count_qualification + "'><div class='col-md-12'>";
-        html += " - Thông thạo <span class='ngoai-ngu'>" + $('#ten_ky_nang').val() + "</span>";
+        html += " - Thông thạo <span class='ky-nang'>" + $('#ten_ky_nang').val() + "</span>";
         html += "<span class='qualification-delete' id='qualification-delete-" + count_qualification + "'>&nbsp;x&nbsp;</span></div></label>";
         $(html).appendTo('#qualification_content');
         $('.qualification-delete').off('click');
@@ -47,7 +47,7 @@ $(document).ready(function () {
 
         count_language++;
         var html = "<label for='ten_ngoai_ngu' class='col-md-4' id='language-" + count_language + "'><div class='col-md-12'>";
-        html += " - <span class='ngoai-ngu'>" + $('#ten_ngoai_ngu').val() + "</span> - Trình độ: <span class='ngoai-ngu'>" + $('#trinh_do_ngoai_ngu').val() + "</span>";
+        html += " - <span class='ngoai-ngu'>" + $('#ten_ngoai_ngu').val() + "</span> - Trình độ: <span class='trinh-do-ngoai-ngu'>" + $('#trinh_do_ngoai_ngu').val() + "</span>";
         html += "<span class='language-delete' id='language-delete-" + count_language + "'>&nbsp;x&nbsp;</span></div></label>";
         $(html).appendTo('#ngoai_ngu_content');
         $('.language-delete').off('click');
@@ -846,19 +846,16 @@ $(document).ready(function () {
         });
 
         $.each($(".language-json"), function(){            
-            if($(this).hasClass('removed')){
-                // next
-            }else{
-                $('#language').val($('#language').val() + ';' + $(this).attr('data-json'));
-            }
+            var ret_arr = {};
+            ret_arr['ten_ngoai_ngu'] = $(this).find(".ngoai-ngu").html();
+            ret_arr['trinh_do_ngoai_ngu'] = $(this).find(".trinh-do-ngoai-ngu").html();
+            $('#language').val($('#language').val() + ';' + JSON.stringify(ret_arr));
         });
 
-        $.each($(".qualification-holder"), function(){            
-            if($(this).hasClass('removed')){
-                // next
-            }else{
-                $('#qualification').val($('#qualification').val() + ';' + $(this).attr('data-json'));
-            }
+        $.each($(".qualification-holder"), function(){  
+            var ret_arr = {};
+            ret_arr['ten_ky_nang'] = $(this).find(".ky-nang").html();
+            $('#qualification').val($('#qualification').val() + ';' + JSON.stringify(ret_arr));
         });
 
         // var listJobs = '';
@@ -879,24 +876,6 @@ $(document).ready(function () {
         if (!validateForm()) {
             return false;
         }
-
-        if ($('.truong_hoc_' + count_hoc_tap).val().length > 0) {
-            $('#success_' + count_hoc_tap).click();
-        }
-
-        if ($('.ten_cong_ty_' + count_kinh_nghiem).val().length > 0) {
-            $('#success_kinh_nghiem_' + count_kinh_nghiem).click();
-        }
-
-        if ($('#ten_ngoai_ngu').val().length > 0) {
-            $('#add-language').click();
-        }
-
-        if ($('#ten_ky_nang').val().length > 0) {
-            $('#add-qualification').click();
-        }
-
-        return false;
 
         $("#create-curriculum-vitae").submit();
     });
@@ -1011,14 +990,14 @@ $(document).ready(function () {
 
     function ren_ngoai_ngu(id, ten_ngoai_ngu, trinh_do_ngoai_ngu){
         var html_return = "<label for='ten_ngoai_ngu' class='col-md-4' id='language-" + id + "'><div class='col-md-12'>";
-        html_return += " - <span class='ngoai-ngu'>" + ten_ngoai_ngu + "</span> - Trình độ: <span class='ngoai-ngu'>" + trinh_do_ngoai_ngu + "</span>";
+        html_return += " - <span class='ngoai-ngu'>" + ten_ngoai_ngu + "</span> - Trình độ: <span class='trinh-do-ngoai-ngu'>" + trinh_do_ngoai_ngu + "</span>";
         html_return += "<span class='language-delete' id='language-delete-" + id + "'>&nbsp;x&nbsp;</span></div></label>";
         return html_return;
     }
 
     function ren_ky_nang(id, ten_ky_nang){
         var html_return = "<label for='ten_ky_nang' class='col-md-4 qualification-holder' id='qualification-" + id + "'><div class='col-md-12'>";
-        html_return += " - Thông thạo <span class='ngoai-ngu'>" + ten_ky_nang + "</span>";
+        html_return += " - Thông thạo <span class='ky-nang'>" + ten_ky_nang + "</span>";
         html_return += "<span class='qualification-delete' id='qualification-delete-" + id + "'>&nbsp;x&nbsp;</span></div></label>";
         return html_return;
     }
