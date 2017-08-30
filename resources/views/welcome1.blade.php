@@ -1,14 +1,14 @@
 @extends('layouts.layout')
 
 @section('content')
-    <header class="header-spa">
+    <header>
         <div class="header-mid">
             <div class="container" >
                 <div class="clearfix row" style="padding-bottom: 30px">
                     <div class="col-md-3">
                         <a target="_self" href="" class="logo row"><img src="http://test.gmon.com.vn/?image=home.png" alt=""></a>
                     </div>
-                    <div class="col-md-9 search-form">
+                    <div class="col-md-9" style="margin-top: 30px">
                         <div class="">
                             <div class="col-md-9">
                                 <form class="search">
@@ -72,7 +72,7 @@
                             </div>
                             <div class="col-md-3 clearfix">
                                 <div class="contact row">
-                                    <p><i></i>0977898312</p>
+                                    <p><i></i>0243.212.1515</p>
                                     <p><i></i>vieclamhn@gmon.vn</p>
                                 </div>
                             </div>
@@ -86,10 +86,10 @@
                 <div class="row">
                     <div class="menu-left">
                         <a target="_self" href="http://spa.gmon.com.vn"><i></i>Spa</a>
-                        <a target="_self" href="http://gmon.com.vn/home?field=1"><i></i>Khách sạn</a>
-                        <a target="_self" href="http://gmon.com.vn/home?field=2"><i></i>Nhà hàng</a>
-                        <a target="_self" href="http://gmon.com.vn/home?field=4"><i></i>Doanh nghiệp</a>
-                        <a target="_self" href="http://gmon.com.vn/home?field=5"><i></i>Nhân sự tài năng</a>
+                        <a target="_self" href="{{ url('/') }}/home?field=1"><i></i>Khách sạn</a>
+                        <a target="_self" href="{{ url('/') }}/home?field=2"><i></i>Nhà hàng</a>
+                        <a target="_self" href="{{ url('/') }}/home?field=4"><i></i>Doanh nghiệp</a>
+                        <a target="_self" href="{{ url('/') }}/home?field=5"><i></i>Nhân sự tài năng</a>
                     </div>
                     <div class="menu-right">
                         @if (Auth::guest())
@@ -115,242 +115,202 @@
         </div>
     </header>
 
-    <div class="container list-info">
-        @if(count($cvs) > 0)
-        <div class="vip-candidates row">
-            <div class="title clearfix"><span>Ứng viên VIP <i class="hot"></i></span></div>
-            <div class="clearfix wrapper" id="wrapper-candidates">
-                @foreach($cvs as $cv)
-                <div class="item-u" >
-                    <a target="_self" href="{{ url('/') }}/curriculumvitae/view/{{ $cv->id }}" onmouseenter="onFocusCandidates(event)" onmouseleave ="onDisFocusCandidates(event)">
-                        @if(strlen($cv->avatar) > 0)
-                        <div class="img"><img src="http://test.gmon.com.vn/?image={{ $cv->avatar }}" alt=""></div>
-                        @else
-                        <div class="img"><img src="http://test.gmon.com.vn/?image=avatar.png" alt=""></div>
-                        @endif
-                        <p class="name text-center">{{ $cv->username }}</p>
-                        <p class="university text-center">{{ $cv->school }}</p>
-                        <div class="view">
-                            <div class="info">
-                                <div class="sub-img"><div class="border">
-                                        @if(strlen($cv->avatar) > 0)
-                                        <img src="http://test.gmon.com.vn/?image={{ $cv->avatar }}" alt="">
-                                        @else
-                                        <img src="http://test.gmon.com.vn/?image=avatar.png" alt="">
-                                        @endif
-                                    </div></div>
-                                <p>{{ $cv->username }}</p>
-                                <p>{{ $cv->birthday }}</p>
-                                <!-- <p>CLB AIESEC Hà Nội</p> -->
-                            </div>
-                            <div class="link">
-                                Xem hồ sơ của tôi &rsaquo;
-                            </div>
-                        </div>
-                    </a>
-                </div>  
-                @endforeach
-            </div>
-        </div>
-        @endif
-        @if(count($jobsvip1) > 0)
-        <div class="new-jobs row">
-            <div class="title clearfix"><span>Việc làm HOT <i class="hot"></i></span></div>
-            <div class="wrapper" id="wrapper3">
-                <div style="width: 100%;overflow: visible;display: inline-block;position: relative;">
-                    @foreach($jobsvip1 as $job)
-                    <div class="row item-job">
-                        <div class="job-image">
-                            <div style="padding: 10%;"><img src="http://test.gmon.com.vn/?image={{ $job->logo }}" alt=""></div>
-                        </div>
-                        <div class="job-content">
-                            <div class="job-name"><a target="_self" href="{{ url('/') }}/job/view/{{ $job->id }}"> {{ $job->name }} </a></div>
-                            <div class="job-info">
-                                <span><i></i>Số lượng: {{ $job->number }}</span>
-                                <span><i></i>{{ $job->district }}, {{ $job->city }}</span>
-                                <span class="active"><i></i>Hạn nộp: {{ $job->expiration_date }}</span>
-                            </div>
-                            <span class="job-hot">HOT</span>
-                            <a target="_self" href="{{ url('/') }}/job/view/{{ $job->id }}" class="job-view">Chi tiết </a>
-                        </div>
-                    </div>
-                    @endforeach 
-                </div>
-            </div>
-        </div>
-        @endif
-        @if(count($jobsvip2) > 0)
-        <div class="new-jobs row">
-            <div class="title clearfix"><span>Đang tuyển GẤP <i class="hot"></i></span></div>
-            <div class="wrapper" id="wrapper3">
-                <div style="width: 100%;overflow: visible;display: inline-block;position: relative;">
-                    @foreach($jobsvip2 as $job)
-                    <div class="row item-job">
-                        <div class="job-image">
-                            <div style="padding: 10%;"><img src="http://test.gmon.com.vn/?image={{ $job->logo }}" alt=""></div>
-                        </div>
-                        <div class="job-content">
-                            <div class="job-name"><a target="_self" href="{{ url('/') }}/job/view/{{ $job->id }}"> {{ $job->name }} </a></div>
-                            <div class="job-info">
-                                <span><i></i>Số lượng: {{ $job->number }}</span>
-                                <span><i></i>{{ $job->district }}, {{ $job->city }}</span>
-                                <span class="active"><i></i>Hạn nộp: {{ $job->expiration_date }}</span>
-                            </div>
-                            <span class="job-hot">HOT</span>
-                            <a target="_self" href="{{ url('/') }}/job/view/{{ $job->id }}" class="job-view">Chi tiết </a>
-                        </div>
-                    </div>
-                    @endforeach 
-                </div>
-            </div>
-        </div>
-        @endif
-        @if(count($jobs) > 0)
-        <div class="new-jobs row">
-            <div class="title clearfix"><span>Việc làm mới </span><i class="new"></i></div>
-            <div class="wrapper" id="wrapper3">
-                <div style="width: 100%;overflow: visible;display: inline-block;position: relative;">
-                    @foreach($jobs as $job)
-                    <div class="row item-job">
-                        <div class="job-image">
-                            <div style="padding: 10%;"><img src="http://test.gmon.com.vn/?image={{ $job->logo }}" alt=""></div>
-                        </div>
-                        <div class="job-content">
-                            <div class="job-name"><a target="_self" href="{{ url('/') }}/job/view/{{ $job->id }}"> {{ $job->name }} </a></div>
-                            <div class="job-info">
-                                <span><i></i>Số lượng: {{ $job->number }}</span>
-                                <span><i></i>{{ $job->district }}, {{ $job->city }}</span>
-                                <span class="active"><i></i>Hạn nộp: {{ $job->expiration_date }}</span>
-                            </div>
-                            <span class="job-hot">HOT</span>
-                            <a target="_self" href="{{ url('/') }}/job/view/{{ $job->id }}" class="job-view">Chi tiết </a>
-                        </div>
-                    </div>
-                    @endforeach 
-                </div>
-            </div>
-        </div>
-        @endif
-        @if(count($companies) > 0)
-        <div class="new-employer row">
-            <div class="title clearfix"><span>Nhà tuyển dụng mới</span> <i class="new"></i></div>
-            <div class="wrapper" id="wrapper2">
-                <div style="width: 100%;overflow: hidden;display: inline-block;position: relative;">
-                    <div class="contents" id="contents-employer">
-                        @foreach($companies as $company)
-                        <div class="item-work" >
-                            <div class="border-item">
-                                <a target="_self" href="{{ url('/') }}/company/{{ $company->id }}/info">
-                                    <span class="icon-new"><img src="http://test.gmon.com.vn/?image=icon-new.png" alt=""></span>
-                                    <p class="work-img"><img  src="http://test.gmon.com.vn/?image={{ $company->logo }}" alt=""></p>
-                                    <div class="details">
-                                        <div class="single"><p>{{ $company->name }}</p></div>
-                                        <div class="work-view">
-                                            <p>Xem thêm &rsaquo;&rsaquo;</p>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                        @endforeach
-                    </div>
-                </div>
-            </div>
-        </div>
-        @endif
-    </div>
-    <div class="container list-number">
+    <div class="container ads showmore-page">
         <div class="row">
-            <div class="col-md-3 col-xs-6">
-                <div class="col-md-5 col-xs-5">
-                    <i></i>
-                </div>
-                <div class="col-md-7 col-xs-7">
-                    <div class="row info">
-                        <p class="text">Hồ sơ ứng viên</p>
-                        <p class="number">4626 <a target="_self" href="">&rsaquo;</a></p>
+            <div class="col-md-9 col-xs-12">
+                <div class="my_row wp_breadcum">
+                    <div class="breadcum f-left">
+                        <a href="#"><i class="fa fa-home color-breadcum"></i></a>
+                        <a href="#" class="color-breadcum">/&nbsp;Việc làm mới</a>
+                    </div>
+                    <div class="f-right">
+                        <span class="red-color">{{ count($jobs) }}</span><span>&nbsp;việc làm</span>
                     </div>
                 </div>
+                    <ul class="ul-content">
+                    @foreach($jobs as $job)
+                    <li class="list-item">
+                        <div class="img-item">
+                            <a href="{{ url('/') }}/job/view/{{ $job->id }}">
+                                <span class="wp-avatar">
+                                    
+                                        <img src="http://test.gmon.com.vn/?image={{ $job->logo }}" alt="">
+                                    
+                                </span>
+                            </a>
+                        </div>
+
+                        <div class="content-item">
+                            <a href="{{ url('/') }}/job/view/{{ $job->id }}"><h4>{{ $job->name }}</h4></a>
+                            <p>
+                                <span>Mức lương: </span><span class="grey-color">{{ $job->salary }}</span>
+                            </p>
+                            <p>
+                                <div class="title-list">
+                                    <span>Số lượng: </span><span class="grey-color">{{ $job->number }}</span>
+                                </div>
+                                <a href="#"><i class="fa fa-map-marker" aria-hidden="true"></i><span class="grey-color">{{ $job->district }}, {{ $job->city }}</span></a>
+                            </p>
+                            <p>
+                                <div class="title-list">
+                                    <span>Nhận hồ sơ đến hết:</span>
+                                </div>
+                                <a href="#"><i class="fa fa-clock-o"></i><span class="grey-color">{{ $job->expiration_date }}</span></a>
+                            </p>
+                        </div>
+                        <div class="last-item">
+                            <span class="profile_num grey1-color">Lượt xem: <i class="fa fa-eye"></i><span class="grey-color">1042</span></span>
+                            <span class="grey1-color">Hồ sơ ứng tuyển: <span class="grey-color">302</span></span>
+                        </div>
+                        <div class="new-bg">
+                                Mới
+                        </div>
+                    </li>
+                    @endforeach
+                </ul>
             </div>
-            <div class="col-md-3 col-xs-6">
-                <div class="col-md-5 col-xs-5">
-                    <i></i>
+            <div class="col-md-3 col-xs-12 no_padding_right">
+                <div class="content_hot">
+                    <h4>VIỆC LÀM HOT</h4>
+                    <ul>
+                        <li>
+                            <a href="#">
+                            <span class="wp-avatar-mini">
+                                    <img src="{{ url('/') }}/public/images/khanhlinh.png" alt="">
+                            </span>
+                            <p class="title-content-right">Nhân viên phục vụ tại nhà hàng Cơm Thố</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                            <span class="wp-avatar-mini">
+                                    <img src="{{ url('/') }}/public/images/khanhlinh.png" alt="">
+                            </span>
+                            <p class="title-content-right">Nhân viên phục vụ tại nhà hàng Cơm Thố</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                            <span class="wp-avatar-mini">
+                                    <img src="{{ url('/') }}/public/images/khanhlinh.png" alt="">
+                            </span>
+                            <p class="title-content-right">Nhân viên phục vụ tại nhà hàng Cơm Thố</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                            <span class="wp-avatar-mini">
+                                    <img src="{{ url('/') }}/public/images/khanhlinh.png" alt="">
+                            </span>
+                            <p class="title-content-right">Nhân viên phục vụ tại nhà hàng Cơm Thố</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                            <span class="wp-avatar-mini">
+                                    <img src="{{ url('/') }}/public/images/khanhlinh.png" alt="">
+                            </span>
+                            <p class="title-content-right">Nhân viên phục vụ tại nhà hàng Cơm Thố</p>
+                            </a>
+                        </li>
+                    </ul>
                 </div>
-                <div class="col-md-7 col-xs-7">
-                    <div class="row info">
-                        <p class="text">Freelance</p>
-                        <p class="number">1126 <a target="_self" href="">&rsaquo;</a></p>
+                <div class="ads">
+                    <div class="ads-top"><a href=""><img src="{{ url('/') }}/public/images/ads.png" alt=""></a></div>
+                    <div class="ads-bot">
+                        <a href=""><img src="{{ url('/') }}/public/images/zalo.png" alt=""></a>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-3 col-xs-6">
-                <div class="col-md-5 col-xs-5">
-                    <i></i>
-                </div>
-                <div class="col-md-7 col-xs-7">
-                    <div class="row info">
-                        <p class="text">Tài năng</p>
-                        <p class="number">1452 <a target="_self" href="">&rsaquo;</a></p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 col-xs-6">
-                <div class="col-md-5 col-xs-5">
-                    <i></i>
-                </div>
-                <div class="col-md-7 col-xs-7">
-                    <div class="row info">
-                        <p class="text">Tài năng đại học</p>
-                        <p class="number">2332 <a target="_self" href="">&rsaquo;</a></p>
-                    </div>
+                <div class="content_hot info">
+                    <h4>Bạn nên biết!?</h4>
+                    <ul>
+                        <li>
+                            <a href="#">
+                            <span class="wp-avatar-mini">
+                                    <img src="{{ url('/') }}/public/images/khanhlinh.png" alt="">
+                            </span>
+                            <p class="title-content-right">Biết cảm ơn những thất bại</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                            <span class="wp-avatar-mini">
+                                    <img src="{{ url('/') }}/public/images/khanhlinh.png" alt="">
+                            </span>
+                            <p class="title-content-right">Biết cảm ơn những thất bại</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                            <span class="wp-avatar-mini">
+                                    <img src="{{ url('/') }}/public/images/khanhlinh.png" alt="">
+                            </span>
+                            <p class="title-content-right">Biết cảm ơn những thất bại</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                            <span class="wp-avatar-mini">
+                                    <img src="{{ url('/') }}/public/images/khanhlinh.png" alt="">
+                            </span>
+                            <p class="title-content-right">Biết cảm ơn những thất bại</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                            <span class="wp-avatar-mini">
+                                    <img src="{{ url('/') }}/public/images/khanhlinh.png" alt="">
+                            </span>
+                            <p class="title-content-right">Biết cảm ơn những thất bại</p>
+                            </a>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
     </div>
-    <footer>
-        <div class="container">
-            <div class="footer-top row">
-                <div class="col-md-4 col-xs-6 footer-col">
-                    <p class="title">về gmon</p>
-                    <p><a target="_self" href="">Giới thiệu</a></p>
-                    <p><a target="_self" href="">Việc làm</a></p>
-                    <p><a target="_self" href="">Nhà tuyển dụng</a></p>
-                    <p><a target="_self" href="">Hồ sơ ứng viên</a></p>
-                    <p><a target="_self" href="">Nhà tuyển dụng</a></p>
-                </div>
-                <div class="col-md-3 col-xs-6 footer-col">
-                    <p class="title">công cụ</p>
-                    <p><a target="_self" href="">Hồ sơ</a></p>
-                    <p><a target="_self" href="">Việc làm của tôi</a></p>
-                    <p><a target="_self" href="">Thông báo việc làm</a></p>
-                    <p><a target="_self" href="">Phản hồi</a></p>
-                    <p><a target="_self" href="">Tư vấn nghề nghiệp</a></p>
-                </div>
-                <div class="col-md-5 contact col-xs-12 footer-col">
-                    <p class="title">kết nối với gmon</p>
-                    <p class="mxh">
-                        <a target="_self" href=""></a>
-                        <a target="_self" href=""></a>
-                        <a target="_self" href=""></a>
-                    </p>
-                </div>
-            </div>
-            <div class="footer-bot row">
-                <div class="col-md-8">
-                    <p>Công ty cổ phần Giải pháp và công nghệ GMon</p>
-                    <p>Địa chỉ: Tầng 8 - Tòa nhà Trần Phú - số 17 tổ 24 đường Dương Đình Nghệ - P.Yên Hòa - Q.Cầu Giấy - Hà Nội</p>
-                    <p>Điện thoại: 04.3212.1515</p>
-                    <p>Email nhà tuyển dụng: vieclamhn@gmon.vnEmail nhà tuyển dụng</p>
-                    <p>Email ứng viên: tuyendunghn@gmon.vn</p>
-                </div>
-                <div class="col-md-4">
-                    <p style="margin-top: 15px">&#64; 2016-2017 Gmon.vn,inc. All rights reserved</p>
+    <div class="list-logo clearfix">
+        <div class="container" style="position: relative;">
+            <span id="btPrev" class="btPrev"></span>
+            <span id="btNext" class="btNext"></span>
+            <div class="wrapper row" id="wrapper-logo">
+                <div class="contents clearfix" id="contents-logo">
+                    <ul>
+                        <li class="item-logo"><a href=""><img src="{{ url('/') }}/public/images/logoHome.png" alt=""></a></li>
+                        <li><a href=""><img src="{{ url('/') }}/public/images/logoHome1.png" alt=""></a></li>
+                        <li><a href=""><img src="{{ url('/') }}/public/images/logoHome2.png" alt=""></a></li>
+                        <li><a href=""><img src="{{ url('/') }}/public/images/logoHome3.png" alt=""></a></li>
+                        <li><a href=""><img src="{{ url('/') }}/public/images/logoHome4.png" alt=""></a></li>
+                        <li><a href=""><img src="{{ url('/') }}/public/images/logoHome5.png" alt=""></a></li>
+                        <li><a href=""><img src="{{ url('/') }}/public/images/logoHome6.png" alt=""></a></li>
+                        <li><a href=""><img src="{{ url('/') }}/public/images/logoHome7.png" alt=""></a></li>
+                        <li><a href=""><img src="{{ url('/') }}/public/images/logoHome8.png" alt=""></a></li>
+                        <li><a href=""><img src="{{ url('/') }}/public/images/logoHome3.png" alt=""></a></li>
+                        <li><a href=""><img src="{{ url('/') }}/public/images/logoHome10.png" alt=""></a></li>
+                        <li><a href=""><img src="{{ url('/') }}/public/images/logoHome11.png" alt=""></a></li>
+                        <li><a href=""><img src="{{ url('/') }}/public/images/logoHome12.png" alt=""></a></li>
+                        <li><a href=""><img src="{{ url('/') }}/public/images/logoHome.png" alt=""></a></li>
+                        <li><a href=""><img src="{{ url('/') }}/public/images/logoHome2.png" alt=""></a></li>
+                        <li><a href=""><img src="{{ url('/') }}/public/images/logoHome3.png" alt=""></a></li>
+                        <li><a href=""><img src="{{ url('/') }}/public/images/logoHome5.png" alt=""></a></li>
+                        <li><a href=""><img src="{{ url('/') }}/public/images/logoHome.png" alt=""></a></li>
+                    </ul>
                 </div>
             </div>
         </div>
-    </footer>
+    </div>
+
     <script type="text/javascript">
+        var $i = 0;
+        $(window).scroll(function() {
+            if($(window).scrollTop() == $(document).height() - $(window).height()) {
+                   $i++;
+                   $('.job-list-' + $i).show();
+            }
+        });
         $(document).ready(function(){
+            $('.item-job').show();
+            $('.job-list-0').show();
             var site_url = $('base').attr('href');
             $('.search-btn').click(function(){
                 var new_link = site_url + '/showmore?';

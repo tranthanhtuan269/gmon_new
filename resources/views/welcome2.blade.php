@@ -341,11 +341,10 @@
         </div>
         <div class="bottom-footer">
             <div class="container">
-                <p>Công ty cổ phần giải pháp Gmon</p>
-                <p>Địa chỉ: P801 - Tòa nhà Trần Phú, số 17 tổ 24 đường Dương Đình Nghệ - P.Yên Hòa - Q. Cầu Giấy, Hà Nội</p>
-                <p>Điện thoại: 024.3212.1515</p>
-                <p>Email nhà tuyển dụng: <a href="{{ url('/') }}">vieclamhn@gmail.com</a></p>
-                <p>Email ứng viên: <a href="{{ url('/') }}">tuyendunghn@gmon.com</a></p>
+                <p>Công ty cổ phần giải pháp và công nghệ Gmon</p>
+                <p>Địa chỉ: P801 - Tòa nhà Trần Phú, số 17 tổ 24 Dương Đình Nghệ - P.Yên Hòa - Q. Cầu Giấy, Hà Nội</p>
+                <p>Điện thoại: 0243.212.1515</p>
+                <p>Email: vieclamhn@gmon.vn, tuyendunghn@gmon.com</p>
             </div>
         </div>
     </div>

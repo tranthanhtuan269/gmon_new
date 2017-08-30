@@ -1,14 +1,14 @@
 @extends('layouts.layout')
 
 @section('content')
-    <header class="header-spa">
+    <header>
         <div class="header-mid">
             <div class="container" >
                 <div class="clearfix row" style="padding-bottom: 30px">
                     <div class="col-md-3">
                         <a target="_self" href="" class="logo row"><img src="http://test.gmon.com.vn/?image=home.png" alt=""></a>
                     </div>
-                    <div class="col-md-9 search-form">
+                    <div class="col-md-9" style="margin-top: 30px">
                         <div class="">
                             <div class="col-md-9">
                                 <form class="search">
@@ -72,7 +72,7 @@
                             </div>
                             <div class="col-md-3 clearfix">
                                 <div class="contact row">
-                                    <p><i></i>0977898312</p>
+                                    <p><i></i>0243.212.1515</p>
                                     <p><i></i>vieclamhn@gmon.vn</p>
                                 </div>
                             </div>
@@ -86,10 +86,10 @@
                 <div class="row">
                     <div class="menu-left">
                         <a target="_self" href="http://spa.gmon.com.vn"><i></i>Spa</a>
-                        <a target="_self" href="http://gmon.com.vn/home?field=1"><i></i>Khách sạn</a>
-                        <a target="_self" href="http://gmon.com.vn/home?field=2"><i></i>Nhà hàng</a>
-                        <a target="_self" href="http://gmon.com.vn/home?field=4"><i></i>Doanh nghiệp</a>
-                        <a target="_self" href="http://gmon.com.vn/home?field=5"><i></i>Nhân sự tài năng</a>
+                        <a target="_self" href="{{ url('/') }}/home?field=1"><i></i>Khách sạn</a>
+                        <a target="_self" href="{{ url('/') }}/home?field=2"><i></i>Nhà hàng</a>
+                        <a target="_self" href="{{ url('/') }}/home?field=4"><i></i>Doanh nghiệp</a>
+                        <a target="_self" href="{{ url('/') }}/home?field=5"><i></i>Nhân sự tài năng</a>
                     </div>
                     <div class="menu-right">
                         @if (Auth::guest())
@@ -452,10 +452,10 @@
             $( "#"+listNewJobs.contents ).css("margin-left","0");
             var w=screen.width;
             var w2=$(".new-jobs #wrapper").outerWidth();
-            var w3;
             if(w2 == 0 || w2 == undefined){
                 w2 = $(".new-employer #wrapper2").outerWidth();
             }
+            var w3;
             if(w>1000){
                 w3=w2/5;
                 $(".need-jobs .wrapper" ).css("width",w3*5+"px");

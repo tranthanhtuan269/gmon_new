@@ -27,7 +27,7 @@
                    <div class="row">
                        <div class="col-md-4">
                            <div class="logo">
-                               <a href="{{ url('/') }}"><img src="{{ url('/') }}/public/images/logo-2.png" alt="logo"/></a>
+                               <a href="{{ url('/') }}"><img src="http://test.gmon.com.vn/?image=logo-2.png" alt="logo"/></a>
                            </div>
                        </div>
                        <ul class="homepage-menu col-md-8">
@@ -182,7 +182,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm-6 col-6 left">
-                    <a href="{{ url('/') }}"><img src="{{ url('/') }}/public/images/logo-2.png" alt="logo"/></a>
+                    <a href="{{ url('/') }}"><img src="http://test.gmon.com.vn/?image=logo-2.png" alt="logo"/></a>
                 </div>
                 <div class="col-sm-6 col-6 right">
                     <a href="#menu" class="fa fa-bars"></a>
@@ -268,7 +268,7 @@
     <div class="part-1">
         <div class="container">
             <div class="wrap">
-                <h2>Tìm một công việc bạn yêu thích với <span>GMON #1 jod site</span></h2>
+                <h2>Tìm một công việc bạn yêu thích với <span>GMON #1 job site</span></h2>
                 <div class="hr"></div>
                 <ul class="number">
                     <li><span>#1</span> Trang tuyển dụng chuyên nghiệp</li>
@@ -300,7 +300,7 @@
     <div class="part-2">
         <div class="container">
             <div class="row">
-                <img src="{{ url('/') }}/public/images/part-2.jpg" alt="">
+                <img src="http://test.gmon.com.vn/?image=part-2.jpg" alt="">
             </div>
         </div>
     </div>
@@ -312,7 +312,7 @@
                 <div class="list-job-3 row">
                     <div class="item col-md-3">
                         <div class="image">
-                            <img src="{{ url('/') }}/public/images/linh_vuc1.jpg" alt="" />
+                            <img src="http://test.gmon.com.vn/?image=linh_vuc1.jpg" alt="" />
                         </div>
                         <div class="title">
                             <a href="http://spa.gmon.com.vn">Spa</a>
@@ -320,7 +320,7 @@
                     </div>
                     <div class="item col-md-3">
                         <div class="image">
-                            <img src="{{ url('/') }}/public/images/linh_vuc2.jpg" alt="" />
+                            <img src="http://test.gmon.com.vn/?image=linh_vuc2.jpg" alt="" />
                         </div>
                         <div class="title">
                             <a href="{{ url('/') }}/home?field=1">Khách sạn</a>
@@ -328,7 +328,7 @@
                     </div>
                     <div class="item col-md-3">
                         <div class="image">
-                            <img src="{{ url('/') }}/public/images/linh_vuc3.jpg" alt="" />
+                            <img src="http://test.gmon.com.vn/?image=linh_vuc3.jpg" alt="" />
                         </div>
                         <div class="title">
                             <a href="{{ url('/') }}/home?field=2">Nhà hàng</a>
@@ -336,7 +336,7 @@
                     </div>
                     <div class="item col-md-3">
                         <div class="image">
-                            <img src="{{ url('/') }}/public/images/linh_vuc4.jpg" alt="" />
+                            <img src="http://test.gmon.com.vn/?image=linh_vuc4.jpg" alt="" />
                         </div>
                         <div class="title">
                             <a href="{{ url('/') }}/home?field=4">Doanh nghiệp</a>
@@ -354,7 +354,7 @@
                 <div class="list-job-3 row">
                     <div class="item col-md-3">
                         <div class="image">
-                            <img src="{{ url('/') }}/public/images/khu_vuc1.jpg" alt="" />
+                            <img src="http://test.gmon.com.vn/?image=khu_vuc1.jpg" alt="" />
                         </div>
                         <div class="title">
                             <a href="{{ url('/') }}/home?city=1">Hà Nội</a>
@@ -362,7 +362,7 @@
                     </div>
                     <div class="item col-md-3">
                         <div class="image">
-                            <img src="{{ url('/') }}/public/images/khu_vuc2.jpg" alt="" />
+                            <img src="http://test.gmon.com.vn/?image=khu_vuc2.jpg" alt="" />
                         </div>
                         <div class="title">
                             <a href="{{ url('/') }}/home?city=3">Đà Nẵng</a>
@@ -370,7 +370,7 @@
                     </div>
                     <div class="item col-md-3">
                         <div class="image">
-                            <img src="{{ url('/') }}/public/images/khu_vuc3.jpg" alt="" />
+                            <img src="http://test.gmon.com.vn/?image=khu_vuc3.jpg" alt="" />
                         </div>
                         <div class="title">
                             <a href="{{ url('/') }}/home?city=2">Hồ Chí Minh</a>
@@ -378,7 +378,7 @@
                     </div>
                     <div class="item col-md-3">
                         <div class="image">
-                            <img src="{{ url('/') }}/public/images/khu_vuc4.jpg" alt="" />
+                            <img src="http://test.gmon.com.vn/?image=khu_vuc4.jpg" alt="" />
                         </div>
                         <div class="title">
                             <a href="{{ url('/') }}/home?city=other">Khu vực khác</a>
@@ -431,11 +431,10 @@
     </div>
     <div class="bottom-footer">
         <div class="container">
-            <p>Công ty cổ phần giải pháp Gmon</p>
-            <p>Địa chỉ: P801 - Tòa nhà Trần Phú, số 17 tổ 24 đường Dương Đình Nghệ - P.Yên Hòa - Q. Cầu Giấy, Hà Nội</p>
-            <p>Điện thoại: 024.3212.1515</p>
-            <p>Email nhà tuyển dụng: <a href="{{ url('/') }}">vieclamhn@gmail.com</a></p>
-            <p>Email ứng viên: <a href="{{ url('/') }}">tuyendunghn@gmon.com</a></p>
+            <p>Công ty cổ phần giải pháp và công nghệ Gmon</p>
+            <p>Địa chỉ: P801 - Tòa nhà Trần Phú, số 17 tổ 24 Dương Đình Nghệ - P.Yên Hòa - Q. Cầu Giấy, Hà Nội</p>
+            <p>Điện thoại: 0243.212.1515</p>
+            <p>Email: vieclamhn@gmon.vn, tuyendunghn@gmon.com</p>
         </div>
     </div>
 </div>
