@@ -173,46 +173,16 @@
                 <div class="content_hot">
                     <h4>VIỆC LÀM HOT</h4>
                     <ul>
+                        @foreach($jobsvip as $jobvip)
                         <li>
-                            <a href="#">
+                            <a href="{{ url('/') }}/job/view/{{ $job->id }}">
                             <span class="wp-avatar-mini">
-                                    <img src="{{ url('/') }}/public/images/khanhlinh.png" alt="">
+                                <img src="http://test.gmon.com.vn/?image={{ $jobvip->logo }}" alt="">
                             </span>
-                            <p class="title-content-right">Nhân viên phục vụ tại nhà hàng Cơm Thố</p>
+                            <p class="title-content-right">{{ $jobvip->name }} tại {{ $jobvip->companyname }}</p>
                             </a>
                         </li>
-                        <li>
-                            <a href="#">
-                            <span class="wp-avatar-mini">
-                                    <img src="{{ url('/') }}/public/images/khanhlinh.png" alt="">
-                            </span>
-                            <p class="title-content-right">Nhân viên phục vụ tại nhà hàng Cơm Thố</p>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                            <span class="wp-avatar-mini">
-                                    <img src="{{ url('/') }}/public/images/khanhlinh.png" alt="">
-                            </span>
-                            <p class="title-content-right">Nhân viên phục vụ tại nhà hàng Cơm Thố</p>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                            <span class="wp-avatar-mini">
-                                    <img src="{{ url('/') }}/public/images/khanhlinh.png" alt="">
-                            </span>
-                            <p class="title-content-right">Nhân viên phục vụ tại nhà hàng Cơm Thố</p>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                            <span class="wp-avatar-mini">
-                                    <img src="{{ url('/') }}/public/images/khanhlinh.png" alt="">
-                            </span>
-                            <p class="title-content-right">Nhân viên phục vụ tại nhà hàng Cơm Thố</p>
-                            </a>
-                        </li>
+                        @endforeach
                     </ul>
                 </div>
                 <div class="ads">
