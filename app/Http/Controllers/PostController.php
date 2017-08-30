@@ -22,16 +22,18 @@ class PostController extends Controller
         $perPage = 25;
 
         if (!empty($keyword)) {
-            $post = Post::where('title', 'LIKE', "%$keyword%")
+            $post = \DB::table('posts')
+                ->join('categories', 'categories.id', '=', 'posts.category')
+                ->where('title', 'LIKE', "%$keyword%")
 				->orWhere('description', 'LIKE', "%$keyword%")
 				->orWhere('category', 'LIKE', "%$keyword%")
-				->orWhere('views', 'LIKE', "%$keyword%")
-				->orWhere('likes', 'LIKE', "%$keyword%")
-				->orWhere('image', 'LIKE', "%$keyword%")
-				->orWhere('sub_url', 'LIKE', "%$keyword%")
+                ->select('posts.id', 'posts.title', 'posts.image', 'posts.views', 'posts.likes', 'categories.name as categoryName')
 				->paginate($perPage);
         } else {
-            $post = Post::paginate($perPage);
+            $post = \DB::table('posts')
+                ->join('categories', 'categories.id', '=', 'posts.category')
+                ->select('posts.id', 'posts.title', 'posts.image', 'posts.views', 'posts.likes', 'categories.name as categoryName')
+                ->paginate($perPage);
         }
 
         return view('post.index', compact('post'));
@@ -56,8 +58,21 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        
+        $img_avatar = '';
+        if ($request->hasFile('imagePost')) {
+            $file_avatar = $request->file('imagePost');
+            $filename = $file_avatar->getClientOriginalName();
+            $extension = $file_avatar->getClientOriginalExtension();
+            $img_avatar = date('His') . $filename;
+            // $destinationPath = base_path('../../images');
+            $destinationPath = base_path() . '/public/images';
+            $file_avatar->move($destinationPath, $img_avatar);
+        }
+
         $requestData = $request->all();
+        unset($requestData['imagePost']);
+
+        $requestData['image'] = $img_avatar;
         
         Post::create($requestData);
 
@@ -104,9 +119,25 @@ class PostController extends Controller
      */
     public function update($id, Request $request)
     {
-        
+
+        $img_avatar = '';
+        if ($request->hasFile('imagePost')) {
+            $file_avatar = $request->file('imagePost');
+            $filename = $file_avatar->getClientOriginalName();
+            $extension = $file_avatar->getClientOriginalExtension();
+            $img_avatar = date('His') . $filename;
+            // $destinationPath = base_path('../../images');
+            $destinationPath = base_path() . '/public/images';
+            $file_avatar->move($destinationPath, $img_avatar);
+        }
+
         $requestData = $request->all();
-        
+        unset($requestData['imagePost']);
+
+        if(strlen($img_avatar) > 0){
+            $requestData['image'] = $img_avatar;
+        }
+                
         $post = Post::findOrFail($id);
         $post->update($requestData);
 

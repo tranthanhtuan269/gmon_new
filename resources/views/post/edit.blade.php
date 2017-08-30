@@ -28,7 +28,50 @@
                             'files' => true
                         ]) !!}
 
-                        @include ('post.form', ['submitButtonText' => 'Update'])
+                        <script src="https://cdn.ckeditor.com/4.7.2/standard/ckeditor.js"></script>
+                            <div class="form-group {{ $errors->has('title') ? 'has-error' : ''}}">
+                                {!! Form::label('title', 'Title', ['class' => 'col-md-2 control-label']) !!}
+                                <div class="col-md-10">
+                                    {!! Form::text('title', $post->title, ['class' => 'form-control']) !!}
+                                    {!! $errors->first('title', '<p class="help-block">:message</p>') !!}
+                                </div>
+                            </div>
+                            <div class="form-group {{ $errors->has('description') ? 'has-error' : ''}}">
+                                {!! Form::label('description', 'Description', ['class' => 'col-md-2 control-label']) !!}
+                                <div class="col-md-10">
+                                    {!! Form::textarea('description', $post->description, ['class' => 'form-control']) !!}
+                                    {!! $errors->first('description', '<p class="help-block">:message</p>') !!}
+                                </div>
+                            </div>
+                            <div class="form-group {{ $errors->has('category') ? 'has-error' : ''}}">
+                                {!! Form::label('category', 'Category', ['class' => 'col-md-2 control-label']) !!}
+                                <div class="col-md-10">
+                                    {!! Form::select('category', \App\Category::pluck('name', 'id'), $post->category, ['placeholder' => 'Select A Category...', 'class' => 'form-control']) !!}
+                                    {!! $errors->first('category', '<p class="help-block">:message</p>') !!}
+                                </div>
+                            </div>
+                            <div class="form-group {{ $errors->has('image') ? 'has-error' : ''}}">
+                                {!! Form::label('image', 'Image', ['class' => 'col-md-2 control-label']) !!}
+                                <div class="col-md-10">
+                                    @if($post->image)
+                                    <img src="{{ url('/') }}/public/images/{{ $post->image }}" id="avatar-image" class="img" style="background-color: #fff; border: 2px solid gray; border-radius: 5px; width: 100%; height: 300px;">
+                                    @else
+                                    <img src="http://test.gmon.com.vn/?image=anh_dai_dien.jpg" id="avatar-image" class="img" style="background-color: #fff; border: 2px solid gray; border-radius: 5px; width: 100%; height: 300px;">
+                                    @endif
+                                    <input type="file" name="imagePost" id="image-img" style="display: none;">
+                                    {!! $errors->first('image', '<p class="help-block">:message</p>') !!}
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-offset-2 col-md-2">
+                                    {!! Form::submit('Update', ['class' => 'btn btn-primary']) !!}
+                                </div>
+                            </div>
+
+                            <script>
+                                CKEDITOR.replace( 'description' );
+                            </script>
 
                         {!! Form::close() !!}
 

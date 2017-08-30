@@ -242,4 +242,18 @@ $(document).ready(function(){
             alert("Request failed: " + textStatus);
         });
     });
+
+    $('#avatar-image').on('click', function (e) {
+        $('#image-img').click();
+    });
+    $('#image-img').on('change', function (e) {
+        var fileInput = this;
+        if (fileInput.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('#avatar-image').attr('src', e.target.result);
+            }
+            reader.readAsDataURL(fileInput.files[0]);
+        }
+    });
 });

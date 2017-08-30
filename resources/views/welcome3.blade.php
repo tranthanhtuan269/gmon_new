@@ -108,7 +108,7 @@
                                <!-- Tab panes -->
                                <div class="tab-content">
                                    <div id="login" class="tab-pane login active" id="home" role="tabpanel">
-                                       <form>
+                                       <form action="javascript:void(0);" onsubmit="return(loginFunc());"  name="loginForm" id="loginForm">
                                            <div class="form-group">
                                                <label for="email"></label>
                                                <input type="email" class="form-control" id="login-email" placeholder="Email">
@@ -121,7 +121,7 @@
                                                <p class="text-center text-danger" id="login-message"></p>
                                            </div>
                                            <div class="form-group">
-                                               <div class="btn btn-primary" id="login-btn">Đăng nhập</div>
+                                               <input type="submit" class="btn btn-primary" id="login-btn" value="Đăng nhập">
                                            </div>
                                            
                                        </form>
@@ -136,7 +136,7 @@
                                    </div>
                                    <div id="register" class="tab-pane register" id="profile" role="tabpanel">
                                        <h3>đăng ký tài khoản gmon ngay!</h3>
-                                       <form>
+                                       <form action="javascript:void(0);" onsubmit="return(registerFunc());"  name="registerForm" id="registerForm">
                                            <div class="form-group">
                                                <input type="text" class="form-control" id="username" placeholder="Họ & tên">
                                            </div>
@@ -163,9 +163,8 @@
                                                <p class="text-center text-danger" id="register-message"></p>
                                            </div>
                                            <div class="form-group">
-                                               <div type="submit" class="btn btn-primary" id="register-btn">Đăng ký ngay</div>
+                                            <input type="submit" class="btn btn-primary" id="register-btn" value="Đăng ký ngay">
                                            </div>
-
                                        </form>
                                    </div>
                                </div>
@@ -462,100 +461,108 @@
         $(event.target).find(".view").animate({top: 200 + 'px'});
     }
 
+    function loginFunc(){
+      var loginEmail = $('#login-email').val();
+      var loginPassword = $('#login-password').val();
+      if(loginEmail.length == 0){
+          $('#login-message').val('Email rỗng!');
+      }else if(loginPassword.length == 0){
+          $('#login-message').val('Password rỗng!');
+      }else{
+          var request = $.ajax({
+              headers: {
+                  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+              },
+              url: "{{ url('/') }}/auth/login",
+              method: "POST",
+              data: {
+                  'email': loginEmail,
+                  'password': loginPassword
+              },
+              dataType: "json"
+          });
+
+          request.done(function (msg) {
+              if (msg.code == 200) {
+                  location.reload();
+                  // window.location.replace("{{ url('/') }}");
+              }else{
+                  $('#login-message').val('Tài khoản không tồn tại!');
+              }
+          });
+
+          request.fail(function (jqXHR, textStatus) {
+              alert("Request failed: " + textStatus);
+          });
+      }
+    }
+
+    function registerFunc(){
+      $('#register-message').val('');
+      var username = $('#username').val();
+      var registersdt = $('#sdt').val();
+      var registerEmail = $('#register-email').val();
+      var registerPassword = $('#register-password').val();
+      var rPassword = $('#r_password').val();
+      var role = $('#areyou').val();
+      if (registerPassword != rPassword) {
+          $('#register-message').val('Password được đánh lại chưa chính xác!');
+          return false;
+      }else if(username.length == 0){
+          $('#register-message').val('Username rỗng!');
+          return false;
+      }else if(registersdt.length == 0){
+          $('#register-message').val('Số điện thoại rỗng!');
+          return false;
+      }else if(registerEmail.length == 0){
+          $('#register-message').val('Email rỗng!');
+          return false;
+      }else if(registerPassword.length == 0){
+          $('#register-message').val('Password rỗng!');
+          return false;
+      }else if(role == 0){
+          $('#register-message').val('Bạn chưa chọn vai trò của bạn!');
+          return false;
+      }else{
+          var request = $.ajax({
+              headers: {
+                  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+              },
+              url: "{{ url('/') }}/auth/register",
+              method: "POST",
+              data: {
+                  'username': username,
+                  'password': registerPassword,
+                  'email': registerEmail,
+                  'phone': registersdt,
+                  'role': role
+              },
+              dataType: "json"
+          });
+
+          request.done(function (msg) {
+              if (msg.code == 200) {
+                  location.reload();
+                  // window.location.replace("{{ url('/') }}");
+              }else{
+                  $('#register-message').val('Email của bạn đã có người sử dụng!');
+              }
+          });
+
+          request.fail(function (jqXHR, textStatus) {
+              alert("Request failed: " + textStatus);
+          });
+      }
+    }
+
     $(document).ready(function(){
         onOpenLogin();
         $('#login-btn').click(function () {
-            var loginEmail = $('#login-email').val();
-            var loginPassword = $('#login-password').val();
-            if(loginEmail.length == 0){
-                $('#login-message').val('Email rỗng!');
-            }else if(loginPassword.length == 0){
-                $('#login-message').val('Password rỗng!');
-            }else{
-                var request = $.ajax({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    url: "{{ url('/') }}/auth/login",
-                    method: "POST",
-                    data: {
-                        'email': loginEmail,
-                        'password': loginPassword
-                    },
-                    dataType: "json"
-                });
-
-                request.done(function (msg) {
-                    if (msg.code == 200) {
-                        location.reload();
-                        // window.location.replace("{{ url('/') }}");
-                    }else{
-                        $('#login-message').show();
-                    }
-                });
-
-                request.fail(function (jqXHR, textStatus) {
-                    alert("Request failed: " + textStatus);
-                });
-            }
+            loginFunc();
         });
 
         $('#register-btn').click(function () {
-            $('#register-message').val('');
-            var username = $('#username').val();
-            var registersdt = $('#sdt').val();
-            var registerEmail = $('#register-email').val();
-            var registerPassword = $('#register-password').val();
-            var rPassword = $('#r_password').val();
-            var role = $('#areyou').val();
-            if (registerPassword != rPassword) {
-                $('#register-message').val('Password được đánh lại chưa chính xác!');
-                return false;
-            }else if(username.length == 0){
-                $('#register-message').val('Username rỗng!');
-                return false;
-            }else if(registersdt.length == 0){
-                $('#register-message').val('Số điện thoại rỗng!');
-                return false;
-            }else if(registerEmail.length == 0){
-                $('#register-message').val('Email rỗng!');
-                return false;
-            }else if(registerPassword.length == 0){
-                $('#register-message').val('Password rỗng!');
-                return false;
-            }else if(role == 0){
-                $('#register-message').val('Bạn chưa chọn vai trò của bạn!');
-                return false;
-            }else{
-                var request = $.ajax({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    url: "{{ url('/') }}/auth/register",
-                    method: "POST",
-                    data: {
-                        'username': username,
-                        'password': registerPassword,
-                        'email': registerEmail,
-                        'phone': registersdt,
-                        'role': role
-                    },
-                    dataType: "json"
-                });
-
-                request.done(function (msg) {
-                    if (msg.code == 200) {
-                        location.reload();
-                        // window.location.replace("{{ url('/') }}");
-                    }else{
-                        $('#register-message').show();
-                    }
-                });
-
-                request.fail(function (jqXHR, textStatus) {
-                    alert("Request failed: " + textStatus);
-                });
-            }
+            registerFunc();
         });
 
         $('#select-job-type li').click(function(){

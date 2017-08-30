@@ -15,7 +15,7 @@
 
                         {!! Form::open(['method' => 'GET', 'url' => '/master/post', 'class' => 'navbar-form navbar-right', 'role' => 'search'])  !!}
                         <div class="input-group">
-                            <input type="text" class="form-control" name="search" placeholder="Search...">
+                            <input type="text" class="form-control" name="search" placeholder="Search name...">
                             <span class="input-group-btn">
                                 <button class="btn btn-default" type="submit">
                                     <i class="fa fa-search"></i>
@@ -30,16 +30,26 @@
                             <table class="table table-borderless">
                                 <thead>
                                     <tr>
-                                        <th>ID</th><th>Title</th><th>Description</th><th>Category</th><th>Actions</th>
+                                        <th>ID</th>
+                                        <th>Title</th>
+                                        <th>Image</th>
+                                        <th>Views</th>
+                                        <th>Likes</th>
+                                        <th>Category</th>
+                                        <th>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                 @foreach($post as $item)
                                     <tr>
                                         <td>{{ $item->id }}</td>
-                                        <td>{{ $item->title }}</td><td>{{ $item->description }}</td><td>{{ $item->category }}</td>
+                                        <td>{{ $item->title }}</td>
+                                        <td><img src="{{ url('/') }}/public/images/{{ $item->image }}" height="300" width="100%"></td>
+                                        <td>{{ $item->views }}</td>
+                                        <td>{{ $item->likes }}</td>
+                                        <td>{{ $item->categoryName }}</td>
                                         <td>
-                                            <a href="{{ url('/master/post/' . $item->id) }}" title="View Post"><button class="btn btn-info btn-xs"><i class="fa fa-eye" aria-hidden="true"></i> View</button></a>
+                                            <!-- <a href="{{ url('/master/post/' . $item->id) }}" title="View Post"><button class="btn btn-info btn-xs"><i class="fa fa-eye" aria-hidden="true"></i> View</button></a> -->
                                             <a href="{{ url('/master/post/' . $item->id . '/edit') }}" title="Edit Post"><button class="btn btn-primary btn-xs"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></a>
                                             {!! Form::open([
                                                 'method'=>'DELETE',
