@@ -8,7 +8,7 @@
                     <div class="col-md-3">
                         <a target="_self" href="" class="logo row"><img src="http://test.gmon.com.vn/?image=home.png" alt=""></a>
                     </div>
-                    <div class="col-md-9" style="margin-top: 30px">
+                    <div class="col-md-9" style="background-color:rgba(255, 255, 255, 0.9);">
                         <div class="">
                             <div class="col-md-9">
                                 <form class="search">
@@ -215,6 +215,7 @@
                         </li>
                     </ul>
                 </div>
+                @if(false)
                 <div class="ads">
                     <div class="ads-top"><a href=""><img src="{{ url('/') }}/public/images/ads.png" alt=""></a></div>
                     <div class="ads-bot">
@@ -266,6 +267,7 @@
                         </li>
                     </ul>
                 </div>
+                @endif
             </div>
         </div>
     </div>
