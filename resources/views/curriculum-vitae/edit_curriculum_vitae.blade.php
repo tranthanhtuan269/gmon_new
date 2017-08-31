@@ -410,14 +410,17 @@
                     <div class="panel panel-default" id="kinh_nghiem_lam_viec">
                         <div class="panel-heading">Kinh nghiệm làm việc</div>
                         <div class="panel-body">
+                                <input type="hidden" name="word_experience" id="word_experience" value="">
                             <?php 
                                 if(strlen($cv_user->word_experience) > 0){
                                 $cv_user->word_experience=ltrim($cv_user->word_experience,";");
+                                if(substr($cv_user->word_experience, -1) == ';'){
+                                    $cv_user->word_experience=rtrim($cv_user->word_experience,";");
+                                }
                                 $word_experiences = explode(";",$cv_user->word_experience);
                                 for($i = 0; $i < count($word_experiences); $i++){
                                     $words = json_decode($word_experiences[$i]);
                             ?>
-                            <input type="hidden" name="word_experience" id="word_experience" value="">
                             <div class="form-kinh-nghiem-group first-form" id="kinh_nghiem_lam_viec_{{ $i }}">
                                 <input type="hidden" class="word_experience_json" id="kinh_nghiem_lam_viec_{{ $i }}_json" value="{{ $word_experiences[$i] }}">
                                 <div id='kinh_nghiem_lam_viec_{{ $i }}_content' style="display:none;">
@@ -496,7 +499,6 @@
                                 }
                             }else{
                             ?>
-                            <input type="hidden" name="word_experience" id="word_experience" value="">
                             <div class="form-kinh-nghiem-group first-form" id="kinh_nghiem_lam_viec_0">
                                 <input type="hidden" class="word_experience_json" id="kinh_nghiem_lam_viec_0_json" value="">
                                 <div id='kinh_nghiem_lam_viec_0_content'>

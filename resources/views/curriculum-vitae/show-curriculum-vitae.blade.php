@@ -95,6 +95,9 @@
                                     <div class="panel-body">
                                         <?php 
                                             $curriculumvitae->word_experience = ltrim($curriculumvitae->word_experience, ';');
+                                            if(substr($curriculumvitae->word_experience, -1) == ';'){
+                                                $curriculumvitae->word_experience=rtrim($curriculumvitae->word_experience,";");
+                                            }
                                             $word_experiences = explode(";",$curriculumvitae->word_experience);
                                             foreach ($word_experiences as $word_experience) {
                                             $exp = json_decode($word_experience);

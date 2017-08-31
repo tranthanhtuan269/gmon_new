@@ -150,7 +150,6 @@ class CurriculumVitaeController extends Controller
      */
     public function updateCurriculumVitae($id, Request $request)
     {        
-        // dd($request->all());
         $input = $request->all();
         $img_avatar = '';
         if ($request->hasFile('avatar-img')) {

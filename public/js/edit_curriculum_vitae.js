@@ -129,7 +129,7 @@ $(document).ready(function () {
     }
 
     $('#them_moi_kinh_nghiem').click(function () {
-        if (!validate_kinh_nghiem_cu(count_kinh_nghiem)) {
+        if (!validate_kinh_nghiem_cu(count_kinh_nghiem - 1)) {
             swal("Kinh nghiệm trước chưa được hoàn thành!", "Xin hãy hoàn thành kinh nghiệm trước để có thể thêm mới!");
             return false;
         }
@@ -817,7 +817,6 @@ $(document).ready(function () {
 
     $("#submit-btn").click(function () {
         $('#education').val('');
-        $('#word_experience').val('');
         $('#language').val('');
         $('#qualification').val('');
         
@@ -837,6 +836,7 @@ $(document).ready(function () {
             }
         });
 
+        $('#word_experience').val('');
         $.each($(".form-kinh-nghiem-group"), function(){            
             if($(this).hasClass('removed')){
                 // next
