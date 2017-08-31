@@ -267,10 +267,10 @@
     <div class="part-1">
         <div class="container">
             <div class="wrap">
-                <h2>Tìm một công việc bạn yêu thích với <span>GMON #1 job site</span></h2>
+                <h2>Tìm một công việc bạn yêu thích với <span>GMON 1 job site</span></h2>
                 <div class="hr"></div>
                 <ul class="number">
-                    <li><span>#1</span> Trang tuyển dụng chuyên nghiệp</li>
+                    <li><span>1</span> Trang tuyển dụng chuyên nghiệp</li>
                     <li><span>1,500</span> lượt xem mỗi đăng tuyển</li>
                     <li><span>20,000</span> ứng viên tiềm năng</li>
                 </ul>
