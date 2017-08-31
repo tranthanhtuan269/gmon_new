@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <base href="{{ url('/') }}" target="_blank">
+    <base href="{{ url('/') }}" target="_self">
     <title>{{ config('app.name', 'Gmon') }}</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -33,8 +33,8 @@
                                 <div class="row">
                                     <div class="link-left">
                                         <a target="_self" href="{{ url('/') }}"><i></i>Trang chủ</a>
-                                        <a target="_self" href=""><i></i>Việc làm</a>
-                                        <a target="_self" href=""><i></i>Nhà tuyển dụng</a>
+                                        <a target="_self" href="{{ url('/') }}/showmore?job=new"><i></i>Việc làm</a>
+                                        <a target="_self" href="{{ url('/') }}/showmore?company=new"><i></i>Nhà tuyển dụng</a>
                                     </div>
                                     <div class="login">
                                         @if (Auth::guest())
@@ -57,12 +57,6 @@
                                                             <div id="register" class="tab-pane fade">
                                                                 <h3>ĐĂNG KÝ TÀI KHOẢN GMON NGAY !</h3>
                                                                 <form method="post">
-                                                                    <!-- <div class="row text-center">
-                                                                        <p>Tiếp tục với</p>
-                                                                        <a target="_self" href="#" class="facebook"><i></i> Facebook</a>
-                                                                        <a target="_self" href="#" class="google"><i></i> Google</a>
-                                                                        <span class="col-md-12" style="display: inline-block;margin-bottom: 30px"><hr style="float: left;width: 40%;margin-top: 25px">Hoặc<hr style="float: right;width: 40%;margin-top: 25px"></span>
-                                                                    </div> -->
                                                                     <div class="row">
                                                                         <div class="col-md-6 form-group ">
                                                                             <input type="text" class="form-control" id="firstname" placeholder="Họ" required autofocus><span class="required">*</span>
@@ -181,12 +175,25 @@
         <div class="container info-page">
             <div class="main-menu row">
                 <div class="slide"><img src="http://test.gmon.com.vn/?image={{ $company->banner }}" width="100%" height="auto" alt=""><img class="img-thumbnail logo" src="http://test.gmon.com.vn/?image={{ $company->logo }}" alt="" width="250" height="250"></div>
-                <p class="menu">
+                <div class="menu">
                     <a target="_self" href="{{ url('/') }}/company/{{ $company->id }}/info" class="active"dụng>Thông Tin</a>
                     <a target="_self" href="{{ url('/') }}/company/{{ $company->id }}/listjobs">Tuyển Dụng</a>
+                    @if(false)
                     <button type="button" class="btn btn-primary" id="follow-btn" @if($followed) style="display: none;" @else style="display: block;" @endif><i></i>Theo dõi</button>
                     <button type="button" class="btn btn-danger" id="unfollow-btn" @if($followed) style="display: block;" @else style="display: none;" @endif><i></i>Bỏ theo dõi</button>
-                </p>
+                    @else
+                    <div class="btn-group pull-right">
+                      <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Thay đổi giao diện <span class="caret"></span>
+                      </button>
+                      <ul class="dropdown-menu">
+                        <li><a href="{{ url('/') }}/company/{{ $company->id }}/view01">Giao diện 1</a></li>
+                        <li><a href="{{ url('/') }}/company/{{ $company->id }}/view02">Giao diện 2</a></li>
+                        <li><a href="{{ url('/') }}/company/{{ $company->id }}/view03">Giao diện 3</a></li>
+                      </ul>
+                    </div>
+                    @endif
+                </div>
             </div>
             <div class="main-content row">
                 <div class="col-left col-md-9 col-xs-12">
@@ -449,15 +456,13 @@
                 <div class="footer-top row">
                     <div class="col-md-4 col-xs-6 footer-col">
                         <p class="title">về gmon</p>
-                        <p><a target="_self" href="">Giới thiệu</a></p>
-                        <p><a target="_self" href="">Việc làm</a></p>
-                        <p><a target="_self" href="">Nhà tuyển dụng</a></p>
-                        <p><a target="_self" href="">Hồ sơ ứng viên</a></p>
-                        <p><a target="_self" href="">Nhà tuyển dụng</a></p>
+                        <p><a target="_self" href="{{ url('/') }}">Giới thiệu</a></p>
+                        <p><a target="_self" href="{{ url('/') }}/showmore?job=new">Việc làm</a></p>
+                        <p><a target="_self" href="{{ url('/') }}/showmore?company=new">Nhà tuyển dụng</a></p>
+                        <p><a target="_self" href="{{ url('/') }}/showmore?cv=vip">Hồ sơ ứng viên</a></p>
                     </div>
                     <div class="col-md-3 col-xs-6 footer-col">
                         <p class="title">công cụ</p>
-                        <p><a target="_self" href="">Hồ sơ</a></p>
                         <p><a target="_self" href="">Việc làm của tôi</a></p>
                         <p><a target="_self" href="">Thông báo việc làm</a></p>
                         <p><a target="_self" href="">Phản hồi</a></p>
@@ -472,13 +477,13 @@
                         </p>
                     </div>
                 </div>
+
                 <div class="footer-bot row">
                     <div class="col-md-8">
-                        <p>Công ty cổ phần Giải pháp và công nghệ GMon</p>
-                        <p>Địa chỉ: Tầng 8 - Tòa nhà Trần Phú - số 17 tổ 24 đường Dương Đình Nghệ - P.Yên Hòa - Q.Cầu Giấy - Hà Nội</p>
+                        <p>Công ty cổ phần giải pháp và công nghệ Gmon</p>
+                        <p>Địa chỉ: P801 - Tòa nhà Trần Phú, số 17 tổ 24 Dương Đình Nghệ - P. Yên Hòa - Q. Cầu Giấy, Hà Nội</p>
                         <p>Điện thoại: 0243.212.1515</p>
-                        <p>Email nhà tuyển dụng: vieclamhn@gmon.vnEmail nhà tuyển dụng</p>
-                        <p>Email ứng viên: tuyendunghn@gmon.vn</p>
+                        <p>Email: vieclamhn@gmon.vn, tuyendunghn@gmon.com</p>
                     </div>
                     <div class="col-md-4">
                         <p style="margin-top: 15px">&#64; 2016-2017 Gmon.vn,inc. All rights reserved</p>

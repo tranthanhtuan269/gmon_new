@@ -57,12 +57,6 @@
                                                             <div id="register" class="tab-pane fade">
                                                                 <h3>ĐĂNG KÝ TÀI KHOẢN GMON NGAY !</h3>
                                                                 <form method="post">
-                                                                    <!-- <div class="row text-center">
-                                                                        <p>Tiếp tục với</p>
-                                                                        <a target="_self" href="#" class="facebook"><i></i> Facebook</a>
-                                                                        <a target="_self" href="#" class="google"><i></i> Google</a>
-                                                                        <span class="col-md-12" style="display: inline-block;margin-bottom: 30px"><hr style="float: left;width: 40%;margin-top: 25px">Hoặc<hr style="float: right;width: 40%;margin-top: 25px"></span>
-                                                                    </div> -->
                                                                     <div class="row">
                                                                         <div class="col-md-6 form-group ">
                                                                             <input type="text" class="form-control" id="firstname" placeholder="Họ" required autofocus><span class="required">*</span>
