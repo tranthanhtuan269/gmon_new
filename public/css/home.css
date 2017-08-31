@@ -51,7 +51,7 @@
 .homepage header .header-mid .city{display: inline-block;margin-top: 7px}
 .homepage header .header-mid .city a{margin-right: 40px;color:#0d3655;font-size: 12px;font-weight: 600;display: inline-block;}
 .homepage header .header-mid .city a:hover{color:#437cbd;}
-.homepage header .header-mid .col-md-9{padding-right: 0}
+.homepage header .header-mid .col-md-9{padding-right: 15px; padding-top: 15px; padding-bottom: 5px; border-radius: 6px;}
 .homepage header .header-mid form input{display: inline;padding:8px 10px;border-radius: 4px;border:1px solid #D8D6D6;margin-right: 5px;float: none;margin-top: 10px}
 .homepage header .header-mid form input::placeholder{color:#C3C3C3;}
 .homepage header .header-mid form select{background-color: transparent;height: 40px;border-radius: 4px;border:1px solid #D8D6D6;;margin-right: 5px;color:#929497;padding:5px 10px;}
