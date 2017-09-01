@@ -661,7 +661,7 @@
                                             for($i = 0; $i < count($qualifications); $i++){
                                                 $quals = json_decode($qualifications[$i]);
                                                 ?>
-                                                <label for="ten_ky_nang" data-json="{{ $qualifications[$i] }}" class="col-md-4 qualification-holder" id="qualification-{{ $i }}"><div class="col-md-12"> - Thông thạo <span class="ky-nang">{{ $quals->ten_ky_nang }}</span><span class="qualification-delete" id="qualification-delete-{{ $i }}">&nbsp;x&nbsp;</span></div></label>
+                                                <label for="ten_ky_nang" data-json="{{ $qualifications[$i] }}" class="col-md-4 qualification-holder" id="qualification-{{ $i }}"><div class="col-md-12"> - <span class="ky-nang">{{ $quals->ten_ky_nang }}</span><span class="qualification-delete" id="qualification-delete-{{ $i }}">&nbsp;x&nbsp;</span></div></label>
                                     <?php
                                             }
                                         }
