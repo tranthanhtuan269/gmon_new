@@ -28,7 +28,6 @@
                             'files' => true
                         ]) !!}
 
-                        <script src="https://cdn.ckeditor.com/4.7.2/standard/ckeditor.js"></script>
                             <div class="form-group {{ $errors->has('title') ? 'has-error' : ''}}">
                                 {!! Form::label('title', 'Title', ['class' => 'col-md-2 control-label']) !!}
                                 <div class="col-md-10">
