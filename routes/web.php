@@ -111,4 +111,4 @@ Route::group(['middleware' => ['auth', 'roles'], 'roles' => 'master'], function 
 });
 Route::resource('branch', 'BranchController');
 Route::resource('master/category', 'CategoryController');
-Route::resource('master/post', 'PostController');
+Route::resource('post', 'PostController');

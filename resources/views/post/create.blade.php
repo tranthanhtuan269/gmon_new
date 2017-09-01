@@ -9,7 +9,7 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">Create New Post</div>
                     <div class="panel-body">
-                        <a href="{{ url('/master/post') }}" title="Back"><button class="btn btn-warning btn-xs"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>
+                        <a href="{{ url('/post') }}" title="Back"><button class="btn btn-warning btn-xs"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>
                         <br />
                         <br />
 
@@ -21,7 +21,7 @@
                             </ul>
                         @endif
 
-                        {!! Form::open(['url' => '/master/post', 'class' => 'form-horizontal', 'files' => true]) !!}
+                        {!! Form::open(['url' => '/post', 'class' => 'form-horizontal', 'files' => true]) !!}
 
                         @include ('post.form')
 
