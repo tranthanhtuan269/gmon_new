@@ -143,7 +143,7 @@ class PostController extends Controller
 
         Session::flash('flash_message', 'Post updated!');
 
-        return redirect('master/post');
+        return redirect('post');
     }
 
     /**
