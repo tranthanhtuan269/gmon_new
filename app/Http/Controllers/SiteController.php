@@ -37,6 +37,8 @@ class SiteController extends Controller
             }else{
                 return \Response::json(array('code' => '404', 'message' => 'unsuccess'));
             }
+        }else{
+            return \Response::json(array('code' => '201', 'message' => 'Email đã tồn tại'));
         }
     }
 }

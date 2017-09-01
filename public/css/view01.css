@@ -316,12 +316,12 @@ footer{width: 100%;margin-top: 100px;border-top: 3px solid #2A70B8}
 	bottom: -44%;
 }*/
 .gmon-move .move-info{
-	margin-top:2%;
+	margin-top:1%;
 	padding-left: 3%;
 }
 .gmon-move .move-info h4{
 	font-weight: bold;
-	font-size: 3.3vmin;
+	/*font-size: 3.3vmin;*/
 }
 .gmon-move .move-info .btn-follow{
 	font-size: 16px
@@ -454,4 +454,25 @@ footer{width: 100%;margin-top: 100px;border-top: 3px solid #2A70B8}
     -webkit-box-shadow: -1px -1px 1px #b7b5b9;
     -o-box-shadow: -1px -1px 1px #b7b5b9;
     -ms-box-shadow: -1px -1px 1px #b7b5b9;
+}
+
+ul li div{
+
+}
+
+#select-template{
+	margin-right: 15px;
+	margin-top: 5px;
+}
+
+#select-template ul li{
+    width: 100%;
+    padding: 8px 12px;
+}
+
+#select-template ul li:hover{
+    background-color: #eee;
+}
+#select-template ul li div.select-template{
+    width: 100%;
 }

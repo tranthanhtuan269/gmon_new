@@ -309,3 +309,15 @@ img.no-vote{
 .text-upper{
     text-transform: uppercase;
 }
+
+#select-template ul li{
+    width: 100%;
+    padding: 8px 12px;
+}
+
+#select-template ul li:hover{
+    background-color: #eee;
+}
+#select-template ul li div.select-template{
+    width: 100%;
+}

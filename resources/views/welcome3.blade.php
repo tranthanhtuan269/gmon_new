@@ -462,12 +462,13 @@
     }
 
     function loginFunc(){
+      $('#login-message').html('');
       var loginEmail = $('#login-email').val();
       var loginPassword = $('#login-password').val();
       if(loginEmail.length == 0){
-          $('#login-message').val('Email rỗng!');
+          $('#login-message').html('Email rỗng!');
       }else if(loginPassword.length == 0){
-          $('#login-message').val('Password rỗng!');
+          $('#login-message').html('Password rỗng!');
       }else{
           var request = $.ajax({
               headers: {
@@ -487,7 +488,8 @@
                   location.reload();
                   // window.location.replace("{{ url('/') }}");
               }else{
-                  $('#login-message').val('Tài khoản không tồn tại!');
+                  $('#login-message').html('Tài khoản không tồn tại!');
+                  $('#login-message').show();
               }
           });
 
@@ -506,22 +508,22 @@
       var rPassword = $('#r_password').val();
       var role = $('#areyou').val();
       if (registerPassword != rPassword) {
-          $('#register-message').val('Password được đánh lại chưa chính xác!');
+          $('#register-message').html('Password được đánh lại chưa chính xác!');
           return false;
       }else if(username.length == 0){
-          $('#register-message').val('Username rỗng!');
+          $('#register-message').html('Username rỗng!');
           return false;
       }else if(registersdt.length == 0){
-          $('#register-message').val('Số điện thoại rỗng!');
+          $('#register-message').html('Số điện thoại rỗng!');
           return false;
       }else if(registerEmail.length == 0){
-          $('#register-message').val('Email rỗng!');
+          $('#register-message').html('Email rỗng!');
           return false;
       }else if(registerPassword.length == 0){
-          $('#register-message').val('Password rỗng!');
+          $('#register-message').html('Password rỗng!');
           return false;
       }else if(role == 0){
-          $('#register-message').val('Bạn chưa chọn vai trò của bạn!');
+          $('#register-message').html('Bạn chưa chọn vai trò của bạn!');
           return false;
       }else{
           var request = $.ajax({
@@ -541,11 +543,13 @@
           });
 
           request.done(function (msg) {
-              if (msg.code == 200) {
+              if(msg.code == 200) {
                   location.reload();
                   // window.location.replace("{{ url('/') }}");
+              }else if(msg.code == 201) {
+                  $('#register-message').html('Email của bạn đã có người sử dụng!');
               }else{
-                  $('#register-message').val('Email của bạn đã có người sử dụng!');
+                  $('#register-message').html('Đăng ký bị lỗi! <br /> Xin hãy liên hệ quản trị viên');
               }
           });
 

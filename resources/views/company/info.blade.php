@@ -182,14 +182,15 @@
                     <button type="button" class="btn btn-primary" id="follow-btn" @if($followed) style="display: none;" @else style="display: block;" @endif><i></i>Theo dõi</button>
                     <button type="button" class="btn btn-danger" id="unfollow-btn" @if($followed) style="display: block;" @else style="display: none;" @endif><i></i>Bỏ theo dõi</button>
                     @else
-                    <div class="btn-group pull-right">
+                    <div class="btn-group pull-right" id="select-template">
                       <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Thay đổi giao diện <span class="caret"></span>
                       </button>
                       <ul class="dropdown-menu">
-                        <li><a href="{{ url('/') }}/company/{{ $company->id }}/view01">Giao diện 1</a></li>
-                        <li><a href="{{ url('/') }}/company/{{ $company->id }}/view02">Giao diện 2</a></li>
-                        <li><a href="{{ url('/') }}/company/{{ $company->id }}/view03">Giao diện 3</a></li>
+                        <li><div id="select-template-0" class="select-template" on-click="changeTemplate(0)">Giao diện mặc định</a></li>
+                        <li><div id="select-template-1" class="select-template" on-click="changeTemplate(1)">Giao diện 1</a></li>
+                        <li><div id="select-template-2" class="select-template" on-click="changeTemplate(2)">Giao diện 2</a></li>
+                        <li><div id="select-template-3" class="select-template" on-click="changeTemplate(3)">Giao diện 3</a></li>
                       </ul>
                     </div>
                     @endif
