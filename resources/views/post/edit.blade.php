@@ -54,7 +54,7 @@
                                 {!! Form::label('image', 'Image', ['class' => 'col-md-2 control-label']) !!}
                                 <div class="col-md-10">
                                     @if($post->image)
-                                    <img src="{{ url('/') }}/public/images/{{ $post->image }}" id="avatar-image" class="img" style="background-color: #fff; border: 2px solid gray; border-radius: 5px; width: 100%; height: 300px;">
+                                    <img src="http://test.gmon.com.vn/?image={{ $post->image }}" id="avatar-image" class="img" style="background-color: #fff; border: 2px solid gray; border-radius: 5px; width: 100%; height: 300px;">
                                     @else
                                     <img src="http://test.gmon.com.vn/?image=anh_dai_dien.jpg" id="avatar-image" class="img" style="background-color: #fff; border: 2px solid gray; border-radius: 5px; width: 100%; height: 300px;">
                                     @endif

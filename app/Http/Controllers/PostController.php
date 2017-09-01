@@ -78,7 +78,7 @@ class PostController extends Controller
 
         Session::flash('flash_message', 'Post added!');
 
-        return redirect('master/post');
+        return redirect('post');
     }
 
     /**
@@ -159,6 +159,6 @@ class PostController extends Controller
 
         Session::flash('flash_message', 'Post deleted!');
 
-        return redirect('master/post');
+        return redirect('post');
     }
 }
