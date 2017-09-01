@@ -26,13 +26,6 @@ CKEDITOR.editorConfig = function( config ) {
 		{ name: 'about' }
 	];
 
-	config.filebrowserBrowseUrl = '../public/templateEditor/kcfinder/browse.php?opener=ckeditor&type=files';
-    config.filebrowserImageBrowseUrl = '../public/templateEditor/kcfinder/browse.php?opener=ckeditor&type=images';
-    config.filebrowserFlashBrowseUrl = '../public/templateEditor/kcfinder/browse.php?opener=ckeditor&type=flash';
-    config.filebrowserUploadUrl = '../public/templateEditor/kcfinder/upload.php?opener=ckeditor&type=files';
-    config.filebrowserImageUploadUrl = '../public/templateEditor/kcfinder/upload.php?opener=ckeditor&type=images';
-    config.filebrowserFlashUploadUrl = '../public/templateEditor/kcfinder/upload.php?opener=ckeditor&type=flash';
-
 	// Remove some buttons provided by the standard plugins, which are
 	// not needed in the Standard(s) toolbar.
 	config.removeButtons = 'Underline,Subscript,Superscript';
