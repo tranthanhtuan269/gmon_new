@@ -460,6 +460,7 @@ class CompanyController extends Controller {
                         'companies.sologan', 
                         'companies.description',
                         'companies.images',
+                        'companies.template',
                         'users.phone as hotline'
                 )
                 ->where('companies.id', $id)
@@ -480,7 +481,17 @@ class CompanyController extends Controller {
 
             $star = intval($totalStar / $numberComment);
 
-            return view('company.info', array('company' => $company, 'company_id' => $company_id, 'cv_id' => $cv_id, 'followed' => $followed, 'comments' => $comments, 'votes' => $star));
+            if($company->template == 0){
+                return view('company.info', array('company' => $company, 'company_id' => $company_id, 'cv_id' => $cv_id, 'followed' => $followed, 'comments' => $comments, 'votes' => $star));
+            }else if($company->template == 1){
+                return view('company.view01', array('company' => $company, 'company_id' => $company_id, 'cv_id' => $cv_id, 'followed' => $followed, 'comments' => $comments, 'votes' => $star));
+            }else if($company->template == 2){
+                return view('company.view02', array('company' => $company, 'company_id' => $company_id, 'cv_id' => $cv_id, 'followed' => $followed, 'comments' => $comments, 'votes' => $star));
+            }else if($company->template == 3){
+                return view('company.view03', array('company' => $company, 'company_id' => $company_id, 'cv_id' => $cv_id, 'followed' => $followed, 'comments' => $comments, 'votes' => $star));
+            }else{
+                return view('company.info', array('company' => $company, 'company_id' => $company_id, 'cv_id' => $cv_id, 'followed' => $followed, 'comments' => $comments, 'votes' => $star));
+            }
         }
         return view('errors.404');
     }
@@ -683,6 +694,21 @@ class CompanyController extends Controller {
         if ($follow) {
             if ($follow->delete()) {
                 return \Response::json(array('code' => '200', 'message' => 'success', 'follow' => $follow));
+            } else {
+                return \Response::json(array('code' => '404', 'message' => 'unsuccess'));
+            }
+        }
+    }
+
+    public function changeTemplate(Request $request) {
+        $input = $request->all();
+        $current_id = \Auth::user()->id;
+
+        $company = Company::where('user', $current_id)->first();
+        if ($company && $input['template']) {
+            $company->template = $input['template'];
+            if ($company->save()) {
+                return \Response::json(array('code' => '200', 'message' => 'success'));
             } else {
                 return \Response::json(array('code' => '404', 'message' => 'unsuccess'));
             }

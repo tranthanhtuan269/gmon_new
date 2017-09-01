@@ -187,10 +187,10 @@
                         Thay đổi giao diện <span class="caret"></span>
                       </button>
                       <ul class="dropdown-menu">
-                        <li><div id="select-template-0" class="select-template" on-click="changeTemplate(0)">Giao diện mặc định</a></li>
-                        <li><div id="select-template-1" class="select-template" on-click="changeTemplate(1)">Giao diện 1</a></li>
-                        <li><div id="select-template-2" class="select-template" on-click="changeTemplate(2)">Giao diện 2</a></li>
-                        <li><div id="select-template-3" class="select-template" on-click="changeTemplate(3)">Giao diện 3</a></li>
+                        <li><div class="select-template" data-id="0">Giao diện mặc định</a></li>
+                        <li><div class="select-template" data-id="1">Giao diện 1</a></li>
+                        <li><div class="select-template" data-id="2">Giao diện 2</a></li>
+                        <li><div class="select-template" data-id="3">Giao diện 3</a></li>
                       </ul>
                     </div>
                     @endif
@@ -916,6 +916,34 @@
                             'email': registerEmail,
                             'phone': registersdt,
                             'role': role
+                        },
+                        dataType: "json"
+                    });
+
+                    request.done(function (msg) {
+                        if (msg.code == 200) {
+                            location.reload();
+                        }else{
+                            $('#register-message').show();
+                        }
+                    });
+
+                    request.fail(function (jqXHR, textStatus) {
+                        alert("Request failed: " + textStatus);
+                    });
+                });
+
+                $('.select-template').click(function(){
+                    var template_id = $(this).attr('data-id');
+
+                    var request = $.ajax({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        url: "{{ url('/') }}/company/changeTemplate",
+                        method: "POST",
+                        data: {
+                            'template': template_id
                         },
                         dataType: "json"
                     });

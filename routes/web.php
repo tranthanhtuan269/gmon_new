@@ -66,6 +66,7 @@ Route::group(['middleware' => ['auth', 'roles'], 'roles' => 'poster'], function 
     Route::get('company/{id}/view01', 'CompanyController@view01');
     Route::get('company/{id}/view02', 'CompanyController@view02');
     Route::get('company/{id}/view03', 'CompanyController@view03');
+    Route::post('company/changeTemplate', 'CompanyController@changeTemplate');
 });
 
 // Check role in route middleware
@@ -88,6 +89,8 @@ Route::group(['middleware' => ['auth', 'roles'], 'roles' => 'admin'], function (
     Route::resource('Admin/company-size', 'CompanySizeController');
     Route::resource('admin/job', 'JobController');
     Route::resource('admin/salary', 'SalaryController');
+    Route::resource('master/category', 'CategoryController');
+    Route::resource('post', 'PostController');
 });
 
 Route::group(['middleware' => ['auth', 'roles'], 'roles' => 'master'], function () {
@@ -108,7 +111,8 @@ Route::group(['middleware' => ['auth', 'roles'], 'roles' => 'master'], function 
 
     Route::get('apply/admin', 'ApplyController@admin');
     Route::resource('admin/companytype', 'CompanyTypeController');
+
+    Route::resource('master/category', 'CategoryController');
+    Route::resource('post', 'PostController');
 });
 Route::resource('branch', 'BranchController');
-Route::resource('master/category', 'CategoryController');
-Route::resource('post', 'PostController');
