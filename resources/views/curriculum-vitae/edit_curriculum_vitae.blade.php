@@ -412,7 +412,7 @@
                         <div class="panel-body">
                                 <input type="hidden" name="word_experience" id="word_experience" value="">
                             <?php 
-                                if(strlen($cv_user->word_experience) > 0){
+                                if(strlen($cv_user->word_experience) > 1){
                                 $cv_user->word_experience=ltrim($cv_user->word_experience,";");
                                 if(substr($cv_user->word_experience, -1) == ';'){
                                     $cv_user->word_experience=rtrim($cv_user->word_experience,";");
@@ -620,6 +620,7 @@
                             <div class="form-ngon-ngu-group">
                                 <div class="form-group" id="ngoai_ngu_content">
                                 <?php 
+                                    if(strlen($cv_user->language) > 1){
                                     $cv_user->language=ltrim($cv_user->language,";");
                                     $languages = explode(";",$cv_user->language);
                                     for($i = 0; $i < count($languages); $i++){
@@ -628,6 +629,7 @@
                                         <label for="ten_ngoai_ngu" data-json="{{ $languages[$i] }}" class="col-md-4 language-json" id="language-{{ $i }}"><div class="col-md-12"> - <span class="ngoai-ngu">{{ $langs->ten_ngoai_ngu }}</span> - Trình độ: <span class="trinh-do-ngoai-ngu">{{ $langs->trinh_do_ngoai_ngu }}</span><span class="language-delete" id="language-delete-{{ $i }}">&nbsp;x&nbsp;</span></div></label>
                                 <?php
                                     }
+                                }
                                 ?>
 
                                 </div>
