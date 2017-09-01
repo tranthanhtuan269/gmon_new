@@ -231,14 +231,14 @@
                                     {!! $errors->first('town', '<p class="help-block">:message</p>') !!}
                                 </div>
                             </div>
-                            <div class="form-group {{ $errors->has('salary') ? 'has-error' : ''}}">
+                            <!-- <div class="form-group {{ $errors->has('salary') ? 'has-error' : ''}}">
                                 {!! Form::label('birthday', 'Mức lương', ['class' => 'col-md-5 control-label']) !!}
                                 <div class="col-md-7">
                                     <input type="hidden" id="salary" name="salary" value="1">
                                     {!! Form::select('salary', $salaries, $cv_user->salary_want, ['placeholder' => '', 'class' => 'form-control', 'id' => 'salary_select', 'name' => 'salary_select']) !!}
                                     {!! $errors->first('salary', '<p class="help-block">:message</p>') !!}
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                         <div class="col-md-5">
                             <div class="form-group {{ $errors->has('gender') ? 'has-error' : ''}}">
@@ -263,7 +263,7 @@
                                     {!! $errors->first('address', '<p class="help-block">:message</p>') !!}
                                 </div>
                             </div>
-                            <div class="form-group {{ $errors->has('jobs') ? 'has-error' : ''}}">
+                            <!-- <div class="form-group {{ $errors->has('jobs') ? 'has-error' : ''}}">
                                 <div class="col-md-12">
                                     <input type="hidden" id="jobs" name="jobs" value="">
                                     <select class="form-control selectpicker" multiple title="Chọn Thời gian làm việc">
@@ -273,7 +273,7 @@
                                     </select>
                                     {!! $errors->first('jobs', '<p class="help-block">:message</p>') !!}
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                         <div class="col-md-12">
                             <div class="form-group {{ $errors->has('jobs') ? 'has-error' : ''}}">
