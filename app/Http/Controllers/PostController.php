@@ -64,8 +64,8 @@ class PostController extends Controller
             $filename = $file_avatar->getClientOriginalName();
             $extension = $file_avatar->getClientOriginalExtension();
             $img_avatar = date('His') . $filename;
-            // $destinationPath = base_path('../../images');
-            $destinationPath = base_path() . '/public/images';
+            $destinationPath = base_path('../../images');
+            // $destinationPath = base_path() . '/public/images';
             $file_avatar->move($destinationPath, $img_avatar);
         }
 
@@ -126,8 +126,8 @@ class PostController extends Controller
             $filename = $file_avatar->getClientOriginalName();
             $extension = $file_avatar->getClientOriginalExtension();
             $img_avatar = date('His') . $filename;
-            // $destinationPath = base_path('../../images');
-            $destinationPath = base_path() . '/public/images';
+            $destinationPath = base_path('../../images');
+            // $destinationPath = base_path() . '/public/images';
             $file_avatar->move($destinationPath, $img_avatar);
         }
 

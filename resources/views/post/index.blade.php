@@ -44,7 +44,7 @@
                                     <tr>
                                         <td>{{ $item->id }}</td>
                                         <td>{{ $item->title }}</td>
-                                        <td><img src="{{ url('/') }}/public/images/{{ $item->image }}" height="300" width="100%"></td>
+                                        <td><img src="http://test.gmon.com.vn/?image={{ $item->image }}" height="300" width="100%"></td>
                                         <td>{{ $item->views }}</td>
                                         <td>{{ $item->likes }}</td>
                                         <td>{{ $item->categoryName }}</td>
