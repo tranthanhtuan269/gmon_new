@@ -704,7 +704,7 @@
                     </div>
 
                     <div class="panel panel-default">
-                        <div class="panel-heading">Thêm ảnh về bản thân</div>
+                        <div class="panel-heading">Thêm ảnh ngoại khóa</div>
                         <div class="panel-body">
                             <div class="form-group {{ $errors->has('images') ? 'has-error' : ''}}">
                                 <div class="col-md-12">

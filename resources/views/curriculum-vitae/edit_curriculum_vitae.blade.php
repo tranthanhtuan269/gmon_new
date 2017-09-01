@@ -192,7 +192,6 @@
                         @endforeach
                     </ul>
                     @endif
-
                     {!! Form::open(['url' => 'curriculumvitae/update/'. $cv_user->id, 'method' => 'POST', 'class' => 'form-horizontal', 'files' => true, 'id' => 'update-curriculum-vitae']) !!}
                     <div class="row">
                         <div class="col-md-2">
@@ -221,14 +220,14 @@
                             <div class="form-group {{ $errors->has('city') ? 'has-error' : ''}}">
                                 {!! Form::label('city', 'Tỉnh / Thành phố', ['class' => 'col-md-5 control-label']) !!}
                                 <div class="col-md-7">
-                                    {!! Form::select('city', $cities, $cv_user->city, ['placeholder' => '', 'class' => 'form-control']) !!}
+                                    {!! Form::select('city', $cities, $cv_user->city_id, ['placeholder' => '', 'class' => 'form-control']) !!}
                                     {!! $errors->first('city', '<p class="help-block">:message</p>') !!}
                                 </div>
                             </div>
                             <div class="form-group {{ $errors->has('town') ? 'has-error' : ''}}">
                                 {!! Form::label('town', 'Xã / Phường', ['class' => 'col-md-5 control-label']) !!}
                                 <div class="col-md-7">
-                                    {!! Form::select('town', $towns, $cv_user->town, ['placeholder' => '', 'class' => 'form-control']) !!}
+                                    {!! Form::select('town', $towns, $cv_user->town_id, ['placeholder' => '', 'class' => 'form-control']) !!}
                                     {!! $errors->first('town', '<p class="help-block">:message</p>') !!}
                                 </div>
                             </div>
@@ -253,7 +252,7 @@
                             <div class="form-group {{ $errors->has('district') ? 'has-error' : ''}}">
                                 {!! Form::label('district', 'Quận / Huyện', ['class' => 'col-md-5 control-label']) !!}
                                 <div class="col-md-7">
-                                    {!! Form::select('district', $districts, $cv_user->district, ['placeholder' => '', 'class' => 'form-control', 'id' => 'district']) !!}
+                                    {!! Form::select('district', $districts, $cv_user->district_id, ['placeholder' => '', 'class' => 'form-control', 'id' => 'district']) !!}
                                     {!! $errors->first('district', '<p class="help-block">:message</p>') !!}
                                 </div>
                             </div>
@@ -786,7 +785,7 @@
                     </div>
 
                     <div class="panel panel-default">
-                        <div class="panel-heading">Thêm ảnh về bản thân</div>
+                        <div class="panel-heading">Thêm ảnh ngoại khóa</div>
                         <div class="panel-body">
                             <div class="form-group {{ $errors->has('images') ? 'has-error' : ''}}">
                                 <div class="col-md-12">
