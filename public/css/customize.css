@@ -321,3 +321,18 @@ img.no-vote{
 #select-template ul li div.select-template{
     width: 100%;
 }
+
+.homepage header .header-mid{
+    margin-top: 0;
+    padding-top: 6%;
+    background-image:url('../images/U1-02.jpg');
+    background-repeat:no-repeat;
+    background-size:contain;
+    background-position:center;
+}
+
+.homepage header .header-mid .search-form{
+    background-color: rgba(255,255,255,0.8);
+    padding-top: 30px; padding-right: 18px;
+    border-radius: 6px;
+}
