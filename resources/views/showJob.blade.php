@@ -8,7 +8,7 @@
                     <div class="col-md-3">
                         <a target="_self" href="" class="logo row"><img src="http://test.gmon.com.vn/?image=home.png" alt=""></a>
                     </div>
-                    <div class="col-md-9" style="background-color:rgba(255, 255, 255, 0.9);">
+                    <div class="col-md-9" style="margin-top: 30px">
                         <div class="">
                             <div class="col-md-9">
                                 <form class="search">
@@ -173,49 +173,18 @@
                 <div class="content_hot">
                     <h4>VIỆC LÀM HOT</h4>
                     <ul>
+                        @foreach($jobsvip as $jobvip)
                         <li>
-                            <a href="#">
+                            <a href="{{ url('/') }}/job/view/{{ $job->id }}">
                             <span class="wp-avatar-mini">
-                                    <img src="{{ url('/') }}/public/images/khanhlinh.png" alt="">
+                                <img src="http://test.gmon.com.vn/?image={{ $jobvip->logo }}" alt="">
                             </span>
-                            <p class="title-content-right">Nhân viên phục vụ tại nhà hàng Cơm Thố</p>
+                            <p class="title-content-right">{{ $jobvip->name }} tại {{ $jobvip->companyname }}</p>
                             </a>
                         </li>
-                        <li>
-                            <a href="#">
-                            <span class="wp-avatar-mini">
-                                    <img src="{{ url('/') }}/public/images/khanhlinh.png" alt="">
-                            </span>
-                            <p class="title-content-right">Nhân viên phục vụ tại nhà hàng Cơm Thố</p>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                            <span class="wp-avatar-mini">
-                                    <img src="{{ url('/') }}/public/images/khanhlinh.png" alt="">
-                            </span>
-                            <p class="title-content-right">Nhân viên phục vụ tại nhà hàng Cơm Thố</p>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                            <span class="wp-avatar-mini">
-                                    <img src="{{ url('/') }}/public/images/khanhlinh.png" alt="">
-                            </span>
-                            <p class="title-content-right">Nhân viên phục vụ tại nhà hàng Cơm Thố</p>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                            <span class="wp-avatar-mini">
-                                    <img src="{{ url('/') }}/public/images/khanhlinh.png" alt="">
-                            </span>
-                            <p class="title-content-right">Nhân viên phục vụ tại nhà hàng Cơm Thố</p>
-                            </a>
-                        </li>
+                        @endforeach
                     </ul>
                 </div>
-                @if(false)
                 <div class="ads">
                     <div class="ads-top"><a href=""><img src="{{ url('/') }}/public/images/ads.png" alt=""></a></div>
                     <div class="ads-bot">
@@ -267,7 +236,6 @@
                         </li>
                     </ul>
                 </div>
-                @endif
             </div>
         </div>
     </div>

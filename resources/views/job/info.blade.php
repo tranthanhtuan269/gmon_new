@@ -245,7 +245,7 @@
                     <p class="time-new-roman"><i class="master-point"></i><span style="margin-right: 35px">
                     {{ $company->district }}, {{ $company->city }}
                     </span>
-                    <a target="_self" href="" style="color:#2a70b8;display: inline-block;" class="underline">Xem bản đồ <i class="muiten"></i></a></p>
+                    <a target="_self" href="" style="color:#2a70b8;display: inline-block; display: none;" class="underline">Xem bản đồ <i class="muiten"></i></a></p>
                     @if(strlen($job->branches) > 0)
                         <?php 
                             $job->branches = ltrim($job->branches,";");

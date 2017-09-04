@@ -3,13 +3,15 @@ body{background-color: #f5f8fa !important;font-family: 'Noto Sans', sans-serif;}
 img.vote{
     padding: 8px;
     background-color: blue;
-    border-radius: 6px;
+    border-radius: 50%;
+    opacity: 1;
 }
 
 img.no-vote{
     padding: 8px;
     background-color: #bbb;
-    border-radius: 6px;
+    border-radius: 50%;
+    opacity: .1;
 }
 
 /*#unfollow-btn{
@@ -161,8 +163,8 @@ img.no-vote{
 }
 
 .show-curriculum-vitae-page .cv-btn-holder .btn{
-    margin: 4px;
-    padding: 6px 19px;
+    margin: 4px 2px;
+    font-size: 12px;
 }
 
 .show-curriculum-vitae-page .cv-rate-holder {
@@ -304,17 +306,18 @@ img.no-vote{
 .job-content a.job-view{font-weight: bold;position: absolute;bottom: 15px;right: 20px}
 .job-content a.job-view::after{content:"";margin-left: 10px;width:20px;height: 15px;display:inline-block;background: url("../images/bg.png") -38px 0px;margin-bottom: -3px}
 
-.homepage header .header-mid{
-    margin-top: 0;
-    padding-top: 6%;
-    background-image:url('../images/U1-02.jpg');
-    background-repeat:no-repeat;
-    background-size:contain;
-    background-position:center;
+.text-upper{
+    text-transform: uppercase;
 }
 
-.homepage header .header-mid .search-form{
-    background-color: rgba(255,255,255,0.8);
-    padding-top: 30px; padding-right: 18px;
-    border-radius: 6px;
+#select-template ul li{
+    width: 100%;
+    padding: 8px 12px;
+}
+
+#select-template ul li:hover{
+    background-color: #eee;
+}
+#select-template ul li div.select-template{
+    width: 100%;
 }
