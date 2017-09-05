@@ -1124,7 +1124,8 @@ header .top-menu-mobile .right .fa {
 .main-content-news .right {
     background: #fff;
     border: 1px solid hsla(0, 0%, 80%, .5);
-    border-radius: 3px
+    border-radius: 3px;
+    display: inline-table;
 }
 
 .main-content-news .right h3 {
@@ -1158,7 +1159,8 @@ header .top-menu-mobile .right .fa {
 
 .main-content-news .right .item .image .logo img {
     width: 100px;
-    height: 100px
+    height: 100px;
+    border-radius: 50%;
 }
 
 .main-content-news .right .item .image img {

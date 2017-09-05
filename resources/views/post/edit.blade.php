@@ -74,8 +74,9 @@
                                     {!! Form::submit('Update', ['class' => 'btn btn-primary']) !!}
                                 </div>
                             </div>
-
+                            <script src="{{ url('/') }}/public/templateEditor/ckeditor/ckeditor.js"></script>
                             <script>
+                                CKEDITOR.replace( 'sub_description' );
                                 CKEDITOR.replace( 'description' );
                             </script>
 
