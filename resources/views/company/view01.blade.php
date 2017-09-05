@@ -199,59 +199,94 @@
                 </div>
         </div>
         <div class="move-txt">
-            <p>{{ $company->description }}</p>
+            <p><?php echo $company->description; ?></p>
         </div>
     </div>
     <div class="container">
         <div class="row gmon-info">
-            <div><table class="table-bordered col-md-9 col-lg-9 clearfix">
-                    <tr>
-                        <td>
-                            <a href="Info.html"><button type="button" class="btn btn-info">THÔNG TIN</button></a>
-                            <span> | </span>
-                            <a href="Employ.html"><button type="button" class="btn btn-primary">TUYỂN DỤNG</button></a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="workplace-title">
-                                <span>NƠI BẠN SẼ LÀM VIỆC </span>
-                                <img src="{{ url('/') }}/public/images/circle.png">
+            <div class="col-md-9 col-lg-9 content-company">
+                <div class="nav nav-tabs" role="tablist">
+                    <button role="presentation" class="btn btn-warning"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Home</a></button>
+                    <span> | </span>
+                    <button role="presentation" class="btn btn-primary"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Profile</a></button>
+                </div>
+                <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane active" id="home">
+                        <div class="workplace-title">
+                            <span>NƠI BẠN SẼ LÀM VIỆC </span>
+                            <img src="{{ url('/') }}/public/images/circle.png">
+                        </div>
+                        <div class="row workplace-img">
+                            <div class="col-md-6 col-lg-6">
+                                <img src="{{ url('/') }}/public/images/room1.png">
                             </div>
-                            @if(strlen($company->images)>0)
-                            <div class="row workplace-img">
-                                <?php      
-                                    $imageString=rtrim($company->images,";");
-                                    $images = explode(";",$imageString);
-                                    $i = 0;
-                                    foreach ($images as $image) {
-                                        if($i == 2) break;
-                                ?>
-                                <div class="col-md-6 col-lg-6">
-                                    <img src="{{ url('/') }}/public/images/{{ $image }}" height="217" width="100%">
-                                </div>
-                                <?php     
-                                    $i++; 
-                                    }
-                                ?>
+                            <div class="col-md-6 col-lg-6">
+                                <img src="{{ url('/') }}/public/images/room2.png">
                             </div>
-                            @endif
-                            @if(strlen($company->youtube_link)>0)
-                            <div class="video">
-                                <span>VIDEO</span>
-                                <div class="embed-responsive embed-responsive-16by9">
-                                  <iframe src="{{ str_replace('watch?v=','embed/',$company->youtube_link) }}" frameborder="0" allowfullscreen></iframe>
-                                </div>
+                        </div>
+                        <div class="video">
+                            <span>VIDEO</span>
+                            <div class="embed-responsive embed-responsive-16by9">
+                              <iframe src="https://www.youtube.com/embed/nrpjNgZCdlM" frameborder="0" allowfullscreen></iframe>
                             </div>
-                            @endif
-                            <div class="map video">
-                                <span>BẢN ĐỒ</span>
-                                <div><iframe class="embed-responsive-item" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d931.0541367990278!2d105.79174358393226!3d21.024019707272046!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xe2d0921dae22414a!2sEleganz+Hanoi!5e0!3m2!1svi!2s!4v1503165789664" width="600" height="350" frameborder="0" style="border:0" allowfullscreen></iframe></div>
+                        </div>
+                        <div class="map video">
+                            <span>BẢN ĐỒ</span>
+                            <div><iframe class="embed-responsive-item" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d931.0541367990278!2d105.79174358393226!3d21.024019707272046!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xe2d0921dae22414a!2sEleganz+Hanoi!5e0!3m2!1svi!2s!4v1503165789664" width="600" height="350" frameborder="0" style="border:0" allowfullscreen></iframe></div>
 
+                        </div>
+                    </div>
+                    <div role="tabpanel" class="tab-pane" id="profile">
+                        @foreach($jobs as $job)
+                        <div class="row employ-info">
+                            <div class="employ-img col-md-2 col-lg-2">
+                                <img src="{{ url('/') }}/public/images/{{ $job->logo }}">
                             </div>
-                        </td>
-                    </tr>
-                </table>
+                            <div class="col-md-10 col-lg-10 clearfix">
+                                <div class="employ-title">
+                                    <a href="{{ url('/') }}/job/view/{{ $job->id }}">{{ $job->name }}</a>
+                                </div>
+                                <div class="employ-content">
+                                    <div>
+                                        <p>
+                                            Mức lương: <span>{{ $job->salary }}</span>
+                                        </p>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-3 col-lg-3">
+                                            <p>Số lượng: <span>{{ $job->number }}</span></p>
+                                        </div>
+                                        <div class="col-md-9 col-lg-9">
+                                            <img src="{{ url('/') }}/public/images/sbicon1.png"> 
+                                            <span>{{ $job->district }}, {{ $job->city }}</span>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-3 col-lg-3">
+                                            <p>Nhận hồ sơ đến hết: </p>
+                                        </div>
+                                        <div class="col-md-9 col-lg-9">
+                                            <img src="{{ url('/') }}/public/images/clockicon.png">
+                                            <span> {{ $job->expiration_date }}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="employ-ft"> 
+                                    <div class="employ-txt">
+                                        <p>Lượt xem: <img src="{{ url('/') }}/public/images/eyeicon.png">
+                                            <span>1024</span>
+                                            <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                            Hồ sơ ứng tuyển: 
+                                            <span>332&nbsp;</span>
+                                            <img src="{{ url('/') }}/public/images/new-employ.png" style="max-width: 60%;">
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @endforeach
+                    </div>
+                </div>
             </div>
             <div class="col-md-3 col-lg-3">
                 <div class="aboutus">
@@ -311,187 +346,6 @@
             </div>
         </div>
     </div>
-    <!-- <div class="container list-info">
-        <div class="new-jobs row">
-            <div class="moreworks clearfix"><span>THÊM NHIỀU CƠ HỘI VIỆC LÀM CHO BẠN</span></div>
-            <div class="wrapper" id="wrapper">
-                <div class="prev" id="btPrevNewJobs"><img src="{{ url('/') }}/public/images/prev.png" alt=""></div>
-                <div class="next"  id="btNextNewJobs"><img src="{{ url('/') }}/public/images/next.png" alt=""></div>
-                <div style="width: 100%;overflow: hidden;display: inline-block;position: relative;">
-                    <div class="contents" id="contents-jobs">
-                        <div class="item-work" >
-                            <div class="border-item">
-                                <a href="">
-                                    <p class="work-img"><img  src="{{ url('/') }}/public/images/nhatuyendung.png" alt=""></p>
-                                    <div class="details">
-                                        <div class="single"><p>Nhân viên pha chế Starbucks Coffee Nhân viên pha chế Starbucks Coffee</p></div>
-                                        <div class="work-view">
-                                            <p class="location"><i></i>Cầu Giấy, Ba Đình, Hà Nội</p>
-                                            <p class="salary"><i></i>2 - 3 triệu</p>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="item-work" >
-                            <div class="border-item">
-                                <a href="">
-                                    <p class="work-img"><img  src="{{ url('/') }}/public/images/nhatuyendung.png" alt=""></p>
-                                    <div class="details">
-                                        <div class="single"><p>Nhân viên pha chế Starbucks Coffee </p></div>
-                                        <div class="work-view">
-                                            <p class="location"><i></i>Cầu Giấy, Ba Đình, Hà Nội</p>
-                                            <p class="salary"><i></i>2 - 3 triệu</p>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="item-work" >
-                            <div class="border-item">
-                                <a href="">
-                                    <p class="work-img"><img  src="{{ url('/') }}/public/images/nhatuyendung.png" alt=""></p>
-                                    <div class="details">
-                                        <div class="single"><p>Nhân viên pha chế Starbucks Coffee Nhân viên pha chế Starbucks Coffee</p></div>
-                                        <div class="work-view">
-                                            <p class="location"><i></i>Cầu Giấy, Ba Đình, Hà Nội</p>
-                                            <p class="salary"><i></i>2 - 3 triệu</p>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="item-work" >
-                            <div class="border-item">
-                                <a href="">
-                                    <p class="work-img"><img  src="{{ url('/') }}/public/images/nhatuyendung.png" alt=""></p>
-                                    <div class="details">
-                                        <div class="single"><p>Nhân viên pha chế Starbucks Coffee </p></div>
-                                        <div class="work-view">
-                                            <p class="location"><i></i>Cầu Giấy, Ba Đình, Hà Nội</p>
-                                            <p class="salary"><i></i>2 - 3 triệu</p>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="item-work" >
-                            <div class="border-item">
-                                <a href="">
-                                    <p class="work-img"><img  src="{{ url('/') }}/public/images/nhatuyendung.png" alt=""></p>
-                                    <div class="details">
-                                        <div class="single"><p>Nhân viên pha chế Starbucks </p></div>
-                                        <div class="work-view">
-                                            <p class="location"><i></i>Cầu Giấy, Ba Đình, Hà Nội</p>
-                                            <p class="salary"><i></i>2 - 3 triệu</p>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="item-work" >
-                            <div class="border-item">
-                                <a href="">
-                                    <p class="work-img"><img  src="{{ url('/') }}/public/images/nhatuyendung.png" alt=""></p>
-                                    <div class="details">
-                                        <div class="single"><p>Nhân viên pha chế Starbucks </p></div>
-                                        <div class="work-view">
-                                            <p class="location"><i></i>Cầu Giấy, Ba Đình, Hà Nội</p>
-                                            <p class="salary"><i></i>2 - 3 triệu</p>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="item-work" >
-                            <div class="border-item">
-                                <a href="">
-                                    <p class="work-img"><img  src="{{ url('/') }}/public/images/nhatuyendung.png" alt=""></p>
-                                    <div class="details">
-                                        <div class="single"><p>Nhân viên pha chế Starbucks Coffee Nhân viên pha chế Starbucks Coffee</p></div>
-                                        <div class="work-view">
-                                            <p class="location"><i></i>Cầu Giấy, Ba Đình, Hà Nội</p>
-                                            <p class="salary"><i></i>2 - 3 triệu</p>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="item-work" >
-                            <div class="border-item">
-                                <a href="">
-                                    <p class="work-img"><img  src="{{ url('/') }}/public/images/nhatuyendung.png" alt=""></p>
-                                    <div class="details">
-                                        <div class="single"><p>Nhân viên pha chế Starbucks Coffee Nhân viên pha chế Starbucks Coffee</p></div>
-                                        <div class="work-view">
-                                            <p class="location"><i></i>Cầu Giấy, Ba Đình, Hà Nội</p>
-                                            <p class="salary"><i></i>2 - 3 triệu</p>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="item-work" >
-                            <div class="border-item">
-                                <a href="">
-                                    <p class="work-img"><img  src="{{ url('/') }}/public/images/nhatuyendung.png" alt=""></p>
-                                    <div class="details">
-                                        <div class="single"><p>Nhân viên pha chế Starbucks Coffee Nhân viên pha chế Starbucks Coffee</p></div>
-                                        <div class="work-view">
-                                            <p class="location"><i></i>Cầu Giấy, Ba Đình, Hà Nội</p>
-                                            <p class="salary"><i></i>2 - 3 triệu</p>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="item-work" >
-                            <div class="border-item">
-                                <a href="">
-                                    <p class="work-img"><img  src="{{ url('/') }}/public/images/nhatuyendung.png" alt=""></p>
-                                    <div class="details">
-                                        <div class="single"><p>Nhân viên pha chế Starbucks Coffee Nhân viên pha chế Starbucks Coffee</p></div>
-                                        <div class="work-view">
-                                            <p class="location"><i></i>Cầu Giấy, Ba Đình, Hà Nội</p>
-                                            <p class="salary"><i></i>2 - 3 triệu</p>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="item-work" >
-                            <div class="border-item">
-                                <a href="">
-                                    <p class="work-img"><img  src="{{ url('/') }}/public/images/nhatuyendung.png" alt=""></p>
-                                    <div class="details">
-                                        <div class="single"><p>Nhân viên pha chế Starbucks Coffee Nhân viên pha chế Starbucks Coffee</p></div>
-                                        <div class="work-view">
-                                            <p class="location"><i></i>Cầu Giấy, Ba Đình, Hà Nội</p>
-                                            <p class="salary"><i></i>2 - 3 triệu</p>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="item-work" >
-                            <div class="border-item">
-                                <a href="">
-                                    <p class="work-img"><img  src="{{ url('/') }}/public/images/nhatuyendung.png" alt=""></p>
-                                    <div class="details">
-                                        <div class="single"><p>Nhân viên pha chế Starbucks Coffee Nhân viên pha chế Starbucks Coffee</p></div>
-                                        <div class="work-view">
-                                            <p class="location"><i></i>Cầu Giấy, Ba Đình, Hà Nội</p>
-                                            <p class="salary"><i></i>2 - 3 triệu</p>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div> -->
     <footer>
         <div class="container">
             <div class="footer-top row">
@@ -677,12 +531,17 @@
             $(event.target).find(".view").animate({top: 200+'px'});
         }
 
+        $('#myTabs a').click(function (e) {
+            e.preventDefault()
+            $(this).tab('show')
+        })
+
         $('.select-template').click(function(){
-            alert($(this).attr('data-id'));
+            // alert($(this).attr('data-id'));
         });
 
         function changeTemplate(id){
-            alert(id);
+            // alert(id);
         }
     </script>
 </body>
