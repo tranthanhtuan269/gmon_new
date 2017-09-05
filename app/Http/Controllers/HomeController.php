@@ -29,6 +29,35 @@ class HomeController extends Controller
         $companies = [];
         $categorySelect = 0;
 
+        $company_id = -1;
+        $cv_id = -1;
+        $perPage = 1000;
+        if (\Auth::check()) {
+            $current_id = \Auth::user()->id;
+            
+            //get company 
+            $company = \DB::table('companies')
+                    ->where('companies.user', $current_id)
+                    ->select(
+                        'id'
+                    )
+                    ->first();
+            if($company){
+                $company_id = $company->id;
+            }
+            
+            //get CV 
+            $cv_user = \DB::table('curriculum_vitaes')
+                    ->where('curriculum_vitaes.user', $current_id)
+                    ->select(
+                        'id'
+                    )
+                    ->first();
+            if($cv_user){
+                $cv_id = $cv_user->id;
+            }
+        }
+
         if(isset($_GET['category']) && is_numeric($_GET['category'])){
             $categorySelect = (int)$_GET['category'];
         }
@@ -51,7 +80,7 @@ class HomeController extends Controller
         }
 
         $companies = \DB::table('companies')
-            ->select('logo', 'banner', 'name', 'id')
+            ->select('id', 'logo', 'banner', 'name')
             ->take(5)
             ->get();
 
@@ -60,7 +89,7 @@ class HomeController extends Controller
             ->select('companies.logo', 'companies.banner', 'jobs.name', 'companies.name as companyName', 'jobs.id')
             ->take(5)
             ->get();
-        return view('home', compact('categories', 'companies', 'jobs', 'posts'));
+        return view('home', compact('categories', 'companies', 'jobs', 'posts', 'company_id', 'cv_id'));
     }
 
     public function welcome()
