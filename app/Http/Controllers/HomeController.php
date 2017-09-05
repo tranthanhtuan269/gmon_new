@@ -40,12 +40,12 @@ class HomeController extends Controller
         if($categorySelect == 0){
             $posts = \DB::table('posts')
                 ->join('categories', 'categories.id', '=', 'posts.category')
-                ->select('posts.id', 'posts.title', 'posts.description', 'posts.category', 'posts.image', 'posts.created_at')
+                ->select('posts.id', 'posts.title', 'posts.description', 'posts.sub_description', 'posts.category', 'posts.image', 'posts.created_at')
                 ->get();
         }else{
             $posts = \DB::table('posts')
                 ->join('categories', 'categories.id', '=', 'posts.category')
-                ->select('posts.id', 'posts.title', 'posts.description', 'posts.category', 'posts.image', 'posts.created_at')
+                ->select('posts.id', 'posts.title', 'posts.description', 'posts.sub_description', 'posts.category', 'posts.image', 'posts.created_at')
                 ->where('posts.category', '=', $categorySelect)
                 ->get();
         }

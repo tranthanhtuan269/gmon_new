@@ -221,7 +221,7 @@
                             {{ $post->title }}
                         </div>
                         <p>
-                            {{ substr($post->description, 0, 500) }} <a href="{{ url('/')}}/post/{{ $post->id }}">Xem thêm</a>
+                            {{ $post->sub_description }} <div class="show-more" data-id="$post->id">Xem thêm</div>
                         </p>
                         <div class="images">
                             <img src="http://test.gmon.com.vn/?image={{  $post->image }}" alt="" />
@@ -305,5 +305,12 @@
         </div>
     </div>
 </div>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('.show-more').click(function(){
+            alert(1);
+        })
+    })
+</script>
 </body>
 </html>

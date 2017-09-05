@@ -35,6 +35,13 @@
                                     {!! $errors->first('title', '<p class="help-block">:message</p>') !!}
                                 </div>
                             </div>
+                            <div class="form-group {{ $errors->has('sub_description') ? 'has-error' : ''}}">
+                                {!! Form::label('sub_description', 'Description', ['class' => 'col-md-2 control-label']) !!}
+                                <div class="col-md-10">
+                                    {!! Form::textarea('sub_description', $post->sub_description, ['class' => 'form-control']) !!}
+                                    {!! $errors->first('sub_description', '<p class="help-block">:message</p>') !!}
+                                </div>
+                            </div>
                             <div class="form-group {{ $errors->has('description') ? 'has-error' : ''}}">
                                 {!! Form::label('description', 'Description', ['class' => 'col-md-2 control-label']) !!}
                                 <div class="col-md-10">
