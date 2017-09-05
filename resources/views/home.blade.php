@@ -210,7 +210,11 @@
                 <ul class="list-inline">
                     <?php 
                         $categorySelected = 0;
+                        $postSelected = 0;
                         $count = 0;
+                        if (isset($_GET['post'])) {
+                            $postSelected = $_GET['post'];
+                        }
                         if (isset($_GET['category'])) {
                             $categorySelected = $_GET['category'];
                         }
@@ -228,11 +232,7 @@
                     <h3>chủ đề</h3>
                     <ul class="list-inline">                        
                         <?php 
-                            $categorySelected = 0;
                             $count = 0;
-                            if (isset($_GET['category'])) {
-                                $categorySelected = $_GET['category'];
-                            }
                         ?>
                         @foreach($categories as $category)
                             <li><a @if($categorySelected == $category->id || ($categorySelected == 0 && $count == 0)) class="active" @endif href="{{ url('/') }}/?category={{ $category->id }}">{{ $category->name }}</a></li>
@@ -273,8 +273,13 @@
                             <?php echo $post->title; ?>
                         </div>
                         <p>
+                        @if($postSelected > 0)
+                          <div class="description">
+                            <?php echo $post->description; ?>
+                          </div>
+                        @else
                         <div class="sub-description">
-                            <?php echo $post->sub_description; ?><div class="show-more">Xem thêm</div>
+                            <?php echo $post->sub_description; ?><a href="{{ url('/') }}/?post={{ $post->id }}">Xem thêm</a>
                         </div>
                         <div class="description" style="display: none;">
                             <?php echo $post->description; ?>
@@ -283,6 +288,7 @@
                         <div class="images">
                             <img src="http://test.gmon.com.vn/?image={{  $post->image }}" alt="" />
                         </div>
+                        @endif
                     </div>
                     <div class="bottom-content row" style="display: none">
                         <a class="comment col-md-3" href=""><i class="fa fa-commenting-o" aria-hidden="true"></i> 0 Bình luận</a>
@@ -498,11 +504,6 @@
         $('#register-btn').click(function () {
             registerFunc();
         });
-
-        $('.show-more').click(function(){
-            $(this).parent().hide();
-            $(this).parent().parent().find('.description').show();
-        })
     });
 </script>
 </body>

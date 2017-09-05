@@ -28,6 +28,7 @@ class HomeController extends Controller
         $jobs = [];
         $companies = [];
         $categorySelect = 0;
+        $postSelect = 0;
 
         $company_id = -1;
         $cv_id = -1;
@@ -62,15 +63,27 @@ class HomeController extends Controller
             $categorySelect = (int)$_GET['category'];
         }
 
+        if(isset($_GET['post']) && is_numeric($_GET['post'])){
+            $postSelect = (int)$_GET['post'];
+        }
+
         $categories = \DB::table('categories')
             ->select('id', 'name')
             ->get();
 
         if($categorySelect == 0){
-            $posts = \DB::table('posts')
-                ->join('categories', 'categories.id', '=', 'posts.category')
-                ->select('posts.id', 'posts.title', 'posts.description', 'posts.sub_description', 'posts.category', 'posts.image', 'posts.created_at')
-                ->get();
+            if($postSelect > 0){
+                $posts = \DB::table('posts')
+                    ->join('categories', 'categories.id', '=', 'posts.category')
+                    ->select('posts.id', 'posts.title', 'posts.description', 'posts.sub_description', 'posts.category', 'posts.image', 'posts.created_at')
+                    ->where('posts.id', '=', $postSelect)
+                    ->get();
+            }else{
+                $posts = \DB::table('posts')
+                    ->join('categories', 'categories.id', '=', 'posts.category')
+                    ->select('posts.id', 'posts.title', 'posts.description', 'posts.sub_description', 'posts.category', 'posts.image', 'posts.created_at')
+                    ->get();
+            }
         }else{
             $posts = \DB::table('posts')
                 ->join('categories', 'categories.id', '=', 'posts.category')
