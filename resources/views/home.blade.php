@@ -221,7 +221,7 @@
                             {{ $post->title }}
                         </div>
                         <p>
-                            <?php echo substr($post->description, 0, 100); ?> <a href="{{ url('/')}}/post/{{ $post->id }}">Xem thêm</a>
+                            <?php echo substr($post->description, 0, 500); ?> <a href="{{ url('/')}}/post/{{ $post->id }}">Xem thêm</a>
                         </p>
                         <div class="images">
                             <img src="http://test.gmon.com.vn/?image={{  $post->image }}" alt="" />
