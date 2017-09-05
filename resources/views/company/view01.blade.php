@@ -219,23 +219,35 @@
                             <img src="{{ url('/') }}/public/images/circle.png">
                         </div>
                         <div class="row workplace-img">
-                            <div class="col-md-6 col-lg-6">
-                                <img src="{{ url('/') }}/public/images/room1.png">
-                            </div>
-                            <div class="col-md-6 col-lg-6">
-                                <img src="{{ url('/') }}/public/images/room2.png">
-                            </div>
+                        <?php 
+                            if(strlen($company->images) > 1){
+                                $imageString=rtrim($company->images,";");
+                                $images = explode(";",$imageString);
+                                $count = 0;
+                                foreach ($images as $image) {
+                                    if($count > 1) break;
+
+                        ?>
+                        <div class="col-md-6 col-lg-6">
+                            <img src="http://test.gmon.com.vn/?image={{ $image }}" width="344" height="198">
                         </div>
+                        <?php 
+                                $count++;
+                                }
+                            }
+                        ?>
+                        </div>
+                        @if(strlen($company->youtube_link) > 1)
                         <div class="video">
                             <span>VIDEO</span>
                             <div class="embed-responsive embed-responsive-16by9">
-                              <iframe src="https://www.youtube.com/embed/nrpjNgZCdlM" frameborder="0" allowfullscreen></iframe>
+                              <iframe width="574" height="323" src="{{ str_replace('watch?v=','embed/',$company->youtube_link) }}" frameborder="0" allowfullscreen></iframe>
                             </div>
                         </div>
+                        @endif
                         <div class="map video">
                             <span>BẢN ĐỒ</span>
-                            <div><iframe class="embed-responsive-item" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d931.0541367990278!2d105.79174358393226!3d21.024019707272046!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xe2d0921dae22414a!2sEleganz+Hanoi!5e0!3m2!1svi!2s!4v1503165789664" width="600" height="350" frameborder="0" style="border:0" allowfullscreen></iframe></div>
-
+                            <div id="map"></div>
                         </div>
                     </div>
                     <div role="tabpanel" class="tab-pane" id="profile">
@@ -533,10 +545,22 @@
             $(event.target).find(".view").animate({top: 200+'px'});
         }
 
-        $('#myTabs a').click(function (e) {
-            e.preventDefault()
-            $(this).tab('show')
-        })
+        function initMap() {
+            <?php if($company->lat == "" || $company->lng == ""){ ?>
+                var uluru = {lat: 21.027443939911, lng: 105.83038324971};
+            <?php }else{ ?>
+                var uluru = {lat: {{ $company->lat }}, lng: {{ $company->lng }}};
+            <?php } ?>
+            
+            var map = new google.maps.Map(document.getElementById('map'), {
+              zoom: 15,
+              center: uluru
+            });
+            var marker = new google.maps.Marker({
+              position: uluru,
+              map: map
+            });
+        }
 
         $('.select-template').click(function(){
             var template_id = $(this).attr('data-id');
@@ -566,6 +590,9 @@
             });
         });
     </script>
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAhlfeeJco9hP4jLWY1ObD08l9J44v7IIE&callback=initMap">
+        </script>
 </body>
 </html>
 
