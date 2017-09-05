@@ -1143,7 +1143,8 @@ header .top-menu-mobile .right .fa {
 .main-content-news .right .item .image {
     border-radius: 2px;
     overflow: hidden;
-    position: relative
+    position: relative;
+    min-height: 123px;
 }
 
 .main-content-news .right .item .image .logo {
@@ -1183,4 +1184,10 @@ header .top-menu-mobile .right .fa {
 
 .clearboth {
     clear: both
+}
+
+.homepage-menu .dropdown-menu {
+    min-width: 12rem;
+    left: auto;
+    right: -18px;
 }

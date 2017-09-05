@@ -93,12 +93,16 @@ class HomeController extends Controller
         }
 
         $companies = \DB::table('companies')
-            ->select('id', 'logo', 'banner', 'name')
+            ->join('company_company_types', 'company_company_types.company', '=', 'companies.id')
+            ->where('company_company_types.company_type', '=', 5)
+            ->select('companies.id', 'companies.logo', 'companies.banner', 'companies.name')
             ->take(5)
             ->get();
 
         $jobs = \DB::table('jobs')
             ->join('companies', 'companies.id', '=', 'jobs.company')
+            ->join('company_company_types', 'company_company_types.company', '=', 'companies.id')
+            ->where('company_company_types.company_type', '=', 5)
             ->select('companies.logo', 'companies.banner', 'jobs.name', 'companies.name as companyName', 'jobs.id')
             ->take(5)
             ->get();

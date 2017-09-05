@@ -31,9 +31,8 @@
                            </div>
                        </div>
                        <ul class="homepage-menu col-md-8">
-                           <li class="active"><a href="http://gmon.vn/showmore?job=new">Việc làm</a></li>
-                           <li><a href="http://gmon.vn/showmore?company=new">Nhà tuyển dụng</a></li>
-                           <li><a href="{{ url('/') }}">Tư vấn nghề nghiệp</a></li>
+                           <li class="active"><a href="http://spa.gmon.vn/showmore?job=new">Việc làm</a></li>
+                           <li><a href="http://spa.gmon.vn/showmore?company=new">Nhà tuyển dụng</a></li>
                        </ul>
                    </div>
                </div>
@@ -248,7 +247,7 @@
                         <div class="image">
                             <img src="http://test.gmon.com.vn/?image={{ $job->banner }}" width="305" height="156" alt="HOT" />
                         </div>
-                        <div class="title">
+                        <div class="title" style="text-transform: uppercase;">
                             <a href="http://gmon.vn/job/view/{{ $job->id }}">{{ $job->companyName }} TUYỂN DỤNG {{ $job->name }}</a>
                         </div>
                     </div>
