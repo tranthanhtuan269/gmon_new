@@ -461,6 +461,7 @@ class CompanyController extends Controller {
                         'companies.description',
                         'companies.images',
                         'companies.template',
+                        'companies.site_url',
                         'users.phone as hotline'
                 )
                 ->where('companies.id', $id)

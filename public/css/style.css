@@ -270,3 +270,4 @@ i{background: url("../images/bg.png");}
 /*.info-company .border-blue p:nth-of-type(7) i{background-position: -194px -210px;width: 25px}*/
 .info-company .border-blue p:nth-of-type(7) i{background-position: -168px -210px}
 .info-company .border-blue p:nth-of-type(8) i{background-position: -124px -210px}
+.info-company .border-blue p i.icon-plus{ color: #999; background-position: -286px -210px; }

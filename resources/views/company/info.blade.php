@@ -235,6 +235,7 @@
                             <p class="row"><i></i>{{ $company->size }} người</p>
                             <p class="row"><i></i>Thứ 2 -  Thứ 6</p>
                             @if(strlen($company->sologan)>0)<p class="row"><i></i>{{ $company->sologan }}</p>@endif
+                            @if(strlen($company->site_url)>0)<p class="row"><i class="fa fa-link fa-1 icon-plus"></i>{{ $company->site_url }}</p>@endif
                         </div>
                         <div class="col-md-12 col-xs-12" style="margin-top: 15px;">
                             <div class="row"><div class="col-md-12 col-xs-12"><?php echo $company->description; ?></div></div>

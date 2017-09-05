@@ -334,6 +334,7 @@ class JobController extends Controller
                         'company_sizes.size as size', 
                         'companies.sologan', 
                         'companies.description',
+                        'companies.site_url',
                         'companies.images'
                 )
                 ->where('companies.id', $job->company)
