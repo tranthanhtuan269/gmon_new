@@ -65,9 +65,7 @@ header .top-menu-mobile .right .fa {
 }
 
 .header-homepage {
-    background: url(../images/bg-header.jpg) no-repeat 50% fixed;
     background-size: cover;
-    height: 595px;
     position: relative;
     font-family: Roboto, sans-serif
 }
