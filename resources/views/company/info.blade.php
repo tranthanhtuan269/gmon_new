@@ -142,11 +142,16 @@
                                                     @elseif(Auth::check() && Auth::user()->hasRole('master'))
                                                     <li><a target="_self" href="{{ url('/city/admin') }}">Administrator</a></li>
                                                     @elseif(Auth::check() && Auth::user()->hasRole('user'))
-                                                    @if($cv_id > 0)
-                                                    <li><a target="_self" href="{{ url('/') }}/curriculumvitae/view/{{ $cv_id }}">Trang hồ sơ</a></li>
-                                                    @endif
-                                                    @else 
-
+                                                        @if($cv_id > 0)
+                                                        <li><a target="_self" href="{{ url('/') }}/curriculumvitae/view/{{ $cv_id }}">Trang hồ sơ</a></li>
+                                                        @endif
+                                                    @elseif(Auth::check() && Auth::user()->hasRole('poster'))
+                                                        @if($company_id > 0)
+                                                        <li><a target="_self" href="{{ url('/') }}/company/{{ $cv_id }}/info">Trang tuyển dụng</a></li>
+                                                        <li><a target="_self" href="{{ url('/') }}/job/create">Đăng tuyển dụng</a></li>
+                                                        @else
+                                                        <li><a target="_self" href="{{ url('/') }}/company/create">Tạo trang tuyển dụng</a></li>
+                                                        @endif
                                                     @endif
                                                     <li>
                                                         <a target="_self" href="{{ url('/logout') }}"
@@ -178,7 +183,7 @@
                 <div class="menu">
                     <a target="_self" href="{{ url('/') }}/company/{{ $company->id }}/info" class="active"dụng>Thông Tin</a>
                     <a target="_self" href="{{ url('/') }}/company/{{ $company->id }}/listjobs">Tuyển Dụng</a>
-                    @if(false)
+                    @if($company_id != $company->id)
                     <button type="button" class="btn btn-primary" id="follow-btn" @if($followed) style="display: none;" @else style="display: block;" @endif><i></i>Theo dõi</button>
                     <button type="button" class="btn btn-danger" id="unfollow-btn" @if($followed) style="display: block;" @else style="display: none;" @endif><i></i>Bỏ theo dõi</button>
                     @else
@@ -187,10 +192,10 @@
                         Thay đổi giao diện <span class="caret"></span>
                       </button>
                       <ul class="dropdown-menu">
-                        <li><div class="select-template" data-id="0">Giao diện mặc định</a></li>
-                        <li><div class="select-template" data-id="1">Giao diện 1</a></li>
-                        <li><div class="select-template" data-id="2">Giao diện 2</a></li>
-                        <li><div class="select-template" data-id="3">Giao diện 3</a></li>
+                        <li><div class="select-template" data-id="0"> @if($template == 0) <i class="lnl-checked"></i> @endif Giao diện mặc định</a></li>
+                        <li><div class="select-template" data-id="1"> @if($template == 1) <i class="lnl-checked"></i> @endif Giao diện 1</a></li>
+                        <li><div class="select-template" data-id="2"> @if($template == 2) <i class="lnl-checked"></i> @endif Giao diện 2</a></li>
+                        <li><div class="select-template" data-id="3"> @if($template == 3) <i class="lnl-checked"></i> @endif Giao diện 3</a></li>
                       </ul>
                     </div>
                     @endif
@@ -320,137 +325,6 @@
                     </div>
                 </div>
             </div>
-            <!-- <div class="related-work row">
-                <p class="title"><i></i>Thêm cơ hội làm việc cho bạn</p>
-                <div class="wrapper" id="wrapper">
-                    <div class="prev" id="btPrev"><img src="http://test.gmon.com.vn/?image=prev.png" alt=""></div>
-                    <div class="next"  id="btNext"><img src="http://test.gmon.com.vn/?image=next.png" alt=""></div>
-                    <div style="width: 100%;overflow: hidden;display: inline-block;position: relative;">
-                        <div id="contents">
-                            <div class="item-work" >
-                                <a target="_self" href="">
-                                    <p class="work-img"><img  src="http://test.gmon.com.vn/?image=nhatuyendung.png" alt=""></p>
-                                    <div class="details">
-                                        <p class="single">Nhân viên pha chế Starbucks Coffee</p>
-                                        <div class="work-view">
-                                            <p class="location"><i></i>Cầu Giấy, Ba Đình, Hà Nội</p>
-                                            <p class="salary"><i></i>2 - 3 triệu</p>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="item-work" >
-                                <a target="_self" href="">
-                                    <p class="work-img"><img  src="http://test.gmon.com.vn/?image=nhatuyendung.png" alt=""></p>
-                                    <div class="details">
-                                        <p class="single">Nhân viên pha chế Starbucks Coffee Nhân viên pha chế Starbucks Coffee Nhân viên pha chế Starbucks Coffee</p>
-                                        <div class="work-view">
-                                            <p class="location"><i></i>Cầu Giấy, Ba Đình, Hà Nội</p>
-                                            <p class="salary"><i></i>2 - 3 triệu</p>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="item-work" >
-                                <a target="_self" href="">
-                                    <p class="work-img"><img  src="http://test.gmon.com.vn/?image=nhatuyendung.png" alt=""></p>
-                                    <div class="details">
-                                        <p class="single">Nhân viên pha chế Starbucks Coffee</p>
-                                        <div class="work-view">
-                                            <p class="location"><i></i>Cầu Giấy, Ba Đình, Hà Nội</p>
-                                            <p class="salary"><i></i>2 - 3 triệu</p>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="item-work" >
-                                <a target="_self" href="">
-                                    <p class="work-img"><img  src="http://test.gmon.com.vn/?image=nhatuyendung.png" alt=""></p>
-                                    <div class="details">
-                                        <p class="single">Nhân viên pha chế Starbucks Coffee</p>
-                                        <div class="work-view">
-                                            <p class="location"><i></i>Cầu Giấy, Ba Đình, Hà Nội</p>
-                                            <p class="salary"><i></i>2 - 3 triệu</p>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="item-work" >
-                                <a target="_self" href="">
-                                    <p class="work-img"><img  src="http://test.gmon.com.vn/?image=nhatuyendung.png" alt=""></p>
-                                    <div class="details">
-                                        <p class="single">Nhân viên pha chế Starbucks Coffee</p>
-                                        <div class="work-view">
-                                            <p class="location"><i></i>Cầu Giấy, Ba Đình, Hà Nội</p>
-                                            <p class="salary"><i></i>2 - 3 triệu</p>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="item-work" >
-                                <a target="_self" href="">
-                                    <p class="work-img"><img  src="http://test.gmon.com.vn/?image=nhatuyendung.png" alt=""></p>
-                                    <div class="details">
-                                        <p class="single">Nhân viên pha chế Starbucks Coffee</p>
-                                        <div class="work-view">
-                                            <p class="location"><i></i>Cầu Giấy, Ba Đình, Hà Nội</p>
-                                            <p class="salary"><i></i>2 - 3 triệu</p>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="item-work" >
-                                <a target="_self" href="">
-                                    <p class="work-img"><img  src="http://test.gmon.com.vn/?image=nhatuyendung.png" alt=""></p>
-                                    <div class="details">
-                                        <p class="single">Nhân viên pha chế Starbucks Coffee</p>
-                                        <div class="work-view">
-                                            <p class="location"><i></i>Cầu Giấy, Ba Đình, Hà Nội</p>
-                                            <p class="salary"><i></i>2 - 3 triệu</p>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="item-work" >
-                                <a target="_self" href="">
-                                    <p class="work-img"><img  src="http://test.gmon.com.vn/?image=nhatuyendung.png" alt=""></p>
-                                    <div class="details">
-                                        <p class="single">Nhân viên pha chế Starbucks Coffee</p>
-                                        <div class="work-view">
-                                            <p class="location"><i></i>Cầu Giấy, Ba Đình, Hà Nội</p>
-                                            <p class="salary"><i></i>2 - 3 triệu</p>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="item-work" >
-                                <a target="_self" href="">
-                                    <p class="work-img"><img  src="http://test.gmon.com.vn/?image=nhatuyendung.png" alt=""></p>
-                                    <div class="details">
-                                        <p class="single">Nhân viên pha chế Starbucks Coffee</p>
-                                        <div class="work-view">
-                                            <p class="location"><i></i>Cầu Giấy, Ba Đình, Hà Nội</p>
-                                            <p class="salary"><i></i>2 - 3 triệu</p>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="item-work" >
-                                <a target="_self" href="">
-                                    <p class="work-img"><img  src="http://test.gmon.com.vn/?image=nhatuyendung.png" alt=""></p>
-                                    <div class="details">
-                                        <p class="single">Nhân viên pha chế Starbucks Coffee</p>
-                                        <div class="work-view">
-                                            <p class="location"><i></i>Cầu Giấy, Ba Đình, Hà Nội</p>
-                                            <p class="salary"><i></i>2 - 3 triệu</p>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div> -->
         </div>
         <footer>
             <div class="container">
