@@ -14,7 +14,7 @@
 Auth::routes();
 
 // Route::get('/', 'HomeController@welcome')->name('welcome');
-Route::get('/', 'HomeController@homenew2')->name('welcome');
+Route::get('/', 'HomeController@index')->name('welcome');
 Route::get('/google2fa952a6c07ee729.html', function(){
     echo 'google-site-verification: google2fa952a6c07ee729.html';
 });
