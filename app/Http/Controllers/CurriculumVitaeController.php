@@ -368,6 +368,9 @@ class CurriculumVitaeController extends Controller
     public function createCurriculumVitae() {
         $company_id = -1;
         $cv_id = -1;
+
+        $salaries = Salary::select('name', 'id')->get();
+
         if (\Auth::check()) {
             $current_id = \Auth::user()->id;
             
@@ -393,7 +396,7 @@ class CurriculumVitaeController extends Controller
                 $cv_id = $cv_user->id;
             }
         }
-        return view('curriculum-vitae.create_curriculum_vitae', compact('company_id', 'cv_id'));
+        return view('curriculum-vitae.create_curriculum_vitae', compact('company_id', 'cv_id', 'salaries'));
     }
     
     public function editCurriculumVitae($id) {

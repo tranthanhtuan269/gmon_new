@@ -237,17 +237,9 @@
                                 <div class="col-md-7">
                                     <input type="hidden" id="salary" name="salary" value="1">
                                     <select class="form-control" title="Mức lương" id="salary_select" name="salary_select">
-                                        <option value="1">Thỏa thuận mức lương</option>
-                                        <option value="2">Dưới 1 triệu</option>
-                                        <option value="3">1 - 2 triệu</option>
-                                        <option value="4">2 - 3 triệu</option>
-                                        <option value="5">2 - 4 triệu</option>
-                                        <option value="6">4 - 5 triệu</option>
-                                        <option value="7">5 - 8 triệu</option>
-                                        <option value="8">8 - 12 triệu</option>
-                                        <option value="9">12 - 15 triệu</option>
-                                        <option value="10">15 - 20 triệu</option>
-                                        <option value="11">Trên 20 năm</option>
+                                        @foreach($salaries as $salary)
+                                        <option value="{{ $salary->id }}">{{ $salary->name }}</option>
+                                        @endforeach
                                     </select>
                                     {!! $errors->first('salary', '<p class="help-block">:message</p>') !!}
                                 </div>
@@ -283,6 +275,7 @@
                                         <option>Ca 1 (7h - 12h)</option>
                                         <option>Ca 2 (12h - 17h)</option>
                                         <option>Ca 3 (17h - 22h)</option>
+                                        <option>Fulltime</option>
                                     </select>
                                     {!! $errors->first('jobs', '<p class="help-block">:message</p>') !!}
                                 </div>
