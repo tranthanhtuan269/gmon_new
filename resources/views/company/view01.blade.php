@@ -4,7 +4,9 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title></title>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <base href="{{ url('/') }}" target="_self">
+    <title>{{ config('app.name', 'Gmon') }}</title>
     <link rel="stylesheet" href="{{ url('/') }}/public/css/view01.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -537,12 +539,32 @@
         })
 
         $('.select-template').click(function(){
-            // alert($(this).attr('data-id'));
-        });
+            var template_id = $(this).attr('data-id');
 
-        function changeTemplate(id){
-            // alert(id);
-        }
+            var request = $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                url: "{{ url('/') }}/company/changeTemplate",
+                method: "POST",
+                data: {
+                    'template': template_id
+                },
+                dataType: "json"
+            });
+
+            request.done(function (msg) {
+                if (msg.code == 200) {
+                    location.reload();
+                }else{
+                    $('#register-message').show();
+                }
+            });
+
+            request.fail(function (jqXHR, textStatus) {
+                alert("Request failed: " + textStatus);
+            });
+        });
     </script>
 </body>
 </html>

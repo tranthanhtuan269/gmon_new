@@ -719,8 +719,8 @@ class CompanyController extends Controller {
         $current_id = \Auth::user()->id;
 
         $company = Company::where('user', $current_id)->first();
-        if ($company && $input['template']) {
-            $company->template = $input['template'];
+        if ($company && isset($input['template'])) {
+            $company->template = (int)$input['template'];
             if ($company->save()) {
                 return \Response::json(array('code' => '200', 'message' => 'success'));
             } else {
