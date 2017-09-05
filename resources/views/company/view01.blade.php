@@ -181,7 +181,7 @@
                         <h4>{{ $company->name }}</h4>
                     </div>
                     <div class="col-md-2 col-lg-2 btn-follow">
-                        @if(false)
+                        @if($company_id != $company->id)
                         <button type="button" class="btn btn-primary" id="follow-btn" @if($followed) style="display: none;" @else style="display: block;" @endif><i></i>Theo dõi</button>
                         <button type="button" class="btn btn-danger" id="unfollow-btn" @if($followed) style="display: block;" @else style="display: none;" @endif><i></i>Bỏ theo dõi</button>
                         @else
