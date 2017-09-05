@@ -54,9 +54,9 @@
 
                             <ul class="dropdown-menu" role="menu" style="background-color: #4160a1;">
                                 @if(Auth::check() && Auth::user()->hasRole('admin'))
-                                <li><a target="_self" href="{{ url('/admin') }}">Administrator</a></li>
+                                <li><a target="_self" href="http://gmon.vn/admin">Administrator</a></li>
                                 @elseif(Auth::check() && Auth::user()->hasRole('master'))
-                                <li><a target="_self" href="{{ url('/city/admin') }}">Administrator</a></li>
+                                <li><a target="_self" href="http://gmon.vn/admin">Administrator</a></li>
                                 @elseif(Auth::check() && Auth::user()->hasRole('poster'))
                                     @if($company_id > 0)
                                     <li><a target="_self" href="http://gmon.vn/company/{{ $company_id }}/info">Trang tuyển dụng</a></li>
