@@ -7,15 +7,17 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <base href="{{ url('/') }}" target="_self">
     <title>{{ config('app.name', 'Gmon') }}</title>
-    <link rel="stylesheet" href="{{ url('/') }}/public/css/view01.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link href="https://fonts.googleapis.com/css?family=Noto+Sans" rel="stylesheet"> 
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans" rel="stylesheet">
+    <script src="{{ url('/') }}/public/sweetalert/sweetalert.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="{{ url('/') }}/public/sweetalert/sweetalert.css">
+    <link rel="stylesheet" href="{{ url('/') }}/public/css/view01.css">
 </head>
 <body class="homepage">
+    <input type="hidden" name="company-id" value="{{ $company->id }}">
     <header>
         <div class="header-top clearfix">
             <nav class="navbar navbar-default">
@@ -173,8 +175,7 @@
         <div class="row move-content">
                 <div class="move-header clearfix">
                     <div class="move-title">{{ $company->sologan }}</div>
-                    <div class="move-img"><img src="{{ url('/') }}/public/images/{{ $company->banner }}" width="100%"></div>
-                    <!--<div class="move-logo"><img src="{{ url('/') }}/public/images/ksmt-logo.png"></div>-->
+                    <div class="move-img"><img src="http://test.gmon.com.vn/?image={{ $company->banner }}" width="100%"></div>
                 </div>
                 <div class="move-info row">
                     <div class="col-md-10 col-lg-10">
@@ -315,9 +316,10 @@
                         <p><img src="{{ url('/') }}/public/images/sbicon3.png"><span>{{ rtrim($company->jobs,";") }}.</span></p>
                         @endif
                         <p><img src="{{ url('/') }}/public/images/sbicon4.png"><span>{{ $company->size }} người.</span></p>
+                        @if(strlen($company->sologan) > 0)
                         <p><img src="{{ url('/') }}/public/images/sbicon6.png"><span>{{ $company->sologan }}</span></p>
+                        @endif
                     </div>
-
                 </div>
                 <div class="rate">
                     <p>Đánh giá chung</br>
@@ -562,31 +564,165 @@
             });
         }
 
-        $('.select-template').click(function(){
-            var template_id = $(this).attr('data-id');
+        $(document).ready(function () {
+            onOpenLogin();
+            $('#login-btn').click(function () {
+                $('#login-message').hide();
+                var loginEmail = $('#login-email').val();
+                var loginPassword = $('#login-password').val();
+                var request = $.ajax({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    url: "{{ url('/') }}/auth/login",
+                    method: "POST",
+                    data: {
+                        'email': loginEmail,
+                        'password': loginPassword
+                    },
+                    dataType: "json"
+                });
 
+                request.done(function (msg) {
+                    if (msg.code == 200) {
+                        location.reload();
+                    }else{
+                        $('#login-message').show();
+                    }
+                });
+
+                request.fail(function (jqXHR, textStatus) {
+                    alert("Request failed: " + textStatus);
+                });
+            });
+
+            $('#register-btn').click(function () {
+                $('#register-message').hide();
+                var registerFirstname = $('#firstname').val();
+                var registerLastname = $('#lastname').val();
+                var username = registerFirstname + ' ' + registerLastname;
+                var registersdt = $('#sdt').val();
+                var registerEmail = $('#register-email').val();
+                var registerPassword = $('#register-password').val();
+                var rPassword = $('#r_password').val();
+                var role = $('#areyou').val();
+                if (registerPassword != rPassword) {
+                    return false;
+                }
+
+                var request = $.ajax({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    url: "{{ url('/') }}/auth/register",
+                    method: "POST",
+                    data: {
+                        'username': username,
+                        'password': registerPassword,
+                        'email': registerEmail,
+                        'phone': registersdt,
+                        'role': role
+                    },
+                    dataType: "json"
+                });
+
+                request.done(function (msg) {
+                    if (msg.code == 200) {
+                        location.reload();
+                    }else{
+                        $('#register-message').show();
+                    }
+                });
+
+                request.fail(function (jqXHR, textStatus) {
+                    alert("Request failed: " + textStatus);
+                });
+            });
+
+            $('.select-template').click(function(){
+                var template_id = $(this).attr('data-id');
+
+                var request = $.ajax({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    url: "{{ url('/') }}/company/changeTemplate",
+                    method: "POST",
+                    data: {
+                        'template': template_id
+                    },
+                    dataType: "json"
+                });
+
+                request.done(function (msg) {
+                    if (msg.code == 200) {
+                        location.reload();
+                    }else{
+                        $('#register-message').show();
+                    }
+                });
+
+                request.fail(function (jqXHR, textStatus) {
+                    alert("Request failed: " + textStatus);
+                });
+            });
+        });
+
+        $('#follow-btn').click(function () {
+            var company = $('input[name=company-id]').val();
             var request = $.ajax({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
-                url: "{{ url('/') }}/company/changeTemplate",
+                url: "{{ url('/') }}/follow-company",
                 method: "POST",
                 data: {
-                    'template': template_id
+                    'company': company
                 },
                 dataType: "json"
             });
 
             request.done(function (msg) {
                 if (msg.code == 200) {
-                    location.reload();
-                }else{
-                    $('#register-message').show();
+                    $('#follow-btn').hide();
+                    $('#unfollow-btn').show();
+                }else if(msg.code == 401 && msg.message == "unauthen!"){
+                        $('#myModal').modal('toggle');
+                        onOpenLogin();
                 }
             });
 
             request.fail(function (jqXHR, textStatus) {
-                alert("Request failed: " + textStatus);
+                swal("Cảnh báo", "Đã có lỗi khi thêm đánh giá!", "error");
+            });
+        });
+        $('#unfollow-btn').click(function () {
+            var company = $('input[name=company-id]').val();
+            var request = $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                url: "{{ url('/') }}/unfollow-company",
+                method: "POST",
+                data: {
+                    'company': company
+                },
+                dataType: "json"
+            });
+
+            request.done(function (msg) {
+                if (msg.code == 200) {
+                    // thong bao khi unfollow thanh cong
+                    $('#follow-btn').show();
+                    $('#unfollow-btn').hide();
+                }else if(msg.code == 401 && msg.message == "unauthen!"){
+                        $('#myModal').modal('toggle');
+                        onOpenLogin();
+                }
+            });
+
+            request.fail(function (jqXHR, textStatus) {
+                swal("Cảnh báo", "Đã có lỗi khi thêm đánh giá!", "error");
             });
         });
     </script>

@@ -563,33 +563,46 @@ header .header-mid .multisearch .btn-search button{padding-top:38px;}
 .gmon-details .details-map iframe{max-width:100%;}
 .gmon-details td{padding:2%;}
 .gmon-details .wkplace{position:relative;}
-.gmon-details .wkplace img{max-width:100%;}
-.gmon-details .wkplace button{background-color:#f79d20;color:white;position:absolute;right:10px;top:10px;}
-.gmon-details .wkp-txt{margin-top:20px;text-align:justify;}
+.gmon-details .wkplace img{width:100%;}
+.gmon-details .wkplace button{position:absolute;right:10px;top:10px;}
+.gmon-details .wkp-txt{margin:20px;text-align:justify;}
 .gmon-details .wkp-slider{margin-top:30px;text-align:center;}
 .gmon-details .wkp-slider img{max-width:100%;margin-bottom:10px;}
-.gmon-details .details-video{margin-top:30px;text-align:center;padding-top:20px;padding-bottom:20px;background-color:white;}
+.gmon-details .details-video{margin-top:30px;margin-bottom:30px;text-align:center;padding-top:20px;padding-bottom:20px;background-color:white;}
 .gmon-details .details-video iframe{max-width:100%;}
-.gmon-details .employ-info{max-width:100%;margin:auto;}
+.gmon-details .employ-info:nth-child(2n){max-width:100%;margin:auto;background: #f3f3f3;}
+.gmon-details .employ-info:nth-child(2n+1){max-width:100%;margin:auto;background: #ffffff;}
 .gmon-details .employ-info .employ-img{text-align:center;}
 .gmon-details .employ-info .employ-content .row p{margin-left:15px;}
 .gmon-details .employ-info .employ-content img{margin-bottom:3px;}
-.gmon-details .btn-about1, .btn-about2{float:left;}
-.gmon-details .btn-about1{
+.gmon-details .btn-about{
+	float:left;
 	border-bottom: 30px solid #204492;
 	border-left: 15px solid #204492;
 	border-right: 20px solid transparent;
 	height: 0;
-	width: 150px;
+	width: 170px;
+	font-size: 15px;
+    font-weight: bold;
+    line-height: 35px;
 }
-.gmon-details .btn-link1{padding-top:5px;}
-.gmon-details .btn-link1 a{text-decoration:none;color:white;font-weight:bold;}
-.gmon-details .btn-about2{
+.gmon-details .btn-link{padding-top:5px;}
+.gmon-details .btn-link a{text-decoration:none;color:white;font-weight:bold;}
+.gmon-details .btn-about.active{
+	float:left;
 	border-bottom: 30px solid white;
 	border-left: 15px solid white;
 	border-right: 20px solid transparent;
 	height: 0;
-	width: 150px;
+	width: 170px;
+}
+
+.gmon-details .btn-about.active a{
+	color: #204492;
+}
+
+.gmon-details .btn-about a{
+	color: #ffffff;
 }
 .gmon-details .btn-link2{padding-top:5px;}
 .gmon-details .btn-link2 a{text-decoration:none;color:#3c579b;font-weight:bold;}
@@ -607,4 +620,14 @@ header .header-mid .multisearch .btn-search button{padding-top:38px;}
 }
 .rate p img{
 	border-radius: 4px;
+}
+
+.tab-pane{
+	background-color: #fff;
+}
+
+#map {
+    width: 100%;
+    height: 150px;
+    background-color: grey;
 }

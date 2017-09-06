@@ -38,12 +38,12 @@ Route::get('company/{id}/listjobs', 'CompanyController@listjobs');
 Route::get('/getDistrict/{id}', 'HomeController@getDistrict');
 Route::get('/getDistrictli/{id}', 'HomeController@getDistrictLi');
 Route::get('/getTown/{id}', 'HomeController@getTown');
+Route::post('follow-company', 'CompanyController@follow');
+Route::post('unfollow-company', 'CompanyController@unfollow');
 
 Route::group(['middleware' => 'auth'], function(){
 
     Route::post('send-comment', 'CompanyController@sendcomment');
-    Route::post('follow-company', 'CompanyController@follow');
-    Route::post('unfollow-company', 'CompanyController@unfollow');
 
     // Check role in route middleware
     Route::get('curriculumvitae/create', 'CurriculumVitaeController@createCurriculumVitae');

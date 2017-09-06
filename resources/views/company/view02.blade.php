@@ -7,16 +7,17 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <base href="{{ url('/') }}" target="_self">
     <title>{{ config('app.name', 'Gmon') }}</title>
-    <link rel="stylesheet" href="{{ url('/') }}/public/css/view01.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link href="https://fonts.googleapis.com/css?family=Noto+Sans" rel="stylesheet"> 
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans" rel="stylesheet">
+    <script src="{{ url('/') }}/public/sweetalert/sweetalert.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="{{ url('/') }}/public/sweetalert/sweetalert.css">
     <link rel="stylesheet" href="{{ url('/') }}/public/css/view02.css">
 </head>
 <body class="homepage">
+    <input type="hidden" name="company-id" value="{{ $company->id }}">
     <header>
         <div class="header-top clearfix">
             <nav class="navbar navbar-default">
@@ -178,15 +179,17 @@
                             <img src="http://test.gmon.com.vn/?image={{ $company->logo }}">
                         </div>
                         <div class="about-us">
-                            <div class="sblg-title"><span>KHÁCH SẠN MƯỜNG THANH</span></div>
+                            <div class="sblg-title"><span>{{ $company->name }}</span></div>
                             <div class="sb-body clearfix">
                                 <p>
                                     <img src="{{ url('/') }}/public/images/sbicon1.png">
-                                    <span>124 Trung Hòa, Cầu Giấy, Hà Nội.</span>
+                                    <span>{{ $company->address }}, {{ $company->district }}, {{ $company->city }}.</span>
                                 </p>
-                                <p><img src="{{ url('/') }}/public/images/sbicon2.png"><span>Cầu Giấy, Hà Nội.</span></p>
-                                <p><img src="{{ url('/') }}/public/images/sbicon3.png"><span>Khách sạn.</span></p>
-                                <p><img src="{{ url('/') }}/public/images/sbicon4.png"><span>Từ 20 đến 50 người.</span></p>
+                                <p><img src="{{ url('/') }}/public/images/sbicon2.png"><span>{{ $company->district }}, {{ $company->city }}.</span></p>
+                                @if(strlen($company->jobs) > 0)
+                                <p><img src="{{ url('/') }}/public/images/sbicon3.png"><span>{{ rtrim($company->jobs,";") }}.</span></p>
+                                @endif
+                                <p><img src="{{ url('/') }}/public/images/sbicon4.png"><span>{{ $company->size }} người.</span></p>
                                 <p><img src="{{ url('/') }}/public/images/sbicon5.png"><span>Thứ 2 đến thứ 6.</span></p>
                                 <p><img src="{{ url('/') }}/public/images/sbicon6.png"><span>Chuyển động không ngừng.</span></p>
                             </div>
@@ -207,10 +210,6 @@
                                 <p>
                                     <img src="{{ url('/') }}/public/images/ratestar.png">
                                     <img src="{{ url('/') }}/public/images/ratestar.png">
-                                    <img src="{{ url('/') }}/public/images/ratestar.png"></br>
-                                    <span>Môi trường chuyên nghiệp, thân thiện.</span>
-                                </p>
-                                <p>
                                     <img src="{{ url('/') }}/public/images/ratestar.png">
                                     <img src="{{ url('/') }}/public/images/ratestar.png">
                                     <img src="{{ url('/') }}/public/images/ratestar.png"></br>
@@ -219,58 +218,135 @@
                                 <p>
                                     <img src="{{ url('/') }}/public/images/ratestar.png">
                                     <img src="{{ url('/') }}/public/images/ratestar.png">
+                                    <img src="{{ url('/') }}/public/images/ratestar.png">
+                                    <img src="{{ url('/') }}/public/images/ratestar.png">
                                     <img src="{{ url('/') }}/public/images/ratestar.png"></br>
-                                    <span>Môi trường chuyên nghiệp, thân thiện.</span>
+                                    <span>Quản lý tốt bụng, quan tâm.</span>
                                 </p>
                                 <p>
                                     <img src="{{ url('/') }}/public/images/ratestar.png">
                                     <img src="{{ url('/') }}/public/images/ratestar.png">
-                                    <img src="{{ url('/') }}/public/images/ratestar.png"></br>
-                                    <span>Môi trường chuyên nghiệp, thân thiện.</span>
-                                </p>
-                                <p>
                                     <img src="{{ url('/') }}/public/images/ratestar.png">
                                     <img src="{{ url('/') }}/public/images/ratestar.png">
                                     <img src="{{ url('/') }}/public/images/ratestar.png"></br>
-                                    <span>Môi trường chuyên nghiệp, thân thiện.</span>
+                                    <span>Đồng nghiệp vui vẻ, tốt tính.</span>
                                 </p>
                             </div>
                         </div>
                     </div>
-                    <div class="details-map">
-                        <iframe class="embed-responsive-item" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d931.0541367990278!2d105.79174358393226!3d21.024019707272046!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xe2d0921dae22414a!2sEleganz+Hanoi!5e0!3m2!1svi!2s!4v1503165789664" frameborder="0" style="border:0" allowfullscreen></iframe>
+                    <div id="map" class="details-map">
                     </div>
                 </div>
                 <div class="col-md-9 col-lg-9">
-                    <div class="btn-tab">
-                        <div class="btn-about2">
-                            <div class="btn-link2"><a href="GmonInfo.html">VỀ CHÚNG TÔI</a></div>
+                    <div class="nav nav-tabs btn-tab" role="tablist">
+                        <div class="btn-about active" role="presentation">
+                            <a href="#home" aria-controls="home" role="tab" data-toggle="tab">VỀ CHÚNG TÔI</a>
                         </div>
-                        <div class="btn-about1">
-                            <div class="btn-link1"><a href="GmonEmploy.html">TIN TUYỂN DỤNG</a></div>
+                        <div class="btn-about" role="presentation">
+                            <a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">TIN TUYỂN DỤNG</a>
                         </div>
                     </div>
-                    <table class="table-bordered">
-                        <tr>
-                            <td>
-                                <div class="wkplace">
-                                    <img src="http://test.gmon.com.vn/?image={{ $company->banner }}">
-                                    <button type="button" class="btn btn-default">
-                                        <span class="glyphicon glyphicon-ok"></span> Theo dõi
+                    <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane active" id="home">
+                            <div class="wkplace">
+                                @if($company_id != $company->id)
+                                <img src="http://test.gmon.com.vn/?image={{ $company->banner }}">
+                                <button type="button" class="btn btn-primary" id="follow-btn" @if($followed) style="display: none;" @else style="display: block;" @endif><i></i>Theo dõi</button>
+                                <button type="button" class="btn btn-default" id="unfollow-btn" @if($followed) style="display: block;" @else style="display: none;" @endif><i></i>Bỏ theo dõi</button>
+                                @else
+                                <div class="btn-group pull-right" id="select-template">
+                                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Thay đổi giao diện <span class="caret"></span>
                                     </button>
+                                    <ul class="dropdown-menu">
+                                        <li><div class="select-template" data-id="0">Giao diện mặc định</a></li>
+                                        <li><div class="select-template" data-id="1">Giao diện 1</a></li>
+                                        <li><div class="select-template" data-id="2">Giao diện 2</a></li>
+                                        <li><div class="select-template" data-id="3">Giao diện 3</a></li>
+                                    </ul>
                                 </div>
-                                <div class="wkp-txt">
-                                    <p>Tập đoàn Mường Thanh đã phát triển bền vững thành Tập đoàn kinh tế tổng hợp đa ngành hoạt động trên các lĩnh vực Đầu tư- Xây dựng- Du lịch giải trí và hiện nay Tập đoàn mở rộng sang các lĩnh vực Đào tạo, Y tế, trở thành một Tập đoàn lớn mạnh với hơn 50 khách sạn  và dự án khách sạn, tạo việc làm và đời sống ổn định cho hơn 10000 lao động, hàng năm đóng góp hàng ngàn tỷ đồng cho ngân sách nhà nước. Tập đoàn Mường Thanh đã làm tốt công tác xã hội, giành một ngân quỹ rất lớn hàng chục tỷ đồng cho công tác xóa đói giảm nghèo, phát triển dân trí, phát triển tài năng cho đất nước, góp phần giải quyết việc làm, phát triển kinh tế xã hội cho đất nước và thủ đô Hà Nội.</p>
+                                <img src="http://test.gmon.com.vn/?image={{ $company->banner }}">
+                                @endif
+                            </div>
+                            <div class="wkp-txt">
+                                <p><?php echo $company->description; ?></p>
+                            </div>
+                            <div class="wkp-slider">
+                                <?php 
+                                    if(strlen($company->images) > 1){
+                                        $imageString=rtrim($company->images,";");
+                                        $images = explode(";",$imageString);
+                                        $count = 0;
+                                        foreach ($images as $image) {
+                                            if($count > 1) break;
+
+                                ?>
+                                <div class="col-md-6 col-lg-6">
+                                    <img src="http://test.gmon.com.vn/?image={{ $image }}" width="344" height="198">
                                 </div>
-                                <div class="wkp-slider">
-                                    <img src="http://test.gmon.com.vn/?image=room1.png" class="col-md-6">
-                                    <img src="http://test.gmon.com.vn/?image=room2.png" class="col-md-6">
+                                <?php 
+                                        $count++;
+                                        }
+                                    }
+                                ?>
+                            </div>
+                            @if(strlen($company->youtube_link) > 1)
+                            <div class="details-video">
+                                <iframe width="574" height="323" src="{{ str_replace('watch?v=','embed/',$company->youtube_link) }}" frameborder="0" allowfullscreen></iframe>
+                            </div>
+                            @endif
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="profile">
+                            @foreach($jobs as $job)
+                            <div class="row employ-info">
+                                <div class="employ-img col-md-2 col-lg-2">
+                                    <img src="{{ url('/') }}/public/images/zalo.png">
+                                    <!-- <img src="{{ url('/') }}/public/images/{{ $job->logo }}"> -->
                                 </div>
-                            </td>
-                        </tr>
-                    </table>
-                    <div class="details-video">
-                        <iframe class="embed-responsive-item" width="560" height="315" src="https://www.youtube.com/embed/nrpjNgZCdlM" frameborder="0" allowfullscreen></iframe>
+                                <div class="col-md-10 col-lg-10 clearfix">
+                                    <div class="employ-title">
+                                        <a href="{{ url('/') }}/job/view/{{ $job->id }}">{{ $job->name }}</a>
+                                    </div>
+                                    <div class="employ-content">
+                                        <div>
+                                            <p>
+                                                Mức lương: <span>{{ $job->salary }}</span>
+                                            </p>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-3 col-lg-3">
+                                                <p>Số lượng: <span>{{ $job->number }}</span></p>
+                                            </div>
+                                            <div class="col-md-9 col-lg-9">
+                                                <img src="{{ url('/') }}/public/images/sbicon1.png"> 
+                                                <span>{{ $job->district }}, {{ $job->city }}</span>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-3 col-lg-3">
+                                                <p>Nhận hồ sơ đến hết: </p>
+                                            </div>
+                                            <div class="col-md-9 col-lg-9">
+                                                <img src="{{ url('/') }}/public/images/clockicon.png">
+                                                <span> {{ $job->expiration_date }}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="employ-ft"> 
+                                        <div class="employ-txt">
+                                            <p>Lượt xem: <img src="{{ url('/') }}/public/images/eyeicon.png">
+                                                <span>1024</span>
+                                                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                                Hồ sơ ứng tuyển: 
+                                                <span>332&nbsp;</span>
+                                                <img src="{{ url('/') }}/public/images/new-employ.png" style="max-width: 60%;">
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            @endforeach
+                        </div>
                     </div>
                 </div>
             </div>
@@ -338,7 +414,195 @@
         function onDisFocusCandidates(event){
             $(event.target).find(".view").animate({top: 200+'px'});
         }
+        $('.btn-about').click(function(e){
+            $('.btn-about').removeClass('active');
+            $(this).addClass('active');
+            e.preventDefault();
+            $(this).tab('show');
+        });
+        $(document).ready(function () {
+            onOpenLogin();
+            $('#login-btn').click(function () {
+                $('#login-message').hide();
+                var loginEmail = $('#login-email').val();
+                var loginPassword = $('#login-password').val();
+                var request = $.ajax({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    url: "{{ url('/') }}/auth/login",
+                    method: "POST",
+                    data: {
+                        'email': loginEmail,
+                        'password': loginPassword
+                    },
+                    dataType: "json"
+                });
+
+                request.done(function (msg) {
+                    if (msg.code == 200) {
+                        location.reload();
+                    }else{
+                        $('#login-message').show();
+                    }
+                });
+
+                request.fail(function (jqXHR, textStatus) {
+                    swal("Cảnh báo", "Đã có lỗi khi thêm đánh giá!", "error");
+                });
+            });
+
+            $('#register-btn').click(function () {
+                $('#register-message').hide();
+                var registerFirstname = $('#firstname').val();
+                var registerLastname = $('#lastname').val();
+                var username = registerFirstname + ' ' + registerLastname;
+                var registersdt = $('#sdt').val();
+                var registerEmail = $('#register-email').val();
+                var registerPassword = $('#register-password').val();
+                var rPassword = $('#r_password').val();
+                var role = $('#areyou').val();
+                if (registerPassword != rPassword) {
+                    return false;
+                }
+
+                var request = $.ajax({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    url: "{{ url('/') }}/auth/register",
+                    method: "POST",
+                    data: {
+                        'username': username,
+                        'password': registerPassword,
+                        'email': registerEmail,
+                        'phone': registersdt,
+                        'role': role
+                    },
+                    dataType: "json"
+                });
+
+                request.done(function (msg) {
+                    if (msg.code == 200) {
+                        location.reload();
+                    }else{
+                        $('#register-message').show();
+                    }
+                });
+
+                request.fail(function (jqXHR, textStatus) {
+                    swal("Cảnh báo", "Đã có lỗi khi thêm đánh giá!", "error");
+                });
+            });
+
+            $('.select-template').click(function(){
+                var template_id = $(this).attr('data-id');
+
+                var request = $.ajax({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    url: "{{ url('/') }}/company/changeTemplate",
+                    method: "POST",
+                    data: {
+                        'template': template_id
+                    },
+                    dataType: "json"
+                });
+
+                request.done(function (msg) {
+                    if (msg.code == 200) {
+                        location.reload();
+                    }else{
+                        $('#register-message').show();
+                    }
+                });
+
+                request.fail(function (jqXHR, textStatus) {
+                    swal("Cảnh báo", "Đã có lỗi khi thêm đánh giá!", "error");
+                });
+            });
+        });
+
+        $('#follow-btn').click(function () {
+            var company = $('input[name=company-id]').val();
+            var request = $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                url: "{{ url('/') }}/follow-company",
+                method: "POST",
+                data: {
+                    'company': company
+                },
+                dataType: "json"
+            });
+
+            request.done(function (msg) {
+                if (msg.code == 200) {
+                    // thong bao khi follow thanh cong
+                    $('#follow-btn').hide();
+                    $('#unfollow-btn').show();
+                }else if(msg.code == 401 && msg.message == "unauthen!"){
+                        $('#myModal').modal('toggle');
+                        onOpenLogin();
+                }
+            });
+
+            request.fail(function (jqXHR, textStatus) {
+                swal("Cảnh báo", "Đã có lỗi khi thêm đánh giá!", "error");
+            });
+        });
+        $('#unfollow-btn').click(function () {
+            var company = $('input[name=company-id]').val();
+            var request = $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                url: "{{ url('/') }}/unfollow-company",
+                method: "POST",
+                data: {
+                    'company': company
+                },
+                dataType: "json"
+            });
+
+            request.done(function (msg) {
+                if (msg.code == 200) {
+                    // thong bao khi unfollow thanh cong
+                    $('#follow-btn').show();
+                    $('#unfollow-btn').hide();
+                }else if(msg.code == 401 && msg.message == "unauthen!"){
+                        $('#myModal').modal('toggle');
+                        onOpenLogin();
+                }
+            });
+
+            request.fail(function (jqXHR, textStatus) {
+                swal("Cảnh báo", "Đã có lỗi khi thêm đánh giá!", "error");
+            });
+        });
+
+        function initMap() {
+            <?php if($company->lat == "" || $company->lng == ""){ ?>
+                var uluru = {lat: 21.027443939911, lng: 105.83038324971};
+            <?php }else{ ?>
+                var uluru = {lat: {{ $company->lat }}, lng: {{ $company->lng }}};
+            <?php } ?>
+            
+            var map = new google.maps.Map(document.getElementById('map'), {
+              zoom: 15,
+              center: uluru
+            });
+            var marker = new google.maps.Marker({
+              position: uluru,
+              map: map
+            });
+        }
     </script>
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAhlfeeJco9hP4jLWY1ObD08l9J44v7IIE&callback=initMap">
+        </script>
 </body>
 </html>
 

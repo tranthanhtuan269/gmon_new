@@ -199,16 +199,6 @@ class JobController extends Controller
     }
 
     public function storeJob(Request $request) {
-        // $validator = Validator::make($request->all(), [
-        //     'tieu_de' => 'required|max:255',
-        // ]);
-        // if ($validator->fails()) {
-        //     return redirect('tinbds/create')
-        //             ->withErrors($validator)
-        //             ->withInput();
-        // }
-//         dd($request->all());
-
         $input = $request->all();
         if ($input['description'] == null) {
             $input['description'] = '';

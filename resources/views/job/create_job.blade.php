@@ -101,6 +101,9 @@
                                         <option>Marketing-PR</option>
                                         <option>Bảo vệ</option>
                                         <option>Du lịch</option>
+                                        <option>Tạp vụ</option>
+                                        <option>Order</option>
+                                        <option>Nhân viên kỹ thuật</option>
                                         <option>Sale/Marketing online</option>
                                         <option>Promotion Girl(PG)</option>
                                         <option>Thực tập</option>
@@ -130,6 +133,13 @@
                                         <option>Pha chế</option>
                                         <option>Shipper</option>
                                         <option>Kế toán</option>
+                                        <option>Bác sĩ</option>
+                                        <option>Giáo viên</option>
+                                        <option>Phi công</option>
+                                        <option>Lái xe</option>
+                                        <option>Thiết kế</option>
+                                        <option>Nhân viên IT</option>
+                                        <option>Biên tập viên</option>
                                     </select>
                                     {!! $errors->first('job_type', '<p class="help-block">:message</p>') !!}
                                 </div>

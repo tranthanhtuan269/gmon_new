@@ -671,8 +671,9 @@
                         // thong bao khi follow thanh cong
                         $('#follow-btn').hide();
                         $('#unfollow-btn').show();
-                    } else if(msg.code == 200) {
-                        swal("Cảnh báo", "Đã có lỗi khi thêm đánh giá!", "error");
+                    }else if(msg.code == 401 && msg.message == "unauthen!"){
+                        $('#myModal').modal('toggle');
+                        onOpenLogin();
                     }
                 });
 
@@ -699,8 +700,9 @@
                         // thong bao khi unfollow thanh cong
                         $('#follow-btn').show();
                         $('#unfollow-btn').hide();
-                    } else {
-                        swal("Cảnh báo", "Đã có lỗi khi thêm đánh giá!", "error");
+                    }else if(msg.code == 401 && msg.message == "unauthen!"){
+                        $('#myModal').modal('toggle');
+                        onOpenLogin();
                     }
                 });
 
@@ -737,6 +739,7 @@
             $(document).ready(function () {
                 onOpenLogin();
                 $('#login-btn').click(function () {
+                    $('#login-message').hide();
                     var loginEmail = $('#login-email').val();
                     var loginPassword = $('#login-password').val();
                     var request = $.ajax({

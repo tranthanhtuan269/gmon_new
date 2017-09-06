@@ -181,7 +181,7 @@
 .homepage .item-work a:hover .work-img{border-color:#2a70b8;border-bottom-color: transparent;}
 .homepage .item-work a:hover .work-view{display:block;}
 
-.homepage .item-work span.icon-new{position: absolute;left: 0;z-index: 1100;width: 100%;margin-right: 3px;}
+.homepage .item-work span.icon-new{position: absolute;left: 0;z-index: 100;width: 100%;margin-right: 3px;}
 .homepage .item-work .icon-new img{max-width: 25%;width: auto;float: right;}
 
 .homepage .new-jobs .mobile a{overflow: visible;}

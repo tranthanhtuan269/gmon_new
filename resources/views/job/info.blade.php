@@ -578,7 +578,7 @@
                             // Move to a new location or you can do something else
                             window.location.href = url_site + "/curriculumvitae/create";
                         }, 3000);
-                    }
+                }
 	        });
 
 	        request.fail(function (jqXHR, textStatus) {

@@ -243,6 +243,7 @@
             $(document).ready(function () {
                 onOpenLogin();
                 $('#login-btn').click(function () {
+                    $('#login-message').hide();
                     var loginEmail = $('#login-email').val();
                     var loginPassword = $('#login-password').val();
                     var request = $.ajax({

@@ -681,36 +681,44 @@ class CompanyController extends Controller {
     }
 
     public function follow(Request $request) {
-        $input = $request->all();
-        $current_id = \Auth::user()->id;
+        if (\Auth::check()) {
+            $input = $request->all();
+            $current_id = \Auth::user()->id;
 
-        $follow = Follow::where('user', $current_id)->where('company', $input['company'])->first();
-        if ($follow == null) {
-            // store
-            $follow = new Follow;
-            $follow->user = $current_id;
-            $follow->company = $input['company'];
+            $follow = Follow::where('user', $current_id)->where('company', $input['company'])->first();
+            if ($follow == null) {
+                // store
+                $follow = new Follow;
+                $follow->user = $current_id;
+                $follow->company = $input['company'];
 
-            if ($follow->save()) {
+                if ($follow->save()) {
+                    return \Response::json(array('code' => '200', 'message' => 'success', 'follow' => $follow));
+                }
+            } else {
                 return \Response::json(array('code' => '200', 'message' => 'success', 'follow' => $follow));
             }
-        } else {
-            return \Response::json(array('code' => '200', 'message' => 'success', 'follow' => $follow));
+            return \Response::json(array('code' => '404', 'message' => 'unsuccess'));
+        }else{
+            return \Response::json(array('code' => '401', 'message' => 'unauthen!'));
         }
-        return \Response::json(array('code' => '404', 'message' => 'unsuccess'));
     }
 
     public function unfollow(Request $request) {
-        $input = $request->all();
-        $current_id = \Auth::user()->id;
+        if (\Auth::check()) {
+            $input = $request->all();
+            $current_id = \Auth::user()->id;
 
-        $follow = Follow::where('user', $current_id)->where('company', $input['company'])->first();
-        if ($follow) {
-            if ($follow->delete()) {
-                return \Response::json(array('code' => '200', 'message' => 'success', 'follow' => $follow));
-            } else {
-                return \Response::json(array('code' => '404', 'message' => 'unsuccess'));
+            $follow = Follow::where('user', $current_id)->where('company', $input['company'])->first();
+            if ($follow) {
+                if ($follow->delete()) {
+                    return \Response::json(array('code' => '200', 'message' => 'success', 'follow' => $follow));
+                } else {
+                    return \Response::json(array('code' => '404', 'message' => 'unsuccess'));
+                }
             }
+        }else{
+            return \Response::json(array('code' => '401', 'message' => 'unauthen!'));
         }
     }
 
