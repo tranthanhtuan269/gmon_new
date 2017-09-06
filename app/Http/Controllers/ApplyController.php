@@ -142,7 +142,6 @@ class ApplyController extends Controller
             ->select('applies.id as id', 'users.name as user', 'jobs.name as job')
             ->paginate($perPage);
 
-        var_dump($apply);die;
         return view('apply.admin', compact('apply'));
     }
 }
