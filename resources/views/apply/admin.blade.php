@@ -38,7 +38,7 @@
                                 @endforeach
                                 </tbody>
                             </table>
-                            <div class="pagination-wrapper"> {!! $city->appends(['search' => Request::get('search')])->render() !!} </div>
+                            <div class="pagination-wrapper"> {!! $apply->appends(['search' => Request::get('search')])->render() !!} </div>
                         </div>
 
                     </div>
