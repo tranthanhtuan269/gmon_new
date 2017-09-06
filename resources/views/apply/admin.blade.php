@@ -7,7 +7,7 @@
 
             <div class="col-md-9">
                 <div class="panel panel-default">
-                    <div class="panel-heading">City</div>
+                    <div class="panel-heading">Apply</div>
                     <div class="panel-body">
                         <br/>
                         <div class="table-responsive">
@@ -16,14 +16,16 @@
                                     <tr>
                                         <th style="width: 10%">ID</th>
                                         <th style="width: 80%">Name</th>
+                                        <th style="width: 80%">Job</th>
                                         <th style="width: 10%">Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                @foreach($city as $item)
+                                @foreach($apply as $item)
                                     <tr>
                                         <td>{{ $item->id }}</td>
-                                        <td>{{ $item->name }}</td>
+                                        <td>{{ $item->user }}</td>
+                                        <td>{{ $item->job }}</td>
                                         <td>
                                                 <div class="btn btn-default btn-xs active-city @if($item->active==1) hidden-object @else show-object @endif" data-id="{{ $item->id }}">
                                                 Unactive
