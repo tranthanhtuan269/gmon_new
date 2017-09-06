@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.backend')
 
 @section('content')
     <div class="container">
@@ -25,7 +25,7 @@
                                 @foreach($apply as $item)
                                     <tr>
                                         <td>{{ $item->id }}</td>
-                                        <td>{{ $item->user }}</td>
+                                        <td><a href="{{ url('/') }}/curriculumvitae/view/{{ $item->cv_id }}">{{ $item->user }}</a></td>
                                         <td>{{ $item->job }}</td>
                                         <td>{{ $item->created_at }}</td>
                                         <td>
