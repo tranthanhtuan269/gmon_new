@@ -136,9 +136,9 @@
 
                                             <ul class="dropdown-menu" role="menu">
                                                 @if(Auth::check() && Auth::user()->hasRole('admin'))
-                                                    <li><a target="_self" href="{{ url('/admin') }}">Administrator</a></li>
+                                                    <li><a target="_self" href="http://gmon.vn/admin">Administrator</a></li>
                                                 @elseif(Auth::check() && Auth::user()->hasRole('master'))
-                                                    <li><a target="_self" href="{{ url('/city/admin') }}">Administrator</a></li>
+                                                    <li><a target="_self" href="http://gmon.vn/admin">Administrator</a></li>
                                                 @elseif(Auth::check() && Auth::user()->hasRole('user'))
                                                     @if(isset($cv_id) && $cv_id > 0)
                                                     <li><a target="_self" href="{{ url('/') }}/curriculumvitae/view/{{ $cv_id }}">Trang hồ sơ</a></li>
