@@ -146,6 +146,7 @@ class ApplyController extends Controller
                 'users.name as user', 
                 'jobs.name as job'
                 )
+            ->orderBy('applies.created_at', 'desc')
             ->paginate($perPage);
 
         return view('apply.admin', compact('apply'));

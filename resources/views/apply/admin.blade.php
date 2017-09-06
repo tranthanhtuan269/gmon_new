@@ -15,9 +15,9 @@
                                 <thead>
                                     <tr>
                                         <th style="width: 10%">ID</th>
-                                        <th style="width: 80%">Name</th>
-                                        <th style="width: 80%">Job</th>
-                                        <th style="width: 80%">Created At</th>
+                                        <th style="width: 30%">Name</th>
+                                        <th style="width: 30%">Job</th>
+                                        <th style="width: 20%">Created At</th>
                                         <th style="width: 10%">Actions</th>
                                     </tr>
                                 </thead>
