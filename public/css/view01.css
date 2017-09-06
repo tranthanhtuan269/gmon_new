@@ -506,3 +506,13 @@ ul li div{
     height: 350px;
     background-color: grey;
 }
+
+#select-template ul.dropdown-menu li{
+	min-height: 30px;
+    padding: 5px;
+    cursor: pointer;
+}
+
+#select-template ul.dropdown-menu li:hover{
+	background-color: #eee;
+}
