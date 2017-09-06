@@ -139,7 +139,13 @@ class ApplyController extends Controller
         $apply = \DB::table('applies')
             ->join('users', 'users.id', '=', 'applies.user')
             ->join('jobs', 'jobs.id', '=', 'applies.job')
-            ->select('applies.id as id', 'applies.active as active', 'users.name as user', 'jobs.name as job')
+            ->select(
+                'applies.id as id', 
+                'applies.active as active', 
+                'applies.created_at as created_at', 
+                'users.name as user', 
+                'jobs.name as job'
+                )
             ->paginate($perPage);
 
         return view('apply.admin', compact('apply'));

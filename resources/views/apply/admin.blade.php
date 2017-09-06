@@ -17,6 +17,7 @@
                                         <th style="width: 10%">ID</th>
                                         <th style="width: 80%">Name</th>
                                         <th style="width: 80%">Job</th>
+                                        <th style="width: 80%">Created At</th>
                                         <th style="width: 10%">Actions</th>
                                     </tr>
                                 </thead>
@@ -26,6 +27,7 @@
                                         <td>{{ $item->id }}</td>
                                         <td>{{ $item->user }}</td>
                                         <td>{{ $item->job }}</td>
+                                        <td>{{ $item->created_at }}</td>
                                         <td>
                                                 <div class="btn btn-default btn-xs apply-cv @if($item->active==1) hidden-object @else show-object @endif" data-id="{{ $item->id }}">
                                                 UnApply
