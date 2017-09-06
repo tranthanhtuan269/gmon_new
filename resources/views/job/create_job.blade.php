@@ -139,6 +139,7 @@
                                     <input type="hidden" id="education" name="education" value="0">
                                     <select class="form-control" title="Yêu cầu bằng cấp" id="education_select" name="education_select">
                                         <option value="0">Không yêu cầu bằng cấp</option>
+                                        <option value="6">Chứng chỉ nghề</option>
                                         <option value="1">Cử nhân</option>
                                         <option value="2">Kỹ sư</option>
                                         <option value="3">MBA</option>

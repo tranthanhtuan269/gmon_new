@@ -280,9 +280,6 @@
                     <div class="item col-md-4">
                         <div class="image">
                             <img src="http://test.gmon.com.vn/?image={{ $company->banner }}" alt=""  width="350" height="180"  />
-                            <div class="logo">
-                                <img src="http://test.gmon.com.vn/?image={{ $company->logo }}" alt=""  width="100" height="100" />
-                            </div>
                         </div>
                         <div class="title">
                             <a href="{{ url('/') }}/company/{{ $company->id }}/info">{{ $company->name }}</a>
