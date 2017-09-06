@@ -731,6 +731,7 @@ header .header-mid .multisearch .btn-search button{padding-top:38px;}
     border-top: 1px solid #c5cbce;
     padding: 5px 0;
 	font-weight: 400;
+	margin: 6px 0;
 }
 .main-content .view-blog .view-row:hover{
 	box-shadow: 0px 0px 10px #a6a8ab;
