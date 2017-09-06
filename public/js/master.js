@@ -1,6 +1,60 @@
 $(document).ready(function(){
 	var url_site = $('base').attr('href');
-	$('.active-city').click(function(){
+	$('.apply-cv').click(function(){
+        var _sefl = $(this);
+        var apply_id = $(this).attr('data-id');
+        var request = $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            url: url_site + "/apply/active",
+            method: "POST",
+            data: {
+                'apply': apply_id
+            },
+            dataType: "json"
+        });
+
+        request.done(function (msg) {
+            if (msg.code == 200) {
+               _sefl.addClass('hidden-object').removeClass('show-object');
+               _sefl.parent().find(".unapply-cv").addClass('show-object').removeClass('hidden-object');
+            }
+        });
+
+        request.fail(function (jqXHR, textStatus) {
+            alert("Request failed: " + textStatus);
+        });
+    });
+
+    $('.unapply-cv').click(function(){
+        var _sefl = $(this);
+        var apply_id = $(this).attr('data-id');
+        var request = $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            url: url_site + "/apply/unactive",
+            method: "POST",
+            data: {
+                'apply': apply_id
+            },
+            dataType: "json"
+        });
+
+        request.done(function (msg) {
+            if (msg.code == 200) {
+               _sefl.addClass('hidden-object').removeClass('show-object');
+               _sefl.parent().find(".apply-cv").addClass('show-object').removeClass('hidden-object');
+            }
+        });
+
+        request.fail(function (jqXHR, textStatus) {
+            alert("Request failed: " + textStatus);
+        });
+    });
+
+    $('.active-city').click(function(){
         var _sefl = $(this);
         var city_id = $(this).attr('data-id');
         var request = $.ajax({

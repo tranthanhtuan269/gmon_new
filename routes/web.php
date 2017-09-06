@@ -110,6 +110,8 @@ Route::group(['middleware' => ['auth', 'roles'], 'roles' => 'master'], function 
     Route::post('job/vip2', 'JobController@vip2');
     Route::post('job/unvip', 'JobController@unvip');
 
+    Route::post('apply/active', 'ApplyController@active');
+    Route::post('apply/unactive', 'ApplyController@unactive');
     Route::get('admin/apply', 'ApplyController@admin');
     Route::resource('admin/companytype', 'CompanyTypeController');
 

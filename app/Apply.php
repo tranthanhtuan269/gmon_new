@@ -25,7 +25,7 @@ class Apply extends Model
      *
      * @var array
      */
-    protected $fillable = ['user', 'job'];
+    protected $fillable = ['user', 'job', 'active'];
 
     
 }

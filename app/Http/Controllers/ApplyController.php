@@ -139,9 +139,33 @@ class ApplyController extends Controller
         $apply = \DB::table('applies')
             ->join('users', 'users.id', '=', 'applies.user')
             ->join('jobs', 'jobs.id', '=', 'applies.job')
-            ->select('applies.id as id', 'users.name as user', 'jobs.name as job')
+            ->select('applies.id as id', 'applies.active as active', 'users.name as user', 'jobs.name as job')
             ->paginate($perPage);
 
         return view('apply.admin', compact('apply'));
+    }
+
+    public function active(Request $request){
+        $input = $request->all();
+        if(isset($input) && isset($input['apply'])){
+            $apply = Apply::findOrFail($input['apply']);
+            $apply->active = 1;
+            if($apply->save()){
+                return \Response::json(array('code' => '200', 'message' => 'Update success!'));
+            }
+        }
+        return \Response::json(array('code' => '404', 'message' => 'Update unsuccess!'));
+    }
+
+    public function unactive(Request $request){
+        $input = $request->all();
+        if(isset($input) && isset($input['apply'])){
+            $apply = Apply::findOrFail($input['apply']);
+            $apply->active = 0;
+            if($apply->save()){
+                return \Response::json(array('code' => '200', 'message' => 'Update success!'));
+            }
+        }
+        return \Response::json(array('code' => '404', 'message' => 'Update unsuccess!'));
     }
 }
