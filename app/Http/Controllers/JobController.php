@@ -201,7 +201,6 @@ class JobController extends Controller
 
     public function storeJob(Request $request) {
         $input = $request->all();
-        dd($input);
         if ($input['description'] == null) {
             $input['description'] = '';
         }
