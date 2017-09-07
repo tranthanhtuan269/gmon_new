@@ -15,8 +15,9 @@
                                 <thead>
                                     <tr>
                                         <th style="width: 10%">ID</th>
-                                        <th style="width: 30%">Name</th>
-                                        <th style="width: 30%">Job</th>
+                                        <th style="width: 20%">Applicant</th>
+                                        <th style="width: 20%">Job</th>
+                                        <th style="width: 20%">Company</th>
                                         <th style="width: 20%">Created At</th>
                                         <th style="width: 10%">Actions</th>
                                     </tr>
@@ -25,8 +26,17 @@
                                 @foreach($apply as $item)
                                     <tr>
                                         <td>{{ $item->id }}</td>
-                                        <td><a href="{{ url('/') }}/curriculumvitae/view/{{ $item->cv_id }}">{{ $item->user }}</a></td>
+                                        <td>
+                                            <div><a href="{{ url('/') }}/curriculumvitae/view/{{ $item->cv_id }}">{{ $item->user }}</a></div>
+                                            <div>{{ $item->email }}</div>
+                                            <div>{{ $item->phone }}</div>
+                                        </td>
                                         <td>{{ $item->job }}</td>
+                                        <td>
+                                            <div><a href="{{ url('/') }}/company/{{ $item->companyId }}/info">{{ $item->companyName }}</a></div>
+                                            <div>{{ $item->companyEmail }}</div>
+                                            <div>{{ $item->companyPhone }}</div>
+                                        </td>
                                         <td>{{ $item->created_at }}</td>
                                         <td>
                                                 <div class="btn btn-default btn-xs apply-cv @if($item->active==1) hidden-object @else show-object @endif" data-id="{{ $item->id }}">

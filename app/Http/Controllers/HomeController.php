@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\CompanyCompanyType;
+use App\User;
+use App\Company;
 
 class HomeController extends Controller
 {
@@ -1494,65 +1496,17 @@ class HomeController extends Controller
     }
     
     public function action(){
-        $jobs = \DB::table('jobs')
-                        ->get();
-        foreach($jobs as $job){
-            $job->job_type=rtrim($job->job_type,";");
-            $job_types = explode(";",$job->job_type);
-            foreach($job_types as $job_type){
-                if($job_type == 'Làm bán thời gian'){
-                    $cct = CompanyCompanyType::where('company', $company->id)->where('company_type', 1)->first();
-                    if($cct == null){
-                        echo $company->id .' - '. $job . ';';
-                        $companyCompanyType = new CompanyCompanyType;
-                        $companyCompanyType->company = $company->id;
-                        $companyCompanyType->company_type = 1;
-                        $companyCompanyType->save();
-                        echo 'Success <br />';
-                    }
-                }else if($job == 'Nhà Hàng'){
-                    $cct = CompanyCompanyType::where('company', $company->id)->where('company_type', 2)->first();
-                    if($cct == null){
-                        echo $company->id .' - '. $job . ';';
-                        $companyCompanyType = new CompanyCompanyType;
-                        $companyCompanyType->company = $company->id;
-                        $companyCompanyType->company_type = 2;
-                        $companyCompanyType->save();
-                        echo 'Success <br />';
-                    }
-                }else if($job == 'Cửa hàng'){
-                    $cct = CompanyCompanyType::where('company', $company->id)->where('company_type', 3)->first();
-                    if($cct == null){
-                        echo $company->id .' - '. $job . ';';
-                        $companyCompanyType = new CompanyCompanyType;
-                        $companyCompanyType->company = $company->id;
-                        $companyCompanyType->company_type = 3;
-                        $companyCompanyType->save();
-                        echo 'Success <br />';
-                    }
-                }else if($job == 'Doanh nghiệp'){
-                    $cct = CompanyCompanyType::where('company', $company->id)->where('company_type', 4)->first();
-                    if($cct == null){
-                        echo $company->id .' - '. $job . ';';
-                        $companyCompanyType = new CompanyCompanyType;
-                        $companyCompanyType->company = $company->id;
-                        $companyCompanyType->company_type = 4;
-                        $companyCompanyType->save();
-                        echo 'Success <br />';
-                    }
-                }else if($job == 'Spa'){
-                    $cct = CompanyCompanyType::where('company', $company->id)->where('company_type', 5)->first();
-                    if($cct == null){
-                        echo $company->id .' - '. $job . ';';
-                        $companyCompanyType = new CompanyCompanyType;
-                        $companyCompanyType->company = $company->id;
-                        $companyCompanyType->company_type = 5;
-                        $companyCompanyType->save();
-                        echo 'Success <br />';
-                    }
-                }
-                echo '<br />';
-            }
+        // get all company
+        $companies = \DB::table('companies')->get();
+        foreach($companies as $company){
+            // get user from $company
+            $user = User::findOrFail($company->user);
+            $companySelected = Company::findOrFail($company->id);
+            $companySelected->phone = $user->phone;
+            $companySelected->email = $user->email;
+            $companySelected->save();
+            echo $user->phone;
+            echo '-' . $user->email . '<br />';
         }
     }
 }

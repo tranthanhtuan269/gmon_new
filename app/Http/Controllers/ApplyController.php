@@ -140,13 +140,20 @@ class ApplyController extends Controller
             ->join('users', 'users.id', '=', 'applies.user')
             ->join('curriculum_vitaes', 'curriculum_vitaes.user', '=', 'users.id')
             ->join('jobs', 'jobs.id', '=', 'applies.job')
+            ->join('companies', 'companies.id', '=', 'jobs.company')
             ->select(
                 'applies.id as id',
                 'applies.active as active', 
                 'curriculum_vitaes.id as cv_id',
                 'applies.created_at as created_at', 
-                'users.name as user', 
-                'jobs.name as job'
+                'users.name as user',
+                'users.email as email',
+                'users.phone as phone',
+                'jobs.name as job',
+                'companies.id as companyId',
+                'companies.name as companyName',
+                'companies.phone as companyPhone',
+                'companies.email as companyEmail'
                 )
             ->orderBy('applies.created_at', 'desc')
             ->paginate($perPage);

@@ -239,6 +239,8 @@ class CompanyController extends Controller {
         $input['banner'] = $img_banner;
         $input['images'] = $allPic;
         $input['user'] = \Auth::user()->id;
+        $input['email'] = \Auth::user()->email;
+        $input['phone'] = \Auth::user()->phone;
         
         $company = Company::create($input);
 

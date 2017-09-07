@@ -117,6 +117,8 @@ Route::group(['middleware' => ['auth', 'roles'], 'roles' => 'master'], function 
     Route::post('post/active', 'PostController@active');
     Route::post('post/unactive', 'PostController@unactive');
     Route::resource('master/category', 'CategoryController');
+
+    Route::get('test', 'HomeController@action');
 });
 
 Route::group(['middleware' => ['auth', 'roles'], 'roles' => 'creator'], function () {
