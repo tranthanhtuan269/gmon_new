@@ -118,4 +118,8 @@ Route::group(['middleware' => ['auth', 'roles'], 'roles' => 'master'], function 
     Route::resource('master/category', 'CategoryController');
     Route::resource('post', 'PostController');
 });
+
+Route::group(['middleware' => ['auth', 'roles'], 'roles' => 'creator'], function () {
+    Route::resource('post', 'PostController');
+});
 Route::resource('branch', 'BranchController');

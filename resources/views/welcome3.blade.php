@@ -58,6 +58,8 @@
                                 <li><a target="_self" href="{{ url('/admin') }}">Administrator</a></li>
                                 @elseif(Auth::check() && Auth::user()->hasRole('master'))
                                 <li><a target="_self" href="{{ url('/city/admin') }}">Administrator</a></li>
+                                @elseif(Auth::check() && Auth::user()->hasRole('creator'))
+                                <li><a target="_self" href="{{ url('/post/create') }}">Create Post</a></li>
                                 @elseif(Auth::check() && Auth::user()->hasRole('poster'))
                                     @if($company_id > 0)
                                     <li><a target="_self" href="{{ url('/') }}/company/{{ $company_id }}/info">Trang tuyển dụng</a></li>
