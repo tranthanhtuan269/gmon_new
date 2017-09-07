@@ -176,53 +176,53 @@
                             <div class="sblg-title"><span>{{ $company->name }}</span></div>
                             <div class="sb-body clearfix">
                                 <p>
-                                    <img src="{{http://test.gmon.com.vn/?image=sbicon1.png">
+                                    <img src="http://test.gmon.com.vn/?image=sbicon1.png">
                                     <span>{{ $company->address }}, {{ $company->district }}, {{ $company->city }}.</span>
                                 </p>
-                                <p><img src="{{http://test.gmon.com.vn/?image=sbicon2.png"><span>{{ $company->district }}, {{ $company->city }}.</span></p>
+                                <p><img src="http://test.gmon.com.vn/?image=sbicon2.png"><span>{{ $company->district }}, {{ $company->city }}.</span></p>
                                 @if(strlen($company->jobs) > 0)
-                                <p><img src="{{http://test.gmon.com.vn/?image=sbicon3.png"><span>{{ rtrim($company->jobs,";") }}.</span></p>
+                                <p><img src="http://test.gmon.com.vn/?image=sbicon3.png"><span>{{ rtrim($company->jobs,";") }}.</span></p>
                                 @endif
-                                <p><img src="{{http://test.gmon.com.vn/?image=sbicon4.png"><span>{{ $company->size }} người.</span></p>
-                                <p><img src="{{http://test.gmon.com.vn/?image=sbicon5.png"><span>Thứ 2 đến thứ 6.</span></p>
-                                <p><img src="{{http://test.gmon.com.vn/?image=sbicon6.png"><span>Chuyển động không ngừng.</span></p>
+                                <p><img src="http://test.gmon.com.vn/?image=sbicon4.png"><span>{{ $company->size }} người.</span></p>
+                                <p><img src="http://test.gmon.com.vn/?image=sbicon5.png"><span>Thứ 2 đến thứ 6.</span></p>
+                                <p><img src="http://test.gmon.com.vn/?image=sbicon6.png"><span>Chuyển động không ngừng.</span></p>
                             </div>
 
                         </div>
                         <div class="rate">
                             <p>Đánh giá chung</br>
-                                <img src="{{http://test.gmon.com.vn/?image=ratestar.png">
-                                <img src="{{http://test.gmon.com.vn/?image=ratestar.png">
-                                <img src="{{http://test.gmon.com.vn/?image=ratestar.png">
-                                <img src="{{http://test.gmon.com.vn/?image=ratestar.png">
-                                <img src="{{http://test.gmon.com.vn/?image=ratestar.png">
+                                <img src="http://test.gmon.com.vn/?image=ratestar.png">
+                                <img src="http://test.gmon.com.vn/?image=ratestar.png">
+                                <img src="http://test.gmon.com.vn/?image=ratestar.png">
+                                <img src="http://test.gmon.com.vn/?image=ratestar.png">
+                                <img src="http://test.gmon.com.vn/?image=ratestar.png">
                             </p>
                         </div>
                         <div class="comment">
                             <div class="sb-title"><span>MỌI NGƯỜI NÓI VỀ CHÚNG TÔI</span></div>
                             <div class="sb-body">
                                 <p>
-                                    <img src="{{http://test.gmon.com.vn/?image=ratestar.png">
-                                    <img src="{{http://test.gmon.com.vn/?image=ratestar.png">
-                                    <img src="{{http://test.gmon.com.vn/?image=ratestar.png">
-                                    <img src="{{http://test.gmon.com.vn/?image=ratestar.png">
-                                    <img src="{{http://test.gmon.com.vn/?image=ratestar.png"></br>
+                                    <img src="http://test.gmon.com.vn/?image=ratestar.png">
+                                    <img src="http://test.gmon.com.vn/?image=ratestar.png">
+                                    <img src="http://test.gmon.com.vn/?image=ratestar.png">
+                                    <img src="http://test.gmon.com.vn/?image=ratestar.png">
+                                    <img src="http://test.gmon.com.vn/?image=ratestar.png"></br>
                                     <span>Môi trường chuyên nghiệp, thân thiện.</span>
                                 </p>
                                 <p>
-                                    <img src="{{http://test.gmon.com.vn/?image=ratestar.png">
-                                    <img src="{{http://test.gmon.com.vn/?image=ratestar.png">
-                                    <img src="{{http://test.gmon.com.vn/?image=ratestar.png">
-                                    <img src="{{http://test.gmon.com.vn/?image=ratestar.png">
-                                    <img src="{{http://test.gmon.com.vn/?image=ratestar.png"></br>
+                                    <img src="http://test.gmon.com.vn/?image=ratestar.png">
+                                    <img src="http://test.gmon.com.vn/?image=ratestar.png">
+                                    <img src="http://test.gmon.com.vn/?image=ratestar.png">
+                                    <img src="http://test.gmon.com.vn/?image=ratestar.png">
+                                    <img src="http://test.gmon.com.vn/?image=ratestar.png"></br>
                                     <span>Quản lý tốt bụng, quan tâm.</span>
                                 </p>
                                 <p>
-                                    <img src="{{http://test.gmon.com.vn/?image=ratestar.png">
-                                    <img src="{{http://test.gmon.com.vn/?image=ratestar.png">
-                                    <img src="{{http://test.gmon.com.vn/?image=ratestar.png">
-                                    <img src="{{http://test.gmon.com.vn/?image=ratestar.png">
-                                    <img src="{{http://test.gmon.com.vn/?image=ratestar.png"></br>
+                                    <img src="http://test.gmon.com.vn/?image=ratestar.png">
+                                    <img src="http://test.gmon.com.vn/?image=ratestar.png">
+                                    <img src="http://test.gmon.com.vn/?image=ratestar.png">
+                                    <img src="http://test.gmon.com.vn/?image=ratestar.png">
+                                    <img src="http://test.gmon.com.vn/?image=ratestar.png"></br>
                                     <span>Đồng nghiệp vui vẻ, tốt tính.</span>
                                 </p>
                             </div>
@@ -294,8 +294,8 @@
                             @foreach($jobs as $job)
                             <div class="row employ-info">
                                 <div class="employ-img col-md-2 col-lg-2">
-                                    <img src="{{http://test.gmon.com.vn/?image=zalo.png">
-                                    <!-- <img src="{{http://test.gmon.com.vn/?image={{ $job->logo }}"> -->
+                                    <img src="http://test.gmon.com.vn/?image=zalo.png">
+                                    <!-- <img src="http://test.gmon.com.vn/?image={{ $job->logo }}"> -->
                                 </div>
                                 <div class="col-md-10 col-lg-10 clearfix">
                                     <div class="employ-title">
@@ -312,7 +312,7 @@
                                                 <p>Số lượng: <span>{{ $job->number }}</span></p>
                                             </div>
                                             <div class="col-md-9 col-lg-9">
-                                                <img src="{{http://test.gmon.com.vn/?image=sbicon1.png"> 
+                                                <img src="http://test.gmon.com.vn/?image=sbicon1.png"> 
                                                 <span>{{ $job->district }}, {{ $job->city }}</span>
                                             </div>
                                         </div>
@@ -321,19 +321,19 @@
                                                 <p>Nhận hồ sơ đến hết: </p>
                                             </div>
                                             <div class="col-md-9 col-lg-9">
-                                                <img src="{{http://test.gmon.com.vn/?image=clockicon.png">
+                                                <img src="http://test.gmon.com.vn/?image=clockicon.png">
                                                 <span> {{ $job->expiration_date }}</span>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="employ-ft"> 
                                         <div class="employ-txt">
-                                            <p>Lượt xem: <img src="{{http://test.gmon.com.vn/?image=eyeicon.png">
+                                            <p>Lượt xem: <img src="http://test.gmon.com.vn/?image=eyeicon.png">
                                                 <span>1024</span>
                                                 <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
                                                 Hồ sơ ứng tuyển: 
                                                 <span>332&nbsp;</span>
-                                                <img src="{{http://test.gmon.com.vn/?image=new-employ.png" style="max-width: 60%;">
+                                                <img src="http://test.gmon.com.vn/?image=new-employ.png" style="max-width: 60%;">
                                             </p>
                                         </div>
                                     </div>
