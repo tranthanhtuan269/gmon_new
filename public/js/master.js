@@ -54,6 +54,60 @@ $(document).ready(function(){
         });
     });
 
+    $('.active-post').click(function(){
+        var _sefl = $(this);
+        var post_id = $(this).attr('data-id');
+        var request = $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            url: url_site + "/post/active",
+            method: "POST",
+            data: {
+                'post': post_id
+            },
+            dataType: "json"
+        });
+
+        request.done(function (msg) {
+            if (msg.code == 200) {
+               _sefl.addClass('hidden-object').removeClass('show-object');
+               _sefl.parent().find(".unactive-post").addClass('show-object').removeClass('hidden-object');
+            }
+        });
+
+        request.fail(function (jqXHR, textStatus) {
+            alert("Request failed: " + textStatus);
+        });
+    });
+
+    $('.unactive-post').click(function(){
+        var _sefl = $(this);
+        var post_id = $(this).attr('data-id');
+        var request = $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            url: url_site + "/post/unactive",
+            method: "POST",
+            data: {
+                'post': post_id
+            },
+            dataType: "json"
+        });
+
+        request.done(function (msg) {
+            if (msg.code == 200) {
+               _sefl.addClass('hidden-object').removeClass('show-object');
+               _sefl.parent().find(".active-post").addClass('show-object').removeClass('hidden-object');
+            }
+        });
+
+        request.fail(function (jqXHR, textStatus) {
+            alert("Request failed: " + textStatus);
+        });
+	});
+
     $('.active-city').click(function(){
         var _sefl = $(this);
         var city_id = $(this).attr('data-id');
@@ -106,7 +160,7 @@ $(document).ready(function(){
         request.fail(function (jqXHR, textStatus) {
             alert("Request failed: " + textStatus);
         });
-	});
+    });
 
     $('.active-district').click(function(){
         var _sefl = $(this);

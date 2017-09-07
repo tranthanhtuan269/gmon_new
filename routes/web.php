@@ -90,7 +90,6 @@ Route::group(['middleware' => ['auth', 'roles'], 'roles' => 'admin'], function (
     Route::resource('admin/job', 'JobController');
     Route::resource('admin/salary', 'SalaryController');
     Route::resource('master/category', 'CategoryController');
-    Route::resource('post', 'PostController');
     Route::get('admin/apply', 'ApplyController@admin');
 });
 
@@ -115,8 +114,9 @@ Route::group(['middleware' => ['auth', 'roles'], 'roles' => 'master'], function 
     Route::get('admin/apply', 'ApplyController@admin');
     Route::resource('admin/companytype', 'CompanyTypeController');
 
+    Route::post('post/active', 'PostController@active');
+    Route::post('post/unactive', 'PostController@unactive');
     Route::resource('master/category', 'CategoryController');
-    Route::resource('post', 'PostController');
 });
 
 Route::group(['middleware' => ['auth', 'roles'], 'roles' => 'creator'], function () {

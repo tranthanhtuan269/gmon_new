@@ -27,12 +27,12 @@ class PostController extends Controller
                 ->where('title', 'LIKE', "%$keyword%")
 				->orWhere('description', 'LIKE', "%$keyword%")
 				->orWhere('category', 'LIKE', "%$keyword%")
-                ->select('posts.id', 'posts.title', 'posts.image', 'posts.views', 'posts.likes', 'categories.name as categoryName')
+                ->select('posts.id', 'posts.title', 'posts.image', 'posts.views', 'posts.active', 'posts.likes', 'categories.name as categoryName')
 				->paginate($perPage);
         } else {
             $post = \DB::table('posts')
                 ->join('categories', 'categories.id', '=', 'posts.category')
-                ->select('posts.id', 'posts.title', 'posts.image', 'posts.views', 'posts.likes', 'categories.name as categoryName')
+                ->select('posts.id', 'posts.title', 'posts.image', 'posts.views', 'posts.active', 'posts.likes', 'categories.name as categoryName')
                 ->paginate($perPage);
         }
 
@@ -160,5 +160,29 @@ class PostController extends Controller
         Session::flash('flash_message', 'Post deleted!');
 
         return redirect('post');
+    }
+
+    public function active(Request $request){
+        $input = $request->all();
+        if(isset($input) && isset($input['post'])){
+            $post = Post::findOrFail($input['post']);
+            $post->active = 1;
+            if($post->save()){
+                return \Response::json(array('code' => '200', 'message' => 'Update success!'));
+            }
+        }
+        return \Response::json(array('code' => '404', 'message' => 'Update unsuccess!'));
+    }
+
+    public function unactive(Request $request){
+        $input = $request->all();
+        if(isset($input) && isset($input['post'])){
+            $post = Post::findOrFail($input['post']);
+            $post->active = 0;
+            if($post->save()){
+                return \Response::json(array('code' => '200', 'message' => 'Update success!'));
+            }
+        }
+        return \Response::json(array('code' => '404', 'message' => 'Update unsuccess!'));
     }
 }
