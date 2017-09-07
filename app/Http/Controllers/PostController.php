@@ -58,27 +58,55 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        $img_avatar = '';
-        if ($request->hasFile('imagePost')) {
-            $file_avatar = $request->file('imagePost');
-            $filename = $file_avatar->getClientOriginalName();
-            $extension = $file_avatar->getClientOriginalExtension();
-            $img_avatar = date('His') . $filename;
-            $destinationPath = base_path('../../images');
-            // $destinationPath = base_path() . '/public/images';
-            $file_avatar->move($destinationPath, $img_avatar);
+        if (\Auth::check()) {
+            if(Auth::user()->hasRole('admin') || Auth::user()->hasRole('master')){
+                $img_avatar = '';
+                if ($request->hasFile('imagePost')) {
+                    $file_avatar = $request->file('imagePost');
+                    $filename = $file_avatar->getClientOriginalName();
+                    $extension = $file_avatar->getClientOriginalExtension();
+                    $img_avatar = date('His') . $filename;
+                    $destinationPath = base_path('../../images');
+                    // $destinationPath = base_path() . '/public/images';
+                    $file_avatar->move($destinationPath, $img_avatar);
+                }
+
+                $requestData = $request->all();
+                unset($requestData['imagePost']);
+
+                $requestData['image'] = $img_avatar;
+                $requestData['active'] = 1;
+                
+                Post::create($requestData);
+
+                Session::flash('flash_message', 'Post added!');
+
+                return redirect('post');
+            }else if(Auth::user()->hasRole('bientap')){
+                $img_avatar = '';
+                if ($request->hasFile('imagePost')) {
+                    $file_avatar = $request->file('imagePost');
+                    $filename = $file_avatar->getClientOriginalName();
+                    $extension = $file_avatar->getClientOriginalExtension();
+                    $img_avatar = date('His') . $filename;
+                    $destinationPath = base_path('../../images');
+                    // $destinationPath = base_path() . '/public/images';
+                    $file_avatar->move($destinationPath, $img_avatar);
+                }
+
+                $requestData = $request->all();
+                unset($requestData['imagePost']);
+
+                $requestData['image'] = $img_avatar;
+                $requestData['active'] = 0;
+                
+                Post::create($requestData);
+
+                Session::flash('flash_message', 'Post added!');
+
+                return redirect('post');
+            }
         }
-
-        $requestData = $request->all();
-        unset($requestData['imagePost']);
-
-        $requestData['image'] = $img_avatar;
-        
-        Post::create($requestData);
-
-        Session::flash('flash_message', 'Post added!');
-
-        return redirect('post');
     }
 
     /**

@@ -303,9 +303,6 @@
                 <div class="item">
                     <div class="image">
                         <img src="http://test.gmon.com.vn/?image={{ $company->banner }}" alt="" />
-                        <div class="logo">
-                            <img src="http://test.gmon.com.vn/?image={{ $company->logo }}" alt="" />
-                        </div>
                     </div>
                     <div class="title">
                         <a href="http://gmon.vn/company/{{ $company->id }}/info">Công việc tại {{ $company->name }}</a>
