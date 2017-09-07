@@ -321,3 +321,7 @@ img.no-vote{
 #select-template ul li div.select-template{
     width: 100%;
 }
+
+.homepage header .header-top .tab-content select#areyou{
+    margin-left: 0;
+}

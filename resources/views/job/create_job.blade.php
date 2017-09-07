@@ -20,19 +20,14 @@
 
                     {!! Form::open(['url' => '/job/store', 'class' => 'form-horizontal', 'files' => true, 'id' => 'create-job']) !!}
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-12">
                             <div class="form-group {{ $errors->has('name') ? 'has-error' : ''}}">
-                                <div class="col-md-12">
-                                    {!! Form::text('name', null, ['class' => 'form-control', 'placeholder' => 'Tên công việc']) !!}
+                                <div class="col-md-6">
+                                    {!! Form::text('name', null, ['class' => 'form-control', 'placeholder' => 'Tên công việc', 'id' => 'job-name']) !!}
                                     {!! $errors->first('name', '<p class="help-block">:message</p>') !!}
                                 </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group {{ $errors->has('number') ? 'has-error' : ''}}">
-                                <div class="col-md-12">
-                                    {!! Form::number('number', null, ['class' => 'form-control', 'placeholder' => 'Số lượng']) !!}
-                                    {!! $errors->first('number', '<p class="help-block">:message</p>') !!}
+                                <div class="col-md-6" style="margin-top:6px; text-transform: uppercase;">
+                                    <label for="companyName">tại {{ $company->name }}</label>
                                 </div>
                             </div>
                         </div>
@@ -69,8 +64,12 @@
                             </div>
                             <div class="form-group {{ $errors->has('public') ? 'has-error' : ''}}">
                                 <div class="col-md-12">
-                                    <select class="form-control" id="public" name="public"><option value="0">Hiển thị với ứng viên</option><option value="1">Không hiển thị</option></select>
-                                    {!! $errors->first('public', '<p class="help-block">:message</p>') !!}
+                                    <div class="form-group {{ $errors->has('number') ? 'has-error' : ''}}">
+                                        <div class="col-md-12">
+                                            {!! Form::number('number', null, ['class' => 'form-control', 'placeholder' => 'Số lượng']) !!}
+                                            {!! $errors->first('number', '<p class="help-block">:message</p>') !!}
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -94,53 +93,7 @@
                             </div>
                             <div class="form-group {{ $errors->has('job_type') ? 'has-error' : ''}}">
                                 <div class="col-md-12" id="select-job">
-                                    <input type="hidden" id="job_type" name="job_type" value="">
-                                    <select class="form-control selectpicker" multiple title="Chọn ngành nghề">
-                                        <option>Làm bán thời gian</option>
-                                        <option>Bán hàng</option>
-                                        <option>Marketing-PR</option>
-                                        <option>Bảo vệ</option>
-                                        <option>Du lịch</option>
-                                        <option>Tạp vụ</option>
-                                        <option>Order</option>
-                                        <option>Nhân viên kỹ thuật</option>
-                                        <option>Sale/Marketing online</option>
-                                        <option>Promotion Girl(PG)</option>
-                                        <option>Thực tập</option>
-                                        <option>Phụ bếp</option>
-                                        <option>Người giúp việc</option>
-                                        <option>Bếp chính</option>
-                                        <option>Nhân viên spa</option>
-                                        <option>Pha chế</option>
-                                        <option>Bell man</option>
-                                        <option>Chăm sóc khách hàng</option>
-                                        <option>Giao nhận, ship</option>
-                                        <option>Kinh doanh</option>
-                                        <option>Hành chính nhân sự</option>
-                                        <option>Phiên dịch</option>
-                                        <option>Gia sư</option>
-                                        <option>Hướng dẫn viên</option>
-                                        <option>Giám sát, quản lý</option>
-                                        <option>Phục vụ, bồi bàn</option>
-                                        <option>Telesale</option>
-                                        <option>Cộng tác viên</option>
-                                        <option>Phụ bếp</option>
-                                        <option>Lễ tân</option>
-                                        <option>Thu ngân</option>
-                                        <option>Marketing online</option>
-                                        <option>Phát tờ rơi</option>
-                                        <option>Buồng phòng</option>
-                                        <option>Pha chế</option>
-                                        <option>Shipper</option>
-                                        <option>Kế toán</option>
-                                        <option>Bác sĩ</option>
-                                        <option>Giáo viên</option>
-                                        <option>Phi công</option>
-                                        <option>Lái xe</option>
-                                        <option>Thiết kế</option>
-                                        <option>Nhân viên IT</option>
-                                        <option>Biên tập viên</option>
-                                    </select>
+                                    {!! Form::select('job_type', $jobstype, 0, ['placeholder' => 'Chọn ngành nghề', 'class' => 'form-control']) !!}
                                     {!! $errors->first('job_type', '<p class="help-block">:message</p>') !!}
                                 </div>
                             </div>
@@ -282,10 +235,6 @@ $(document).ready(function () {
         });
     });
 
-    $("#job_type_select").change(function () {
-        $("#job_type").val($(this).val());
-    });
-
     $("#education_select").change(function () {
         $("#education").val($(this).val());
     });
@@ -311,11 +260,6 @@ $(document).ready(function () {
     });
 
     $("#submit-btn").click(function () {
-        var listJobs = '';
-        $('#select-job .dropdown-menu.inner li.selected').each(function (index) {
-            listJobs += ';' + $(this).text();
-        });
-
         var listBranches = '';
         $listBranch = $('#select-branch select option');
         $('#select-branch .dropdown-menu.inner li').each(function (index) {
@@ -328,7 +272,6 @@ $(document).ready(function () {
         $('#description').val(CKEDITOR.instances["description"].getData());
         $('#requirement').val(CKEDITOR.instances["requirement"].getData());
         $('#benefit').val(CKEDITOR.instances["benefit"].getData());
-        $('#job_type').val(listJobs);
         $("#create-job").submit();
     });
 });

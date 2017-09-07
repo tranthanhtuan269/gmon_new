@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <base href="{{ url('/') }}" target="_blank">
+    <base href="{{ url('/') }}" target="_self">
     <title>{{ config('app.name', 'Gmon') }}</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -60,20 +60,10 @@
                                                         <div id="register" class="tab-pane fade">
                                                             <h3>ĐĂNG KÝ TÀI KHOẢN GMON NGAY !</h3>
                                                             <form method="post">
-                                                                <!-- <div class="row text-center">
-                                                                    <p>Tiếp tục với</p>
-                                                                    <a target="_self" href="#" class="facebook"><i></i> Facebook</a>
-                                                                    <a target="_self" href="#" class="google"><i></i> Google</a>
-                                                                    <span class="col-md-12" style="display: inline-block;margin-bottom: 30px"><hr style="float: left;width: 40%;margin-top: 25px">Hoặc<hr style="float: right;width: 40%;margin-top: 25px"></span>
-                                                                </div> -->
                                                                 <div class="row">
-                                                                    <div class="col-md-6 form-group ">
-                                                                        <input type="text" class="form-control" id="firstname" placeholder="Họ" required autofocus><span class="required">*</span>
+                                                                    <div class="col-md-12 form-group ">
+                                                                        <input type="text" class="form-control" id="username" placeholder="Họ & tên" required autofocus><span class="required">*</span>
                                                                     </div>
-                                                                    <div class="col-md-6 form-group ">
-                                                                        <input type="text" class="form-control" id="lastname" placeholder="Tên" required><span class="required">*</span>
-                                                                    </div>
-
                                                                 </div>
                                                                 <div class="row">
                                                                     <div class="form-group col-md-12">
@@ -669,9 +659,7 @@
             });
 
             $('#register-btn').click(function(){
-                var registerFirstname = $('#firstname').val();
-                var registerLastname = $('#lastname').val();
-                var username = registerFirstname + ' ' + registerLastname;
+                var username = $('#username').val();
                 var registersdt = $('#sdt').val();
                 var registerEmail = $('#register-email').val();
                 var registerPassword = $('#register-password').val();

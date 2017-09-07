@@ -39,7 +39,7 @@
                                     @if (Auth::guest())
                                     <a target="_self" data-toggle="modal" data-target="#myModal" onclick="onOpenLogin()"><i></i>Đăng nhập</a>
                                     <a target="_self" data-toggle="modal" data-target="#myModal" onclick="onOpenRegister()">Đăng ký</a>
-                                    <!-- Modal -->
+                                        <!-- Modal -->
                                     <div id="myModal" class="modal fade" role="dialog">
                                         <div class="modal-dialog">
                                             <!-- Modal content-->
@@ -47,23 +47,19 @@
                                             <div class="modal-content">
                                                 <div class="modal-body">
                                                     <div style="margin:-15px -15px 0 -15px!important;">
-                                                        <ul class="nav nav-justified header-tab-login">
-                                                            <li class=""><a target="_self" data-toggle="tab" href="#login">Đăng nhập</a></li>
-                                                            <li class=""><a target="_self" data-toggle="tab" href="#register">Đăng ký</a></li>
-                                                        </ul>
+                                                    <ul class="nav nav-justified header-tab-login">
+                                                        <li class=""><a target="_self" data-toggle="tab" href="#login">Đăng nhập</a></li>
+                                                        <li class=""><a target="_self" data-toggle="tab" href="#register">Đăng ký</a></li>
+                                                    </ul>
                                                     </div>
                                                     <div class="tab-content">
                                                         <div id="register" class="tab-pane fade">
                                                             <h3>ĐĂNG KÝ TÀI KHOẢN GMON NGAY !</h3>
                                                             <form method="post">
                                                                 <div class="row">
-                                                                    <div class="col-md-6 form-group ">
-                                                                        <input type="text" class="form-control" id="firstname" placeholder="Họ" required autofocus><span class="required">*</span>
+                                                                    <div class="col-md-12 form-group ">
+                                                                        <input type="text" class="form-control" id="username" placeholder="Họ & tên" required autofocus><span class="required">*</span>
                                                                     </div>
-                                                                    <div class="col-md-6 form-group ">
-                                                                        <input type="text" class="form-control" id="lastname" placeholder="Tên" required><span class="required">*</span>
-                                                                    </div>
-
                                                                 </div>
                                                                 <div class="row">
                                                                     <div class="form-group col-md-12">
@@ -90,7 +86,6 @@
                                                                         <option value="2">Nhà tuyển dụng</option>
                                                                     </select>
                                                                 </div>
-                                                                <p class="text-center text-danger" id="register-message" style="display: none;">Đăng ký không thành công!</p>
                                                                 <div class="text-center">
                                                                     <div id="register-btn" class="btn btn-primary">ĐĂNG KÝ NGAY</div>
                                                                 </div>
@@ -109,7 +104,6 @@
                                                                         <input type="password" class="form-control" id="login-password" placeholder="Mật khẩu" required>
                                                                     </div>
                                                                 </div>
-                                                                <p class="text-center text-danger" id="login-message" style="display: none;">Tài khoản không chính xác!</p>
                                                                 <div class="text-center">
                                                                     <div id="login-btn" class="btn btn-primary">ĐĂNG NHẬP</div>
                                                                 </div>
@@ -360,13 +354,15 @@
         function onCloseModalLogin(){
             $("#myModal").modal('toggle');
         }
-        function onOpenRegister(){
+        function onOpenRegister() {
             $("#register").addClass("in active");
+            $("#login").removeClass("in active");
             $(".header-tab-login li:nth-child(1)").removeClass("active");
             $(".header-tab-login li:nth-child(2)").addClass("active");
         }
-        function onOpenLogin(){
+        function onOpenLogin() {
             $("#login").addClass("in active");
+            $("#register").removeClass("in active");
             $(".header-tab-login li:nth-child(2)").removeClass("active");
             $(".header-tab-login li:nth-child(1)").addClass("active");
         }

@@ -143,7 +143,7 @@
                                                <input type="text" class="form-control" id="username" placeholder="Họ & tên">
                                            </div>
                                            <div class="form-group">
-                                               <input type="text" class="form-control" id="sdt" placeholder="Số điện thoại">
+                                               <input type="number" class="form-control" id="sdt" placeholder="Số điện thoại">
                                            </div>
                                            <div class="form-group">
                                                <input type="email" class="form-control" id="register-email" placeholder="Email">

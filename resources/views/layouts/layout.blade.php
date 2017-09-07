@@ -58,13 +58,9 @@
                                                                 <h3>ĐĂNG KÝ TÀI KHOẢN GMON NGAY !</h3>
                                                                 <form method="post">
                                                                     <div class="row">
-                                                                        <div class="col-md-6 form-group ">
-                                                                            <input type="text" class="form-control" id="firstname" placeholder="Họ" required autofocus><span class="required">*</span>
+                                                                        <div class="col-md-12 form-group ">
+                                                                            <input type="text" class="form-control" id="username" placeholder="Họ & tên" required autofocus><span class="required">*</span>
                                                                         </div>
-                                                                        <div class="col-md-6 form-group ">
-                                                                            <input type="text" class="form-control" id="lastname" placeholder="Tên" required><span class="required">*</span>
-                                                                        </div>
-
                                                                     </div>
                                                                     <div class="row">
                                                                         <div class="form-group col-md-12">
@@ -274,9 +270,7 @@
 
                 $('#register-btn').click(function () {
                     $('#register-message').hide();
-                    var registerFirstname = $('#firstname').val();
-                    var registerLastname = $('#lastname').val();
-                    var username = registerFirstname + ' ' + registerLastname;
+                    var username = $('#username').val();
                     var registersdt = $('#sdt').val();
                     var registerEmail = $('#register-email').val();
                     var registerPassword = $('#register-password').val();

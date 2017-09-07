@@ -175,6 +175,7 @@ class JobController extends Controller
             $company = \DB::table('companies')
                     ->where('companies.user', $current_id)
                     ->first();
+            $jobstype = \App\JobType::pluck('name', 'id');
             $salaries = \App\Salary::pluck('name', 'id');
             if($company){
                 $branches = \DB::table('branches')
@@ -189,7 +190,7 @@ class JobController extends Controller
                         'districts.name as district'
                         )
                     ->get();
-                return view('job.create_job', compact('branches', 'salaries'));
+                return view('job.create_job', compact('branches', 'salaries', 'jobstype', 'company'));
             }else{
                 return redirect('company/create');
             }
@@ -200,6 +201,7 @@ class JobController extends Controller
 
     public function storeJob(Request $request) {
         $input = $request->all();
+        dd($input);
         if ($input['description'] == null) {
             $input['description'] = '';
         }
@@ -224,6 +226,7 @@ class JobController extends Controller
         $input['work_time'] = date("Y-m-d H:i:s");
         $input['created_at'] = date("Y-m-d H:i:s");
         $input['updated_at'] = date("Y-m-d H:i:s");
+        $input['public'] = 1;
         $current_id = \Auth::user()->id;
 
         // check followed
