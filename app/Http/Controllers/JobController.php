@@ -215,7 +215,7 @@ class JobController extends Controller
         if ($input['expiration_date'] == null) {
             $input['expiration_date'] = date("Y-m-d H:i:s");
         }
-        if (isset($input['job_type']) || $input['job_type'] == null) {
+        if (!isset($input['job_type']) || $input['job_type'] == null) {
             $input['job_type'] = 'Làm bán thời gian;';
         }
         if (isset($input['work_type']) || $input['work_type'] == null) {
