@@ -46,7 +46,7 @@
                                 @foreach($post as $item)
                                     <tr>
                                         <td>{{ $item->id }}</td>
-                                        <td>{{ $item->title }}</td>
+                                        <td><a href="http://news.gmon.vn/?post={{ $item->id }}"> {{ $item->title }}</a></td>
                                         <td><img src="http://test.gmon.com.vn/?image={{ $item->image }}" height="300" width="100%"></td>
                                         <td>{{ $item->views }}</td>
                                         <td>{{ $item->likes }}</td>
