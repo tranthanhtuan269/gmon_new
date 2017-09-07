@@ -170,7 +170,7 @@
                 <div class="col-sm-12 block block-gallery">
                     <div class="block-content">
                         <div class="row">
-                            <div class="col-xs-12 col-sm-7 img-col-1"><img src="{{ url('/') }}/public/images/{{ $company->banner }}"></div>
+                            <div class="col-xs-12 col-sm-7 img-col-1"><img src="http://test.gmon.com.vn/?image={{ $company->banner }}"></div>
                             <?php 
                                 if(strlen($company->images) > 1){
                                     $imageString=rtrim($company->images,";");
@@ -212,53 +212,53 @@
                             <div class="sblg-title"><span>{{ $company->name }}</span></div>
                             <div class="sb-body clearfix">
                                 <p>
-                                    <img src="{{ url('/') }}/public/images/sbicon1.png">
+                                    <img src="http://test.gmon.com.vn/?image=sbicon1.png">
                                     <span>{{ $company->address }}, {{ $company->district }}, {{ $company->city }}.</span>
                                 </p>
-                                <p><img src="{{ url('/') }}/public/images/sbicon2.png"><span>{{ $company->district }}, {{ $company->city }}.</span></p>
+                                <p><img src="http://test.gmon.com.vn/?image=sbicon2.png"><span>{{ $company->district }}, {{ $company->city }}.</span></p>
                                 @if(strlen($company->jobs) > 0)
-                                <p><img src="{{ url('/') }}/public/images/sbicon3.png"><span>{{ rtrim($company->jobs,";") }}.</span></p>
+                                <p><img src="http://test.gmon.com.vn/?image=sbicon3.png"><span>{{ rtrim($company->jobs,";") }}.</span></p>
                                 @endif
-                                <p><img src="{{ url('/') }}/public/images/sbicon4.png"><span>{{ $company->size }} người.</span></p>
-                                <p><img src="{{ url('/') }}/public/images/sbicon5.png"><span>Thứ 2 đến thứ 6.</span></p>
-                                <p><img src="{{ url('/') }}/public/images/sbicon6.png"><span>Chuyển động không ngừng.</span></p>
+                                <p><img src="http://test.gmon.com.vn/?image=sbicon4.png"><span>{{ $company->size }} người.</span></p>
+                                <p><img src="http://test.gmon.com.vn/?image=sbicon5.png"><span>Thứ 2 đến thứ 6.</span></p>
+                                <p><img src="http://test.gmon.com.vn/?image=sbicon6.png"><span>Chuyển động không ngừng.</span></p>
                             </div>
 
                         </div>
                         <div class="rate">
                             <p>Đánh giá chung</br>
-                                <img src="{{ url('/') }}/public/images/ratestar.png">
-                                <img src="{{ url('/') }}/public/images/ratestar.png">
-                                <img src="{{ url('/') }}/public/images/ratestar.png">
-                                <img src="{{ url('/') }}/public/images/ratestar.png">
-                                <img src="{{ url('/') }}/public/images/ratestar.png">
+                                <img src="http://test.gmon.com.vn/?image=ratestar.png">
+                                <img src="http://test.gmon.com.vn/?image=ratestar.png">
+                                <img src="http://test.gmon.com.vn/?image=ratestar.png">
+                                <img src="http://test.gmon.com.vn/?image=ratestar.png">
+                                <img src="http://test.gmon.com.vn/?image=ratestar.png">
                             </p>
                         </div>
                         <div class="comment">
                             <div class="sb-title"><span>MỌI NGƯỜI NÓI VỀ CHÚNG TÔI</span></div>
                             <div class="sb-body">
                                 <p>
-                                    <img src="{{ url('/') }}/public/images/ratestar.png">
-                                    <img src="{{ url('/') }}/public/images/ratestar.png">
-                                    <img src="{{ url('/') }}/public/images/ratestar.png">
-                                    <img src="{{ url('/') }}/public/images/ratestar.png">
-                                    <img src="{{ url('/') }}/public/images/ratestar.png"></br>
+                                    <img src="http://test.gmon.com.vn/?image=ratestar.png">
+                                    <img src="http://test.gmon.com.vn/?image=ratestar.png">
+                                    <img src="http://test.gmon.com.vn/?image=ratestar.png">
+                                    <img src="http://test.gmon.com.vn/?image=ratestar.png">
+                                    <img src="http://test.gmon.com.vn/?image=ratestar.png"></br>
                                     <span>Môi trường chuyên nghiệp, thân thiện.</span>
                                 </p>
                                 <p>
-                                    <img src="{{ url('/') }}/public/images/ratestar.png">
-                                    <img src="{{ url('/') }}/public/images/ratestar.png">
-                                    <img src="{{ url('/') }}/public/images/ratestar.png">
-                                    <img src="{{ url('/') }}/public/images/ratestar.png">
-                                    <img src="{{ url('/') }}/public/images/ratestar.png"></br>
+                                    <img src="http://test.gmon.com.vn/?image=ratestar.png">
+                                    <img src="http://test.gmon.com.vn/?image=ratestar.png">
+                                    <img src="http://test.gmon.com.vn/?image=ratestar.png">
+                                    <img src="http://test.gmon.com.vn/?image=ratestar.png">
+                                    <img src="http://test.gmon.com.vn/?image=ratestar.png"></br>
                                     <span>Quản lý tốt bụng, quan tâm.</span>
                                 </p>
                                 <p>
-                                    <img src="{{ url('/') }}/public/images/ratestar.png">
-                                    <img src="{{ url('/') }}/public/images/ratestar.png">
-                                    <img src="{{ url('/') }}/public/images/ratestar.png">
-                                    <img src="{{ url('/') }}/public/images/ratestar.png">
-                                    <img src="{{ url('/') }}/public/images/ratestar.png"></br>
+                                    <img src="http://test.gmon.com.vn/?image=ratestar.png">
+                                    <img src="http://test.gmon.com.vn/?image=ratestar.png">
+                                    <img src="http://test.gmon.com.vn/?image=ratestar.png">
+                                    <img src="http://test.gmon.com.vn/?image=ratestar.png">
+                                    <img src="http://test.gmon.com.vn/?image=ratestar.png"></br>
                                     <span>Đồng nghiệp vui vẻ, tốt tính.</span>
                                 </p>
                             </div>
@@ -281,7 +281,7 @@
                                     @foreach($jobs as $job)
                                     <div class="view-row clear clearfix odd">
                                         <div class="row">
-                                            <div class="col-sm-2 col-xs-4 blog-img text-center"><img src="{{ url('/') }}/public/images/{{ $job->logo }}" width="80" height="80"></div>
+                                            <div class="col-sm-2 col-xs-4 blog-img text-center"><img src="http://test.gmon.com.vn/?image={{ $job->logo }}" width="80" height="80"></div>
                                             <div class="col-sm-10 col-xs-8">
                                                 <a href="{{ url('/') }}/job/view/{{ $job->id }}" class="blog-title">{{ $job->name }}</a>
                                                 <div><strong>Mức lương: </strong>{{ $job->salary }}</div>
