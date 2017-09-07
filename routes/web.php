@@ -55,6 +55,10 @@ Route::group(['middleware' => ['auth', 'roles'], 'roles' => 'poster'], function 
     Route::get('job/create', 'JobController@createJob');
     Route::post('job/store', 'JobController@storeJob');
     Route::post('/curriculumvitae/send-comment', 'CurriculumVitaeController@sendcomment');
+    Route::get('company/{id}/view01', 'CompanyController@view01');
+    Route::get('company/{id}/view02', 'CompanyController@view02');
+    Route::get('company/{id}/view03', 'CompanyController@view03');
+    Route::post('company/changeTemplate', 'CompanyController@changeTemplate');
 });
 
 // Check role in route middleware

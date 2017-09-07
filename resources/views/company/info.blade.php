@@ -1,11 +1,11 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html>
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <base href="{{ url('/') }}" target="_blank">
+    <base href="{{ url('/') }}" target="_self">
     <title>{{ config('app.name', 'Gmon') }}</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -20,173 +20,175 @@
 </head>
 <body class="homepage">
     <header>
-            <div class="header-top clearfix">
-                <nav class="navbar navbar-default">
-                    <div class="container">
-                        <div class="row">
-                            <div class="navbar-header">
-                                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false">
-                                    <img src="http://test.gmon.com.vn/?image=menu.png" alt="" width="25px">
-                                </button>
-                            </div>
-                            <div class="collapse navbar-collapse" id="navbar-collapse">
-                                <div class="row">
-                                    <div class="link-left">
-                                        <a target="_self" href="{{ url('/') }}"><i></i>Trang chủ</a>
-                                        <a target="_self" href=""><i></i>Việc làm</a>
-                                        <a target="_self" href=""><i></i>Nhà tuyển dụng</a>
-                                    </div>
-                                    <div class="login">
-                                        @if (Auth::guest())
-                                        <a target="_self" data-toggle="modal" data-target="#myModal" onclick="onOpenLogin()"><i></i>Đăng nhập</a>
-                                        <a target="_self" data-toggle="modal" data-target="#myModal" onclick="onOpenRegister()">Đăng ký</a>
+        <div class="header-top clearfix">
+            <nav class="navbar navbar-default">
+                <div class="container">
+                    <div class="row">
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false">
+                                <img src="http://test.gmon.com.vn/?image=menu.png" alt="" width="25px">
+                            </button>
+                        </div>
+                        <div class="collapse navbar-collapse" id="navbar-collapse">
+                            <div class="row">
+                                <div class="link-left">
+                                    <a target="_self" href="{{ url('/') }}"><i></i>Trang chủ</a>
+                                    <a target="_self" href="{{ url('/') }}/showmore?job=new"><i></i>Việc làm</a>
+                                    <a target="_self" href="{{ url('/') }}/showmore?company=new"><i></i>Nhà tuyển dụng</a>
+                                </div>
+                                <div class="login">
+                                    @if (Auth::guest())
+                                    <a target="_self" data-toggle="modal" data-target="#myModal" onclick="onOpenLogin()"><i></i>Đăng nhập</a>
+                                    <a target="_self" data-toggle="modal" data-target="#myModal" onclick="onOpenRegister()">Đăng ký</a>
                                         <!-- Modal -->
-                                        <div id="myModal" class="modal fade" role="dialog">
-                                            <div class="modal-dialog">
-                                                <!-- Modal content-->
-                                                <button class="exit-login visible-xs" onclick="onCloseModalLogin()" style="margin-bottom: 5px;line-height: 0;background-color: transparent;border:1px solid #C9C9C9;padding: 5px"><img src="http://test.gmon.com.vn/?image=del.png" width="15px" alt=""></button>
-                                                <div class="modal-content">
-                                                    <div class="modal-body">
-                                                        <div style="margin:-15px -15px 0 -15px!important;">
-                                                            <ul class="nav nav-justified header-tab-login">
-                                                                <li class=""><a target="_self" data-toggle="tab" href="#login">Đăng nhập</a></li>
-                                                                <li class=""><a target="_self" data-toggle="tab" href="#register">Đăng ký</a></li>
-                                                            </ul>
-                                                        </div>
-                                                        <div class="tab-content">
-                                                            <div id="register" class="tab-pane fade">
-                                                                <h3>ĐĂNG KÝ TÀI KHOẢN GMON NGAY !</h3>
-                                                                <form method="post">
-                                                                    <!-- <div class="row text-center">
-                                                                        <p>Tiếp tục với</p>
-                                                                        <a target="_self" href="#" class="facebook"><i></i> Facebook</a>
-                                                                        <a target="_self" href="#" class="google"><i></i> Google</a>
-                                                                        <span class="col-md-12" style="display: inline-block;margin-bottom: 30px"><hr style="float: left;width: 40%;margin-top: 25px">Hoặc<hr style="float: right;width: 40%;margin-top: 25px"></span>
-                                                                    </div> -->
-                                                                    <div class="row">
-                                                                        <div class="col-md-6 form-group ">
-                                                                            <input type="text" class="form-control" id="firstname" placeholder="Họ" required autofocus><span class="required">*</span>
-                                                                        </div>
-                                                                        <div class="col-md-6 form-group ">
-                                                                            <input type="text" class="form-control" id="lastname" placeholder="Tên" required><span class="required">*</span>
-                                                                        </div>
-
-                                                                    </div>
-                                                                    <div class="row">
-                                                                        <div class="form-group col-md-12">
-                                                                            <input type="number" class="form-control" id="sdt" placeholder="Số điện thoại" required><span class="required">*</span>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="row">
-                                                                        <div class="form-group col-md-12">
-                                                                            <input type="email" class="form-control" id="register-email" placeholder="Email" required><span class="required">*</span>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="row">
-                                                                        <div class="col-md-6 form-group ">
-                                                                            <input type="password" class="form-control" id="register-password" placeholder="Mật khẩu" required><span class="required">*</span>
-                                                                        </div>
-                                                                        <div class="col-md-6 form-group ">
-                                                                            <input type="password" class="form-control" id="r_password" placeholder="Xác nhận mật khẩu" required><span class="required">*</span>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div style="margin-top: -5px;margin-bottom: 20px">
-                                                                        <label for="">Bạn là:</label>
-                                                                        <select name="areyou" id="areyou">
-                                                                            <option value="1">Ứng viên</option>
-                                                                            <option value="2">Nhà tuyển dụng</option>
-                                                                        </select>
-                                                                    </div>
-                                                                    <p class="text-center text-danger" id="register-message" style="display: none;">Đăng ký không thành công!</p>
-                                                                    <div class="text-center">
-                                                                        <div id="register-btn" class="btn btn-primary">ĐĂNG KÝ NGAY</div>
-                                                                    </div>
-                                                                </form>
-                                                            </div>
-                                                            <div id="login" class="tab-pane fade">
-                                                                <!-- <h3>ĐĂNG NHẬP</h3> -->
-                                                                <form>
-                                                                    <div class="row">
-                                                                        <div class="form-group col-md-12">
-                                                                            <input type="email" class="form-control" id="login-email" placeholder="Email" required autofocus>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="row">
-                                                                        <div class="form-group col-md-12">
-                                                                            <input type="password" class="form-control" id="login-password" placeholder="Mật khẩu" required>
-                                                                        </div>
-                                                                    </div>
-                                                                    <p class="text-center text-danger" id="login-message" style="display: none;">Tài khoản không chính xác!</p>
-                                                                    <div class="text-center">
-                                                                        <div id="login-btn" class="btn btn-primary">ĐĂNG NHẬP</div>
-                                                                    </div>
-                                                                    <hr>
-                                                                    <p class="text-center">Hoặc đăng nhập nhanh bằng</p>
-                                                                    <div class="row text-center">
-                                                                        <a target="_self" href="{{ url('/auth/facebook') }}" class="facebook"><i></i> Facebook</a>
-                                                                        <a target="_self" href="{{ url('/auth/google') }}" class="google"><i></i> Google</a>
-                                                                    </div>
-                                                                </form>
-                                                            </div>
-                                                        </div>
-
+                                    <div id="myModal" class="modal fade" role="dialog">
+                                        <div class="modal-dialog">
+                                            <!-- Modal content-->
+                                            <button class="exit-login visible-xs" onclick="onCloseModalLogin()" style="margin-bottom: 5px;line-height: 0;background-color: transparent;border:1px solid #C9C9C9;padding: 5px"><img src="http://test.gmon.com.vn/?image=del.png" width="15px" alt=""></button>
+                                            <div class="modal-content">
+                                                <div class="modal-body">
+                                                    <div style="margin:-15px -15px 0 -15px!important;">
+                                                    <ul class="nav nav-justified header-tab-login">
+                                                        <li class=""><a target="_self" data-toggle="tab" href="#login">Đăng nhập</a></li>
+                                                        <li class=""><a target="_self" data-toggle="tab" href="#register">Đăng ký</a></li>
+                                                    </ul>
                                                     </div>
+                                                    <div class="tab-content">
+                                                        <div id="register" class="tab-pane fade">
+                                                            <h3>ĐĂNG KÝ TÀI KHOẢN GMON NGAY !</h3>
+                                                            <form method="post">
+                                                                <div class="row">
+                                                                    <div class="col-md-12 form-group ">
+                                                                        <input type="text" class="form-control" id="username" placeholder="Họ & tên" required autofocus><span class="required">*</span>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="form-group col-md-12">
+                                                                        <input type="number" class="form-control" id="sdt" placeholder="Số điện thoại" required><span class="required">*</span>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="form-group col-md-12">
+                                                                        <input type="email" class="form-control" id="register-email" placeholder="Email" required><span class="required">*</span>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-md-6 form-group ">
+                                                                        <input type="password" class="form-control" id="register-password" placeholder="Mật khẩu" required><span class="required">*</span>
+                                                                    </div>
+                                                                    <div class="col-md-6 form-group ">
+                                                                        <input type="password" class="form-control" id="r_password" placeholder="Xác nhận mật khẩu" required><span class="required">*</span>
+                                                                    </div>
+                                                                </div>
+                                                                <div style="margin-top: -5px;margin-bottom: 20px">
+                                                                    <label for="">Bạn là:</label>
+                                                                    <select name="areyou" id="areyou">
+                                                                        <option value="1">Ứng viên</option>
+                                                                        <option value="2">Nhà tuyển dụng</option>
+                                                                    </select>
+                                                                </div>
+                                                                <div class="text-center">
+                                                                    <div id="register-btn" class="btn btn-primary">ĐĂNG KÝ NGAY</div>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                        <div id="login" class="tab-pane fade">
+                                                            <!-- <h3>ĐĂNG NHẬP</h3> -->
+                                                            <form>
+                                                                <div class="row">
+                                                                    <div class="form-group col-md-12">
+                                                                        <input type="email" class="form-control" id="login-email" placeholder="Email" required autofocus>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="form-group col-md-12">
+                                                                        <input type="password" class="form-control" id="login-password" placeholder="Mật khẩu" required>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="text-center">
+                                                                    <div id="login-btn" class="btn btn-primary">ĐĂNG NHẬP</div>
+                                                                </div>
+                                                                <hr>
+                                                                <p class="text-center">Hoặc đăng nhập nhanh bằng</p>
+                                                                <div class="row text-center">
+                                                                    <a target="_self" href="{{ url('/auth/facebook') }}" class="facebook"><i></i> Facebook</a>
+                                                                    <a target="_self" href="{{ url('/auth/google') }}" class="google"><i></i> Google</a>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+
                                                 </div>
                                             </div>
-                                            <!-- end -->
                                         </div>
-                                        @else
-                                        <ul class="nav navbar-nav navbar-right">
-                                            <li class="dropdown">
-                                                <a target="_self" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                                    {{ Auth::user()->name }} <span class="caret"></span>
-                                                </a>
-
-                                                <ul class="dropdown-menu" role="menu">
-                                                    @if(Auth::check() && Auth::user()->hasRole('admin'))
-                                                    <li><a target="_self" href="http://gmon.vn/admin">Administrator</a></li>
-                                                    @elseif(Auth::check() && Auth::user()->hasRole('master'))
-                                                    <li><a target="_self" href="http://gmon.vn/admin">Administrator</a></li>
-                                                    @elseif(Auth::check() && Auth::user()->hasRole('user'))
-                                                    @if($cv_id > 0)
-                                                    <li><a target="_self" href="{{ url('/') }}/curriculumvitae/view/{{ $cv_id }}">Trang hồ sơ</a></li>
-                                                    @endif
-                                                    @else 
-
-                                                    @endif
-                                                    <li>
-                                                        <a target="_self" href="{{ url('/logout') }}"
-                                                           onclick="event.preventDefault();
-                                                                   document.getElementById('logout-form').submit();">
-                                                            Đăng Xuất
-                                                        </a>
-
-                                                        <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
-                                                            {{ csrf_field() }}
-                                                        </form>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                        @endif
+                                        <!-- end -->
                                     </div>
+                                    @else
+                                    <ul class="nav navbar-nav navbar-right">
+                                        <li class="dropdown">
+                                            <a target="_self" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                                {{ Auth::user()->name }} <span class="caret"></span>
+                                            </a>
+
+                                            <ul class="dropdown-menu" role="menu">
+                                                @if(Auth::check() && Auth::user()->hasRole('admin'))
+                                                <li><a target="_self" href="{{ url('/admin') }}">Administrator</a></li>
+                                                @elseif(Auth::check() && Auth::user()->hasRole('master'))
+                                                <li><a target="_self" href="{{ url('/city/admin') }}">Administrator</a></li>
+                                                @elseif(Auth::check() && Auth::user()->hasRole('user'))
+                                                @if($cv_id > 0)
+                                                <li><a target="_self" href="{{ url('/') }}/curriculumvitae/view/{{ $cv_id }}">Trang hồ sơ</a></li>
+                                                @endif
+                                                @else 
+
+                                                @endif
+                                                <li>
+                                                    <a target="_self" href="{{ url('/logout') }}"
+                                                       onclick="event.preventDefault();
+                                                               document.getElementById('logout-form').submit();">
+                                                        Đăng Xuất
+                                                    </a>
+
+                                                    <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
+                                                        {{ csrf_field() }}
+                                                    </form>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                    @endif
                                 </div>
                             </div>
                         </div>
                     </div>
-                </nav>
-            </div>
-        </header>
+                </div>
+            </nav>
+        </div>
+    </header>
     
         <div class="container info-page">
             <div class="main-menu row">
                 <div class="slide"><img src="http://test.gmon.com.vn/?image={{ $company->banner }}" width="100%" height="auto" alt=""><img class="img-thumbnail logo" src="http://test.gmon.com.vn/?image={{ $company->logo }}" alt="" width="250" height="250"></div>
-                <p class="menu">
+                <div class="menu">
                     <a target="_self" href="{{ url('/') }}/company/{{ $company->id }}/info" class="active"dụng>Thông Tin</a>
                     <a target="_self" href="{{ url('/') }}/company/{{ $company->id }}/listjobs">Tuyển Dụng</a>
+                    @if($company_id != $company->id)
                     <button type="button" class="btn btn-primary" id="follow-btn" @if($followed) style="display: none;" @else style="display: block;" @endif><i></i>Theo dõi</button>
                     <button type="button" class="btn btn-danger" id="unfollow-btn" @if($followed) style="display: block;" @else style="display: none;" @endif><i></i>Bỏ theo dõi</button>
-                </p>
+                    @else
+                    <div class="btn-group pull-right" id="select-template">
+                      <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Thay đổi giao diện <span class="caret"></span>
+                      </button>
+                      <ul class="dropdown-menu">
+                        <li><div class="select-template" data-id="0"> @if($template == 0) <i class="lnl-checked"></i> @endif Giao diện mặc định</a></li>
+                        <li><div class="select-template" data-id="1"> @if($template == 1) <i class="lnl-checked"></i> @endif Giao diện 1</a></li>
+                        <li><div class="select-template" data-id="2"> @if($template == 2) <i class="lnl-checked"></i> @endif Giao diện 2</a></li>
+                        <li><div class="select-template" data-id="3"> @if($template == 3) <i class="lnl-checked"></i> @endif Giao diện 3</a></li>
+                      </ul>
+                    </div>
+                    @endif
+                </div>
             </div>
             <div class="main-content row">
                 <div class="col-left col-md-9 col-xs-12">
@@ -222,6 +224,7 @@
                             <p class="row"><i></i>{{ $company->size }} người</p>
                             <p class="row"><i></i>Thứ 2 -  Thứ 6</p>
                             @if(strlen($company->sologan)>0)<p class="row"><i></i>{{ $company->sologan }}</p>@endif
+                            @if(strlen($company->site_url)>0)<p class="row"><i class="fa fa-link fa-1 icon-plus"></i>{{ $company->site_url }}</p>@endif
                         </div>
                         <div class="col-md-12 col-xs-12" style="margin-top: 15px;">
                             <div class="row"><div class="col-md-12 col-xs-12"><?php echo $company->description; ?></div></div>
@@ -312,152 +315,19 @@
                     </div>
                 </div>
             </div>
-            <!-- <div class="related-work row">
-                <p class="title"><i></i>Thêm cơ hội làm việc cho bạn</p>
-                <div class="wrapper" id="wrapper">
-                    <div class="prev" id="btPrev"><img src="http://test.gmon.com.vn/?image=prev.png" alt=""></div>
-                    <div class="next"  id="btNext"><img src="http://test.gmon.com.vn/?image=next.png" alt=""></div>
-                    <div style="width: 100%;overflow: hidden;display: inline-block;position: relative;">
-                        <div id="contents">
-                            <div class="item-work" >
-                                <a target="_self" href="">
-                                    <p class="work-img"><img  src="http://test.gmon.com.vn/?image=nhatuyendung.png" alt=""></p>
-                                    <div class="details">
-                                        <p class="single">Nhân viên pha chế Starbucks Coffee</p>
-                                        <div class="work-view">
-                                            <p class="location"><i></i>Cầu Giấy, Ba Đình, Hà Nội</p>
-                                            <p class="salary"><i></i>2 - 3 triệu</p>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="item-work" >
-                                <a target="_self" href="">
-                                    <p class="work-img"><img  src="http://test.gmon.com.vn/?image=nhatuyendung.png" alt=""></p>
-                                    <div class="details">
-                                        <p class="single">Nhân viên pha chế Starbucks Coffee Nhân viên pha chế Starbucks Coffee Nhân viên pha chế Starbucks Coffee</p>
-                                        <div class="work-view">
-                                            <p class="location"><i></i>Cầu Giấy, Ba Đình, Hà Nội</p>
-                                            <p class="salary"><i></i>2 - 3 triệu</p>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="item-work" >
-                                <a target="_self" href="">
-                                    <p class="work-img"><img  src="http://test.gmon.com.vn/?image=nhatuyendung.png" alt=""></p>
-                                    <div class="details">
-                                        <p class="single">Nhân viên pha chế Starbucks Coffee</p>
-                                        <div class="work-view">
-                                            <p class="location"><i></i>Cầu Giấy, Ba Đình, Hà Nội</p>
-                                            <p class="salary"><i></i>2 - 3 triệu</p>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="item-work" >
-                                <a target="_self" href="">
-                                    <p class="work-img"><img  src="http://test.gmon.com.vn/?image=nhatuyendung.png" alt=""></p>
-                                    <div class="details">
-                                        <p class="single">Nhân viên pha chế Starbucks Coffee</p>
-                                        <div class="work-view">
-                                            <p class="location"><i></i>Cầu Giấy, Ba Đình, Hà Nội</p>
-                                            <p class="salary"><i></i>2 - 3 triệu</p>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="item-work" >
-                                <a target="_self" href="">
-                                    <p class="work-img"><img  src="http://test.gmon.com.vn/?image=nhatuyendung.png" alt=""></p>
-                                    <div class="details">
-                                        <p class="single">Nhân viên pha chế Starbucks Coffee</p>
-                                        <div class="work-view">
-                                            <p class="location"><i></i>Cầu Giấy, Ba Đình, Hà Nội</p>
-                                            <p class="salary"><i></i>2 - 3 triệu</p>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="item-work" >
-                                <a target="_self" href="">
-                                    <p class="work-img"><img  src="http://test.gmon.com.vn/?image=nhatuyendung.png" alt=""></p>
-                                    <div class="details">
-                                        <p class="single">Nhân viên pha chế Starbucks Coffee</p>
-                                        <div class="work-view">
-                                            <p class="location"><i></i>Cầu Giấy, Ba Đình, Hà Nội</p>
-                                            <p class="salary"><i></i>2 - 3 triệu</p>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="item-work" >
-                                <a target="_self" href="">
-                                    <p class="work-img"><img  src="http://test.gmon.com.vn/?image=nhatuyendung.png" alt=""></p>
-                                    <div class="details">
-                                        <p class="single">Nhân viên pha chế Starbucks Coffee</p>
-                                        <div class="work-view">
-                                            <p class="location"><i></i>Cầu Giấy, Ba Đình, Hà Nội</p>
-                                            <p class="salary"><i></i>2 - 3 triệu</p>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="item-work" >
-                                <a target="_self" href="">
-                                    <p class="work-img"><img  src="http://test.gmon.com.vn/?image=nhatuyendung.png" alt=""></p>
-                                    <div class="details">
-                                        <p class="single">Nhân viên pha chế Starbucks Coffee</p>
-                                        <div class="work-view">
-                                            <p class="location"><i></i>Cầu Giấy, Ba Đình, Hà Nội</p>
-                                            <p class="salary"><i></i>2 - 3 triệu</p>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="item-work" >
-                                <a target="_self" href="">
-                                    <p class="work-img"><img  src="http://test.gmon.com.vn/?image=nhatuyendung.png" alt=""></p>
-                                    <div class="details">
-                                        <p class="single">Nhân viên pha chế Starbucks Coffee</p>
-                                        <div class="work-view">
-                                            <p class="location"><i></i>Cầu Giấy, Ba Đình, Hà Nội</p>
-                                            <p class="salary"><i></i>2 - 3 triệu</p>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="item-work" >
-                                <a target="_self" href="">
-                                    <p class="work-img"><img  src="http://test.gmon.com.vn/?image=nhatuyendung.png" alt=""></p>
-                                    <div class="details">
-                                        <p class="single">Nhân viên pha chế Starbucks Coffee</p>
-                                        <div class="work-view">
-                                            <p class="location"><i></i>Cầu Giấy, Ba Đình, Hà Nội</p>
-                                            <p class="salary"><i></i>2 - 3 triệu</p>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div> -->
         </div>
         <footer>
             <div class="container">
                 <div class="footer-top row">
                     <div class="col-md-4 col-xs-6 footer-col">
                         <p class="title">về gmon</p>
-                        <p><a target="_self" href="">Giới thiệu</a></p>
-                        <p><a target="_self" href="">Việc làm</a></p>
-                        <p><a target="_self" href="">Nhà tuyển dụng</a></p>
-                        <p><a target="_self" href="">Hồ sơ ứng viên</a></p>
-                        <p><a target="_self" href="">Nhà tuyển dụng</a></p>
+                        <p><a target="_self" href="{{ url('/') }}">Giới thiệu</a></p>
+                        <p><a target="_self" href="{{ url('/') }}/showmore?job=new">Việc làm</a></p>
+                        <p><a target="_self" href="{{ url('/') }}/showmore?company=new">Nhà tuyển dụng</a></p>
+                        <p><a target="_self" href="{{ url('/') }}/showmore?cv=vip">Hồ sơ ứng viên</a></p>
                     </div>
                     <div class="col-md-3 col-xs-6 footer-col">
                         <p class="title">công cụ</p>
-                        <p><a target="_self" href="">Hồ sơ</a></p>
                         <p><a target="_self" href="">Việc làm của tôi</a></p>
                         <p><a target="_self" href="">Thông báo việc làm</a></p>
                         <p><a target="_self" href="">Phản hồi</a></p>
@@ -472,13 +342,13 @@
                         </p>
                     </div>
                 </div>
+
                 <div class="footer-bot row">
                     <div class="col-md-8">
-                        <p>Công ty cổ phần Giải pháp và công nghệ GMon</p>
-                        <p>Địa chỉ: Tầng 8 - Tòa nhà Trần Phú - số 17 tổ 24 đường Dương Đình Nghệ - P.Yên Hòa - Q.Cầu Giấy - Hà Nội</p>
+                        <p>Công ty cổ phần giải pháp và công nghệ Gmon</p>
+                        <p>Địa chỉ: P801 - Tòa nhà Trần Phú, số 17 tổ 24 Dương Đình Nghệ - P. Yên Hòa - Q. Cầu Giấy, Hà Nội</p>
                         <p>Điện thoại: 0243.212.1515</p>
-                        <p>Email nhà tuyển dụng: vieclamhn@gmon.vnEmail nhà tuyển dụng</p>
-                        <p>Email ứng viên: tuyendunghn@gmon.vn</p>
+                        <p>Email: vieclamhn@gmon.vn, tuyendunghn@gmon.com</p>
                     </div>
                     <div class="col-md-4">
                         <p style="margin-top: 15px">&#64; 2016-2017 Gmon.vn,inc. All rights reserved</p>
@@ -790,8 +660,9 @@
                         // thong bao khi follow thanh cong
                         $('#follow-btn').hide();
                         $('#unfollow-btn').show();
-                    } else if(msg.code == 200) {
-                        swal("Cảnh báo", "Đã có lỗi khi thêm đánh giá!", "error");
+                    }else if(msg.code == 401 && msg.message == "unauthen!"){
+                        $('#myModal').modal('toggle');
+                        onOpenLogin();
                     }
                 });
 
@@ -818,8 +689,9 @@
                         // thong bao khi unfollow thanh cong
                         $('#follow-btn').show();
                         $('#unfollow-btn').hide();
-                    } else {
-                        swal("Cảnh báo", "Đã có lỗi khi thêm đánh giá!", "error");
+                    }else if(msg.code == 401 && msg.message == "unauthen!"){
+                        $('#myModal').modal('toggle');
+                        onOpenLogin();
                     }
                 });
 
@@ -856,6 +728,7 @@
             $(document).ready(function () {
                 onOpenLogin();
                 $('#login-btn').click(function () {
+                    $('#login-message').hide();
                     var loginEmail = $('#login-email').val();
                     var loginPassword = $('#login-password').val();
                     var request = $.ajax({
@@ -910,6 +783,34 @@
                             'email': registerEmail,
                             'phone': registersdt,
                             'role': role
+                        },
+                        dataType: "json"
+                    });
+
+                    request.done(function (msg) {
+                        if (msg.code == 200) {
+                            location.reload();
+                        }else{
+                            $('#register-message').show();
+                        }
+                    });
+
+                    request.fail(function (jqXHR, textStatus) {
+                        alert("Request failed: " + textStatus);
+                    });
+                });
+
+                $('.select-template').click(function(){
+                    var template_id = $(this).attr('data-id');
+
+                    var request = $.ajax({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        url: "{{ url('/') }}/company/changeTemplate",
+                        method: "POST",
+                        data: {
+                            'template': template_id
                         },
                         dataType: "json"
                     });
