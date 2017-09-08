@@ -159,8 +159,8 @@
                             </p>
                         </div>
                         <div class="last-item">
-                            <span class="profile_num grey1-color">Lượt xem: <i class="fa fa-eye"></i><span class="grey-color">1042</span></span>
-                            <span class="grey1-color">Hồ sơ ứng tuyển: <span class="grey-color">302</span></span>
+                            <span class="profile_num grey1-color">Lượt xem: <i class="fa fa-eye"></i><span class="grey-color">{{ $job->views }}</span></span>
+                            <span class="grey1-color">Hồ sơ ứng tuyển: <span class="grey-color">{{ $job->applied }}</span></span>
                         </div>
                         <div class="new-bg">
                                 Mới
