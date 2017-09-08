@@ -187,8 +187,8 @@
                                     $imageString=rtrim($company->images,";");
                                     $images = explode(";",$imageString);
                                         if(count($images) >= 2){
-                                            echo '<div class="col-xs-6 col-sm-5 img-col-2"><img src="' . url('/') .'/public/images/'. $images[0] .'"></div>';
-                                            echo '<div class="col-xs-6 col-sm-5 img-col-3"><img src="' . url('/') .'/public/images/'. $images[1] .'"></div>';
+                                            echo '<div class="col-xs-6 col-sm-5 img-col-2"><img src="http://test.gmon.com.vn/?image='. $images[0] .'"></div>';
+                                            echo '<div class="col-xs-6 col-sm-5 img-col-3"><img src="http://test.gmon.com.vn/?image='. $images[1] .'"></div>';
                                         }
                                 }
                             ?>
