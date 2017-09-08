@@ -250,6 +250,11 @@ class JobController extends Controller
     }
 
     public function info($id){
+
+        $job_selected = Job::find($id);
+        $job_selected->views = $job_selected->views + 1;
+        $job_selected->save();
+
         $company_id = -1;
         $cv_id = -1;
         $applied = 0;
@@ -345,7 +350,7 @@ class JobController extends Controller
     public function join(Request $request){
         if (\Auth::check()) {
             $current_id = \Auth::user()->id;
-            
+
             // check exist CV
             $cv_user = \DB::table('curriculum_vitaes')
                     ->where('curriculum_vitaes.user', $current_id)
@@ -366,6 +371,9 @@ class JobController extends Controller
                     $apply->job = $request->job;
 
                     if($apply->save()){
+                        $job_selected = Job::find($request->job);
+                        $job_selected->applied = $job_selected->applied + 1;
+                        $job_selected->save();
                         return \Response::json(array('code' => '200', 'message' => 'Created success!'));
                     }
                 }

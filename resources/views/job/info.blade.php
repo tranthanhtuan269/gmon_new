@@ -278,7 +278,9 @@
                     <div class="title">điều bạn mong muốn</div>
                                         <div class="content"><?php echo str_replace("<p>&nbsp;</p>","",$job->benefit); ?></div>
                 </div>
+                @if(!Auth::check() || Auth::user()->hasRole('user'))
                 <p style="margin-top: 20px;text-align: center;"><a id="join-btn" target="_self" href="javascript:void(0)" class="bt-join" data-id="{{ $job->id }}" @if($applied == 0)style="display:inline-block;" @else style="display:none;"@endif>Ứng tuyển ngay</a><a id="joined-btn" target="_self" href="javascript:void(0)" class="bt-joined" data-id="{{ $job->id }}" @if($applied == 0)style="display:none;" @else style="display:inline-block;"@endif>Đã ứng tuyển</a></p>
+                @endif
             </div>
         </div>
         @if(false)
