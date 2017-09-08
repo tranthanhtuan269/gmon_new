@@ -305,8 +305,7 @@
                             @foreach($jobs as $job)
                             <div class="row employ-info">
                                 <div class="employ-img col-md-2 col-lg-2">
-                                    <img src="http://test.gmon.com.vn/?image=zalo.png">
-                                    <!-- <img src="http://test.gmon.com.vn/?image={{ $job->logo }}"> -->
+                                    <img src="http://test.gmon.com.vn/?image={{ $job->logo }}">
                                 </div>
                                 <div class="col-md-10 col-lg-10 clearfix">
                                     <div class="employ-title">
