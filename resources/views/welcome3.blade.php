@@ -297,7 +297,7 @@
     </div>
 
     <style type="text/css">
-      * {box-sizing:border-box}
+      /** {box-sizing:border-box}*/
 
       /* Slideshow container */
       .slideshow-container {
@@ -306,12 +306,12 @@
         margin: auto;
       }
 
-      .mySlides {
+      .slideshow-container .mySlides {
           display: none;
       }
 
       /* Next & previous buttons */
-      .prev, .next {
+      .slideshow-container .prev, .slideshow-container .next {
         cursor: pointer;
         position: absolute;
         top: 50%;
@@ -326,18 +326,18 @@
       }
 
       /* Position the "next button" to the right */
-      .next {
+      .slideshow-container .next {
         right: 0;
         border-radius: 3px 0 0 3px;
       }
 
       /* On hover, add a black background color with a little bit see-through */
-      .prev:hover, .next:hover {
+      .slideshow-container .prev:hover, .slideshow-container .next:hover {
         background-color: rgba(0,0,0,0.8);
       }
 
       /* Caption text */
-      .text {
+      .slideshow-container .text {
         color: #f2f2f2;
         font-size: 15px;
         padding: 8px 12px;
@@ -348,7 +348,7 @@
       }
 
       /* Number text (1/3 etc) */
-      .numbertext {
+      .slideshow-container .numbertext {
         color: #f2f2f2;
         font-size: 12px;
         padding: 8px 12px;
@@ -357,7 +357,7 @@
       }
 
       /* The dots/bullets/indicators */
-      .dot {
+      .slideshow-container .dot {
         cursor:pointer;
         height: 13px;
         width: 13px;
@@ -368,12 +368,12 @@
         transition: background-color 0.6s ease;
       }
 
-      .active, .dot:hover {
+      .slideshow-container .active, .slideshow-container .dot:hover {
         background-color: #717171;
       }
 
       /* Fading animation */
-      .fade {
+      .slideshow-container .fade {
         -webkit-animation-name: fade;
         -webkit-animation-duration: 4s;
         animation-name: fade;
