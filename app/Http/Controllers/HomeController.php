@@ -462,7 +462,7 @@ class HomeController extends Controller
                         ->where('company_company_types.company_type', '=', 5)
                         ->where('companies.district', '=', $district)
                         ->where('jobs.vip', '=', 1)
-                        ->select('jobs.id as id', 'jobs.name as name', 'jobs.number as number', 'jobs.expiration_date as expiration_date', 'salaries.name as salary', 'companies.logo', 'companies.name as companyname', 'cities.name as city', 'districts.name as district')
+                        ->select('jobs.id as id', 'jobs.name as name', 'jobs.number as number', 'jobs.views as views', 'jobs.applied as applied', 'jobs.expiration_date as expiration_date', 'salaries.name as salary', 'companies.logo', 'companies.name as companyname', 'cities.name as city', 'districts.name as district')
                         ->paginate($perPage);
 
                     $jobsvip = \DB::table('jobs')
@@ -474,7 +474,7 @@ class HomeController extends Controller
                         ->where('company_company_types.company_type', '=', 5)
                         ->where('companies.district', '=', $district)
                         ->where('jobs.vip', '=', 2)
-                        ->select('jobs.id as id', 'jobs.name as name', 'jobs.number as number', 'jobs.expiration_date as expiration_date', 'salaries.name as salary', 'companies.logo', 'companies.name as companyname', 'cities.name as city', 'districts.name as district')
+                        ->select('jobs.id as id', 'jobs.name as name', 'jobs.number as number', 'jobs.views as views', 'jobs.applied as applied', 'jobs.expiration_date as expiration_date', 'salaries.name as salary', 'companies.logo', 'companies.name as companyname', 'cities.name as city', 'districts.name as district')
                         ->take(5)
                         ->get();
                         
@@ -501,7 +501,7 @@ class HomeController extends Controller
                         ->where('company_company_types.company_type', '=', 5)
                         ->where('companies.district', '=', $district)
                         ->where('jobs.vip', '=', 1)
-                        ->select('jobs.id as id', 'jobs.name as name', 'jobs.number as number', 'jobs.expiration_date as expiration_date', 'salaries.name as salary', 'companies.logo', 'companies.name as companyname', 'cities.name as city', 'districts.name as district')
+                        ->select('jobs.id as id', 'jobs.name as name', 'jobs.number as number', 'jobs.views as views', 'jobs.applied as applied', 'jobs.expiration_date as expiration_date', 'salaries.name as salary', 'companies.logo', 'companies.name as companyname', 'cities.name as city', 'districts.name as district')
                         ->paginate($perPage);
 
                     $jobsvip = \DB::table('jobs')
@@ -513,7 +513,7 @@ class HomeController extends Controller
                         ->where('company_company_types.company_type', '=', 5)
                         ->where('companies.district', '=', $district)
                         ->where('jobs.vip', '=', 2)
-                        ->select('jobs.id as id', 'jobs.name as name', 'jobs.number as number', 'jobs.expiration_date as expiration_date', 'salaries.name as salary', 'companies.logo', 'companies.name as companyname', 'cities.name as city', 'districts.name as district')
+                        ->select('jobs.id as id', 'jobs.name as name', 'jobs.number as number', 'jobs.views as views', 'jobs.applied as applied', 'jobs.expiration_date as expiration_date', 'salaries.name as salary', 'companies.logo', 'companies.name as companyname', 'cities.name as city', 'districts.name as district')
                         ->take(5)
                         ->get();
                         
@@ -538,7 +538,7 @@ class HomeController extends Controller
                         ->join('company_company_types', 'companies.id', '=', 'company_company_types.company')
                         ->where('company_company_types.company_type', '=', 5)
                         ->where('companies.district', '=', $district)
-                        ->select('jobs.id as id', 'jobs.name as name', 'jobs.number as number', 'jobs.expiration_date as expiration_date', 'salaries.name as salary', 'companies.logo', 'companies.name as companyname', 'cities.name as city', 'districts.name as district')
+                        ->select('jobs.id as id', 'jobs.name as name', 'jobs.number as number', 'jobs.views as views', 'jobs.applied as applied', 'jobs.expiration_date as expiration_date', 'salaries.name as salary', 'companies.logo', 'companies.name as companyname', 'cities.name as city', 'districts.name as district')
                         ->paginate($perPage);
 
                     $jobsvip = \DB::table('jobs')
@@ -550,7 +550,7 @@ class HomeController extends Controller
                         ->where('company_company_types.company_type', '=', 5)
                         ->where('companies.district', '=', $district)
                         ->where('jobs.vip', '=', 1)
-                        ->select('jobs.id as id', 'jobs.name as name', 'jobs.number as number', 'jobs.expiration_date as expiration_date', 'salaries.name as salary', 'companies.logo', 'companies.name as companyname', 'cities.name as city', 'districts.name as district')
+                        ->select('jobs.id as id', 'jobs.name as name', 'jobs.number as number', 'jobs.views as views', 'jobs.applied as applied', 'jobs.expiration_date as expiration_date', 'salaries.name as salary', 'companies.logo', 'companies.name as companyname', 'cities.name as city', 'districts.name as district')
                         ->take(5)
                         ->get();
                         
@@ -576,7 +576,7 @@ class HomeController extends Controller
                         ->where('company_company_types.company_type', '=', 5)
                         ->where('companies.district', '=', $district)
                         ->where('jobs.job_type', '=', $job_type)
-                        ->select('jobs.id as id', 'jobs.name as name', 'jobs.number as number', 'jobs.expiration_date as expiration_date', 'salaries.name as salary', 'companies.logo', 'companies.name as companyname', 'cities.name as city', 'districts.name as district')
+                        ->select('jobs.id as id', 'jobs.name as name', 'jobs.number as number', 'jobs.views as views', 'jobs.applied as applied', 'jobs.expiration_date as expiration_date', 'salaries.name as salary', 'companies.logo', 'companies.name as companyname', 'cities.name as city', 'districts.name as district')
                         ->paginate($perPage);
 
                     $jobsvip = \DB::table('jobs')
@@ -589,7 +589,7 @@ class HomeController extends Controller
                         ->where('companies.district', '=', $district)
                         ->where('jobs.vip', '=', 1)
                         ->where('jobs.job_type', '=', $job_type)
-                        ->select('jobs.id as id', 'jobs.name as name', 'jobs.number as number', 'jobs.expiration_date as expiration_date', 'salaries.name as salary', 'companies.logo', 'companies.name as companyname', 'cities.name as city', 'districts.name as district')
+                        ->select('jobs.id as id', 'jobs.name as name', 'jobs.number as number', 'jobs.views as views', 'jobs.applied as applied', 'jobs.expiration_date as expiration_date', 'salaries.name as salary', 'companies.logo', 'companies.name as companyname', 'cities.name as city', 'districts.name as district')
                         ->take(5)
                         ->get();
                         
@@ -637,7 +637,7 @@ class HomeController extends Controller
                         ->join('company_company_types', 'companies.id', '=', 'company_company_types.company')
                         ->where('company_company_types.company_type', '=', 5)
                         ->where('companies.district', '=', $district)
-                        ->select('jobs.id as id', 'jobs.name as name', 'jobs.number as number', 'jobs.expiration_date as expiration_date', 'salaries.name as salary', 'companies.logo', 'companies.name as companyname', 'cities.name as city', 'districts.name as district')
+                        ->select('jobs.id as id', 'jobs.name as name', 'jobs.number as number', 'jobs.views as views', 'jobs.applied as applied', 'jobs.expiration_date as expiration_date', 'salaries.name as salary', 'companies.logo', 'companies.name as companyname', 'cities.name as city', 'districts.name as district')
                         ->paginate($perPage);
 
                     $jobsvip = \DB::table('jobs')
@@ -649,7 +649,7 @@ class HomeController extends Controller
                         ->where('company_company_types.company_type', '=', 5)
                         ->where('companies.district', '=', $district)
                         ->where('jobs.vip', '=', 1)
-                        ->select('jobs.id as id', 'jobs.name as name', 'jobs.number as number', 'jobs.expiration_date as expiration_date', 'salaries.name as salary', 'companies.logo', 'companies.name as companyname', 'cities.name as city', 'districts.name as district')
+                        ->select('jobs.id as id', 'jobs.name as name', 'jobs.number as number', 'jobs.views as views', 'jobs.applied as applied', 'jobs.expiration_date as expiration_date', 'salaries.name as salary', 'companies.logo', 'companies.name as companyname', 'cities.name as city', 'districts.name as district')
                         ->take(5)
                         ->get();
                         
@@ -729,7 +729,7 @@ class HomeController extends Controller
                         ->where('company_company_types.company_type', '=', 5)
                         ->where('companies.city', '=', $city)
                         ->where('jobs.vip', '=', 1)
-                        ->select('jobs.id as id', 'jobs.name as name', 'jobs.number as number', 'jobs.expiration_date as expiration_date', 'salaries.name as salary', 'companies.logo', 'companies.name as companyname', 'cities.name as city', 'districts.name as district')
+                        ->select('jobs.id as id', 'jobs.name as name', 'jobs.number as number', 'jobs.views as views', 'jobs.applied as applied', 'jobs.expiration_date as expiration_date', 'salaries.name as salary', 'companies.logo', 'companies.name as companyname', 'cities.name as city', 'districts.name as district')
                         ->paginate($perPage);
 
                     $jobsvip = \DB::table('jobs')
@@ -741,7 +741,7 @@ class HomeController extends Controller
                         ->where('company_company_types.company_type', '=', 5)
                         ->where('companies.city', '=', $city)
                         ->where('jobs.vip', '=', 2)
-                        ->select('jobs.id as id', 'jobs.name as name', 'jobs.number as number', 'jobs.expiration_date as expiration_date', 'salaries.name as salary', 'companies.logo', 'companies.name as companyname', 'cities.name as city', 'districts.name as district')
+                        ->select('jobs.id as id', 'jobs.name as name', 'jobs.number as number', 'jobs.views as views', 'jobs.applied as applied', 'jobs.expiration_date as expiration_date', 'salaries.name as salary', 'companies.logo', 'companies.name as companyname', 'cities.name as city', 'districts.name as district')
                         ->take(5)
                         ->get();
                         
@@ -768,7 +768,7 @@ class HomeController extends Controller
                         ->where('company_company_types.company_type', '=', 5)
                         ->where('companies.city', '=', $city)
                         ->where('jobs.vip', '=', 2)
-                        ->select('jobs.id as id', 'jobs.name as name', 'jobs.number as number', 'jobs.expiration_date as expiration_date', 'salaries.name as salary', 'companies.logo', 'companies.name as companyname', 'cities.name as city', 'districts.name as district')
+                        ->select('jobs.id as id', 'jobs.name as name', 'jobs.number as number', 'jobs.views as views', 'jobs.applied as applied', 'jobs.expiration_date as expiration_date', 'salaries.name as salary', 'companies.logo', 'companies.name as companyname', 'cities.name as city', 'districts.name as district')
                         ->paginate($perPage);
 
                     $jobsvip = \DB::table('jobs')
@@ -780,7 +780,7 @@ class HomeController extends Controller
                         ->where('company_company_types.company_type', '=', 5)
                         ->where('companies.city', '=', $city)
                         ->where('jobs.vip', '=', 1)
-                        ->select('jobs.id as id', 'jobs.name as name', 'jobs.number as number', 'jobs.expiration_date as expiration_date', 'salaries.name as salary', 'companies.logo', 'companies.name as companyname', 'cities.name as city', 'districts.name as district')
+                        ->select('jobs.id as id', 'jobs.name as name', 'jobs.number as number', 'jobs.views as views', 'jobs.applied as applied', 'jobs.expiration_date as expiration_date', 'salaries.name as salary', 'companies.logo', 'companies.name as companyname', 'cities.name as city', 'districts.name as district')
                         ->take(5)
                         ->get();
                         
@@ -805,7 +805,7 @@ class HomeController extends Controller
                         ->join('company_company_types', 'companies.id', '=', 'company_company_types.company')
                         ->where('company_company_types.company_type', '=', 5)
                         ->where('companies.city', '=', $city)
-                        ->select('jobs.id as id', 'jobs.name as name', 'jobs.number as number', 'jobs.expiration_date as expiration_date', 'salaries.name as salary', 'companies.logo', 'companies.name as companyname', 'cities.name as city', 'districts.name as district')
+                        ->select('jobs.id as id', 'jobs.name as name', 'jobs.number as number', 'jobs.views as views', 'jobs.applied as applied', 'jobs.expiration_date as expiration_date', 'salaries.name as salary', 'companies.logo', 'companies.name as companyname', 'cities.name as city', 'districts.name as district')
                         ->paginate($perPage);
 
                     $jobsvip = \DB::table('jobs')
@@ -817,7 +817,7 @@ class HomeController extends Controller
                         ->where('company_company_types.company_type', '=', 5)
                         ->where('companies.city', '=', $city)
                         ->where('jobs.vip', '=', 1)
-                        ->select('jobs.id as id', 'jobs.name as name', 'jobs.number as number', 'jobs.expiration_date as expiration_date', 'salaries.name as salary', 'companies.logo', 'companies.name as companyname', 'cities.name as city', 'districts.name as district')
+                        ->select('jobs.id as id', 'jobs.name as name', 'jobs.number as number', 'jobs.views as views', 'jobs.applied as applied', 'jobs.expiration_date as expiration_date', 'salaries.name as salary', 'companies.logo', 'companies.name as companyname', 'cities.name as city', 'districts.name as district')
                         ->take(5)
                         ->get();
                         
@@ -843,7 +843,7 @@ class HomeController extends Controller
                         ->where('company_company_types.company_type', '=', 5)
                         ->where('companies.city', '=', $city)
                         ->where('jobs.job_type', '=', $job_type)
-                        ->select('jobs.id as id', 'jobs.name as name', 'jobs.number as number', 'jobs.expiration_date as expiration_date', 'salaries.name as salary', 'companies.logo', 'companies.name as companyname', 'cities.name as city', 'districts.name as district')
+                        ->select('jobs.id as id', 'jobs.name as name', 'jobs.number as number', 'jobs.views as views', 'jobs.applied as applied', 'jobs.expiration_date as expiration_date', 'salaries.name as salary', 'companies.logo', 'companies.name as companyname', 'cities.name as city', 'districts.name as district')
                         ->paginate($perPage);
 
                     $jobsvip = \DB::table('jobs')
@@ -856,7 +856,7 @@ class HomeController extends Controller
                         ->where('companies.city', '=', $city)
                         ->where('jobs.vip', '=', 1)
                         ->where('jobs.job_type', '=', $job_type)
-                        ->select('jobs.id as id', 'jobs.name as name', 'jobs.number as number', 'jobs.expiration_date as expiration_date', 'salaries.name as salary', 'companies.logo', 'companies.name as companyname', 'cities.name as city', 'districts.name as district')
+                        ->select('jobs.id as id', 'jobs.name as name', 'jobs.number as number', 'jobs.views as views', 'jobs.applied as applied', 'jobs.expiration_date as expiration_date', 'salaries.name as salary', 'companies.logo', 'companies.name as companyname', 'cities.name as city', 'districts.name as district')
                         ->take(5)
                         ->get();
                         
@@ -904,7 +904,7 @@ class HomeController extends Controller
                         ->join('company_company_types', 'companies.id', '=', 'company_company_types.company')
                         ->where('company_company_types.company_type', '=', 5)
                         ->where('companies.city', '=', $city)
-                        ->select('jobs.id as id', 'jobs.name as name', 'jobs.number as number', 'jobs.expiration_date as expiration_date', 'salaries.name as salary', 'companies.logo', 'companies.name as companyname', 'cities.name as city', 'districts.name as district')
+                        ->select('jobs.id as id', 'jobs.name as name', 'jobs.number as number', 'jobs.views as views', 'jobs.applied as applied', 'jobs.expiration_date as expiration_date', 'salaries.name as salary', 'companies.logo', 'companies.name as companyname', 'cities.name as city', 'districts.name as district')
                         ->paginate($perPage);
 
                     $jobsvip = \DB::table('jobs')
@@ -916,7 +916,7 @@ class HomeController extends Controller
                         ->where('company_company_types.company_type', '=', 5)
                         ->where('companies.city', '=', $city)
                         ->where('jobs.vip', '=', 1)
-                        ->select('jobs.id as id', 'jobs.name as name', 'jobs.number as number', 'jobs.expiration_date as expiration_date', 'salaries.name as salary', 'companies.logo', 'companies.name as companyname', 'cities.name as city', 'districts.name as district')
+                        ->select('jobs.id as id', 'jobs.name as name', 'jobs.number as number', 'jobs.views as views', 'jobs.applied as applied', 'jobs.expiration_date as expiration_date', 'salaries.name as salary', 'companies.logo', 'companies.name as companyname', 'cities.name as city', 'districts.name as district')
                         ->take(5)
                         ->get();
                         
@@ -965,7 +965,7 @@ class HomeController extends Controller
                         ->join('company_company_types', 'companies.id', '=', 'company_company_types.company')
                         ->where('company_company_types.company_type', '=', 5)
                         ->where('jobs.vip', '=', 1)
-                        ->select('jobs.id as id', 'jobs.name as name', 'jobs.number as number', 'jobs.expiration_date as expiration_date', 'salaries.name as salary', 'companies.logo', 'companies.name as companyname', 'cities.name as city', 'districts.name as district')
+                        ->select('jobs.id as id', 'jobs.name as name', 'jobs.number as number', 'jobs.views as views', 'jobs.applied as applied', 'jobs.expiration_date as expiration_date', 'salaries.name as salary', 'companies.logo', 'companies.name as companyname', 'cities.name as city', 'districts.name as district')
                         ->paginate($perPage);
 
                     $jobsvip = \DB::table('jobs')
@@ -976,7 +976,7 @@ class HomeController extends Controller
                         ->join('company_company_types', 'companies.id', '=', 'company_company_types.company')
                         ->where('company_company_types.company_type', '=', 5)
                         ->where('jobs.vip', '=', 2)
-                        ->select('jobs.id as id', 'jobs.name as name', 'jobs.number as number', 'jobs.expiration_date as expiration_date', 'salaries.name as salary', 'companies.logo', 'companies.name as companyname', 'cities.name as city', 'districts.name as district')
+                        ->select('jobs.id as id', 'jobs.name as name', 'jobs.number as number', 'jobs.views as views', 'jobs.applied as applied', 'jobs.expiration_date as expiration_date', 'salaries.name as salary', 'companies.logo', 'companies.name as companyname', 'cities.name as city', 'districts.name as district')
                         ->take(5)
                         ->get();
                         
@@ -1001,7 +1001,7 @@ class HomeController extends Controller
                         ->join('company_company_types', 'companies.id', '=', 'company_company_types.company')
                         ->where('company_company_types.company_type', '=', 5)
                         ->where('jobs.vip', '=', 2)
-                        ->select('jobs.id as id', 'jobs.name as name', 'jobs.number as number', 'jobs.expiration_date as expiration_date', 'salaries.name as salary', 'companies.logo', 'companies.name as companyname', 'cities.name as city', 'districts.name as district')
+                        ->select('jobs.id as id', 'jobs.name as name', 'jobs.number as number', 'jobs.views as views', 'jobs.applied as applied', 'jobs.expiration_date as expiration_date', 'salaries.name as salary', 'companies.logo', 'companies.name as companyname', 'cities.name as city', 'districts.name as district')
                         ->paginate($perPage);
 
                     $jobsvip = \DB::table('jobs')
@@ -1012,7 +1012,7 @@ class HomeController extends Controller
                         ->join('company_company_types', 'companies.id', '=', 'company_company_types.company')
                         ->where('company_company_types.company_type', '=', 5)
                         ->where('jobs.vip', '=', 1)
-                        ->select('jobs.id as id', 'jobs.name as name', 'jobs.number as number', 'jobs.expiration_date as expiration_date', 'salaries.name as salary', 'companies.logo', 'companies.name as companyname', 'cities.name as city', 'districts.name as district')
+                        ->select('jobs.id as id', 'jobs.name as name', 'jobs.number as number', 'jobs.views as views', 'jobs.applied as applied', 'jobs.expiration_date as expiration_date', 'salaries.name as salary', 'companies.logo', 'companies.name as companyname', 'cities.name as city', 'districts.name as district')
                         ->take(5)
                         ->get();
                         
@@ -1035,7 +1035,7 @@ class HomeController extends Controller
                         ->join('districts', 'districts.id', '=', 'companies.district')
                         ->join('company_company_types', 'companies.id', '=', 'company_company_types.company')
                         ->where('company_company_types.company_type', '=', 5)
-                        ->select('jobs.id as id', 'jobs.name as name', 'jobs.number as number', 'jobs.expiration_date as expiration_date', 'salaries.name as salary', 'companies.logo', 'companies.name as companyname', 'cities.name as city', 'districts.name as district')
+                        ->select('jobs.id as id', 'jobs.name as name', 'jobs.number as number', 'jobs.views as views', 'jobs.applied as applied', 'jobs.expiration_date as expiration_date', 'salaries.name as salary', 'companies.logo', 'companies.name as companyname', 'cities.name as city', 'districts.name as district')
                         ->paginate($perPage);
 
                     $jobsvip = \DB::table('jobs')
@@ -1046,7 +1046,7 @@ class HomeController extends Controller
                         ->join('company_company_types', 'companies.id', '=', 'company_company_types.company')
                         ->where('company_company_types.company_type', '=', 5)
                         ->where('jobs.vip', '=', 1)
-                        ->select('jobs.id as id', 'jobs.name as name', 'jobs.number as number', 'jobs.expiration_date as expiration_date', 'salaries.name as salary', 'companies.logo', 'companies.name as companyname', 'cities.name as city', 'districts.name as district')
+                        ->select('jobs.id as id', 'jobs.name as name', 'jobs.number as number', 'jobs.views as views', 'jobs.applied as applied', 'jobs.expiration_date as expiration_date', 'salaries.name as salary', 'companies.logo', 'companies.name as companyname', 'cities.name as city', 'districts.name as district')
                         ->take(5)
                         ->get();
                         
@@ -1070,7 +1070,7 @@ class HomeController extends Controller
                         ->join('company_company_types', 'companies.id', '=', 'company_company_types.company')
                         ->where('company_company_types.company_type', '=', 5)
                         ->where('jobs.job_type', '=', $job_type)
-                        ->select('jobs.id as id', 'jobs.name as name', 'jobs.number as number', 'jobs.expiration_date as expiration_date', 'salaries.name as salary', 'companies.logo', 'companies.name as companyname', 'cities.name as city', 'districts.name as district')
+                        ->select('jobs.id as id', 'jobs.name as name', 'jobs.number as number', 'jobs.views as views', 'jobs.applied as applied', 'jobs.expiration_date as expiration_date', 'salaries.name as salary', 'companies.logo', 'companies.name as companyname', 'cities.name as city', 'districts.name as district')
                         ->paginate($perPage);
 
                     $jobsvip = \DB::table('jobs')
@@ -1082,7 +1082,7 @@ class HomeController extends Controller
                         ->where('company_company_types.company_type', '=', 5)
                         ->where('jobs.vip', '=', 1)
                         ->where('jobs.job_type', '=', $job_type)
-                        ->select('jobs.id as id', 'jobs.name as name', 'jobs.number as number', 'jobs.expiration_date as expiration_date', 'salaries.name as salary', 'companies.logo', 'companies.name as companyname', 'cities.name as city', 'districts.name as district')
+                        ->select('jobs.id as id', 'jobs.name as name', 'jobs.number as number', 'jobs.views as views', 'jobs.applied as applied', 'jobs.expiration_date as expiration_date', 'salaries.name as salary', 'companies.logo', 'companies.name as companyname', 'cities.name as city', 'districts.name as district')
                         ->take(5)
                         ->get();
                         
