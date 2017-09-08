@@ -40,15 +40,15 @@
                <div class="col-xl-6 col-lg-4 right-menu">
                    <ul class="homepage-menu">
                         @if (Auth::guest())
-                       <li>
+                        <li>
                            <a class="menuLogin" href="{{ url('/') }}" data-toggle="modal" data-target="#loginHeader" onclick="onOpenLogin()"><i class="fa fa-sign-in" aria-hidden="true"></i> Đăng nhập</a></li>
-                       <li><a class="menuRegister" href="{{ url('/') }}" data-toggle="modal" data-target="#loginHeader" onclick="onOpenRegister()">Đăng ký</a></li>
-                       <li class="info">
+                        <li><a class="menuRegister" href="{{ url('/') }}" data-toggle="modal" data-target="#loginHeader" onclick="onOpenRegister()">Đăng ký</a></li>
+                        <li class="info">
                            <h5>dành cho nhà tuyển dụng</h5>
                            <h6 >Đăng tuyển dụng ứng viên & Tìm kiếm nhân tài</h6>
-                       </li>
-                       @else
-                       <li class="dropdown">
+                        </li>
+                        @else
+                        <li class="dropdown">
                             <a target="_self" href="{{ url('/') }}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                 {{ Auth::user()->name }} <span class="caret"></span>
                             </a>

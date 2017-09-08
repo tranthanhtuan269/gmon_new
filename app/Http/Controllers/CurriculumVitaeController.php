@@ -220,33 +220,13 @@ class CurriculumVitaeController extends Controller
 
     public function showCurriculumVitae($id)
     {
+        $mine_cv = 0;
         $company_id = -1;
         $cv_id = -1;
-        $mine_cv = 0;
         if (\Auth::check()) {
-            $current_id = \Auth::user()->id;
-            
-            //get company 
-            $company = \DB::table('companies')
-                    ->where('companies.user', $current_id)
-                    ->select(
-                        'id'
-                    )
-                    ->first();
-            if($company){
-                $company_id = $company->id;
-            }
-            
-            //get CV 
-            $cv_user = \DB::table('curriculum_vitaes')
-                    ->where('curriculum_vitaes.user', $current_id)
-                    ->select(
-                        'id'
-                    )
-                    ->first();
-            if($cv_user){
-                $cv_id = $cv_user->id;
-            }
+            $user_info = \Auth::user()->getUserInfo();
+            $company_id = $user_info['company_id'];
+            $cv_id = $user_info['cv_id'];
         }
         $curriculumvitae = CurriculumVitae::findOrFail($id);
         $user = User::findOrFail($curriculumvitae->user);
@@ -292,33 +272,13 @@ class CurriculumVitaeController extends Controller
      */
     public function edit($id)
     {
+        $mine_cv = 0;
         $company_id = -1;
         $cv_id = -1;
-        $mine_cv = 0;
         if (\Auth::check()) {
-            $current_id = \Auth::user()->id;
-            
-            //get company 
-            $company = \DB::table('companies')
-                    ->where('companies.user', $current_id)
-                    ->select(
-                        'id'
-                    )
-                    ->first();
-            if($company){
-                $company_id = $company->id;
-            }
-            
-            //get CV 
-            $cv_user = \DB::table('curriculum_vitaes')
-                    ->where('curriculum_vitaes.user', $current_id)
-                    ->select(
-                        'id'
-                    )
-                    ->first();
-            if($cv_user){
-                $cv_id = $cv_user->id;
-            }
+            $user_info = \Auth::user()->getUserInfo();
+            $company_id = $user_info['company_id'];
+            $cv_id = $user_info['cv_id'];
         }
 
         $curriculumvitae = CurriculumVitae::findOrFail($id);
@@ -366,69 +326,27 @@ class CurriculumVitaeController extends Controller
     }
     
     public function createCurriculumVitae() {
+        $salaries = Salary::select('name', 'id')->get();
         $company_id = -1;
         $cv_id = -1;
-
-        $salaries = Salary::select('name', 'id')->get();
-
         if (\Auth::check()) {
-            $current_id = \Auth::user()->id;
-            
-            //get company 
-            $company = \DB::table('companies')
-                    ->where('companies.user', $current_id)
-                    ->select(
-                        'id'
-                    )
-                    ->first();
-            if($company){
-                $company_id = $company->id;
-            }
-            
-            //get CV 
-            $cv_user = \DB::table('curriculum_vitaes')
-                    ->where('curriculum_vitaes.user', $current_id)
-                    ->select(
-                        'id'
-                    )
-                    ->first();
-            if($cv_user){
-                $cv_id = $cv_user->id;
-            }
+            $user_info = \Auth::user()->getUserInfo();
+            $company_id = $user_info['company_id'];
+            $cv_id = $user_info['cv_id'];
         }
         return view('curriculum-vitae.create_curriculum_vitae', compact('company_id', 'cv_id', 'salaries'));
     }
     
     public function editCurriculumVitae($id) {
+        $mine_cv = 0;
         $company_id = -1;
         $cv_id = -1;
-        $mine_cv = 0;
         if (\Auth::check()) {
-            $current_id = \Auth::user()->id;
-            
-            //get company 
-            $company = \DB::table('companies')
-                    ->where('companies.user', $current_id)
-                    ->select(
-                        'id'
-                    )
-                    ->first();
-            if($company){
-                $company_id = $company->id;
-            }
-            
-            //get CV 
-            $cv_user = \DB::table('curriculum_vitaes')
-                    ->where('curriculum_vitaes.user', $current_id)
-                    ->select(
-                        'id'
-                    )
-                    ->first();
-            if($cv_user){
-                $cv_id = $cv_user->id;
-            }
+            $user_info = \Auth::user()->getUserInfo();
+            $company_id = $user_info['company_id'];
+            $cv_id = $user_info['cv_id'];
 
-            $current_id = \Auth::user()->id;
+            $current_id = $user_info['user_id'];
             
             $cities = \App\City::pluck('name', 'id');
             $districts = \App\District::pluck('name', 'id');
@@ -497,7 +415,6 @@ class CurriculumVitaeController extends Controller
     }
     
     public function storeCurriculumVitae(Request $request) {
-        // var_dump($request->all());die;
         $img_avatar = '';
         if ($request->hasFile('avatar-img')) {
             $file_avatar = $request->file('avatar-img');

@@ -165,11 +165,13 @@ class JobController extends Controller
      * @return \Illuminate\View\View
      */
     public function createJob() {
-        // $jobTypes = 
-        // companysizes = 
-        // cities = 
+        $company_id = -1;
+        $cv_id = -1;
         if (\Auth::check()) {
-            $current_id = \Auth::user()->id;
+            $user_info = \Auth::user()->getUserInfo();
+            $company_id = $user_info['company_id'];
+            $cv_id = $user_info['cv_id'];
+            $current_id = $user_info['user_id'];
             
             //get company 
             $company = \DB::table('companies')
@@ -190,7 +192,7 @@ class JobController extends Controller
                         'districts.name as district'
                         )
                     ->get();
-                return view('job.create_job', compact('branches', 'salaries', 'jobstype', 'company'));
+                return view('job.create_job', compact('branches', 'salaries', 'jobstype', 'company', 'cv_id', 'company_id'));
             }else{
                 return redirect('company/create');
             }
@@ -252,29 +254,10 @@ class JobController extends Controller
         $cv_id = -1;
         $applied = 0;
         if (\Auth::check()) {
-            $current_id = \Auth::user()->id;
-            
-            //get company 
-            $my_company = \DB::table('companies')
-                    ->where('companies.user', $current_id)
-                    ->select(
-                        'id'
-                    )
-                    ->first();
-            if($my_company){
-                $company_id = $my_company->id;
-            }
-            
-            //get CV 
-            $cv_user = \DB::table('curriculum_vitaes')
-                    ->where('curriculum_vitaes.user', $current_id)
-                    ->select(
-                        'id'
-                    )
-                    ->first();
-            if($cv_user){
-                $cv_id = $cv_user->id;
-            }
+            $user_info = \Auth::user()->getUserInfo();
+            $company_id = $user_info['company_id'];
+            $cv_id = $user_info['cv_id'];
+            $current_id = $user_info['user_id'];
             
             $apply_check = \DB::table('applies')
                     ->where('applies.user', $current_id)

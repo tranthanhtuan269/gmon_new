@@ -62,136 +62,16 @@ class CompanyController extends Controller {
     public function createCompany() {
         
         $company_id = -1;
+        $cv_id = -1;
         if (\Auth::check()) {
-            $current_id = \Auth::user()->id;
-            
-            $company_types = \DB::table('company_types')->get();
-            
-            //get company 
-            $company = \DB::table('companies')
-                    ->where('companies.user', $current_id)
-                    ->select(
-                        'id'
-                    )
-                    ->first();
-            if($company){
-                $company_id = $company->id;
-            }
+            $user_info = \Auth::user()->getUserInfo();
+            $company_id = $user_info['company_id'];
+            $cv_id = $user_info['cv_id'];
         }
+
+        $company_types = \DB::table('company_types')->get();
         
-        return view('company.create_company', compact('company_id', 'company_types'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\View\View
-     */
-    public function createCompany_v2() {
-        
-        $company_id = -1;
-        if (\Auth::check()) {
-            $current_id = \Auth::user()->id;
-            
-            //get company 
-            $company = \DB::table('companies')
-                    ->where('companies.user', $current_id)
-                    ->select(
-                        'id'
-                    )
-                    ->first();
-            if($company){
-                $company_id = $company->id;
-            }
-        }
-        
-        return view('company.create_company_v2', compact('company_id'));
-    }
-
-    public function storeCompany_v2(Request $request) {
-
-        $img_banner = '';
-        if ($request->hasFile('banner-img')) {
-            $file_banner = $request->file('banner-img');
-            $filename = $file_banner->getClientOriginalName();
-            $extension = $file_banner->getClientOriginalExtension();
-            $img_banner = date('His') . $filename;
-            $destinationPath = base_path('../../images');
-            $file_banner->move($destinationPath, $img_banner);
-        }
-        die;
-        $img_logo = '';
-        if ($request->hasFile('logo-img')) {
-            $file_logo = $request->file('logo-img');
-            $filename = $file_logo->getClientOriginalName();
-            $extension = $file_logo->getClientOriginalExtension();
-            $img_logo = date('His') . $filename;
-            $destinationPath = base_path('../../images');
-            $file_logo->move($destinationPath, $img_logo);
-        }
-
-        $picture = '';
-        $allPic = '';
-        if ($request->hasFile('images-img')) {
-            $files = $request->file('images-img');
-            foreach ($files as $file) {
-                $filename = $file->getClientOriginalName();
-                $extension = $file->getClientOriginalExtension();
-                $picture = date('His') . $filename;
-                $allPic .= $picture . ';';
-                $destinationPath = base_path('../../images');
-                $file->move($destinationPath, $picture);
-            }
-        }
-
-
-        $input = $request->all();
-        if ($input['description'] == null)
-            $input['description'] = '';
-        unset($input['banner-img']);
-        unset($input['logo-img']);
-        unset($input['images-img']);
-        $input['logo'] = $img_logo;
-        $input['banner'] = $img_banner;
-        $input['images'] = $allPic;
-        $input['user'] = \Auth::user()->id;
-        
-        $company = Company::create($input);
-
-        if ($company) {
-            // add branchs 
-            $branMaster = new Branch;
-            $branMaster->name = "Trụ sở chính";
-            $branMaster->address = $input['address'];
-            $branMaster->city = $input['city'];
-            $branMaster->district = $input['district'];
-            $branMaster->master = 0;
-            $branMaster->company = $company->id;
-            $branMaster->save();
-            $branchs = $input['branch'];
-            if(isset($branchs) && strlen($branchs) > 0){
-                $branchs = ltrim($branchs, ';');
-                $branch_list = explode(";",$branchs);
-                    
-                foreach ($branch_list as $braObject) {
-                    $bra = json_decode($braObject, true);
-                    $branObj = new Branch;
-                    $branObj->name = $bra['name_branch'];
-                    $branObj->address = $bra['address_branch'];
-                    $branObj->city = $bra['city_branch_id'];
-                    $branObj->district = $bra['district_branch_id'];
-                    $branObj->master = 1;
-                    $branObj->company = $company->id;
-                    $branObj->save();
-                }
-            }
-
-            return redirect()->action(
-                    'CompanyController@info', ['id' => $company->id]
-                );
-        }
-
-        return redirect()->back();
+        return view('company.create_company', compact('company_id', 'cv_id', 'company_types'));
     }
 
     public function storeCompany(Request $request) {
@@ -402,34 +282,13 @@ class CompanyController extends Controller {
     public function info($id) {
         $company_id = -1;
         $cv_id = -1;
-         // load company info
         if (\Auth::check()) {
-            $current_id = \Auth::user()->id;
-            
-            //get company 
-            $my_company = \DB::table('companies')
-                    ->where('companies.user', $current_id)
-                    ->select(
-                        'id'
-                    )
-                    ->first();
-            if($my_company){
-                $company_id = $my_company->id;
-            }
-            
-            //get CV 
-            $cv_user = \DB::table('curriculum_vitaes')
-                    ->where('curriculum_vitaes.user', $current_id)
-                    ->select(
-                        'id'
-                    )
-                    ->first();
-            if($cv_user){
-                $cv_id = $cv_user->id;
-            }
+            $user_info = \Auth::user()->getUserInfo();
+            $company_id = $user_info['company_id'];
+            $cv_id = $user_info['cv_id'];
 
             // check followed
-            $follow = Follow::where('user', $current_id)->where('company', $id)->first();
+            $follow = Follow::where('user', $user_info['user_id'])->where('company', $id)->first();
             if ($follow)
                 $followed = 1;
             else
@@ -513,34 +372,13 @@ class CompanyController extends Controller {
     public function returnView($id){
         $company_id = -1;
         $cv_id = -1;
-         // load company info
         if (\Auth::check()) {
-            $current_id = \Auth::user()->id;
-            
-            //get company 
-            $my_company = \DB::table('companies')
-                    ->where('companies.user', $current_id)
-                    ->select(
-                        'id'
-                    )
-                    ->first();
-            if($my_company){
-                $company_id = $my_company->id;
-            }
-            
-            //get CV 
-            $cv_user = \DB::table('curriculum_vitaes')
-                    ->where('curriculum_vitaes.user', $current_id)
-                    ->select(
-                        'id'
-                    )
-                    ->first();
-            if($cv_user){
-                $cv_id = $cv_user->id;
-            }
+            $user_info = \Auth::user()->getUserInfo();
+            $company_id = $user_info['company_id'];
+            $cv_id = $user_info['cv_id'];
 
             // check followed
-            $follow = Follow::where('user', $current_id)->where('company', $id)->first();
+            $follow = Follow::where('user', $user_info['user_id'])->where('company', $id)->first();
             if ($follow)
                 $followed = 1;
             else
@@ -614,11 +452,15 @@ class CompanyController extends Controller {
 
     public function listjobs($id) {
         // load company info
+        $company_id = -1;
+        $cv_id = -1;
         if (\Auth::check()) {
-            $current_id = \Auth::user()->id;
+            $user_info = \Auth::user()->getUserInfo();
+            $company_id = $user_info['company_id'];
+            $cv_id = $user_info['cv_id'];
 
             // check followed
-            $follow = Follow::where('user', $current_id)->where('company', $id)->first();
+            $follow = Follow::where('user', $user_info['user_id'])->where('company', $id)->first();
             if ($follow)
                 $followed = 1;
             else
