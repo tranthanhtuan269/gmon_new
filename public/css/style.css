@@ -198,8 +198,8 @@ a{text-decoration: none !important;}
 .wrapper-big{position: relative;margin-top: 10px}
 .wrapper-big .next img,
 .wrapper-big .prev img{background: white;padding:8px 10px ;border:1px solid #c9c9c9;border-radius: 50%;height: 30px;width:30px;text-align: center;}
-.wrapper-big .next{float: right;margin-right: -40px;height: 190px;width: 40px;line-height: 280px;text-align: center;}
-.wrapper-big .prev{float: left;margin-left: -40px;height: 190px;width: 40px;line-height: 280px;text-align: center;}
+.wrapper-big .next{float: right;margin-right: -40px;height: 190px;width: 40px;line-height: 398px;text-align: center;}
+.wrapper-big .prev{float: left;margin-left: -40px;height: 190px;width: 40px;line-height: 398px;text-align: center;}
 .wrapper-big .prev button{background-position: -60px -60px;}
 .wrapper-big .next img:hover,
 .wrapper-big .prev img:hover{background: #c9c9c9;}
