@@ -118,7 +118,7 @@
         <div class="row">
             <div class="col-md-9 col-xs-12">
                 <div class="banner row">
-                    <a target="_self" href=""><img src="http://test.gmon.com.vn/?image=slide.png" alt="" width="100%" ;></a>
+                    <a target="_self" href=""><img src="http://test.gmon.com.vn/?image=Banner-Web-Gmon-11.jpg" alt="" width="50%" ;=""><img src="http://test.gmon.com.vn/?image=Banner-Web-Gmon-12.jpg" alt="" width="50%" ;=""></a>
                 </div>
                 <div class="row news">
                     <div class="col-md-6" style="margin-right: -1px">
@@ -201,7 +201,7 @@
             <div class="col-md-3 col-xs-12">
                 <div class="ads-top"><a target="_self" href=""><img src="http://test.gmon.com.vn/?image=ads.png" alt=""></a></div>
                 <div class="ads-bot">
-                    <a target="_self" href=""><img src="http://test.gmon.com.vn/?image=zalo.png" alt=""></a>
+                    <a target="_self" href=""><img src="http://test.gmon.com.vn/?image=Banner-Web-Gmon-13.gif" alt=""></a>
                 </div>
             </div>
         </div>
@@ -321,11 +321,6 @@
                     </div>
                 </div>
             </div>
-<!--            <div id="col-ads">
-                <a target="_self" href="">
-                    <img src="http://test.gmon.com.vn/?image=ads2.png" alt="">
-                </a>
-            </div>-->
         </div>
         @endif
         @if(count($jobs) > 0)
