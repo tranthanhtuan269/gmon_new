@@ -307,7 +307,7 @@
                                                 <div class="clear"></div>
                                             </div>
                                         </div>
-                                        <div class="stastic">Lượt xem: <i class="orange fa fa-eye" aria-hidden="true"></i> 1024   Hồ sơ ứng tuyển: 125</div>
+                                        <div class="stastic">Lượt xem: <i class="orange fa fa-eye" aria-hidden="true"></i> {{ $job->views }}   Hồ sơ ứng tuyển: {{ $job->applied }}</div>
                                         <span class="new">Mới</span>
                                     </div>
                                     @endforeach

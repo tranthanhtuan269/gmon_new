@@ -120,8 +120,8 @@
             <div class="col-md-9 col-xs-12">
                 <div class="my_row wp_breadcum">
                     <div class="breadcum f-left">
-                        <a href="#"><i class="fa fa-home color-breadcum"></i></a>
-                        <a href="#" class="color-breadcum">/&nbsp;Việc làm mới</a>
+                        <a href="{{ url('/') }}"><i class="fa fa-home color-breadcum"></i></a>
+                        <a href="{{ url('/') }}/showmore?job=new" class="color-breadcum">/&nbsp;Việc làm mới</a>
                     </div>
                     <div class="f-right">
                         <span class="red-color">{{ count($jobs) }}</span><span>&nbsp;việc làm</span>

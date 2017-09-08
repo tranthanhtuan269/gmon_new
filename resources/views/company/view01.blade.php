@@ -294,10 +294,10 @@
                                 <div class="employ-ft"> 
                                     <div class="employ-txt">
                                         <p>Lượt xem: <img src="http://test.gmon.com.vn/?image=eyeicon.png">
-                                            <span>1024</span>
+                                            <span>{{ $job->views }}</span>
                                             <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
                                             Hồ sơ ứng tuyển: 
-                                            <span>332&nbsp;</span>
+                                            <span>{{ $job->applied }}&nbsp;</span>
                                             <img src="http://test.gmon.com.vn/?image=new-employ.png" style="max-width: 60%;">
                                         </p>
                                     </div>

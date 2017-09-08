@@ -349,7 +349,18 @@ class CompanyController extends Controller {
                     ->join('cities', 'cities.id', '=', 'companies.city')
                     ->join('districts', 'districts.id', '=', 'companies.district')
                     ->where('companies.id', '=', $company->id)
-                    ->select('jobs.id as id', 'jobs.name as name', 'jobs.number as number', 'jobs.expiration_date as expiration_date', 'salaries.name as salary', 'companies.logo', 'companies.name as companyname', 'cities.name as city', 'districts.name as district')
+                    ->select(
+                        'jobs.id as id', 
+                        'jobs.name as name', 
+                        'jobs.number as number', 
+                        'jobs.views as views', 
+                        'jobs.applied as applied', 
+                        'jobs.expiration_date as expiration_date', 
+                        'salaries.name as salary', 
+                        'companies.logo', 
+                        'companies.name as companyname', 
+                        'cities.name as city', 
+                        'districts.name as district')
                     ->orderBy('jobs.created_at', 'desc')
                     ->take(12)
                     ->get();
