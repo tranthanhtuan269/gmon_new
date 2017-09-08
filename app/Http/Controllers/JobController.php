@@ -177,7 +177,7 @@ class JobController extends Controller
             $company = \DB::table('companies')
                     ->where('companies.user', $current_id)
                     ->first();
-            $jobstype = \App\JobType::pluck('name', 'id');
+            $jobstype = \App\JobType::where('spa_show', 1)->pluck('name', 'id');
             $salaries = \App\Salary::pluck('name', 'id');
             if($company){
                 $branches = \DB::table('branches')

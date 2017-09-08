@@ -25,7 +25,7 @@ class JobType extends Model
      *
      * @var array
      */
-    protected $fillable = ['name'];
+    protected $fillable = ['name', 'spa_show'];
 
     
 }
