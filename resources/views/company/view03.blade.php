@@ -134,10 +134,21 @@
                                                 <li><a target="_self" href="{{ url('/admin') }}">Administrator</a></li>
                                                 @elseif(Auth::check() && Auth::user()->hasRole('master'))
                                                 <li><a target="_self" href="{{ url('/city/admin') }}">Administrator</a></li>
+                                                @elseif(Auth::check() && Auth::user()->hasRole('creator'))
+                                                <li><a target="_self" href="{{ url('/post/create') }}">Create Post</a></li>
+                                                @elseif(Auth::check() && Auth::user()->hasRole('poster'))
+                                                    @if($company_id > 0)
+                                                    <li><a target="_self" href="{{ url('/') }}/company/{{ $company_id }}/info">Trang tuyển dụng</a></li>
+                                                    <li><a target="_self" href="{{ url('/') }}/job/create">Đăng tin tuyển dụng</a></li>
+                                                    @else
+                                                    <li><a target="_self" href="{{ url('/') }}/company/create">Tạo trang tuyển dụng</a></li>
+                                                    @endif
                                                 @elseif(Auth::check() && Auth::user()->hasRole('user'))
-                                                @if($cv_id > 0)
-                                                <li><a target="_self" href="{{ url('/') }}/curriculumvitae/view/{{ $cv_id }}">Trang hồ sơ</a></li>
-                                                @endif
+                                                    @if($cv_id > 0)
+                                                    <li><a target="_self" href="{{ url('/') }}/curriculumvitae/view/{{ $cv_id }}">Trang hồ sơ</a></li>
+                                                    @else
+                                                    <li><a target="_self" href="{{ url('/') }}/curriculumvitae/create">Tạo hồ sơ</a></li>
+                                                    @endif
                                                 @else 
 
                                                 @endif
@@ -176,8 +187,8 @@
                                     $imageString=rtrim($company->images,";");
                                     $images = explode(";",$imageString);
                                         if(count($images) >= 2){
-                                            echo '<div class="col-xs-6 col-sm-5 img-col-2"><img src="' . url('/') .'/public/images/'. $images[0] .'"></div>';
-                                            echo '<div class="col-xs-6 col-sm-5 img-col-3"><img src="' . url('/') .'/public/images/'. $images[1] .'"></div>';
+                                            echo '<div class="col-xs-6 col-sm-5 img-col-2"><img src="http://test.gmon.com.vn/?image='. $images[0] .'"></div>';
+                                            echo '<div class="col-xs-6 col-sm-5 img-col-3"><img src="http://test.gmon.com.vn/?image='. $images[1] .'"></div>';
                                         }
                                 }
                             ?>
@@ -296,7 +307,7 @@
                                                 <div class="clear"></div>
                                             </div>
                                         </div>
-                                        <div class="stastic">Lượt xem: <i class="orange fa fa-eye" aria-hidden="true"></i> 1024   Hồ sơ ứng tuyển: 125</div>
+                                        <div class="stastic">Lượt xem: <i class="orange fa fa-eye" aria-hidden="true"></i> {{ $job->views }}   Hồ sơ ứng tuyển: {{ $job->applied }}</div>
                                         <span class="new">Mới</span>
                                     </div>
                                     @endforeach

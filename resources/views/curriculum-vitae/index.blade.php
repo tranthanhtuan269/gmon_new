@@ -46,7 +46,7 @@
                                         <div>Email: {{ $item->email }}</div>
                                         <div>Số điện thoại: {{ $item->phone }}</div>
                                         </td>
-                                        <td style="text-align: center;"><a href="{{ url('/') }}/curriculumvitae/view/{{ $item->id }}"><img src="{{ url('/') }}/public/images/{{ $item->avatar }}" id="avatar-image" class="img" style="height: 150px; width: 150px; background-color: #fff; border: 2px solid gray; border-radius: 5px;"></a></td>
+                                        <td style="text-align: center;"><a href="{{ url('/') }}/curriculumvitae/view/{{ $item->id }}"><img src="http://test.gmon.com.vn/?image={{ $item->avatar }}" id="avatar-image" class="img" style="height: 150px; width: 150px; background-color: #fff; border: 2px solid gray; border-radius: 5px;"></a></td>
                                         <td style="text-align: center;">
                                             <div class="btn btn-default btn-xs vip-cv @if($item->vip==1) hidden-object @else show-object @endif" data-id="{{ $item->id }}">
                                             Unvip

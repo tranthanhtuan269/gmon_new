@@ -16,7 +16,7 @@ $(document).ready(function () {
         renderJsonKyNang();
         count_qualification++;
         var html = "<label for='ten_ky_nang' class='col-md-4 qualification-holder' id='qualification-" + count_qualification + "'><div class='col-md-12'>";
-        html += " - Thông thạo <span class='ky-nang'>" + $('#ten_ky_nang').val() + "</span>";
+        html += " - <span class='ky-nang'>" + $('#ten_ky_nang').val() + "</span>";
         html += "<span class='qualification-delete' id='qualification-delete-" + count_qualification + "'>&nbsp;x&nbsp;</span></div></label>";
         $(html).appendTo('#qualification_content');
         $('.qualification-delete').off('click');
@@ -129,7 +129,7 @@ $(document).ready(function () {
     }
 
     $('#them_moi_kinh_nghiem').click(function () {
-        if (!validate_kinh_nghiem_cu(count_kinh_nghiem)) {
+        if (!validate_kinh_nghiem_cu(count_kinh_nghiem - 1)) {
             swal("Kinh nghiệm trước chưa được hoàn thành!", "Xin hãy hoàn thành kinh nghiệm trước để có thể thêm mới!");
             return false;
         }
@@ -817,7 +817,6 @@ $(document).ready(function () {
 
     $("#submit-btn").click(function () {
         $('#education').val('');
-        $('#word_experience').val('');
         $('#language').val('');
         $('#qualification').val('');
         
@@ -837,6 +836,7 @@ $(document).ready(function () {
             }
         });
 
+        $('#word_experience').val('');
         $.each($(".form-kinh-nghiem-group"), function(){            
             if($(this).hasClass('removed')){
                 // next
@@ -997,7 +997,7 @@ $(document).ready(function () {
 
     function ren_ky_nang(id, ten_ky_nang){
         var html_return = "<label for='ten_ky_nang' class='col-md-4 qualification-holder' id='qualification-" + id + "'><div class='col-md-12'>";
-        html_return += " - Thông thạo <span class='ky-nang'>" + ten_ky_nang + "</span>";
+        html_return += " - <span class='ky-nang'>" + ten_ky_nang + "</span>";
         html_return += "<span class='qualification-delete' id='qualification-delete-" + id + "'>&nbsp;x&nbsp;</span></div></label>";
         return html_return;
     }

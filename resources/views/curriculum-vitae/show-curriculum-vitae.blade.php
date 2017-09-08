@@ -95,6 +95,9 @@
                                     <div class="panel-body">
                                         <?php 
                                             $curriculumvitae->word_experience = ltrim($curriculumvitae->word_experience, ';');
+                                            if(substr($curriculumvitae->word_experience, -1) == ';'){
+                                                $curriculumvitae->word_experience=rtrim($curriculumvitae->word_experience,";");
+                                            }
                                             $word_experiences = explode(";",$curriculumvitae->word_experience);
                                             foreach ($word_experiences as $word_experience) {
                                             $exp = json_decode($word_experience);
@@ -288,13 +291,13 @@
                                 <div class="btn btn-danger pull-right" style="display:none;">In hồ sơ</div>
                                 <div class="btn btn-primary pull-right" style="display:none;">Lưu hồ sơ</div>
                                 @if(Auth::check())
-                                @if($curriculumvitae->user == Auth::user()->id)
-                                <a class="btn btn-primary pull-right" href="{{ url('/') }}/curriculumvitae/{{ $curriculumvitae->id }}/edit">Sửa hồ sơ</a>
+                                    @if($curriculumvitae->user == Auth::user()->id)
+                                    <a class="btn btn-primary pull-right" href="{{ url('/') }}/curriculumvitae/{{ $curriculumvitae->id }}/edit">Sửa hồ sơ</a>
+                                    @else
+                                    <div class="btn btn-primary pull-right" data-toggle="modal" data-target="#danh-gia">Đánh giá ứng viên</div>
+                                    @endif
                                 @else
-                                <div class="btn btn-primary pull-right" data-toggle="modal" data-target="#danh-gia">Đánh giá ứng viên</div>
-                                @endif
-                                @else
-                                <div class="btn btn-primary pull-right" data-toggle="modal" data-target="#danh-gia">Đánh giá ứng viên</div>
+                                    <div class="btn btn-primary pull-right" data-toggle="modal" data-target="#myModal" onclick="onOpenLogin()">Đánh giá ứng viên</div>
                                 @endif
                             </div>
                         </div>
@@ -497,7 +500,7 @@
                 });
 
                 request.fail(function (jqXHR, textStatus) {
-                    alert("Request failed: " + textStatus);
+                    swal("Cảnh báo", textStatus, "error");
                 });
             });
         });

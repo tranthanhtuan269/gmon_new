@@ -221,25 +221,25 @@
                             <div class="form-group {{ $errors->has('city') ? 'has-error' : ''}}">
                                 {!! Form::label('city', 'Tỉnh / Thành phố', ['class' => 'col-md-5 control-label']) !!}
                                 <div class="col-md-7">
-                                    {!! Form::select('city', $cities, $cv_user->city, ['placeholder' => '', 'class' => 'form-control']) !!}
+                                    {!! Form::select('city', $cities, $cv_user->city_id, ['placeholder' => '', 'class' => 'form-control']) !!}
                                     {!! $errors->first('city', '<p class="help-block">:message</p>') !!}
                                 </div>
                             </div>
                             <div class="form-group {{ $errors->has('town') ? 'has-error' : ''}}">
                                 {!! Form::label('town', 'Xã / Phường', ['class' => 'col-md-5 control-label']) !!}
                                 <div class="col-md-7">
-                                    {!! Form::select('town', $towns, $cv_user->town, ['placeholder' => '', 'class' => 'form-control']) !!}
+                                    {!! Form::select('town', $towns, $cv_user->town_id, ['placeholder' => '', 'class' => 'form-control']) !!}
                                     {!! $errors->first('town', '<p class="help-block">:message</p>') !!}
                                 </div>
                             </div>
-                            <div class="form-group {{ $errors->has('salary') ? 'has-error' : ''}}">
+                            <!-- <div class="form-group {{ $errors->has('salary') ? 'has-error' : ''}}">
                                 {!! Form::label('birthday', 'Mức lương', ['class' => 'col-md-5 control-label']) !!}
                                 <div class="col-md-7">
                                     <input type="hidden" id="salary" name="salary" value="1">
                                     {!! Form::select('salary', $salaries, $cv_user->salary_want, ['placeholder' => '', 'class' => 'form-control', 'id' => 'salary_select', 'name' => 'salary_select']) !!}
                                     {!! $errors->first('salary', '<p class="help-block">:message</p>') !!}
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                         <div class="col-md-5">
                             <div class="form-group {{ $errors->has('gender') ? 'has-error' : ''}}">
@@ -253,7 +253,7 @@
                             <div class="form-group {{ $errors->has('district') ? 'has-error' : ''}}">
                                 {!! Form::label('district', 'Quận / Huyện', ['class' => 'col-md-5 control-label']) !!}
                                 <div class="col-md-7">
-                                    {!! Form::select('district', $districts, $cv_user->district, ['placeholder' => '', 'class' => 'form-control', 'id' => 'district']) !!}
+                                    {!! Form::select('district', $districts, $cv_user->district_id, ['placeholder' => '', 'class' => 'form-control', 'id' => 'district']) !!}
                                     {!! $errors->first('district', '<p class="help-block">:message</p>') !!}
                                 </div>
                             </div>
@@ -264,7 +264,7 @@
                                     {!! $errors->first('address', '<p class="help-block">:message</p>') !!}
                                 </div>
                             </div>
-                            <div class="form-group {{ $errors->has('jobs') ? 'has-error' : ''}}">
+                            <!-- <div class="form-group {{ $errors->has('jobs') ? 'has-error' : ''}}">
                                 <div class="col-md-12">
                                     <input type="hidden" id="jobs" name="jobs" value="">
                                     <select class="form-control selectpicker" multiple title="Chọn Thời gian làm việc">
@@ -274,7 +274,7 @@
                                     </select>
                                     {!! $errors->first('jobs', '<p class="help-block">:message</p>') !!}
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                         <div class="col-md-12">
                             <div class="form-group {{ $errors->has('jobs') ? 'has-error' : ''}}">
@@ -410,14 +410,17 @@
                     <div class="panel panel-default" id="kinh_nghiem_lam_viec">
                         <div class="panel-heading">Kinh nghiệm làm việc</div>
                         <div class="panel-body">
+                                <input type="hidden" name="word_experience" id="word_experience" value="">
                             <?php 
-                                if(strlen($cv_user->word_experience) > 0){
+                                if(strlen($cv_user->word_experience) > 1){
                                 $cv_user->word_experience=ltrim($cv_user->word_experience,";");
+                                if(substr($cv_user->word_experience, -1) == ';'){
+                                    $cv_user->word_experience=rtrim($cv_user->word_experience,";");
+                                }
                                 $word_experiences = explode(";",$cv_user->word_experience);
                                 for($i = 0; $i < count($word_experiences); $i++){
                                     $words = json_decode($word_experiences[$i]);
                             ?>
-                            <input type="hidden" name="word_experience" id="word_experience" value="">
                             <div class="form-kinh-nghiem-group first-form" id="kinh_nghiem_lam_viec_{{ $i }}">
                                 <input type="hidden" class="word_experience_json" id="kinh_nghiem_lam_viec_{{ $i }}_json" value="{{ $word_experiences[$i] }}">
                                 <div id='kinh_nghiem_lam_viec_{{ $i }}_content' style="display:none;">
@@ -496,7 +499,6 @@
                                 }
                             }else{
                             ?>
-                            <input type="hidden" name="word_experience" id="word_experience" value="">
                             <div class="form-kinh-nghiem-group first-form" id="kinh_nghiem_lam_viec_0">
                                 <input type="hidden" class="word_experience_json" id="kinh_nghiem_lam_viec_0_json" value="">
                                 <div id='kinh_nghiem_lam_viec_0_content'>
@@ -618,6 +620,7 @@
                             <div class="form-ngon-ngu-group">
                                 <div class="form-group" id="ngoai_ngu_content">
                                 <?php 
+                                    if(strlen($cv_user->language) > 1){
                                     $cv_user->language=ltrim($cv_user->language,";");
                                     $languages = explode(";",$cv_user->language);
                                     for($i = 0; $i < count($languages); $i++){
@@ -626,6 +629,7 @@
                                         <label for="ten_ngoai_ngu" data-json="{{ $languages[$i] }}" class="col-md-4 language-json" id="language-{{ $i }}"><div class="col-md-12"> - <span class="ngoai-ngu">{{ $langs->ten_ngoai_ngu }}</span> - Trình độ: <span class="trinh-do-ngoai-ngu">{{ $langs->trinh_do_ngoai_ngu }}</span><span class="language-delete" id="language-delete-{{ $i }}">&nbsp;x&nbsp;</span></div></label>
                                 <?php
                                     }
+                                }
                                 ?>
 
                                 </div>
@@ -658,7 +662,7 @@
                                             for($i = 0; $i < count($qualifications); $i++){
                                                 $quals = json_decode($qualifications[$i]);
                                                 ?>
-                                                <label for="ten_ky_nang" data-json="{{ $qualifications[$i] }}" class="col-md-4 qualification-holder" id="qualification-{{ $i }}"><div class="col-md-12"> - Thông thạo <span class="ky-nang">{{ $quals->ten_ky_nang }}</span><span class="qualification-delete" id="qualification-delete-{{ $i }}">&nbsp;x&nbsp;</span></div></label>
+                                                <label for="ten_ky_nang" data-json="{{ $qualifications[$i] }}" class="col-md-4 qualification-holder" id="qualification-{{ $i }}"><div class="col-md-12"> - <span class="ky-nang">{{ $quals->ten_ky_nang }}</span><span class="qualification-delete" id="qualification-delete-{{ $i }}">&nbsp;x&nbsp;</span></div></label>
                                     <?php
                                             }
                                         }
@@ -782,7 +786,7 @@
                     </div>
 
                     <div class="panel panel-default">
-                        <div class="panel-heading">Thêm ảnh về bản thân</div>
+                        <div class="panel-heading">Thêm ảnh ngoại khóa</div>
                         <div class="panel-body">
                             <div class="form-group {{ $errors->has('images') ? 'has-error' : ''}}">
                                 <div class="col-md-12">

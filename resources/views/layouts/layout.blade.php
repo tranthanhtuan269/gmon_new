@@ -35,7 +35,6 @@
                                         <a target="_self" href="{{ url('/') }}"><i></i>Trang chủ</a>
                                         <a target="_self" href="{{ url('/') }}/showmore?job=new"><i></i>Việc làm</a>
                                         <a target="_self" href="{{ url('/') }}/showmore?company=new"><i></i>Nhà tuyển dụng</a>
-                                        <a target="_self" href="http://news.gmon.vn/">Tư vấn nghề nghiệp</a>
                                     </div>
                                     <div class="login">
                                         @if (Auth::guest())
@@ -59,13 +58,9 @@
                                                                 <h3>ĐĂNG KÝ TÀI KHOẢN GMON NGAY !</h3>
                                                                 <form method="post">
                                                                     <div class="row">
-                                                                        <div class="col-md-6 form-group ">
-                                                                            <input type="text" class="form-control" id="firstname" placeholder="Họ" required autofocus><span class="required">*</span>
+                                                                        <div class="col-md-12 form-group ">
+                                                                            <input type="text" class="form-control" id="username" placeholder="Họ & tên" required autofocus><span class="required">*</span>
                                                                         </div>
-                                                                        <div class="col-md-6 form-group ">
-                                                                            <input type="text" class="form-control" id="lastname" placeholder="Tên" required><span class="required">*</span>
-                                                                        </div>
-
                                                                     </div>
                                                                     <div class="row">
                                                                         <div class="form-group col-md-12">
@@ -139,13 +134,24 @@
 
                                                 <ul class="dropdown-menu" role="menu">
                                                     @if(Auth::check() && Auth::user()->hasRole('admin'))
-                                                    <li><a target="_self" href="http://gmon.vn/admin">Administrator</a></li>
+                                                    <li><a target="_self" href="{{ url('/admin') }}">Administrator</a></li>
                                                     @elseif(Auth::check() && Auth::user()->hasRole('master'))
-                                                    <li><a target="_self" href="http://gmon.vn/admin">Administrator</a></li>
+                                                    <li><a target="_self" href="{{ url('/city/admin') }}">Administrator</a></li>
+                                                    @elseif(Auth::check() && Auth::user()->hasRole('creator'))
+                                                    <li><a target="_self" href="{{ url('/post/create') }}">Create Post</a></li>
+                                                    @elseif(Auth::check() && Auth::user()->hasRole('poster'))
+                                                        @if($company_id > 0)
+                                                        <li><a target="_self" href="{{ url('/') }}/company/{{ $company_id }}/info">Trang tuyển dụng</a></li>
+                                                        <li><a target="_self" href="{{ url('/') }}/job/create">Đăng tin tuyển dụng</a></li>
+                                                        @else
+                                                        <li><a target="_self" href="{{ url('/') }}/company/create">Tạo trang tuyển dụng</a></li>
+                                                        @endif
                                                     @elseif(Auth::check() && Auth::user()->hasRole('user'))
-                                                    @if($cv_id > 0)
+                                                        @if($cv_id > 0)
                                                         <li><a target="_self" href="{{ url('/') }}/curriculumvitae/view/{{ $cv_id }}">Trang hồ sơ</a></li>
-                                                    @endif
+                                                        @else
+                                                        <li><a target="_self" href="{{ url('/') }}/curriculumvitae/create">Tạo hồ sơ</a></li>
+                                                        @endif
                                                     @else 
 
                                                     @endif
@@ -204,13 +210,15 @@
 
                 <div class="footer-bot row">
                     <div class="col-md-8">
-                        <p>Công ty cổ phần giải pháp và công nghệ Gmon</p>
-                        <p>Địa chỉ: P801 - Tòa nhà Trần Phú, số 17 tổ 24 Dương Đình Nghệ - P.Yên Hòa - Q. Cầu Giấy, Hà Nội</p>
-                        <p>Điện thoại: 0243.212.1515</p>
-                        <p>Email: vieclamhn@gmon.vn, tuyendunghn@gmon.com</p>
+                        <p><b>Công ty cổ phần giải pháp và công nghệ Gmon</b></p>
+                        <p><b>Trụ sở chính:</b> Tầng 8, Tòa nhà Trần Phú, Dương Đình Nghệ, Cầu Giấy, Hà Nội</p>
+                        <p><b>Điện thoại:</b> 0243.212.1515</p>
+                        <p><b>VPĐD:</b> Số 31, Trần Phú, Hải Châu I, Hải Châu, Đà Nẵng</p>
+                        <p><b>Điện thoại:</b> 0961 545 115</p>
+                        <p><b>Email:</b> quanbq@gstar.vn, tuannv@gstar.vn</p>
                     </div>
                     <div class="col-md-4">
-                        <p style="margin-top: 15px">&#64; 2016-2017 Gmon.vn,inc. All rights reserved</p>
+                        <p style="margin-top: 72px">&#64; 2016-2017 Gmon.vn,inc. All rights reserved</p>
                     </div>
                 </div>
             </div>
@@ -242,6 +250,7 @@
             $(document).ready(function () {
                 onOpenLogin();
                 $('#login-btn').click(function () {
+                    $('#login-message').hide();
                     var loginEmail = $('#login-email').val();
                     var loginPassword = $('#login-password').val();
                     var request = $.ajax({
@@ -272,9 +281,7 @@
 
                 $('#register-btn').click(function () {
                     $('#register-message').hide();
-                    var registerFirstname = $('#firstname').val();
-                    var registerLastname = $('#lastname').val();
-                    var username = registerFirstname + ' ' + registerLastname;
+                    var username = $('#username').val();
                     var registersdt = $('#sdt').val();
                     var registerEmail = $('#register-email').val();
                     var registerPassword = $('#register-password').val();

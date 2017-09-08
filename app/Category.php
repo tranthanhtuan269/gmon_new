@@ -4,14 +4,14 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Apply extends Model
+class Category extends Model
 {
     /**
      * The database table used by the model.
      *
      * @var string
      */
-    protected $table = 'applies';
+    protected $table = 'categories';
 
     /**
     * The database primary key value.
@@ -25,7 +25,7 @@ class Apply extends Model
      *
      * @var array
      */
-    protected $fillable = ['user', 'job', 'active'];
+    protected $fillable = ['name'];
 
     
 }

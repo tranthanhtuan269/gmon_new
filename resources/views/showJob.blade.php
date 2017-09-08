@@ -8,7 +8,7 @@
                     <div class="col-md-3">
                         <a target="_self" href="" class="logo row"><img src="http://test.gmon.com.vn/?image=home.png" alt=""></a>
                     </div>
-                    <div class="col-md-9" style="background-color:rgba(255, 255, 255, 0.9);">
+                    <div class="col-md-9" style="margin-top: 30px">
                         <div class="">
                             <div class="col-md-9">
                                 <form class="search">
@@ -120,8 +120,8 @@
             <div class="col-md-9 col-xs-12">
                 <div class="my_row wp_breadcum">
                     <div class="breadcum f-left">
-                        <a href="#"><i class="fa fa-home color-breadcum"></i></a>
-                        <a href="#" class="color-breadcum">/&nbsp;Việc làm mới</a>
+                        <a href="{{ url('/') }}"><i class="fa fa-home color-breadcum"></i></a>
+                        <a href="{{ url('/') }}/showmore?job=new" class="color-breadcum">/&nbsp;Việc làm mới</a>
                     </div>
                     <div class="f-right">
                         <span class="red-color">{{ count($jobs) }}</span><span>&nbsp;việc làm</span>
@@ -159,8 +159,8 @@
                             </p>
                         </div>
                         <div class="last-item">
-                            <span class="profile_num grey1-color">Lượt xem: <i class="fa fa-eye"></i><span class="grey-color">1042</span></span>
-                            <span class="grey1-color">Hồ sơ ứng tuyển: <span class="grey-color">302</span></span>
+                            <span class="profile_num grey1-color">Lượt xem: <i class="fa fa-eye"></i><span class="grey-color">{{ $job->views }}</span></span>
+                            <span class="grey1-color">Hồ sơ ứng tuyển: <span class="grey-color">{{ $job->applied }}</span></span>
                         </div>
                         <div class="new-bg">
                                 Mới
@@ -246,24 +246,21 @@
             <div class="wrapper row" id="wrapper-logo">
                 <div class="contents clearfix" id="contents-logo">
                     <ul>
-                        <li class="item-logo"><a href=""><img src="{{ url('/') }}/public/images/logoHome.png" alt=""></a></li>
-                        <li><a href=""><img src="{{ url('/') }}/public/images/logoHome1.png" alt=""></a></li>
-                        <li><a href=""><img src="{{ url('/') }}/public/images/logoHome2.png" alt=""></a></li>
-                        <li><a href=""><img src="{{ url('/') }}/public/images/logoHome3.png" alt=""></a></li>
-                        <li><a href=""><img src="{{ url('/') }}/public/images/logoHome4.png" alt=""></a></li>
-                        <li><a href=""><img src="{{ url('/') }}/public/images/logoHome5.png" alt=""></a></li>
-                        <li><a href=""><img src="{{ url('/') }}/public/images/logoHome6.png" alt=""></a></li>
-                        <li><a href=""><img src="{{ url('/') }}/public/images/logoHome7.png" alt=""></a></li>
-                        <li><a href=""><img src="{{ url('/') }}/public/images/logoHome8.png" alt=""></a></li>
-                        <li><a href=""><img src="{{ url('/') }}/public/images/logoHome3.png" alt=""></a></li>
-                        <li><a href=""><img src="{{ url('/') }}/public/images/logoHome10.png" alt=""></a></li>
-                        <li><a href=""><img src="{{ url('/') }}/public/images/logoHome11.png" alt=""></a></li>
-                        <li><a href=""><img src="{{ url('/') }}/public/images/logoHome12.png" alt=""></a></li>
-                        <li><a href=""><img src="{{ url('/') }}/public/images/logoHome.png" alt=""></a></li>
-                        <li><a href=""><img src="{{ url('/') }}/public/images/logoHome2.png" alt=""></a></li>
-                        <li><a href=""><img src="{{ url('/') }}/public/images/logoHome3.png" alt=""></a></li>
-                        <li><a href=""><img src="{{ url('/') }}/public/images/logoHome5.png" alt=""></a></li>
-                        <li><a href=""><img src="{{ url('/') }}/public/images/logoHome.png" alt=""></a></li>
+                    <?php 
+                        $count = 0; 
+                        foreach($companies as $company){
+                            if($count == 0){
+                            ?>
+                        <li class="item-logo"><a href=""><img src="http://test.gmon.com.vn/?image={{ $company->logo }}" alt=""></a></li>
+                        <?php
+                            }else{
+                            ?>
+                        <li><a href="{{ url('/') }}/company/{{ $company->id }}/info"><img src="http://test.gmon.com.vn/?image={{ $company->logo }}" alt=""></a></li>
+                        <?php 
+                            }
+                            $count++;
+                        }
+                        ?>
                     </ul>
                 </div>
             </div>
@@ -271,13 +268,72 @@
     </div>
 
     <script type="text/javascript">
-        var $i = 0;
-        $(window).scroll(function() {
-            if($(window).scrollTop() == $(document).height() - $(window).height()) {
-                   $i++;
-                   $('.job-list-' + $i).show();
+        window.onresize = function(event){
+            resetSlide();
+        }
+        window.onload =function(){resetSlide();}
+        function resetSlide()
+        {
+            clearTimeout(listLogo.action);
+            $( "#"+listLogo.contents ).css("margin-left","0");
+            var w=screen.width;
+
+            w2=$("#wrapper-logo").outerWidth();
+            if(w>1000){
+                w3=w2/13;
+            }else if(w>800){
+                w3=w2/10;
+            }else if(w>600){
+                w3=w2/8;
+            }else if(w>400){
+                w3=w2/5;
+            }else{
+                w3=w2/4;
             }
-        });
+            $("#wrapper-logo li").css("width",w3+"px");
+            $("#wrapper-logo li").css("height",w3+"px");
+            $("#contents-logo").css("width",w3*($( "#wrapper-logo li" ).length)+"px");
+            $("#wrapper-logo").parent().children("span").css("top",w3/2+"px");
+
+            setTimeout(function(){onNext(true,listLogo)},2000);
+        };
+        var listLogo={
+            isRun:false,
+            wrapper:"wrapper-logo",
+            contents:"contents-logo",
+            item:"item-logo",
+            action:""
+        }
+        $("#btPrev").click(function(){onPrev(true,listLogo);});
+        $("#btNext").click(function(){onNext(true,listLogo);});
+        function onNext(b,ob){
+            if(ob.isRun) return;
+            if(b)clearTimeout(ob.action);
+            ob.isRun=true;
+            var w=$("#"+ob.contents +" ."+ob.item).outerWidth();
+             var n=parseFloat($( "#"+ob.contents ).css("margin-left"));
+             var w2=$( "#"+ob.contents ).outerWidth();
+             var w3=$( "#"+ob.wrapper ).outerWidth();
+             var n2=n-w;
+             if(n2+w2-w3>=0){
+                $( "#"+ob.contents ).animate({marginLeft: n2+'px'},{duration: 300,complete:function(){ob.isRun=false;}});
+                ob.action=setTimeout(function(){onNext(false,ob);},2000);
+             }
+             else{ob.isRun=false;ob.action=setTimeout(function(){onPrev(false,ob);},2000);}
+        }
+        function onPrev(b,ob){
+            if(ob.isRun) return;
+            if(b)clearTimeout(ob.action);
+            ob.isRun=true;
+             var w=$("#"+ob.contents +" ."+ob.item).outerWidth();
+             var n=parseFloat($( "#"+ob.contents ).css("margin-left"));
+             var n2=n+w;
+             if(n2<=0){
+                $( "#"+ob.contents ).animate({marginLeft: n2+'px'},{duration: 300,complete:function(){ob.isRun=false;}});
+                ob.action=setTimeout(function(){onPrev(false,ob);},2000);
+             }
+             else{ob.isRun=false;ob.action=setTimeout(function(){onNext(b,ob);},2000);}
+        }
         $(document).ready(function(){
             $('.item-job').show();
             $('.job-list-0').show();

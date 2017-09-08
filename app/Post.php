@@ -4,14 +4,14 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Apply extends Model
+class Post extends Model
 {
     /**
      * The database table used by the model.
      *
      * @var string
      */
-    protected $table = 'applies';
+    protected $table = 'posts';
 
     /**
     * The database primary key value.
@@ -25,7 +25,7 @@ class Apply extends Model
      *
      * @var array
      */
-    protected $fillable = ['user', 'job', 'active'];
+    protected $fillable = ['title', 'sub_description', 'description', 'category', 'views', 'likes', 'image', 'sub_url'];
 
     
 }

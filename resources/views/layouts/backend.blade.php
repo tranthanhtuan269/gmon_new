@@ -62,6 +62,9 @@
                                 </a>
 
                                 <ul class="dropdown-menu" role="menu">
+                                    @if(Auth::check() && Auth::user()->hasRole('creator'))
+                                    <li><a target="_self" href="{{ url('/post/create') }}">Create Post</a></li>
+                                    @endif
                                     <li>
                                         <a target="_self" target="_self" href="{{ url('/logout') }}"
                                             onclick="event.preventDefault();

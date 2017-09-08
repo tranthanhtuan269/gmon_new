@@ -60,12 +60,6 @@
                                                         <div id="register" class="tab-pane fade">
                                                             <h3>ĐĂNG KÝ TÀI KHOẢN GMON NGAY !</h3>
                                                             <form method="post">
-                                                                <!-- <div class="row text-center">
-                                                                    <p>Tiếp tục với</p>
-                                                                    <a target="_self" href="#" class="facebook"><i></i> Facebook</a>
-                                                                    <a target="_self" href="#" class="google"><i></i> Google</a>
-                                                                    <span class="col-md-12" style="display: inline-block;margin-bottom: 30px"><hr style="float: left;width: 40%;margin-top: 25px">Hoặc<hr style="float: right;width: 40%;margin-top: 25px"></span>
-                                                                </div> -->
                                                                 <div class="row">
                                                                     <div class="col-md-6 form-group ">
                                                                         <input type="text" class="form-control" id="firstname" placeholder="Họ" required autofocus><span class="required">*</span>
@@ -237,17 +231,9 @@
                                 <div class="col-md-7">
                                     <input type="hidden" id="salary" name="salary" value="1">
                                     <select class="form-control" title="Mức lương" id="salary_select" name="salary_select">
-                                        <option value="1">Thỏa thuận mức lương</option>
-                                        <option value="2">Dưới 1 triệu</option>
-                                        <option value="3">1 - 2 triệu</option>
-                                        <option value="4">2 - 3 triệu</option>
-                                        <option value="5">2 - 4 triệu</option>
-                                        <option value="6">4 - 5 triệu</option>
-                                        <option value="7">5 - 8 triệu</option>
-                                        <option value="8">8 - 12 triệu</option>
-                                        <option value="9">12 - 15 triệu</option>
-                                        <option value="10">15 - 20 triệu</option>
-                                        <option value="11">Trên 20 năm</option>
+                                        @foreach($salaries as $salary)
+                                        <option value="{{ $salary->id }}">{{ $salary->name }}</option>
+                                        @endforeach
                                     </select>
                                     {!! $errors->first('salary', '<p class="help-block">:message</p>') !!}
                                 </div>
@@ -283,6 +269,7 @@
                                         <option>Ca 1 (7h - 12h)</option>
                                         <option>Ca 2 (12h - 17h)</option>
                                         <option>Ca 3 (17h - 22h)</option>
+                                        <option>Fulltime</option>
                                     </select>
                                     {!! $errors->first('jobs', '<p class="help-block">:message</p>') !!}
                                 </div>
@@ -704,7 +691,7 @@
                     </div>
 
                     <div class="panel panel-default">
-                        <div class="panel-heading">Thêm ảnh về bản thân</div>
+                        <div class="panel-heading">Thêm ảnh ngoại khóa</div>
                         <div class="panel-body">
                             <div class="form-group {{ $errors->has('images') ? 'has-error' : ''}}">
                                 <div class="col-md-12">

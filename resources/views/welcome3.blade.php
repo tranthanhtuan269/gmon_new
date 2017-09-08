@@ -33,22 +33,22 @@
                        <ul class="homepage-menu col-md-8">
                            <li class="active"><a href="{{ url('/') }}/showmore?job=new">Việc làm</a></li>
                            <li><a href="{{ url('/') }}/showmore?company=new">Nhà tuyển dụng</a></li>
-                           <li><a href="{{ url('/') }}">Tư vấn nghề nghiệp</a></li>
+                           <li><a href="http://news.gmon.vn">Tư vấn nghề nghiệp</a></li>
                        </ul>
                    </div>
                </div>
                <div class="col-xl-6 col-lg-4 right-menu">
                    <ul class="homepage-menu">
                         @if (Auth::guest())
-                       <li>
+                        <li>
                            <a class="menuLogin" href="{{ url('/') }}" data-toggle="modal" data-target="#loginHeader" onclick="onOpenLogin()"><i class="fa fa-sign-in" aria-hidden="true"></i> Đăng nhập</a></li>
-                       <li><a class="menuRegister" href="{{ url('/') }}" data-toggle="modal" data-target="#loginHeader" onclick="onOpenRegister()">Đăng ký</a></li>
-                       <li class="info">
+                        <li><a class="menuRegister" href="{{ url('/') }}" data-toggle="modal" data-target="#loginHeader" onclick="onOpenRegister()">Đăng ký</a></li>
+                        <li class="info">
                            <h5>dành cho nhà tuyển dụng</h5>
                            <h6 >Đăng tuyển dụng ứng viên & Tìm kiếm nhân tài</h6>
-                       </li>
-                       @else
-                       <li class="dropdown">
+                        </li>
+                        @else
+                        <li class="dropdown">
                             <a target="_self" href="{{ url('/') }}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                 {{ Auth::user()->name }} <span class="caret"></span>
                             </a>
@@ -58,6 +58,8 @@
                                 <li><a target="_self" href="{{ url('/admin') }}">Administrator</a></li>
                                 @elseif(Auth::check() && Auth::user()->hasRole('master'))
                                 <li><a target="_self" href="{{ url('/city/admin') }}">Administrator</a></li>
+                                @elseif(Auth::check() && Auth::user()->hasRole('creator'))
+                                <li><a target="_self" href="{{ url('/post/create') }}">Create Post</a></li>
                                 @elseif(Auth::check() && Auth::user()->hasRole('poster'))
                                     @if($company_id > 0)
                                     <li><a target="_self" href="{{ url('/') }}/company/{{ $company_id }}/info">Trang tuyển dụng</a></li>
@@ -108,7 +110,7 @@
                                <!-- Tab panes -->
                                <div class="tab-content">
                                    <div id="login" class="tab-pane login active" id="home" role="tabpanel">
-                                       <form>
+                                       <form action="javascript:void(0);" onsubmit="return(loginFunc());"  name="loginForm" id="loginForm">
                                            <div class="form-group">
                                                <label for="email"></label>
                                                <input type="email" class="form-control" id="login-email" placeholder="Email">
@@ -121,7 +123,7 @@
                                                <p class="text-center text-danger" id="login-message"></p>
                                            </div>
                                            <div class="form-group">
-                                               <div class="btn btn-primary" id="login-btn">Đăng nhập</div>
+                                               <input type="submit" class="btn btn-primary" id="login-btn" value="Đăng nhập">
                                            </div>
                                            
                                        </form>
@@ -136,12 +138,12 @@
                                    </div>
                                    <div id="register" class="tab-pane register" id="profile" role="tabpanel">
                                        <h3>đăng ký tài khoản gmon ngay!</h3>
-                                       <form>
+                                       <form action="javascript:void(0);" onsubmit="return(registerFunc());"  name="registerForm" id="registerForm">
                                            <div class="form-group">
                                                <input type="text" class="form-control" id="username" placeholder="Họ & tên">
                                            </div>
                                            <div class="form-group">
-                                               <input type="text" class="form-control" id="sdt" placeholder="Số điện thoại">
+                                               <input type="number" class="form-control" id="sdt" placeholder="Số điện thoại">
                                            </div>
                                            <div class="form-group">
                                                <input type="email" class="form-control" id="register-email" placeholder="Email">
@@ -163,9 +165,8 @@
                                                <p class="text-center text-danger" id="register-message"></p>
                                            </div>
                                            <div class="form-group">
-                                               <div type="submit" class="btn btn-primary" id="register-btn">Đăng ký ngay</div>
+                                            <input type="submit" class="btn btn-primary" id="register-btn" value="Đăng ký ngay">
                                            </div>
-
                                        </form>
                                    </div>
                                </div>
@@ -190,7 +191,7 @@
                         <ul>
                             <li><a href="{{ url('/') }}/showmore?job=new">Việc làm</a></li>
                             <li><a href="{{ url('/') }}/showmore?company=new">Nhà tuyển dụng</a></li>
-                            <li><a href="{{ url('/') }}">Tư vấn nghề nghiệp</a></li>
+                            <li><a href="http://news.gmon.vn">Tư vấn nghề nghiệp</a></li>
                             <li><a href="{{ url('/') }}" data-toggle="modal" data-target="#loginHeader">Đăng nhập</a></li>
                             <li><a href="{{ url('/') }}" data-toggle="modal" data-target="#loginHeader">Đăng ký</a></li>
                         </ul>
@@ -268,10 +269,10 @@
     <div class="part-1">
         <div class="container">
             <div class="wrap">
-                <h2>Tìm một công việc bạn yêu thích với <span>GMON #1 job site</span></h2>
+                <h2>Tìm một công việc bạn yêu thích với <span>GMON 1 job site</span></h2>
                 <div class="hr"></div>
                 <ul class="number">
-                    <li><span>#1</span> Trang tuyển dụng chuyên nghiệp</li>
+                    <li><span>1</span> Trang tuyển dụng chuyên nghiệp</li>
                     <li><span>1,500</span> lượt xem mỗi đăng tuyển</li>
                     <li><span>20,000</span> ứng viên tiềm năng</li>
                 </ul>
@@ -281,9 +282,6 @@
                     <div class="item col-md-4">
                         <div class="image">
                             <img src="http://test.gmon.com.vn/?image={{ $company->banner }}" alt=""  width="350" height="180"  />
-                            <div class="logo">
-                                <img src="http://test.gmon.com.vn/?image={{ $company->logo }}" alt=""  width="100" height="100" />
-                            </div>
                         </div>
                         <div class="title">
                             <a href="{{ url('/') }}/company/{{ $company->id }}/info">{{ $company->name }}</a>
@@ -297,13 +295,129 @@
             </div>
         </div>
     </div>
-    <div class="part-2">
-        <div class="container">
-            <div class="row">
-                <img src="http://test.gmon.com.vn/?image=part-2.jpg" alt="">
-            </div>
-        </div>
+
+    <style type="text/css">
+      /** {box-sizing:border-box}*/
+
+      /* Slideshow container */
+      .slideshow-container {
+        max-width: 1000px;
+        position: relative;
+        margin: auto;
+      }
+
+      .slideshow-container .mySlides {
+          display: none;
+      }
+
+      /* Next & previous buttons */
+      .slideshow-container .prev, .slideshow-container .next {
+        cursor: pointer;
+        position: absolute;
+        top: 50%;
+        width: auto;
+        margin-top: -22px;
+        padding: 16px;
+        color: white;
+        font-weight: bold;
+        font-size: 18px;
+        transition: 0.6s ease;
+        border-radius: 0 3px 3px 0;
+      }
+
+      /* Position the "next button" to the right */
+      .slideshow-container .next {
+        right: 0;
+        border-radius: 3px 0 0 3px;
+      }
+
+      /* On hover, add a black background color with a little bit see-through */
+      .slideshow-container .prev:hover, .slideshow-container .next:hover {
+        background-color: rgba(0,0,0,0.8);
+      }
+
+      /* Caption text */
+      .slideshow-container .text {
+        color: #f2f2f2;
+        font-size: 15px;
+        padding: 8px 12px;
+        position: absolute;
+        bottom: 8px;
+        width: 100%;
+        text-align: center;
+      }
+
+      /* Number text (1/3 etc) */
+      .slideshow-container .numbertext {
+        color: #f2f2f2;
+        font-size: 12px;
+        padding: 8px 12px;
+        position: absolute;
+        top: 0;
+      }
+
+      /* The dots/bullets/indicators */
+      .slideshow-container .dot {
+        cursor:pointer;
+        height: 13px;
+        width: 13px;
+        margin: 0 2px;
+        background-color: #bbb;
+        border-radius: 50%;
+        display: inline-block;
+        transition: background-color 0.6s ease;
+      }
+
+      .slideshow-container .active, .slideshow-container .dot:hover {
+        background-color: #717171;
+      }
+
+      /* Fading animation */
+      .slideshow-container .fade {
+        -webkit-animation-name: fade;
+        -webkit-animation-duration: 4s;
+        animation-name: fade;
+        animation-duration: 4s;
+      }
+
+      @-webkit-keyframes fade {
+        from {opacity: .6} 
+        to {opacity: 1}
+      }
+
+      @keyframes fade {
+        from {opacity: .6} 
+        to {opacity: 1}
+      }
+    </style>
+    <div class="part-2 slideshow-container">
+      <div class="container mySlides fade">
+        <img src="http://test.gmon.com.vn/?image=U5-01.jpg" style="width:100%">
+      </div>
+
+      <div class="container mySlides fade">
+        <img src="http://test.gmon.com.vn/?image=U5-02.jpg" style="width:100%">
+      </div>
     </div>
+    <br>
+
+    <script type="text/javascript">
+      var slideIndex = 0;
+      showSlides();
+
+      function showSlides() {
+          var i;
+          var slides = document.getElementsByClassName("mySlides");
+          for (i = 0; i < slides.length; i++) {
+              slides[i].style.display = "none"; 
+          }
+          slideIndex++;
+          if (slideIndex> slides.length) {slideIndex = 1} 
+          slides[slideIndex-1].style.display = "block"; 
+          setTimeout(showSlides, 4000); // Change image every 2 seconds
+      }
+    </script>
+
     <div class="part-3">
         <div class="container">
             <div class="wrap">
@@ -413,7 +527,7 @@
                         <li><a href="{{ url('/') }}">việc làm của tôi</a></li>
                         <li><a href="{{ url('/') }}">thông báo việc làm</a></li>
                         <li><a href="{{ url('/') }}">phản hồi</a></li>
-                        <li><a href="{{ url('/') }}">tư vấn nghề nghiệp</a></li>
+                        <li><a href="http://news.gmon.vn">tư vấn nghề nghiệp</a></li>
                     </ul>
                 </div>
                 <div class="col-md-4 footer-3 item">
@@ -431,10 +545,12 @@
     </div>
     <div class="bottom-footer">
         <div class="container">
-            <p>Công ty cổ phần giải pháp và công nghệ Gmon</p>
-            <p>Địa chỉ: P801 - Tòa nhà Trần Phú, số 17 tổ 24 Dương Đình Nghệ - P.Yên Hòa - Q. Cầu Giấy, Hà Nội</p>
-            <p>Điện thoại: 0243.212.1515</p>
-            <p>Email: vieclamhn@gmon.vn, tuyendunghn@gmon.com</p>
+            <p><b>Công ty cổ phần giải pháp và công nghệ Gmon</b></p>
+            <p><b>Trụ sở chính:</b> Tầng 8, Tòa nhà Trần Phú, Dương Đình Nghệ, Cầu Giấy, Hà Nội</p>
+            <p><b>Điện thoại:</b> 0243.212.1515</p>
+            <p><b>VPĐD:</b> Số 31, Trần Phú, Hải Châu I, Hải Châu, Đà Nẵng</p>
+            <p><b>Điện thoại:</b> 0961 545 115</p>
+            <p><b>Email:</b> quanbq@gstar.vn, tuannv@gstar.vn</p>
         </div>
     </div>
 </div>
@@ -462,100 +578,112 @@
         $(event.target).find(".view").animate({top: 200 + 'px'});
     }
 
+    function loginFunc(){
+      $('#login-message').html('');
+      var loginEmail = $('#login-email').val();
+      var loginPassword = $('#login-password').val();
+      if(loginEmail.length == 0){
+          $('#login-message').html('Email rỗng!');
+      }else if(loginPassword.length == 0){
+          $('#login-message').html('Password rỗng!');
+      }else{
+          var request = $.ajax({
+              headers: {
+                  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+              },
+              url: "{{ url('/') }}/auth/login",
+              method: "POST",
+              data: {
+                  'email': loginEmail,
+                  'password': loginPassword
+              },
+              dataType: "json"
+          });
+
+          request.done(function (msg) {
+              if (msg.code == 200) {
+                  location.reload();
+                  // window.location.replace("{{ url('/') }}");
+              }else{
+                  $('#login-message').html('Tài khoản không tồn tại!');
+                  $('#login-message').show();
+              }
+          });
+
+          request.fail(function (jqXHR, textStatus) {
+              alert("Request failed: " + textStatus);
+          });
+      }
+    }
+
+    function registerFunc(){
+      $('#register-message').val('');
+      var username = $('#username').val();
+      var registersdt = $('#sdt').val();
+      var registerEmail = $('#register-email').val();
+      var registerPassword = $('#register-password').val();
+      var rPassword = $('#r_password').val();
+      var role = $('#areyou').val();
+      if (registerPassword != rPassword) {
+          $('#register-message').html('Password được đánh lại chưa chính xác!');
+          return false;
+      }else if(username.length == 0){
+          $('#register-message').html('Username rỗng!');
+          return false;
+      }else if(registersdt.length == 0){
+          $('#register-message').html('Số điện thoại rỗng!');
+          return false;
+      }else if(registerEmail.length == 0){
+          $('#register-message').html('Email rỗng!');
+          return false;
+      }else if(registerPassword.length == 0){
+          $('#register-message').html('Password rỗng!');
+          return false;
+      }else if(role == 0){
+          $('#register-message').html('Bạn chưa chọn vai trò của bạn!');
+          return false;
+      }else{
+          var request = $.ajax({
+              headers: {
+                  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+              },
+              url: "{{ url('/') }}/auth/register",
+              method: "POST",
+              data: {
+                  'username': username,
+                  'password': registerPassword,
+                  'email': registerEmail,
+                  'phone': registersdt,
+                  'role': role
+              },
+              dataType: "json"
+          });
+
+          request.done(function (msg) {
+              if(msg.code == 200) {
+                  location.reload();
+                  // window.location.replace("{{ url('/') }}");
+              }else if(msg.code == 201) {
+                  $('#register-message').html('Email của bạn đã có người sử dụng!');
+              }else{
+                  $('#register-message').html('Đăng ký bị lỗi! <br /> Xin hãy liên hệ quản trị viên');
+              }
+          });
+
+          request.fail(function (jqXHR, textStatus) {
+              alert("Request failed: " + textStatus);
+          });
+      }
+    }
+
     $(document).ready(function(){
         onOpenLogin();
         $('#login-btn').click(function () {
-            var loginEmail = $('#login-email').val();
-            var loginPassword = $('#login-password').val();
-            if(loginEmail.length == 0){
-                $('#login-message').val('Email rỗng!');
-            }else if(loginPassword.length == 0){
-                $('#login-message').val('Password rỗng!');
-            }else{
-                var request = $.ajax({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    url: "{{ url('/') }}/auth/login",
-                    method: "POST",
-                    data: {
-                        'email': loginEmail,
-                        'password': loginPassword
-                    },
-                    dataType: "json"
-                });
-
-                request.done(function (msg) {
-                    if (msg.code == 200) {
-                        location.reload();
-                        // window.location.replace("{{ url('/') }}");
-                    }else{
-                        $('#login-message').show();
-                    }
-                });
-
-                request.fail(function (jqXHR, textStatus) {
-                    alert("Request failed: " + textStatus);
-                });
-            }
+            loginFunc();
         });
 
         $('#register-btn').click(function () {
-            $('#register-message').val('');
-            var username = $('#username').val();
-            var registersdt = $('#sdt').val();
-            var registerEmail = $('#register-email').val();
-            var registerPassword = $('#register-password').val();
-            var rPassword = $('#r_password').val();
-            var role = $('#areyou').val();
-            if (registerPassword != rPassword) {
-                $('#register-message').val('Password được đánh lại chưa chính xác!');
-                return false;
-            }else if(username.length == 0){
-                $('#register-message').val('Username rỗng!');
-                return false;
-            }else if(registersdt.length == 0){
-                $('#register-message').val('Số điện thoại rỗng!');
-                return false;
-            }else if(registerEmail.length == 0){
-                $('#register-message').val('Email rỗng!');
-                return false;
-            }else if(registerPassword.length == 0){
-                $('#register-message').val('Password rỗng!');
-                return false;
-            }else if(role == 0){
-                $('#register-message').val('Bạn chưa chọn vai trò của bạn!');
-                return false;
-            }else{
-                var request = $.ajax({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    url: "{{ url('/') }}/auth/register",
-                    method: "POST",
-                    data: {
-                        'username': username,
-                        'password': registerPassword,
-                        'email': registerEmail,
-                        'phone': registersdt,
-                        'role': role
-                    },
-                    dataType: "json"
-                });
-
-                request.done(function (msg) {
-                    if (msg.code == 200) {
-                        location.reload();
-                        // window.location.replace("{{ url('/') }}");
-                    }else{
-                        $('#register-message').show();
-                    }
-                });
-
-                request.fail(function (jqXHR, textStatus) {
-                    alert("Request failed: " + textStatus);
-                });
-            }
+            registerFunc();
         });
 
         $('#select-job-type li').click(function(){

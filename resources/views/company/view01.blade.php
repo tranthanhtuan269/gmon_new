@@ -134,10 +134,21 @@
                                                 <li><a target="_self" href="{{ url('/admin') }}">Administrator</a></li>
                                                 @elseif(Auth::check() && Auth::user()->hasRole('master'))
                                                 <li><a target="_self" href="{{ url('/city/admin') }}">Administrator</a></li>
+                                                @elseif(Auth::check() && Auth::user()->hasRole('creator'))
+                                                <li><a target="_self" href="{{ url('/post/create') }}">Create Post</a></li>
+                                                @elseif(Auth::check() && Auth::user()->hasRole('poster'))
+                                                    @if($company_id > 0)
+                                                    <li><a target="_self" href="{{ url('/') }}/company/{{ $company_id }}/info">Trang tuyển dụng</a></li>
+                                                    <li><a target="_self" href="{{ url('/') }}/job/create">Đăng tin tuyển dụng</a></li>
+                                                    @else
+                                                    <li><a target="_self" href="{{ url('/') }}/company/create">Tạo trang tuyển dụng</a></li>
+                                                    @endif
                                                 @elseif(Auth::check() && Auth::user()->hasRole('user'))
-                                                @if($cv_id > 0)
-                                                <li><a target="_self" href="{{ url('/') }}/curriculumvitae/view/{{ $cv_id }}">Trang hồ sơ</a></li>
-                                                @endif
+                                                    @if($cv_id > 0)
+                                                    <li><a target="_self" href="{{ url('/') }}/curriculumvitae/view/{{ $cv_id }}">Trang hồ sơ</a></li>
+                                                    @else
+                                                    <li><a target="_self" href="{{ url('/') }}/curriculumvitae/create">Tạo hồ sơ</a></li>
+                                                    @endif
                                                 @else 
 
                                                 @endif
@@ -203,9 +214,9 @@
         <div class="row gmon-info">
             <div class="col-md-9 col-lg-9 content-company">
                 <div class="nav nav-tabs" role="tablist">
-                    <button role="presentation" class="btn btn-warning"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Home</a></button>
+                    <button role="presentation" class="btn btn-warning"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">VỀ CHÚNG TÔI</a></button>
                     <span> | </span>
-                    <button role="presentation" class="btn btn-primary"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Profile</a></button>
+                    <button role="presentation" class="btn btn-primary"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">TIN TUYỂN DỤNG</a></button>
                 </div>
                 <div class="tab-content">
                     <div role="tabpanel" class="tab-pane active" id="home">
@@ -283,10 +294,10 @@
                                 <div class="employ-ft"> 
                                     <div class="employ-txt">
                                         <p>Lượt xem: <img src="http://test.gmon.com.vn/?image=eyeicon.png">
-                                            <span>1024</span>
+                                            <span>{{ $job->views }}</span>
                                             <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
                                             Hồ sơ ứng tuyển: 
-                                            <span>332&nbsp;</span>
+                                            <span>{{ $job->applied }}&nbsp;</span>
                                             <img src="http://test.gmon.com.vn/?image=new-employ.png" style="max-width: 60%;">
                                         </p>
                                     </div>
