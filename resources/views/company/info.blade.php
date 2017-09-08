@@ -222,7 +222,6 @@
                                 <p class="row"><i></i>{{ rtrim($company->jobs,";") }}</p>
                             @endif
                             <p class="row"><i></i>{{ $company->size }} người</p>
-                            <p class="row"><i></i>Thứ 2 -  Thứ 6</p>
                             @if(strlen($company->sologan)>0)<p class="row"><i></i>{{ $company->sologan }}</p>@endif
                             @if(strlen($company->site_url)>0)<p class="row"><i class="fa fa-link fa-1 icon-plus"></i>{{ $company->site_url }}</p>@endif
                         </div>
@@ -250,7 +249,7 @@
                                                     foreach ($images as $image) {
                                                 ?>
                                                 <div class="item-work-big" >
-                                                    <p class="work-img"><img  src="http://test.gmon.com.vn/?image={{ $image }}" alt=""></p>
+                                                    <p class="work-img"><img  src="http://test.gmon.com.vn/?image={{ $image }}" alt="" height="435"></p>
                                                 </div>
                                                 <?php 
                                                     }
