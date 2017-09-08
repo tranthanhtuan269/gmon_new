@@ -203,9 +203,9 @@
         <div class="row gmon-info">
             <div class="col-md-9 col-lg-9 content-company">
                 <div class="nav nav-tabs" role="tablist">
-                    <button role="presentation" class="btn btn-warning"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Home</a></button>
+                    <button role="presentation" class="btn btn-warning"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Thông tin</a></button>
                     <span> | </span>
-                    <button role="presentation" class="btn btn-primary"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Profile</a></button>
+                    <button role="presentation" class="btn btn-primary"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Tuyển dụng</a></button>
                 </div>
                 <div class="tab-content">
                     <div role="tabpanel" class="tab-pane active" id="home">

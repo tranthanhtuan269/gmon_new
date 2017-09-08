@@ -500,7 +500,7 @@
                 });
 
                 request.fail(function (jqXHR, textStatus) {
-                    alert("Request failed: " + textStatus);
+                    swal("Cảnh báo", textStatus, "error");
                 });
             });
         });

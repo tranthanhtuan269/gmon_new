@@ -465,27 +465,31 @@ class CurriculumVitaeController extends Controller
     }
 
     public function sendcomment(Request $request) {
-        $input = $request->all();
-        $current_id = \Auth::user()->id;
+        if (\Auth::check()) {
+            $input = $request->all();
+            $current_id = \Auth::user()->id;
 
-        // check exist comment of user
-        $commentExist = CommentCurriculumVitae::where('created_by', $current_id)->where('curriculumvitae', $input['curriculumvitae'])->first();
+            // check exist comment of user
+            $commentExist = CommentCurriculumVitae::where('created_by', $current_id)->where('curriculumvitae', $input['curriculumvitae'])->first();
 
-        if ($commentExist)
-            return \Response::json(array('code' => '404', 'message' => 'Bạn chỉ được gửi đánh giá 1 lần với Ứng viên này!'));
+            if ($commentExist)
+                return \Response::json(array('code' => '404', 'message' => 'Bạn chỉ được gửi đánh giá 1 lần với Ứng viên này!'));
 
-        // store
-        $comment = new CommentCurriculumVitae;
-        $comment->description = $input['description'];
-        $comment->star = $input['countStar'];
-        $comment->curriculumvitae = $input['curriculumvitae'];
-        $comment->created_by = $current_id;
-        $comment->created_at = date("Y-m-d H:i:s");
+            // store
+            $comment = new CommentCurriculumVitae;
+            $comment->description = $input['description'];
+            $comment->star = $input['countStar'];
+            $comment->curriculumvitae = $input['curriculumvitae'];
+            $comment->created_by = $current_id;
+            $comment->created_at = date("Y-m-d H:i:s");
 
-        if ($comment->save()) {
-            return \Response::json(array('code' => '200', 'message' => 'success', 'comment' => $comment));
+            if ($comment->save()) {
+                return \Response::json(array('code' => '200', 'message' => 'success', 'comment' => $comment));
+            }
+            return \Response::json(array('code' => '404', 'message' => 'unsuccess'));
+        }else{
+            return \Response::json(array('code' => '403', 'message' => 'unauthen'));
         }
-        return \Response::json(array('code' => '404', 'message' => 'unsuccess'));
     }
 
     public function vip(Request $request){
