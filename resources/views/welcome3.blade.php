@@ -33,7 +33,7 @@
                        <ul class="homepage-menu col-md-8">
                            <li class="active"><a href="{{ url('/') }}/showmore?job=new">Việc làm</a></li>
                            <li><a href="{{ url('/') }}/showmore?company=new">Nhà tuyển dụng</a></li>
-                           <li><a href="{{ url('/') }}">Tư vấn nghề nghiệp</a></li>
+                           <li><a href="http://news.gmon.vn">Tư vấn nghề nghiệp</a></li>
                        </ul>
                    </div>
                </div>
@@ -191,7 +191,7 @@
                         <ul>
                             <li><a href="{{ url('/') }}/showmore?job=new">Việc làm</a></li>
                             <li><a href="{{ url('/') }}/showmore?company=new">Nhà tuyển dụng</a></li>
-                            <li><a href="{{ url('/') }}">Tư vấn nghề nghiệp</a></li>
+                            <li><a href="http://news.gmon.vn">Tư vấn nghề nghiệp</a></li>
                             <li><a href="{{ url('/') }}" data-toggle="modal" data-target="#loginHeader">Đăng nhập</a></li>
                             <li><a href="{{ url('/') }}" data-toggle="modal" data-target="#loginHeader">Đăng ký</a></li>
                         </ul>
@@ -527,7 +527,7 @@
                         <li><a href="{{ url('/') }}">việc làm của tôi</a></li>
                         <li><a href="{{ url('/') }}">thông báo việc làm</a></li>
                         <li><a href="{{ url('/') }}">phản hồi</a></li>
-                        <li><a href="{{ url('/') }}">tư vấn nghề nghiệp</a></li>
+                        <li><a href="http://news.gmon.vn">tư vấn nghề nghiệp</a></li>
                     </ul>
                 </div>
                 <div class="col-md-4 footer-3 item">
