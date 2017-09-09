@@ -264,7 +264,7 @@
                         <p>Công ty cổ phần Giải pháp và công nghệ GMon</p>
                         <p>Địa chỉ: Tầng 8 - Tòa nhà Trần Phú - số 17 tổ 24 đường Dương Đình Nghệ - P.Yên Hòa - Q.Cầu Giấy - Hà Nội</p>
                         <p>Điện thoại: 0243.212.1515</p>
-                        <p>Email nhà tuyển dụng: vieclamhn@gmon.vn</p>
+                        <p>Email nhà tuyển dụng: support@gmon.vn</p>
                         <p>Email ứng viên: tuyendunghn@gmon.vn</p>
                     </div>
                     <div class="col-md-4">

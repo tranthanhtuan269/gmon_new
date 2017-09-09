@@ -386,14 +386,15 @@
             </div>
             <div class="footer-bot row">
                 <div class="col-md-8">
-                    <p>Công ty cổ phần Giải pháp và công nghệ GMon</p>
-                    <p>Địa chỉ: Tầng 8 - Tòa nhà Trần Phú - số 17 tổ 24 đường Dương Đình Nghệ - P.Yên Hòa - Q.Cầu Giấy - Hà Nội</p>
-                    <p>Điện thoại: 04.3212.1515</p>
-                    <p>Email nhà tuyển dụng: vieclamhn@gmon.vnEmail nhà tuyển dụng</p>
-                    <p>Email ứng viên: tuyendunghn@gmon.vn</p>
+                    <p><b>Công ty cổ phần giải pháp và công nghệ Gmon</b></p>
+                    <p><b>Trụ sở chính:</b> Tầng 8, Tòa nhà Trần Phú, Dương Đình Nghệ, Cầu Giấy, Hà Nội</p>
+                    <p><b>Điện thoại:</b> 0243.212.1515</p>
+                    <p><b>VPĐD:</b> Số 31, Trần Phú, Hải Châu I, Hải Châu, Đà Nẵng</p>
+                    <p><b>Điện thoại:</b> 0961 545 115</p>
+                    <p><b>Email:</b> support@gmon.vn</p>
                 </div>
                 <div class="col-md-4">
-                    <p style="margin-top: 15px">&#64; 2016-2017 Gmon.vn,inc. All rights reserved</p>
+                    <p style="margin-top: 72px">&#64; 2016-2017 Gmon.vn,inc. All rights reserved</p>
                 </div>
             </div>
         </div>

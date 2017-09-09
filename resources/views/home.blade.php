@@ -210,7 +210,7 @@
                             <div class="col-md-3 clearfix">
                                 <div class="contact row">
                                     <p><i></i>0243.212.1515</p>
-                                    <p><i></i>vieclamhn@gmon.vn</p>
+                                    <p><i></i>support@gmon.vn</p>
                                 </div>
                             </div>
                         </div>
@@ -1386,7 +1386,7 @@
                     <p>Công ty cổ phần Giải pháp và công nghệ GMon</p>
                     <p>Địa chỉ: Tầng 8 - Tòa nhà Trần Phú - số 17 tổ 24 đường Dương Đình Nghệ - P.Yên Hòa - Q.Cầu Giấy - Hà Nội</p>
                     <p>Điện thoại: 0243.212.1515</p>
-                    <p>Email nhà tuyển dụng: vieclamhn@gmon.vnEmail nhà tuyển dụng</p>
+                    <p>Email nhà tuyển dụng: support@gmon.vnEmail nhà tuyển dụng</p>
                     <p>Email ứng viên: tuyendunghn@gmon.vn</p>
                 </div>
                 <div class="col-md-4">

@@ -73,7 +73,7 @@
                             <div class="col-md-3 clearfix">
                                 <div class="contact row">
                                     <p><i></i>0243.212.1515</p>
-                                    <p><i></i>vieclamhn@gmon.vn</p>
+                                    <p><i></i>support@gmon.vn</p>
                                 </div>
                             </div>
                         </div>
