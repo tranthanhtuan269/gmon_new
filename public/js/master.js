@@ -108,6 +108,60 @@ $(document).ready(function(){
         });
 	});
 
+    $('.active-spa').click(function(){
+        var _sefl = $(this);
+        var jobtype_id = $(this).attr('data-id');
+        var request = $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            url: url_site + "/jobtype/active",
+            method: "POST",
+            data: {
+                'jobtype': jobtype_id
+            },
+            dataType: "json"
+        });
+
+        request.done(function (msg) {
+            if (msg.code == 200) {
+               _sefl.addClass('hidden-object').removeClass('show-object');
+               _sefl.parent().find(".unactive-spa").addClass('show-object').removeClass('hidden-object');
+            }
+        });
+
+        request.fail(function (jqXHR, textStatus) {
+            alert("Request failed: " + textStatus);
+        });
+    });
+
+    $('.unactive-spa').click(function(){
+        var _sefl = $(this);
+        var jobtype_id = $(this).attr('data-id');
+        var request = $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            url: url_site + "/jobtype/unactive",
+            method: "POST",
+            data: {
+                'jobtype': jobtype_id
+            },
+            dataType: "json"
+        });
+
+        request.done(function (msg) {
+            if (msg.code == 200) {
+               _sefl.addClass('hidden-object').removeClass('show-object');
+               _sefl.parent().find(".active-spa").addClass('show-object').removeClass('hidden-object');
+            }
+        });
+
+        request.fail(function (jqXHR, textStatus) {
+            alert("Request failed: " + textStatus);
+        });
+    });
+
     $('.active-city').click(function(){
         var _sefl = $(this);
         var city_id = $(this).attr('data-id');

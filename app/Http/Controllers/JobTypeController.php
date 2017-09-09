@@ -128,4 +128,28 @@ class JobTypeController extends Controller
 
         return redirect('admin/job-type');
     }
+
+    public function active(Request $request){
+        $input = $request->all();
+        if(isset($input) && isset($input['jobtype'])){
+            $jobtype = JobType::findOrFail($input['jobtype']);
+            $jobtype->spa_show = 1;
+            if($jobtype->save()){
+                return \Response::json(array('code' => '200', 'message' => 'Update success!'));
+            }
+        }
+        return \Response::json(array('code' => '404', 'message' => 'Update unsuccess!'));
+    }
+
+    public function unactive(Request $request){
+        $input = $request->all();
+        if(isset($input) && isset($input['jobtype'])){
+            $jobtype = JobType::findOrFail($input['jobtype']);
+            $jobtype->spa_show = 0;
+            if($jobtype->save()){
+                return \Response::json(array('code' => '200', 'message' => 'Update success!'));
+            }
+        }
+        return \Response::json(array('code' => '404', 'message' => 'Update unsuccess!'));
+    }
 }

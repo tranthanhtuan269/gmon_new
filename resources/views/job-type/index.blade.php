@@ -30,7 +30,10 @@
                             <table class="table table-borderless">
                                 <thead>
                                     <tr>
-                                        <th>ID</th><th>Name</th><th>Actions</th>
+                                        <th>ID</th>
+                                        <th>Name</th>
+                                        <th>Show in Spa</th>
+                                        <th>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -38,6 +41,14 @@
                                     <tr>
                                         <td>{{ $item->id }}</td>
                                         <td>{{ $item->name }}</td>
+                                        <td>
+                                                <div class="btn btn-default btn-xs active-spa @if($item->spa_show==1) hidden-object @else show-object @endif" data-id="{{ $item->id }}">
+                                                Unactive
+                                                </div>
+                                                <div class="btn btn-success btn-xs unactive-spa @if($item->spa_show==0) hidden-object @else show-object @endif" data-id="{{ $item->id }}">
+                                                Active
+                                                </div>
+                                        </td>
                                         <td>
                                             <a target="_self" href="{{ url('/admin/job-type/' . $item->id) }}" title="View JobType"><button class="btn btn-info btn-xs"><i class="fa fa-eye" aria-hidden="true"></i> View</button></a>
                                             <a target="_self" href="{{ url('/admin/job-type/' . $item->id . '/edit') }}" title="Edit JobType"><button class="btn btn-primary btn-xs"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></a>
