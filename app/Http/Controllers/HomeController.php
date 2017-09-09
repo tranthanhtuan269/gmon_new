@@ -1427,17 +1427,11 @@ class HomeController extends Controller
     }
     
     public function action(){
-        // get all company
-        $companies = \DB::table('companies')->get();
-        foreach($companies as $company){
-            // get user from $company
-            $user = User::findOrFail($company->user);
-            $companySelected = Company::findOrFail($company->id);
-            $companySelected->phone = $user->phone;
-            $companySelected->email = $user->email;
-            $companySelected->save();
-            echo $user->phone;
-            echo '-' . $user->email . '<br />';
-        }
+        $user = User::findOrFail(1);
+        \Mail::send('emails.reminder', ['user' => $user], function ($m) use ($user) {
+            $m->from('tran.thanh.tuan269@gmail.com', 'Your Application');
+
+            $m->to($user->email, $user->name)->subject('Your Reminder!');
+        });
     }
 }
