@@ -42,10 +42,10 @@
                                         <td>{{ $item->id }}</td>
                                         <td>{{ $item->name }}</td>
                                         <td>
-                                                <div class="btn btn-default btn-xs active-spa @if($item->spa_show==1) hidden-object @else show-object @endif" data-id="{{ $item->id }}">
+                                                <div class="btn btn-default btn-xs active-spa @if((int)$item->spa_show==1) hidden-object @else show-object @endif" data-id="{{ $item->id }}">
                                                 Unactive
                                                 </div>
-                                                <div class="btn btn-success btn-xs unactive-spa @if($item->spa_show==0) hidden-object @else show-object @endif" data-id="{{ $item->id }}">
+                                                <div class="btn btn-success btn-xs unactive-spa @if((int)$item->spa_show==0) hidden-object @else show-object @endif" data-id="{{ $item->id }}">
                                                 Active
                                                 </div>
                                         </td>
