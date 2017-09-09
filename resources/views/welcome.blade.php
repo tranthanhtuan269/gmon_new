@@ -1,6 +1,7 @@
 @extends('layouts.layout')
 
 @section('content')
+<?php $jobstype = \App\JobType::where('spa_show', '=', 1)->select('id', 'name')->get(); ?>
     <header>
         <div class="header-mid">
             <div class="container" >
@@ -14,40 +15,9 @@
                                 <form class="search">
                                     <select class="col-md-4" id="job-select">
                                         <option value="0">Chọn ngành nghề</option>
-                                        <option value="1">Làm bán thời gian</option>
-                                        <option value="2">Bán hàng</option>
-                                        <option value="3">Marketing-PR</option>
-                                        <option value="4">Bảo vệ</option>
-                                        <option value="5">Du lịch</option>
-                                        <option value="6">Sale/Marketing online</option>
-                                        <option value="7">Promotion Girl(PG)</option>
-                                        <option value="8">Thực tập</option>
-                                        <option value="9">Phụ bếp</option>
-                                        <option value="10">Người giúp việc</option>
-                                        <option value="11">Bếp chính</option>
-                                        <option value="12">Nhân viên spa</option>
-                                        <option value="13">Pha chế</option>
-                                        <option value="14">Bell man</option>
-                                        <option value="15">Chăm sóc khách hàng</option>
-                                        <option value="16">Giao nhận, ship</option>
-                                        <option value="17">Kinh doanh</option>
-                                        <option value="18">Hành chính nhân sự</option>
-                                        <option value="19">Phiên dịch</option>
-                                        <option value="20">Gia sư</option>
-                                        <option value="21">Hướng dẫn viên</option>
-                                        <option value="22">Giám sát, quản lý</option>
-                                        <option value="23">Phục vụ, bồi bàn</option>
-                                        <option value="24">Telesale</option>
-                                        <option value="25">Cộng tác viên</option>
-                                        <option value="26">Phụ bếp</option>
-                                        <option value="27">Lễ tân</option>
-                                        <option value="28">Thu ngân</option>
-                                        <option value="29">Marketing online</option>
-                                        <option value="30">Phát tờ rơi</option>
-                                        <option value="31">Buồng phòng</option>
-                                        <option value="32">Pha chế</option>
-                                        <option value="33">Shipper</option>
-                                        <option value="34">Kế toán</option>
+                                        @foreach($jobstype as $jobtype)
+                                        <option value="{{ $jobtype->id }}">{{ $jobtype->name }}</option>
+                                        @endforeach
                                     </select>
                                     <select id="tinh-select" class="col-md-3">
                                         <option value="0">Thành phố</option>
