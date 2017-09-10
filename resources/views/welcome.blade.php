@@ -88,7 +88,7 @@
         <div class="row">
             <div class="col-md-9 col-xs-12">
                 <div class="banner row">
-                    <a width="50%" target="_self" href="http://gmon.vn/company/278/info"><img src="http://test.gmon.com.vn/?image=Banner-Web-Gmon-11.jpg" alt=""></a><a width="50%" target="_self" href="http://gmon.vn/company/278/info"><img src="http://test.gmon.com.vn/?image=Banner-Web-Gmon-12.jpg" alt=""></a>
+                    <a width="50%" target="_self" href="http://gmon.vn/company/323/info"><img src="http://test.gmon.com.vn/?image=Banner-Web-Gmon-11.jpg" alt=""></a><a width="50%" target="_self" href="http://gmon.vn/company/278/info"><img src="http://test.gmon.com.vn/?image=Banner-Web-Gmon-12.jpg" alt=""></a>
                 </div>
                 <div class="row news">
                     <div class="col-md-6" style="margin-right: -1px">
