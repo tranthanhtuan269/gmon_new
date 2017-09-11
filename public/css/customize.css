@@ -336,3 +336,13 @@ img.no-vote{
     padding-top: 30px; padding-right: 18px;
     border-radius: 6px;
 }
+
+.homepage header .header-top i.fa-newspaper-o{
+    font-size: 20px;
+    width: 20px;
+    height: 20px;
+    margin-right: 11px;
+    background: none;
+    position: relative;
+    top: 3px;
+}

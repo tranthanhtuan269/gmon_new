@@ -35,6 +35,7 @@
                                         <a target="_self" href="{{ url('/') }}"><i></i>Trang chủ</a>
                                         <a target="_self" href="{{ url('/') }}/showmore?job=new"><i></i>Việc làm</a>
                                         <a target="_self" href="{{ url('/') }}/showmore?company=new"><i></i>Nhà tuyển dụng</a>
+                                        <a target="_self" href="http://news.gmon.vn/"><i class="fa fa-newspaper-o" aria-hidden="true"></i>Tin Tức</a>
                                     </div>
                                     <div class="login">
                                         @if (Auth::guest())
