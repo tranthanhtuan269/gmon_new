@@ -78,12 +78,14 @@ class HomeController extends Controller
                     ->select('posts.id', 'posts.title', 'posts.description', 'posts.sub_description', 'posts.category', 'posts.image', 'posts.created_at')
                     ->where('posts.id', '=', $postSelect)
                     ->where('posts.active', '=', 1)
+                    ->orderBy('posts.created_at', 'desc')
                     ->get();
             }else{
                 $posts = \DB::table('posts')
                     ->join('categories', 'categories.id', '=', 'posts.category')
                     ->select('posts.id', 'posts.title', 'posts.description', 'posts.sub_description', 'posts.category', 'posts.image', 'posts.created_at')
                     ->where('posts.active', '=', 1)
+                    ->orderBy('posts.created_at', 'desc')
                     ->get();
             }
         }else{
@@ -92,6 +94,7 @@ class HomeController extends Controller
                 ->select('posts.id', 'posts.title', 'posts.description', 'posts.sub_description', 'posts.category', 'posts.image', 'posts.created_at')
                 ->where('posts.category', '=', $categorySelect)
                 ->where('posts.active', '=', 1)
+                ->orderBy('posts.created_at', 'desc')
                 ->get();
         }
 
