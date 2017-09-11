@@ -692,7 +692,11 @@
                 request.done(function (msg) {
                     if (msg.code == 200) {
                         location.reload();
+                    }else if(msg.code == 201) {
+                        $('#register-message').html('Email đã tồn tại!')
+                        $('#register-message').show();
                     }else{
+                        $('#register-message').html('Đăng ký không thành công!')
                         $('#register-message').show();
                     }
                 });
