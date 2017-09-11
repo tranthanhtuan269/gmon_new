@@ -90,6 +90,7 @@
                                                                         <option value="2">Nhà tuyển dụng</option>
                                                                     </select>
                                                                 </div>
+                                                                <p class="text-center text-danger" id="register-message" style="display: none;">Đăng ký không thành công!</p>
                                                                 <div class="text-center">
                                                                     <div id="register-btn" class="btn btn-primary">ĐĂNG KÝ NGAY</div>
                                                                 </div>
@@ -689,9 +690,11 @@
                 });
 
                 request.done(function (msg) {
-                    if(msg.code == 200) {
+                    if (msg.code == 200) {
                         location.reload();
-                   }
+                    }else{
+                        $('#register-message').show();
+                    }
                 });
 
                 request.fail(function (jqXHR, textStatus) {
