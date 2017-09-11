@@ -24,6 +24,11 @@ class HomeController extends Controller
      */
     public function index()
     {
+
+        // $start_date = new \DateTime('2007-09-01 04:10:58');
+        // $since_start = $start_date->diff(new \DateTime());
+        // echo $since_start->days.' days total<br>';
+        // die;
         $categories = [];
         $jobs = [];
         $companies = [];

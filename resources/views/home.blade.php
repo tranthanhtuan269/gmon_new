@@ -263,7 +263,8 @@
                         </div>
                         <div class="name">
                             <h3>Gmon</h3>
-                            <div class="time"><i class="fa fa-clock-o" aria-hidden="true"></i> 15 phút trước</div>
+                            <div class="time"><i class="fa fa-clock-o" aria-hidden="true"></i> <?php $datetime = new \DateTime($post->created_at);
+                            echo $datetime->format('H:i d-m-Y'); ?></div>
                         </div>
                     </div>
                     <div class="clearboth"></div>
