@@ -550,7 +550,7 @@
             <p><b>Điện thoại:</b> 0243.212.1515</p>
             <p><b>VPĐD:</b> Số 31, Trần Phú, Hải Châu I, Hải Châu, Đà Nẵng</p>
             <p><b>Điện thoại:</b> 0961 545 115</p>
-            <p><b>Email:</b> quanbq@gstar.vn, tuannv@gstar.vn</p>
+            <p><b>Email:</b> support@gmon.vn</p>
         </div>
     </div>
 </div>
