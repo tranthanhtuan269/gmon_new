@@ -356,11 +356,12 @@
     </div>
     <div class="bottom-footer">
         <div class="container">
-            <p>Công ty cổ phần giải pháp Gmon</p>
-            <p>Địa chỉ: P801 - Tòa nhà Trần Phú, số 17 tổ 24 đường Dương Đình Nghệ - P.Yên Hòa - Q. Cầu Giấy, Hà Nội</p>
-            <p>Điện thoại: 024.3212.1515</p>
-            <p>Email nhà tuyển dụng: <a href="">vieclamhn@gmail.com</a></p>
-            <p>Email ứng viên: <a href="">tuyendunghn@gmon.com</a></p>
+          <p><b>Công ty cổ phần giải pháp và công nghệ Gmon</b></p>
+          <p><b>Trụ sở chính:</b> Tầng 8, Tòa nhà Trần Phú, Dương Đình Nghệ, Cầu Giấy, Hà Nội</p>
+          <p><b>Điện thoại:</b> 0243.212.1515</p>
+          <p><b>VPĐD:</b> Số 31, Trần Phú, Hải Châu I, Hải Châu, Đà Nẵng</p>
+          <p><b>Điện thoại:</b> 0961 545 115</p>
+          <p><b>Email:</b> support@gmon.vn</p>
         </div>
     </div>
 </div>
@@ -368,6 +369,11 @@
     .show-more{
         color:blue;
         cursor: pointer;
+    }
+    .bottom-footer {
+        font-size: 11px;
+        color: #9B9B9B;
+        margin-bottom: 50px;
     }
 </style>
 <script type="text/javascript">
