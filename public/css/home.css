@@ -458,6 +458,7 @@
 }
 .showmore-page div.content_hot ul li a{
 	text-align: left;
+	width: 100%;
 }
 .showmore-page div.content_hot ul li a:hover,div.info ul li a:hover{
 	color: #337ab7;
