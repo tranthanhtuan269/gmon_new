@@ -390,15 +390,19 @@
         to {opacity: 1}
       }
     </style>
-    <div class="part-2 slideshow-container">
-      <div class="container mySlides fade">
-        <img src="http://test.gmon.com.vn/?image=U5-01.jpg" style="width:100%">
-      </div>
+    <a href="http://news.gmon.vn/?post=5">
+      <div class="part-2 slideshow-container">
+        <div class="container mySlides fade">
+          
+          <img src="http://test.gmon.com.vn/?image=U5-01.jpg" style="width:100%">
 
-      <div class="container mySlides fade">
-        <img src="http://test.gmon.com.vn/?image=U5-02.jpg" style="width:100%">
+        </div>
+
+        <div class="container mySlides fade">
+          <img src="http://test.gmon.com.vn/?image=U5-02.jpg" style="width:100%">
+        </div>
       </div>
-    </div>
+    </a>
     <br>
 
     <script type="text/javascript">

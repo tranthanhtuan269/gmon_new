@@ -696,7 +696,12 @@ class HomeController extends Controller
                     // get cv of vip
                     $companies = [];
 
-                    return view('showCompanyCV', compact('districts', 'city', 'cvs', 'jobs', 'jobsvip1', 'jobsvip2', 'companies', 'company_id', 'cv_id'));
+                    $news = \DB::table('posts')
+                       ->select('id', 'title', 'image')
+                       ->orderBy('posts.created_at', 'desc')
+                       ->take(5)->get();
+
+                    return view('showCompanyCV', compact('districts', 'city', 'cvs', 'jobs', 'jobsvip1', 'jobsvip2', 'companies', 'company_id', 'cv_id', 'news'));
                 }else if($job == "vip1"){
                     $checkJobVip = 1;
                     // get job of vip
@@ -729,7 +734,12 @@ class HomeController extends Controller
                         ->take(20)
                         ->get();
 
-                    return view('showJob', compact('districts', 'city', 'checkJobVip', 'cvs', 'jobs', 'jobsvip', 'companies', 'company_id', 'cv_id'));
+                    $news = \DB::table('posts')
+                       ->select('id', 'title', 'image')
+                       ->orderBy('posts.created_at', 'desc')
+                       ->take(5)->get();
+
+                    return view('showJob', compact('districts', 'city', 'checkJobVip', 'cvs', 'jobs', 'jobsvip', 'companies', 'company_id', 'cv_id', 'news'));
                 }else if($job == "vip2"){
                     $checkJobVip = 1;
                     // get job of vip
@@ -762,7 +772,12 @@ class HomeController extends Controller
                         ->take(20)
                         ->get();
 
-                    return view('showJob', compact('districts', 'city', 'checkJobVip', 'cvs', 'jobs', 'jobsvip', 'companies', 'company_id', 'cv_id'));
+                    $news = \DB::table('posts')
+                       ->select('id', 'title', 'image')
+                       ->orderBy('posts.created_at', 'desc')
+                       ->take(5)->get();
+
+                    return view('showJob', compact('districts', 'city', 'checkJobVip', 'cvs', 'jobs', 'jobsvip', 'companies', 'company_id', 'cv_id', 'news'));
                 }else if($job == "new"){
                     // get job of vip
                     $jobs = \DB::table('jobs')
@@ -793,7 +808,12 @@ class HomeController extends Controller
                         ->take(20)
                         ->get();
 
-                    return view('showJob', compact('districts', 'city', 'checkJobVip', 'cvs', 'jobs', 'jobsvip', 'companies', 'company_id', 'cv_id'));
+                    $news = \DB::table('posts')
+                       ->select('id', 'title', 'image')
+                       ->orderBy('posts.created_at', 'desc')
+                       ->take(5)->get();
+
+                    return view('showJob', compact('districts', 'city', 'checkJobVip', 'cvs', 'jobs', 'jobsvip', 'companies', 'company_id', 'cv_id', 'news'));
                 }else if($field > 0 && $field < 6){
                     // get job of vip
                     $jobs = \DB::table('jobs')
@@ -830,7 +850,12 @@ class HomeController extends Controller
                         ->take(20)
                         ->get();
 
-                    return view('showJob', compact('districts', 'city', 'checkJobVip', 'cvs', 'jobs', 'jobsvip', 'companies', 'company_id', 'cv_id'));
+                    $news = \DB::table('posts')
+                       ->select('id', 'title', 'image')
+                       ->orderBy('posts.created_at', 'desc')
+                       ->take(5)->get();
+
+                    return view('showJob', compact('districts', 'city', 'checkJobVip', 'cvs', 'jobs', 'jobsvip', 'companies', 'company_id', 'cv_id', 'news'));
                 }else if($job_type > 0){
                     // get job of vip
                     $jobs = \DB::table('jobs')
@@ -863,7 +888,12 @@ class HomeController extends Controller
                         ->take(20)
                         ->get();
 
-                    return view('showJob', compact('districts', 'city', 'checkJobVip', 'cvs', 'jobs', 'jobsvip', 'companies', 'company_id', 'cv_id'));
+                    $news = \DB::table('posts')
+                       ->select('id', 'title', 'image')
+                       ->orderBy('posts.created_at', 'desc')
+                       ->take(5)->get();
+
+                    return view('showJob', compact('districts', 'city', 'checkJobVip', 'cvs', 'jobs', 'jobsvip', 'companies', 'company_id', 'cv_id', 'news'));
                 }else if($company == "new"){
                     // get job of vip
                     $jobsvip1 = [];
@@ -884,7 +914,12 @@ class HomeController extends Controller
                         ->take($perPage)
                         ->get();
 
-                    return view('showCompanyCV', compact('districts', 'city', 'cvs', 'jobs', 'jobsvip1', 'jobsvip2', 'companies', 'company_id', 'cv_id'));
+                    $news = \DB::table('posts')
+                       ->select('id', 'title', 'image')
+                       ->orderBy('posts.created_at', 'desc')
+                       ->take(5)->get();
+
+                    return view('showCompanyCV', compact('districts', 'city', 'cvs', 'jobs', 'jobsvip1', 'jobsvip2', 'companies', 'company_id', 'cv_id', 'news'));
                 }else{
                     // get job of vip
                     $jobs = \DB::table('jobs')
@@ -915,7 +950,12 @@ class HomeController extends Controller
                         ->take(20)
                         ->get();
 
-                    return view('showJob', compact('districts', 'city', 'checkJobVip', 'cvs', 'jobs', 'jobsvip', 'companies', 'company_id', 'cv_id'));
+                    $news = \DB::table('posts')
+                       ->select('id', 'title', 'image')
+                       ->orderBy('posts.created_at', 'desc')
+                       ->take(5)->get();
+
+                    return view('showJob', compact('districts', 'city', 'checkJobVip', 'cvs', 'jobs', 'jobsvip', 'companies', 'company_id', 'cv_id', 'news'));
                 }
             }else{
                 return redirect('/');
@@ -968,7 +1008,12 @@ class HomeController extends Controller
                     // get cv of vip
                     $companies = []; 
 
-                    return view('showCompanyCV', compact('districts', 'city', 'cvs', 'jobs', 'jobsvip1', 'jobsvip2', 'companies', 'company_id', 'cv_id'));
+                    $news = \DB::table('posts')
+                       ->select('id', 'title', 'image')
+                       ->orderBy('posts.created_at', 'desc')
+                       ->take(5)->get();
+
+                    return view('showCompanyCV', compact('districts', 'city', 'cvs', 'jobs', 'jobsvip1', 'jobsvip2', 'companies', 'company_id', 'cv_id', 'news'));
                 }else if($job == "vip1"){
                     $checkJobVip = 1;
                     // get job of vip
@@ -1001,7 +1046,12 @@ class HomeController extends Controller
                         ->take(20)
                         ->get();
 
-                    return view('showJob', compact('districts', 'city', 'checkJobVip', 'cvs', 'jobs', 'jobsvip', 'companies', 'company_id', 'cv_id'));
+                    $news = \DB::table('posts')
+                       ->select('id', 'title', 'image')
+                       ->orderBy('posts.created_at', 'desc')
+                       ->take(5)->get();
+
+                    return view('showJob', compact('districts', 'city', 'checkJobVip', 'cvs', 'jobs', 'jobsvip', 'companies', 'company_id', 'cv_id', 'news'));
                 }else if($job == "vip2"){
                     $checkJobVip = 1;
                     // get job of vip
@@ -1034,7 +1084,12 @@ class HomeController extends Controller
                         ->take(20)
                         ->get();
 
-                    return view('showJob', compact('districts', 'city', 'checkJobVip', 'cvs', 'jobs', 'jobsvip', 'companies', 'company_id', 'cv_id'));
+                    $news = \DB::table('posts')
+                       ->select('id', 'title', 'image')
+                       ->orderBy('posts.created_at', 'desc')
+                       ->take(5)->get();
+
+                    return view('showJob', compact('districts', 'city', 'checkJobVip', 'cvs', 'jobs', 'jobsvip', 'companies', 'company_id', 'cv_id', 'news'));
                 }else if($job == "new"){
                     // get job of vip
                     $jobs = \DB::table('jobs')
@@ -1065,7 +1120,12 @@ class HomeController extends Controller
                         ->take(20)
                         ->get();
 
-                    return view('showJob', compact('districts', 'city', 'checkJobVip', 'cvs', 'jobs', 'jobsvip', 'companies', 'company_id', 'cv_id'));
+                    $news = \DB::table('posts')
+                       ->select('id', 'title', 'image')
+                       ->orderBy('posts.created_at', 'desc')
+                       ->take(5)->get();
+
+                    return view('showJob', compact('districts', 'city', 'checkJobVip', 'cvs', 'jobs', 'jobsvip', 'companies', 'company_id', 'cv_id', 'news'));
                 }else if($field > 0 && $field < 6){
                     // get job of vip
                     $jobs = \DB::table('jobs')
@@ -1100,7 +1160,12 @@ class HomeController extends Controller
                         ->take(20)
                         ->get();
 
-                    return view('showJob', compact('districts', 'city', 'checkJobVip', 'cvs', 'jobs', 'jobsvip', 'companies', 'company_id', 'cv_id'));
+                    $news = \DB::table('posts')
+                       ->select('id', 'title', 'image')
+                       ->orderBy('posts.created_at', 'desc')
+                       ->take(5)->get();
+
+                    return view('showJob', compact('districts', 'city', 'checkJobVip', 'cvs', 'jobs', 'jobsvip', 'companies', 'company_id', 'cv_id', 'news'));
                 }else if($job_type > 0){
                     // get job of vip
                     $jobs = \DB::table('jobs')
@@ -1133,7 +1198,12 @@ class HomeController extends Controller
                         ->take(20)
                         ->get();
 
-                    return view('showJob', compact('districts', 'city', 'checkJobVip', 'cvs', 'jobs', 'jobsvip', 'companies', 'company_id', 'cv_id'));
+                    $news = \DB::table('posts')
+                       ->select('id', 'title', 'image')
+                       ->orderBy('posts.created_at', 'desc')
+                       ->take(5)->get();
+
+                    return view('showJob', compact('districts', 'city', 'checkJobVip', 'cvs', 'jobs', 'jobsvip', 'companies', 'company_id', 'cv_id', 'news'));
                 }else if($company == "new"){
                     // get job of vip
                     $jobsvip1 = [];
@@ -1154,7 +1224,12 @@ class HomeController extends Controller
                         ->take($perPage)
                         ->get();
 
-                    return view('showCompanyCV', compact('districts', 'city', 'cvs', 'jobs', 'jobsvip1', 'jobsvip2', 'companies', 'company_id', 'cv_id'));
+                    $news = \DB::table('posts')
+                       ->select('id', 'title', 'image')
+                       ->orderBy('posts.created_at', 'desc')
+                       ->take(5)->get();
+
+                    return view('showCompanyCV', compact('districts', 'city', 'cvs', 'jobs', 'jobsvip1', 'jobsvip2', 'companies', 'company_id', 'cv_id', 'news'));
                 }else{
                     // get job of vip
                     $jobs = \DB::table('jobs')
@@ -1185,7 +1260,12 @@ class HomeController extends Controller
                         ->take(20)
                         ->get();
 
-                    return view('showJob', compact('districts', 'city', 'checkJobVip', 'cvs', 'jobs', 'jobsvip', 'companies', 'company_id', 'cv_id'));
+                    $news = \DB::table('posts')
+                       ->select('id', 'title', 'image')
+                       ->orderBy('posts.created_at', 'desc')
+                       ->take(5)->get();
+
+                    return view('showJob', compact('districts', 'city', 'checkJobVip', 'cvs', 'jobs', 'jobsvip', 'companies', 'company_id', 'cv_id', 'news'));
                 }
             }else{
 
@@ -1208,7 +1288,12 @@ class HomeController extends Controller
                     // get cv of vip
                     $companies = []; 
 
-                    return view('showCompanyCV', compact('districts', 'city', 'cvs', 'jobs', 'jobsvip1', 'jobsvip2', 'companies', 'company_id', 'cv_id'));
+                    $news = \DB::table('posts')
+                       ->select('id', 'title', 'image')
+                       ->orderBy('posts.created_at', 'desc')
+                       ->take(5)->get();
+
+                    return view('showCompanyCV', compact('districts', 'city', 'cvs', 'jobs', 'jobsvip1', 'jobsvip2', 'companies', 'company_id', 'cv_id', 'news'));
                 }else if($job == "vip1"){
                     $checkJobVip = 1;
                     // get job of vip
@@ -1238,7 +1323,12 @@ class HomeController extends Controller
                         ->take(20)
                         ->get();
 
-                    return view('showJob', compact('districts', 'city', 'checkJobVip', 'cvs', 'jobs', 'jobsvip', 'companies', 'company_id', 'cv_id'));
+                    $news = \DB::table('posts')
+                       ->select('id', 'title', 'image')
+                       ->orderBy('posts.created_at', 'desc')
+                       ->take(5)->get();
+
+                    return view('showJob', compact('districts', 'city', 'checkJobVip', 'cvs', 'jobs', 'jobsvip', 'companies', 'company_id', 'cv_id', 'news'));
                 }else if($job == "vip2"){
                     $checkJobVip = 1;
                     // get job of vip
@@ -1268,7 +1358,12 @@ class HomeController extends Controller
                         ->take(20)
                         ->get();
 
-                    return view('showJob', compact('districts', 'city', 'checkJobVip', 'cvs', 'jobs', 'jobsvip', 'companies', 'company_id', 'cv_id'));
+                    $news = \DB::table('posts')
+                       ->select('id', 'title', 'image')
+                       ->orderBy('posts.created_at', 'desc')
+                       ->take(5)->get();
+
+                    return view('showJob', compact('districts', 'city', 'checkJobVip', 'cvs', 'jobs', 'jobsvip', 'companies', 'company_id', 'cv_id', 'news'));
                 }else if($job == "new"){
                     // get job of vip
                     $jobs = \DB::table('jobs')
@@ -1296,7 +1391,12 @@ class HomeController extends Controller
                         ->take(20)
                         ->get();
 
-                    return view('showJob', compact('districts', 'city', 'checkJobVip', 'cvs', 'jobs', 'jobsvip', 'companies', 'company_id', 'cv_id'));
+                    $news = \DB::table('posts')
+                       ->select('id', 'title', 'image')
+                       ->orderBy('posts.created_at', 'desc')
+                       ->take(5)->get();
+
+                    return view('showJob', compact('districts', 'city', 'checkJobVip', 'cvs', 'jobs', 'jobsvip', 'companies', 'company_id', 'cv_id', 'news'));
                  }else if($field > 0 && $field < 6){
                    // get job of vip
                     $jobs = \DB::table('jobs')
@@ -1328,7 +1428,12 @@ class HomeController extends Controller
                         ->take(20)
                         ->get();
 
-                    return view('showJob', compact('districts', 'city', 'checkJobVip', 'cvs', 'jobs', 'jobsvip', 'companies', 'company_id', 'cv_id'));
+                    $news = \DB::table('posts')
+                       ->select('id', 'title', 'image')
+                       ->orderBy('posts.created_at', 'desc')
+                       ->take(5)->get();
+
+                    return view('showJob', compact('districts', 'city', 'checkJobVip', 'cvs', 'jobs', 'jobsvip', 'companies', 'company_id', 'cv_id', 'news'));
                 }else if($job_type > 0){
                     // get job of vip
                     $jobs = \DB::table('jobs')
@@ -1358,7 +1463,12 @@ class HomeController extends Controller
                         ->take(20)
                         ->get();
 
-                    return view('showJob', compact('districts', 'city', 'checkJobVip', 'cvs', 'jobs', 'jobsvip', 'companies', 'company_id', 'cv_id'));
+                    $news = \DB::table('posts')
+                       ->select('id', 'title', 'image')
+                       ->orderBy('posts.created_at', 'desc')
+                       ->take(5)->get();
+
+                    return view('showJob', compact('districts', 'city', 'checkJobVip', 'cvs', 'jobs', 'jobsvip', 'companies', 'company_id', 'cv_id', 'news'));
                 }else if($company == "new"){
                     // get job of vip
                     $jobsvip1 = [];
@@ -1378,7 +1488,12 @@ class HomeController extends Controller
                         ->take($perPage)
                         ->get();
 
-                    return view('showCompanyCV', compact('districts', 'city', 'cvs', 'jobs', 'jobsvip1', 'jobsvip2', 'companies', 'company_id', 'cv_id'));
+                    $news = \DB::table('posts')
+                       ->select('id', 'title', 'image')
+                       ->orderBy('posts.created_at', 'desc')
+                       ->take(5)->get();
+
+                    return view('showCompanyCV', compact('districts', 'city', 'cvs', 'jobs', 'jobsvip1', 'jobsvip2', 'companies', 'company_id', 'cv_id', 'news'));
                 }
             }
             

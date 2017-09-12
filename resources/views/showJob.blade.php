@@ -164,46 +164,16 @@
                 <div class="content_hot info">
                     <h4>Bạn nên biết!?</h4>
                     <ul>
+                        @foreach($news as $new)
                         <li>
-                            <a href="#">
+                            <a href="http://news.gmon.vn/?post={{ $new->id }}">
                             <span class="wp-avatar-mini">
-                                    <img src="{{ url('/') }}/public/images/khanhlinh.png" alt="">
+                                    <img src="http://test.gmon.com.vn/?image={{ $new->image }}" alt="">
                             </span>
-                            <p class="title-content-right">Biết cảm ơn những thất bại</p>
+                            <p class="title-content-right">{{ $new->title }}</p>
                             </a>
                         </li>
-                        <li>
-                            <a href="#">
-                            <span class="wp-avatar-mini">
-                                    <img src="{{ url('/') }}/public/images/khanhlinh.png" alt="">
-                            </span>
-                            <p class="title-content-right">Biết cảm ơn những thất bại</p>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                            <span class="wp-avatar-mini">
-                                    <img src="{{ url('/') }}/public/images/khanhlinh.png" alt="">
-                            </span>
-                            <p class="title-content-right">Biết cảm ơn những thất bại</p>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                            <span class="wp-avatar-mini">
-                                    <img src="{{ url('/') }}/public/images/khanhlinh.png" alt="">
-                            </span>
-                            <p class="title-content-right">Biết cảm ơn những thất bại</p>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                            <span class="wp-avatar-mini">
-                                    <img src="{{ url('/') }}/public/images/khanhlinh.png" alt="">
-                            </span>
-                            <p class="title-content-right">Biết cảm ơn những thất bại</p>
-                            </a>
-                        </li>
+                        @endforeach
                     </ul>
                 </div>
             </div>
