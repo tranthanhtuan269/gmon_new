@@ -260,8 +260,8 @@
                 });
 
                 request.done(function (msg) {
-                    $('.mass-content').show();
-                    $('.loader').show();
+                    $('.mass-content').hide();
+                    $('.loader').hide();
                     // console.log(msg['jobs']);
                     if(msg['code'] == 200){
                         var $html = '';
