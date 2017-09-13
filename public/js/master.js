@@ -1,6 +1,60 @@
 $(document).ready(function(){
 	var url_site = $('base').attr('href');
-	$('.apply-cv').click(function(){
+	$('.active-company').click(function(){
+        var _sefl = $(this);
+        var company_id = $(this).attr('data-id');
+        var request = $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            url: url_site + "/company/active",
+            method: "POST",
+            data: {
+                'company': company_id
+            },
+            dataType: "json"
+        });
+
+        request.done(function (msg) {
+            if (msg.code == 200) {
+               _sefl.addClass('hidden-object').removeClass('show-object');
+               _sefl.parent().find(".unactive-company").addClass('show-object').removeClass('hidden-object');
+            }
+        });
+
+        request.fail(function (jqXHR, textStatus) {
+            alert("Request failed: " + textStatus);
+        });
+    });
+
+    $('.unactive-company').click(function(){
+        var _sefl = $(this);
+        var company_id = $(this).attr('data-id');
+        var request = $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            url: url_site + "/company/unactive",
+            method: "POST",
+            data: {
+                'company': company_id
+            },
+            dataType: "json"
+        });
+
+        request.done(function (msg) {
+            if (msg.code == 200) {
+               _sefl.addClass('hidden-object').removeClass('show-object');
+               _sefl.parent().find(".active-company").addClass('show-object').removeClass('hidden-object');
+            }
+        });
+
+        request.fail(function (jqXHR, textStatus) {
+            alert("Request failed: " + textStatus);
+        });
+    });
+
+    $('.apply-cv').click(function(){
         var _sefl = $(this);
         var apply_id = $(this).attr('data-id');
         var request = $.ajax({

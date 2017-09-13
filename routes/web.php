@@ -85,7 +85,6 @@ Route::group(['middleware' => ['auth', 'roles'], 'roles' => 'admin'], function (
     Route::resource('admin/district', 'DistrictController');
     Route::resource('admin/town', 'TownController');
     Route::resource('admin/curriculum-vitae', 'CurriculumVitaeController');
-    Route::resource('admin/company', 'CompanyController');
     Route::resource('admin/companytype', 'CompanyTypeController');
     Route::resource('admin/job-type', 'JobTypeController');
     Route::resource('Admin/company-size', 'CompanySizeController');
@@ -93,6 +92,7 @@ Route::group(['middleware' => ['auth', 'roles'], 'roles' => 'admin'], function (
     Route::resource('admin/salary', 'SalaryController');
     Route::resource('master/category', 'CategoryController');
     Route::get('admin/apply', 'ApplyController@admin');
+    Route::resource('admin/company', 'CompanyController');
 });
 
 Route::group(['middleware' => ['auth', 'roles'], 'roles' => 'master'], function () {
@@ -110,6 +110,10 @@ Route::group(['middleware' => ['auth', 'roles'], 'roles' => 'master'], function 
     Route::post('job/vip', 'JobController@vip');
     Route::post('job/vip2', 'JobController@vip2');
     Route::post('job/unvip', 'JobController@unvip');
+
+    Route::post('company/active', 'CompanyController@active');
+    Route::post('company/unactive', 'CompanyController@unactive');
+    Route::resource('admin/company', 'CompanyController');
 
     Route::post('apply/active', 'ApplyController@active');
     Route::post('apply/unactive', 'ApplyController@unactive');

@@ -34,6 +34,7 @@
                                         <th>Company</th>
                                         <th>Logo</th>
                                         <th>City</th>
+                                        <th>Vip</th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
@@ -44,6 +45,14 @@
                                         <td><a href="{{ url('/') }}/company/{{ $item->id }}/info"> {{ $item->name }}</a></td>
                                         <td><img src="http://test.gmon.com.vn/?image={{ $item->logo }}" width="150" height="150"></td>
                                         <td>{{ $item->cityname }}</td>
+                                        <td>
+                                            <div class="btn btn-default btn-xs active-company @if($item->show_master==1) hidden-object @else show-object @endif" data-id="{{ $item->id }}">
+                                            UnVip
+                                            </div>
+                                            <div class="btn btn-success btn-xs unactive-company @if($item->show_master==0) hidden-object @else show-object @endif" data-id="{{ $item->id }}">
+                                            Vip
+                                            </div>
+                                        </td>
                                         <td>
                                             <a target="_self" href="{{ url('/admin/company/' . $item->id . '/edit') }}" title="Edit Company"><button class="btn btn-primary btn-xs"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></a>
                                             {!! Form::open([

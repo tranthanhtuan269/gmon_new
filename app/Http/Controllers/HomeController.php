@@ -1001,6 +1001,7 @@ class HomeController extends Controller
         // get job of vip
         $companies = \DB::table('companies')
                 ->select('id', 'name', 'logo', 'banner')
+                ->where('show_master', '=', 1)
                 ->orderBy('companies.created_at', 'desc')
                 ->take(6)
                 ->get();

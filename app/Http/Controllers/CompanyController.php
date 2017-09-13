@@ -32,12 +32,12 @@ class CompanyController extends Controller {
                     ->orWhere('companies.name', 'LIKE', "%$keyword%")
                     ->orWhere('cities.name', 'LIKE', "%$keyword%")
                     ->orderBy('companies.created_at', 'desc')
-                    ->select('companies.logo', 'companies.name', 'cities.name as cityname', 'companies.id')
+                    ->select('companies.logo', 'companies.name', 'cities.name as cityname', 'companies.id', 'companies.show_master')
                     ->paginate($perPage);
         } else {
             $company = \DB::table('companies')
                         ->join('cities', 'cities.id', '=', 'companies.city')
-                        ->select('companies.logo', 'companies.name', 'cities.name as cityname', 'companies.id')
+                        ->select('companies.logo', 'companies.name', 'cities.name as cityname', 'companies.id', 'companies.show_master')
                         ->orderBy('companies.created_at', 'desc')
                         ->paginate($perPage);
         }
@@ -590,6 +590,30 @@ class CompanyController extends Controller {
                 return \Response::json(array('code' => '404', 'message' => 'unsuccess'));
             }
         }
+    }
+
+    public function active(Request $request){
+        $input = $request->all();
+        if(isset($input) && isset($input['company'])){
+            $company = Company::findOrFail($input['company']);
+            $company->show_master = 1;
+            if($company->save()){
+                return \Response::json(array('code' => '200', 'message' => 'Update success!'));
+            }
+        }
+        return \Response::json(array('code' => '404', 'message' => 'Update unsuccess!'));
+    }
+
+    public function unactive(Request $request){
+        $input = $request->all();
+        if(isset($input) && isset($input['company'])){
+            $company = Company::findOrFail($input['company']);
+            $company->show_master = 0;
+            if($company->save()){
+                return \Response::json(array('code' => '200', 'message' => 'Update success!'));
+            }
+        }
+        return \Response::json(array('code' => '404', 'message' => 'Update unsuccess!'));
     }
 
 }
