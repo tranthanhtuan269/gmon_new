@@ -1009,11 +1009,11 @@ class HomeController extends Controller
     }
     
     public function action(){
-        // $user = User::findOrFail(1);
-        // \Mail::send('emails.reminder', ['user' => $user], function ($m) use ($user) {
-        //     $m->from('tuantt6393@gmail.com', 'Your Application');
+        $user = User::findOrFail(1);
+        \Mail::send('emails.reminder', ['user' => $user], function ($m) use ($user) {
+            $m->from('tuantt6393@gmail.com', 'Your Application');
 
-        //     $m->to($user->email, $user->name)->subject('Your Reminder!');
-        // });
+            $m->to($user->email, $user->name)->subject('Your Reminder!');
+        });
     }
 }
