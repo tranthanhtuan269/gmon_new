@@ -421,4 +421,41 @@ class JobController extends Controller
         }
         return \Response::json(array('code' => '404', 'message' => 'Update unsuccess!'));
     }
+
+    public function getJob(){
+        $jobGetObj = new Job;
+        $district = $city = $field = $job_type = $company = $cv = $vip = $from = $number_get = null;
+        $number_get = 5;
+        if(isset($_GET)){
+
+            if(isset($_GET['start']) && $_GET['start'] > 0){
+                $from = $_GET['start'];
+            }
+            
+            if(isset($_GET['job_type']) && $_GET['job_type'] > 0){
+                $job_type = $_GET['job_type'];
+            }
+
+            if(isset($_GET['city']) && $_GET['city'] > 0){
+                $city = $_GET['city'];
+            }
+
+            if(isset($_GET['district']) && $_GET['district'] > 0){
+                $district = $_GET['district'];
+            }
+
+            if(isset($_GET['job'])){
+                if($_GET['job'] == 'vip1'){
+                    $vip = 1;
+                }else if($_GET['job'] == 'vip2'){
+                    $vip = 2;
+                }else if($_GET['job'] == 'new'){
+                    $vip = 0;
+                }
+            }
+
+            $jobs = $jobGetObj->getJob($district, $city, $field, $job_type, $company, $cv, $vip, $from, $number_get);
+            return \Response::json(array('code' => '200', 'message' => 'Success!', 'jobs' => $jobs));
+        }
+    }
 }
