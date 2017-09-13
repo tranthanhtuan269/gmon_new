@@ -188,7 +188,7 @@
                 <div class="ads">
                     <div class="ads-top"><a href=""><img src="{{ url('/') }}/public/images/ads.png" alt=""></a></div>
                     <div class="ads-bot">
-                        <a href=""><img src="{{ url('/') }}/public/images/zalo.png" alt=""></a>
+                        <a href="http://gmon.vn/company/27/info"><img src="http://test.gmon.com.vn/?image=Banner-Web-Gmon-13.gif" alt=""></a>
                     </div>
                 </div>
                 <div class="content_hot info">
