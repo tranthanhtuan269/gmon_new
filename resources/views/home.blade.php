@@ -275,14 +275,14 @@
                         <p>
                         @if($postSelected > 0)
                           <div class="description">
-                            <?php echo $post->description; ?>
+                            <?php echo str_replace("/public/templateEditor/kcfinder/upload/images/","http://gmon.vn/public/templateEditor/kcfinder/upload/images/",$post->description); ?>
                           </div>
                         @else
                         <div class="sub-description">
                             <?php echo $post->sub_description; ?><a href="{{ url('/') }}/?post={{ $post->id }}">Xem thêm</a>
                         </div>
                         <div class="description" style="display: none;">
-                            <?php echo str_replace("/public/templateEditor/kcfinder/upload/images/","http://gmon.vn/public/templateEditor/kcfinder/upload/images/",$post->sub_description); ?>
+                            <?php echo str_replace("/public/templateEditor/kcfinder/upload/images/","http://gmon.vn/public/templateEditor/kcfinder/upload/images/",$post->description); ?>
                         </div>
                         </p>
                         <div class="images">
