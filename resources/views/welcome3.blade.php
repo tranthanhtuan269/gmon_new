@@ -430,7 +430,7 @@
                 <div class="list-job-3 row">
                     <div class="item col-md-3">
                         <div class="image">
-                            <img src="http://test.gmon.com.vn/?image=linh_vuc1.jpg" alt="" />
+                            <a href="http://spa.gmon.com.vn"><img src="http://test.gmon.com.vn/?image=linh_vuc1.jpg" alt="" /></a>
                         </div>
                         <div class="title">
                             <a href="http://spa.gmon.com.vn">Spa</a>
@@ -438,7 +438,7 @@
                     </div>
                     <div class="item col-md-3">
                         <div class="image">
-                            <img src="http://test.gmon.com.vn/?image=linh_vuc2.jpg" alt="" />
+                            <a href="{{ url('/') }}/home?field=1"><img src="http://test.gmon.com.vn/?image=linh_vuc2.jpg" alt="" /></a>
                         </div>
                         <div class="title">
                             <a href="{{ url('/') }}/home?field=1">Khách sạn</a>
@@ -446,7 +446,7 @@
                     </div>
                     <div class="item col-md-3">
                         <div class="image">
-                            <img src="http://test.gmon.com.vn/?image=linh_vuc3.jpg" alt="" />
+                            <a href="{{ url('/') }}/home?field=2"><img src="http://test.gmon.com.vn/?image=linh_vuc3.jpg" alt="" /></a>
                         </div>
                         <div class="title">
                             <a href="{{ url('/') }}/home?field=2">Nhà hàng</a>
@@ -454,7 +454,7 @@
                     </div>
                     <div class="item col-md-3">
                         <div class="image">
-                            <img src="http://test.gmon.com.vn/?image=linh_vuc4.jpg" alt="" />
+                            <a href="{{ url('/') }}/home?field=4"><img src="http://test.gmon.com.vn/?image=linh_vuc4.jpg" alt="" /></a>
                         </div>
                         <div class="title">
                             <a href="{{ url('/') }}/home?field=4">Doanh nghiệp</a>
@@ -471,24 +471,24 @@
                 <h3>Xem các công việc quanh bạn, tìm kiếm công việc gần nhà</h3>
                 <div class="list-job-3 row">
                     <div class="item col-md-3">
-                        <div class="image">
-                            <img src="http://test.gmon.com.vn/?image=khu_vuc1.jpg" alt="" />
+                        <div class="image"><a href="{{ url('/') }}/home?city=1">
+                            <img src="http://test.gmon.com.vn/?image=khu_vuc1.jpg" alt="" /></a>
                         </div>
                         <div class="title">
                             <a href="{{ url('/') }}/home?city=1">Hà Nội</a>
                         </div>
                     </div>
                     <div class="item col-md-3">
-                        <div class="image">
-                            <img src="http://test.gmon.com.vn/?image=khu_vuc2.jpg" alt="" />
+                        <div class="image"><a href="{{ url('/') }}/home?city=3">
+                            <img src="http://test.gmon.com.vn/?image=khu_vuc2.jpg" alt="" /></a>
                         </div>
                         <div class="title">
                             <a href="{{ url('/') }}/home?city=3">Đà Nẵng</a>
                         </div>
                     </div>
                     <div class="item col-md-3">
-                        <div class="image">
-                            <img src="http://test.gmon.com.vn/?image=khu_vuc3.jpg" alt="" />
+                        <div class="image"><a href="{{ url('/') }}/home?city=2">
+                            <img src="http://test.gmon.com.vn/?image=khu_vuc3.jpg" alt="" /></a>
                         </div>
                         <div class="title">
                             <a href="{{ url('/') }}/home?city=2">Hồ Chí Minh</a>
@@ -496,7 +496,7 @@
                     </div>
                     <div class="item col-md-3">
                         <div class="image">
-                            <img src="http://test.gmon.com.vn/?image=khu_vuc4.jpg" alt="" />
+                            <a href="{{ url('/') }}/home?city=other"><img src="http://test.gmon.com.vn/?image=khu_vuc4.jpg" alt="" /></a>
                         </div>
                         <div class="title">
                             <a href="{{ url('/') }}/home?city=other">Khu vực khác</a>
