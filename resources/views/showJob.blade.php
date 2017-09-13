@@ -262,7 +262,6 @@
                 request.done(function (msg) {
                     $('.mass-content').hide();
                     $('.loader').hide();
-                    // console.log(msg['jobs']);
                     if(msg['code'] == 200){
                         var $html = '';
                         $(msg['jobs']).each(function( index ) {

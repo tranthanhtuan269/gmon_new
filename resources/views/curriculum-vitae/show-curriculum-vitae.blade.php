@@ -103,7 +103,7 @@
                                             $exp = json_decode($word_experience);
                                         ?>
                                         <div class="row">
-                                            <div class="col-md-4"><img src="{{ $exp->company_image }}" width="100%" height="192"></div>
+                                            <div class="col-md-4"><img src="{{ $exp->company_image }}" width="100%"></div>
                                             <div class="col-md-8">
                                                 <div class="row">
                                                     <div class="col-md-5">Vị trí công việc</div>
@@ -147,17 +147,12 @@
                                             $curriculumvitae->qualification = ltrim($curriculumvitae->qualification, ';');
                                             $qualifications = explode(";",$curriculumvitae->qualification);
                                         ?>
-                                            <div class="col-md-12">Thành thạo 
+                                            <div class="col-md-12">
                                                 @if(count($qualifications) > 1)
                                                 @for ($i = 0; $i < count($qualifications); $i++)
                                                     <?php 
                                                         $qual = json_decode($qualifications[$i]);
-                                                        if($i+1 == count($qualifications))
-                                                            echo ' và ' . $qual->ten_ky_nang;
-                                                        elseif($i+2 == count($qualifications))
-                                                            echo $qual->ten_ky_nang;
-                                                        else
-                                                            echo $qual->ten_ky_nang . ',';
+                                                        echo ' - ' . $qual->ten_ky_nang . '<br />';
                                                     ?>
                                                 @endfor
                                                 @else
