@@ -326,7 +326,7 @@
             <div class="col-md-3 col-xs-12">
                 <div class="ads-top"><a target="_self" href=""><img src="{{ url('/') }}/public/images/ads.png" alt=""></a></div>
                 <div class="ads-bot">
-                    <a target="_self" href=""><img src="{{ url('/') }}/public/images/zalo.png" alt=""></a>
+                    <a target="_self" href="http://gmon.vn/company/27/info"><img src="http://test.gmon.com.vn/?image=Banner-Web-Gmon-13.gif" alt=""></a>
                 </div>
             </div>
         </div>
