@@ -19,6 +19,9 @@
         <link href="{{ url('/') }}/public/css/customize.css" rel="stylesheet">
     </head>
     <body class="homepage">
+        <div class="mass-content">
+            <div class="loader"></div>
+        </div>
         <header>
             <div class="header-top clearfix">
                 <nav class="navbar navbar-default">

@@ -2,6 +2,37 @@
 
 @section('content')
 <?php $jobstype = \App\JobType::select('id', 'name')->get(); ?>
+
+
+    <style type="text/css">
+        .mass-content{
+            width: 100%;
+            height: 100%;
+            position: fixed;
+            background-color:rgba(0, 0, 0, 0.5);
+            z-index: 1;
+            display: none;
+        }
+        .loader {
+            z-index: 10000;
+            border: 16px solid #f3f3f3; /* Light grey */
+            border-top: 16px solid #3498db; /* Blue */
+            border-bottom: 16px solid #3498db; /* Blue */
+            border-radius: 50%;
+            width: 120px;
+            height: 120px;
+            animation: spin 1s linear infinite;
+            position: absolute;
+            top: 50%;
+            left: 45%;
+            display: none;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
     <header>
         <div class="header-mid">
             <div class="container" >
@@ -84,7 +115,6 @@
             </div>
         </div>
     </header>
-
     <div class="container ads showmore-page">
         <div class="row">
             <div class="col-md-9 col-xs-12">
@@ -94,7 +124,7 @@
                         <a href="{{ url('/') }}/showmore?job=new" class="color-breadcum">/&nbsp;Việc làm mới</a>
                     </div>
                     <div class="f-right">
-                        <span class="red-color">{{ count($jobs) }}</span><span>&nbsp;việc làm</span>
+                        <span class="red-color">{{ $jobcount[0]->number_job }}</span><span>&nbsp;việc làm</span>
                     </div>
                 </div>
                     <ul class="ul-content">
@@ -207,7 +237,81 @@
         </div>
     </div>
 
+    <?php
+        parse_url(url('/') . $_SERVER['REQUEST_URI'], PHP_URL_QUERY);
+    ?>
+
     <script type="text/javascript">
+        var site_url = $('base').attr('href');
+        var $currentJob = 15;
+        var $currentPossion = 0;
+        var $newPossion = 0;
+        $(window).scroll(function (event) {
+            var scroll = $(window).scrollTop();
+            $newPossion = scroll;
+            if($newPossion - $currentPossion > 680){
+                $currentPossion = $newPossion;
+                $('.mass-content').show();
+                $('.loader').show();
+                var request = $.ajax({
+                    url: "{{ URL::to('/') }}/getJob/?start=" + $currentJob + "&<?php echo parse_url(url('/') . $_SERVER['REQUEST_URI'], PHP_URL_QUERY); ?>",
+                    method: "GET",
+                    dataType: "json"
+                });
+
+                request.done(function (msg) {
+                    $('.mass-content').hide();
+                    $('.loader').hide();
+                    // console.log(msg['jobs']);
+                    if(msg['code'] == 200){
+                        var $html = '';
+                        $(msg['jobs']).each(function( index ) {
+                            $html += '<li class="list-item">';
+                                $html += '<div class="img-item">';
+                                    $html += '<a href="' + site_url + '/job/view/'+ $(this)[0].id +'">';
+                                        $html += '<span class="wp-avatar">';
+                                                $html += '<img src="http://test.gmon.com.vn/?image='+ $(this)[0].logo +'" alt="">';
+                                        $html += '</span>';
+                                   $html += '</a>';
+                                $html += '</div>';
+
+                                $html += '<div class="content-item">';
+                                    $html += '<a href="' + site_url + '/job/view/'+ $(this)[0].id +'"><h4>'+ $(this)[0].name +'</h4></a>';
+                                    $html += '<p>';
+                                        $html += '<span>Mức lương: </span><span class="grey-color">'+ $(this)[0].salary +'</span>';
+                                    $html += '</p>';
+                                    $html += '<p>';
+                                        $html += '</p><div class="title-list">';
+                                            $html += '<span>Số lượng: </span><span class="grey-color">'+ $(this)[0].number +'</span>';
+                                        $html += '</div>';
+                                        $html += '<a href="#"><i class="fa fa-map-marker" aria-hidden="true"></i><span class="grey-color">'+ $(this)[0].district +', '+ $(this)[0].city +'</span></a>';
+                                    $html += '<p></p>';
+                                    $html += '<p>';
+                                        $html += '</p><div class="title-list">';
+                                            $html += '<span>Nhận hồ sơ đến hết:</span>';
+                                        $html += '</div>';
+                                        $html += '<a href="#"><i class="fa fa-clock-o"></i><span class="grey-color">'+ $(this)[0].expiration_date +'</span></a>';
+                                    $html += '<p></p>';
+                                $html += '</div>';
+                                $html += '<div class="last-item">';
+                                    $html += '<span class="profile_num grey1-color">Lượt xem: <i class="fa fa-eye"></i><span class="grey-color">'+ $(this)[0].views +'</span></span>';
+                                    $html += '<span class="grey1-color">Hồ sơ ứng tuyển: <span class="grey-color">'+ $(this)[0].applied +'</span></span>';
+                                $html += '</div>';
+                                $html += '<div class="new-bg">';
+                                        $html += 'Mới';
+                                $html += '</div>';
+                            $html += '</li>';
+                        });
+                        $currentJob += 5;
+                        $('.ul-content').append($html);
+                    }
+                });
+
+                request.fail(function (jqXHR, textStatus) {
+                    alert("Request failed: " + textStatus);
+                });
+            }
+        });
         window.onresize = function(event){
             resetSlide();
         }
@@ -277,7 +381,6 @@
         $(document).ready(function(){
             $('.item-job').show();
             $('.job-list-0').show();
-            var site_url = $('base').attr('href');
             $('.search-btn').click(function(){
                 var new_link = site_url + '/showmore?';
                 var job_selected = $('#job-select').val();
