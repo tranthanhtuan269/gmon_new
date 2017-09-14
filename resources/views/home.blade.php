@@ -197,9 +197,121 @@
             </div>
         </div>
     </div>
-    <div class="images">
-        <img src="{{ url('/') }}/public/images/bg-news.jpg" alt="news">
-    </div>
+
+    <style type="text/css">
+      /** {box-sizing:border-box}*/
+      /* Slideshow container */
+      .slideshow-container {
+        /*max-width: 1000px;*/
+        width: 100%;
+        position: relative;
+        margin: 11px auto 0;
+      }
+      .slideshow-container .mySlides {
+          display: none;
+          width: 100%;
+      }
+      /* Next & previous buttons */
+      .slideshow-container .prev, .slideshow-container .next {
+        cursor: pointer;
+        position: absolute;
+        top: 50%;
+        width: auto;
+        margin-top: -22px;
+        padding: 16px;
+        color: white;
+        font-weight: bold;
+        font-size: 18px;
+        transition: 0.6s ease;
+        border-radius: 0 3px 3px 0;
+      }
+      /* Position the "next button" to the right */
+      .slideshow-container .next {
+        right: 0;
+        border-radius: 3px 0 0 3px;
+      }
+      /* On hover, add a black background color with a little bit see-through */
+      .slideshow-container .prev:hover, .slideshow-container .next:hover {
+        background-color: rgba(0,0,0,0.8);
+      }
+      /* Caption text */
+      .slideshow-container .text {
+        color: #f2f2f2;
+        font-size: 15px;
+        padding: 8px 12px;
+        position: absolute;
+        bottom: 8px;
+        width: 100%;
+        text-align: center;
+      }
+      /* Number text (1/3 etc) */
+      .slideshow-container .numbertext {
+        color: #f2f2f2;
+        font-size: 12px;
+        padding: 8px 12px;
+        position: absolute;
+        top: 0;
+      }
+      /* The dots/bullets/indicators */
+      .slideshow-container .dot {
+        cursor:pointer;
+        height: 13px;
+        width: 13px;
+        margin: 0 2px;
+        background-color: #bbb;
+        border-radius: 50%;
+        display: inline-block;
+        transition: background-color 0.6s ease;
+      }
+      .slideshow-container .active, .slideshow-container .dot:hover {
+        background-color: #717171;
+      }
+      /* Fading animation */
+      .slideshow-container .fade {
+        -webkit-animation-name: fade;
+        -webkit-animation-duration: 4s;
+        animation-name: fade;
+        animation-duration: 4s;
+      }
+      @-webkit-keyframes fade {
+        from {opacity: .6} 
+        to {opacity: 1}
+      }
+      @keyframes fade {
+        from {opacity: .6} 
+        to {opacity: 1}
+      }
+    </style>
+    <a href="http://news.gmon.vn/?post=5">
+      <div class="part-2 slideshow-container">
+        <div class="container mySlides fade">
+          
+          <img src="http://test.gmon.com.vn/?image=news_bg_01.jpg" style="width:100%">
+
+        </div>
+
+        <div class="container mySlides fade">
+          <img src="http://test.gmon.com.vn/?image=news_bg_02.jpg" style="width:100%">
+        </div>
+      </div>
+    </a>
+    <br>
+
+    <script type="text/javascript">
+      var slideIndex = 0;
+      showSlides();
+      function showSlides() {
+          var i;
+          var slides = document.getElementsByClassName("mySlides");
+          for (i = 0; i < slides.length; i++) {
+              slides[i].style.display = "none"; 
+          }
+          slideIndex++;
+          if (slideIndex> slides.length) {slideIndex = 1} 
+          slides[slideIndex-1].style.display = "block"; 
+          setTimeout(showSlides, 4000); // Change image every 2 seconds
+      }
+    </script>
 </div>
 <div class="wrapper-homepage news">
     <div class="container-fluid">
