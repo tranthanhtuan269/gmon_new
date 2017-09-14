@@ -780,7 +780,7 @@ class HomeController extends Controller
                     // get cv of vip
                     $cvs = [];
                     // get cv of vip
-                    $companies = $companyGetObj->getCompany($district, $city, $field, $from, 20);
+                    $companies = $companyGetObj->getCompany($district, $city, $field, $from, 1000);
 
                     return view('showCompanyCV', compact('districts', 'city', 'cvs', 'jobs', 'jobsvip1', 'jobsvip2', 'companies', 'company_id', 'cv_id', 'news'));
                 }else{
@@ -894,7 +894,7 @@ class HomeController extends Controller
                     // get cv of vip
                     $cvs = [];
                     // get cv of vip
-                    $companies = $companyGetObj->getCompany($district, $city, $field, $from, 20);
+                    $companies = $companyGetObj->getCompany($district, $city, $field, $from, 1000);
 
                     return view('showCompanyCV', compact('districts', 'city', 'cvs', 'jobs', 'jobsvip1', 'jobsvip2', 'companies', 'company_id', 'cv_id', 'news'));
                 }else{
@@ -976,7 +976,7 @@ class HomeController extends Controller
                     // get cv of vip
                     $cvs = [];
                     // get cv of vip
-                    $companies = $companyGetObj->getCompany($district, $city, $field, $from, 20);
+                    $companies = $companyGetObj->getCompany($district, $city, $field, $from, 1000);
 
                     return view('showCompanyCV', compact('districts', 'city', 'cvs', 'jobs', 'jobsvip1', 'jobsvip2', 'companies', 'company_id', 'cv_id', 'news'));
                 }
