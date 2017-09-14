@@ -74,6 +74,150 @@ class CompanyController extends Controller {
         return view('company.create_company', compact('company_id', 'cv_id', 'company_types'));
     }
 
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\View\View
+     */
+    public function editCompany() {
+        $company_id = -1;
+        $cv_id = -1;
+        if (\Auth::check()) {
+            $user_info = \Auth::user()->getUserInfo();
+            $company_id = $user_info['company_id'];
+            $cv_id = $user_info['cv_id'];
+            $company_types = \DB::table('company_types')->get();
+
+            if($company_id > 0){
+                //load company info
+                $company = Company::findOrFail($company_id);
+
+                $cities = \App\City::pluck('name', 'id');
+                $districts = \App\District::where('city', '=', $company->city)->pluck('name', 'id');
+                $towns = \App\Town::where('district', '=', $company->district)->pluck('name', 'id');
+                $branches = \DB::table('branches')
+                            ->join('cities', 'cities.id', '=', 'branches.city')
+                            ->join('districts', 'districts.id', '=', 'branches.district')
+                            ->where('company', '=', $company->id)
+                            ->select('branches.id', 'branches.name as name_branch', 'branches.address as address_branch', 'cities.id as city_branch_id', 'cities.name as city_branch_name', 'districts.id as district_branch_id', 'districts.name as district_branch_name')
+                            ->get();
+                $companytypes = \DB::table('company_company_types')
+                            ->join('company_types', 'company_types.id', '=', 'company_company_types.company_type')
+                            ->where('company', '=', $company_id)
+                            ->select('company_types.name as name')
+                            ->get()->toArray();
+                $companytypesArr = [];
+                foreach($companytypes as $t){
+                    array_push($companytypesArr, $t->name);
+                }
+                return view('company.edit_company', compact('company_id', 'cv_id', 'company_types', 'company', 'cities', 'districts', 'towns', 'branches', 'companytypesArr'));
+            }
+        }
+
+        return view('errors.404');
+    }
+
+    public function updateCompany(Request $request) {
+        $company_id = -1;
+        if (\Auth::check()) {
+            $user_info = \Auth::user()->getUserInfo();
+            $company_id = $user_info['company_id'];
+            if($company_id > 0){
+                $input = $request->all();
+                if ($input['description'] == null)
+                    $input['description'] = '';
+
+                if($request['logo-image-field'] != ''){
+                    $input['logo'] = $request['logo-image-field'];
+                }
+                if($request['banner-image-field'] != ''){
+                    $input['banner'] = $request['banner-image-field'];
+                }
+                $input['images'] = $request['images-plus-field'];
+                $input['user'] = \Auth::user()->id;
+
+                $input['email'] = \Auth::user()->email;
+                $input['phone'] = \Auth::user()->phone;
+                
+                // $company = Company::create($input);
+                $company = Company::findOrFail($company_id);
+                $company->update($input);
+
+                // remove all branches
+                $affectedRows = Branch::where('company', '=', $company->id)->delete();
+
+                if ($company) {
+                    $branchs = $input['branchs'];
+                    if(isset($branchs) && strlen($branchs) > 0){
+                        $branchs = ltrim($branchs, ';');
+                        $branch_list = explode(";",$branchs);
+                            
+                        foreach ($branch_list as $braObject) {
+                            if($braObject != 'undefined'){
+                                $bra = json_decode($braObject, true);
+                                $branObj = new Branch;
+                                $branObj->name = $bra['name_branch'];
+                                $branObj->address = $bra['address_branch'];
+                                $branObj->city = $bra['city_branch_id'];
+                                $branObj->district = $bra['district_branch_id'];
+                                $branObj->master = 1;
+                                $branObj->company = $company->id;
+                                $branObj->save();
+                            }
+                        }
+                    }
+                    
+                    // add CompanyCompanyType
+                    if($input['jobs'] != null){
+                        // remove companycompanytype
+                        $affectedRows = CompanyCompanyType::where('company', '=', $company->id)->delete();
+
+                        $jobs = $input['jobs'];
+                        if(isset($jobs) && strlen($jobs) > 0){
+                            $jobs = rtrim($jobs, ';');
+                            $job_list = explode(";",$jobs);
+                                
+                            foreach ($job_list as $job) {
+                                if($job == 'Khách sạn'){
+                                    $jobObj = new CompanyCompanyType;
+                                    $jobObj->company_type = 1;
+                                    $jobObj->company = $company->id;
+                                    $jobObj->save();
+                                }else if($job == 'Nhà Hàng'){
+                                    $jobObj = new CompanyCompanyType;
+                                    $jobObj->company_type = 2;
+                                    $jobObj->company = $company->id;
+                                    $jobObj->save();
+                                }else if($job == 'Cửa hàng'){
+                                    $jobObj = new CompanyCompanyType;
+                                    $jobObj->company_type = 3;
+                                    $jobObj->company = $company->id;
+                                    $jobObj->save();
+                                }else if($job == 'Doanh nghiệp'){
+                                    $jobObj = new CompanyCompanyType;
+                                    $jobObj->company_type = 4;
+                                    $jobObj->company = $company->id;
+                                    $jobObj->save();
+                                }else if($job == 'Spa'){
+                                    $jobObj = new CompanyCompanyType;
+                                    $jobObj->company_type = 5;
+                                    $jobObj->company = $company->id;
+                                    $jobObj->save();
+                                }
+                            }
+                        }
+                    }
+
+                    return redirect()->action(
+                            'CompanyController@info', ['id' => $company->id]
+                        );
+                }
+            }
+        }
+
+        return redirect()->back();
+    }
+
     public function storeCompany(Request $request) {
         $img_banner = '';
         if ($request->hasFile('banner-img')) {
@@ -138,7 +282,6 @@ class CompanyController extends Controller {
             if(isset($branchs) && strlen($branchs) > 0){
                 $branchs = ltrim($branchs, ';');
                 $branch_list = explode(";",$branchs);
-                    
                 foreach ($branch_list as $braObject) {
                     $bra = json_decode($braObject, true);
                     $branObj = new Branch;

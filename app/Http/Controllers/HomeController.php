@@ -620,6 +620,25 @@ class HomeController extends Controller
         return \Response::json(array('code' => '404', 'message' => 'unsuccess', 'image_url' => ""));
     }
 
+    public function postImages(Request $request){
+        // dd(count($request->files));
+        $picture = '';
+        $allPic = '';
+        if (count($request->files) > 0) {
+            $files = $request->files;
+            foreach ($files as $file) {
+                $filename = $file->getClientOriginalName();
+                $extension = $file->getClientOriginalExtension();
+                $picture = date('His') . $filename;
+                $allPic .= $picture . ';';
+                $destinationPath = base_path('../../images');
+                $file->move($destinationPath, $picture);
+            }
+            return \Response::json(array('code' => '200', 'message' => 'success', 'images_url' => $allPic));
+        }
+        return \Response::json(array('code' => '404', 'message' => 'unsuccess', 'images_url' => ""));
+    }
+
     public function showmore()
     {
         $company_id = -1;
@@ -761,7 +780,7 @@ class HomeController extends Controller
                     // get cv of vip
                     $cvs = [];
                     // get cv of vip
-                    $companies = $companyGetObj->getCompany($district, $city, $field, $from, 20);
+                    $companies = $companyGetObj->getCompany($district, $city, $field, $from, 1000);
 
                     return view('showCompanyCV', compact('districts', 'city', 'cvs', 'jobs', 'jobsvip1', 'jobsvip2', 'companies', 'company_id', 'cv_id', 'news'));
                 }else{
@@ -875,7 +894,7 @@ class HomeController extends Controller
                     // get cv of vip
                     $cvs = [];
                     // get cv of vip
-                    $companies = $companyGetObj->getCompany($district, $city, $field, $from, 20);
+                    $companies = $companyGetObj->getCompany($district, $city, $field, $from, 1000);
 
                     return view('showCompanyCV', compact('districts', 'city', 'cvs', 'jobs', 'jobsvip1', 'jobsvip2', 'companies', 'company_id', 'cv_id', 'news'));
                 }else{
@@ -957,7 +976,7 @@ class HomeController extends Controller
                     // get cv of vip
                     $cvs = [];
                     // get cv of vip
-                    $companies = $companyGetObj->getCompany($district, $city, $field, $from, 20);
+                    $companies = $companyGetObj->getCompany($district, $city, $field, $from, 1000);
 
                     return view('showCompanyCV', compact('districts', 'city', 'cvs', 'jobs', 'jobsvip1', 'jobsvip2', 'companies', 'company_id', 'cv_id', 'news'));
                 }
