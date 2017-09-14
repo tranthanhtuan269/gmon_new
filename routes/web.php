@@ -53,6 +53,7 @@ Route::group(['middleware' => 'auth'], function(){
     Route::post('curriculumvitae/update/{id}', 'CurriculumVitaeController@updateCurriculumVitae');
     Route::post('curriculumvitae/store', 'CurriculumVitaeController@storeCurriculumVitae');
     Route::post('/postImage', 'HomeController@postImage');
+    Route::post('/postImages', 'HomeController@postImages');
     Route::post('/curriculumvitae/send-comment', 'CurriculumVitaeController@sendcomment');
 });
 

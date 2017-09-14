@@ -50,13 +50,13 @@
                             </div>
                             <div class="form-group {{ $errors->has('city') ? 'has-error' : ''}}">
                                 <div class="col-md-12">
-                                    <select class="form-control" id="city" name="city"><option value="0">--Chọn Tỉnh / Thành Phố--</option><option value="1">Hà Nội</option><option value="2">Hồ Chí Minh</option><option value="3">Đà Nẵng</option><option value="4">Hải Phòng</option><option value="5">Cần Thơ</option><option value="6">An Giang</option><option value="7">Bà Rịa Vũng Tàu</option><option value="8">Bạc Liêu</option><option value="9">Bắc Cạn</option><option value="10">Bắc Giang</option><option value="11">Hải Dương</option><option value="12">Bắc Ninh</option><option value="13">Bến Tre</option><option value="14">Bình Dương</option><option value="15">Bình Định</option><option value="16">Bình Phước</option><option value="17">Bình Thuận</option><option value="18">Cà Mau</option><option value="19">Cao Bằng</option><option value="20">Đắk Lắk</option><option value="21">Đăk Nông</option><option value="22">Điện Biên</option><option value="23">Đồng Nai</option><option value="24">Đồng Tháp</option><option value="25">Gia Lai</option><option value="26">Hà Giang</option><option value="27">Hà Nam</option><option value="28">Hà Tĩnh</option><option value="29">Hậu Giang</option><option value="30">Hòa Bình</option><option value="31">Hưng Yên</option><option value="32">Khánh Hòa</option><option value="33">Kiên Giang</option><option value="34">Kon Tum</option><option value="35">Lai Châu</option><option value="36">Lâm Đồng</option><option value="37">Lạng Sơn</option><option value="38">Lào Cai</option><option value="39">Long An</option><option value="40">Nam Định</option><option value="41">Nghệ An</option><option value="42">Ninh Bình</option><option value="43">Ninh Thuận</option><option value="44">Phú Thọ</option><option value="45">Phú Yên</option><option value="46">Quảng Bình</option><option value="47">Quảng Nam</option><option value="48">Quảng Ngãi</option><option value="49">Quảng Ninh</option><option value="50">Quảng Trị</option><option value="51">Sóc Trăng</option><option value="52">Sơn La</option><option value="53">Tây Ninh</option><option value="54">Thái Bình</option><option value="55">Thái Nguyên</option><option value="56">Thanh Hóa</option><option value="57">Huế</option><option value="58">Tiền Giang</option><option value="59">Trà Vinh</option><option value="60">Tuyên Quang</option><option value="61">Vĩnh Long</option><option value="62">Vĩnh Phúc</option><option value="63">Yên Bái</option></select>
+                                    {!! Form::select('city', $cities, $company->city, array('class' => 'form-control', 'id' => 'city')) !!}
                                     {!! $errors->first('city', '<p class="help-block">:message</p>') !!}
                                 </div>
                             </div>
                             <div class="form-group {{ $errors->has('town') ? 'has-error' : ''}}">
                                 <div class="col-md-12">
-                                    <select class="form-control" id="town" name="town"><option value="0">--Chọn Phường / Xã --</option></select>
+                                    {!! Form::select('town', $towns, $company->town, array('class' => 'form-control', 'id' => 'town')) !!}
                                     {!! $errors->first('town', '<p class="help-block">:message</p>') !!}
                                 </div>
                             </div>
@@ -83,7 +83,7 @@
                             </div>
                             <div class="form-group {{ $errors->has('district') ? 'has-error' : ''}}">
                                 <div class="col-md-12">
-                                    <select class="form-control" id="district" name="district"><option value="0">--Chọn Quận / Huyện --</option></select>
+                                    {!! Form::select('district', $districts, $company->district, array('class' => 'form-control', 'id' => 'district')) !!}
                                     {!! $errors->first('district', '<p class="help-block">:message</p>') !!}
                                 </div>
                             </div>
@@ -110,6 +110,9 @@
                             <input type="hidden" name="branchs" id="branch" value="">
                             <div class="form-branch-group">
                                 <div class="form-group" id="branch_content">
+                                    @foreach($branches as $branch)
+                                    <div class="col-md-12 branch-class"><label class="control-label"> - {{ $branch->name }} tại {{ $branch->address }}, {{ $branch->district }}, {{ $branch->city }}</label><span class="remove-branch-class"></span></div>
+                                    @endforeach
                                 </div>
                                 <div class="form-group">
                                     <div class="col-md-5">
@@ -225,7 +228,21 @@
                             <label class="control-label">Thêm ảnh</label>
                         </div>
                         <div class="col-md-12">
-                            <div id="images-plus"></div>
+                            <div id="images-plus">
+                                <?php 
+                                    $company->images=rtrim($company->images,";");
+                                    $images = explode(";",$company->images);
+                                    for($i = 0; $i < count($images); $i++){
+                                ?> 
+                                <div class="image-holder">
+                                    <img src="http://test.gmon.com.vn/?image={{ $images[$i] }}" class="img" height="150">
+                                    <span class="remove-image-class"></span>
+                                </div>
+                                <?php
+                                    }
+                                ?>
+                            </div>
+                            <div class="clearfix"></div>
                             <img src="{{ url('/') }}/public/images/icons8-Add-Image-50.png" id="images" class="img" style="height: 50px; width: 50px;">
                             <input type="file" name="images-img[]" id="images-img" style="display: none;" multiple>
                             {!! $errors->first('images', '<p class="help-block">:message</p>') !!}
@@ -250,6 +267,14 @@
 <script type="text/javascript">
 $(document).ready(function () {
     CKEDITOR.replace('description');
+    $('.remove-branch-class').click(function(){
+        $(this).parent().addClass('removed').hide();
+    });
+
+    $('.remove-image-class').click(function(){
+        $(this).parent().addClass('removed').hide();
+    });
+
     $('#logo-image').on('click', function (e) {
         $('#logo-img').click();
     });
@@ -283,16 +308,37 @@ $(document).ready(function () {
     });
     $('#images-img').on('change', function (e) {
         var fileInput = this;
-        var i = 0;
-        $(fileInput.files).each(function (index) {
-            var reader = new FileReader();
-            reader.onload = function (e) {
-                var html = '<img src="' + e.target.result + '" id="images" class="img" style="width: 150px;">';
-                $('#images-plus').append(html);
+
+        if (fileInput.files[0]) {
+            var data = new FormData();
+            for(var i = 0; i < $(fileInput.files).length; i++){
+                data.append('input_file_name_' + i, fileInput.files[i]);
             }
-            reader.readAsDataURL(fileInput.files[i]);
-            i++;
-        });
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                type: 'POST',
+                processData: false, // important
+                contentType: false, // important
+                data: data,
+                url: "{{ URL::to('/') }}/postImages",
+                dataType: 'json',
+                success: function (jsonData) {
+                    if (jsonData.code == 200) {
+                        var res = jsonData.images_url.split(";");
+                        var html = '';
+                        for(var i = 0; i < res.length - 1; i++){
+                            html += '<div class="image-holder">';
+                            html += '<img src="http://test.gmon.com.vn/?image=' + res[i] + '" class="img" height="150">';
+                            html += '<span class="remove-image-class"></span>';
+                            html += '</div>';
+                        }
+                        $('#images-plus').append(html);         
+                    }
+                }
+            });
+        }
     });
 
     $("#city").change(function () {
@@ -386,6 +432,7 @@ $(document).ready(function () {
         + city_branch_name + '</label><span class="remove-branch-class"></span></div>';
         $(html).appendTo('#branch_content');
         
+        $('.remove-branch-class').off('click');
         $('.remove-branch-class').click(function(){
             $(this).parent().addClass('removed').hide();
         });

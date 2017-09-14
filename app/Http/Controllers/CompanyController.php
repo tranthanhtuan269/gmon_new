@@ -95,9 +95,14 @@ class CompanyController extends Controller {
                 $cities = \App\City::pluck('name', 'id');
                 $districts = \App\District::where('city', '=', $company->city)->pluck('name', 'id');
                 $towns = \App\Town::where('district', '=', $company->district)->pluck('name', 'id');
-                dd($districts);
+                $branches = \DB::table('branches')
+                            ->join('cities', 'cities.id', '=', 'branches.city')
+                            ->join('districts', 'districts.id', '=', 'branches.district')
+                            ->where('company', '=', $company->id)
+                            ->select('branches.id', 'branches.name', 'branches.address', 'cities.name as city', 'districts.name as district')
+                            ->get();
 
-                return view('company.edit_company', compact('company_id', 'cv_id', 'company_types', 'company', 'cities', 'districts', 'towns'));
+                return view('company.edit_company', compact('company_id', 'cv_id', 'company_types', 'company', 'cities', 'districts', 'towns', 'branches'));
             }
         }
 

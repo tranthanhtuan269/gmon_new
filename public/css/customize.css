@@ -89,8 +89,8 @@ img.no-vote{
 }
 
 #images-plus img{
-    width: 250px;
-    margin: 0 10px;
+    width: 22%;
+    margin: 10px;
     border-radius: 3px;
     float: left;
 }
@@ -135,6 +135,19 @@ img.no-vote{
     position: relative;
     top: 6px;
     left: 10px;
+}
+
+.remove-image-class{
+    display: block;
+    background: url(../images/remove.png);
+    background-size: 20px 20px;
+    background-repeat: no-repeat;
+    width: 20px;
+    height: 20px;
+    float: left;
+    position: relative;
+    top: 2px;
+    left: -20px;
 }
 
 .branch-class label{
