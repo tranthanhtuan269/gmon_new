@@ -243,7 +243,7 @@
                             <input type="hidden" name="images-plus-field" id="images-plus-field" value="">
                             <div id="images-plus">
                                 <?php 
-                                    $company->images=rtrim($company->images,";");
+                                    $company->images=ltrim($company->images,";");
                                     $images = explode(";",$company->images);
                                     for($i = 0; $i < count($images); $i++){
                                 ?> 
