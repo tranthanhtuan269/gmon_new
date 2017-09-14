@@ -118,6 +118,7 @@ class CompanyController extends Controller {
     }
 
     public function updateCompany(Request $request) {
+        dd($request);
         $company_id = -1;
         if (\Auth::check()) {
             $user_info = \Auth::user()->getUserInfo();

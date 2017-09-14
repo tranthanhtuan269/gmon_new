@@ -550,6 +550,10 @@ $(document).ready(function () {
         $('#images-plus-field').val(listImages);
         
         var listBranchs = '';
+        var branchs = $('#branch').val();
+        var myString = branchs.substring(1);
+        var myArray = myString.split(';');
+        console.log(myArray);return false;
         
         $( ".branch-class" ).each(function( index ) {
             if(!$( this ).hasClass('removed') ){
