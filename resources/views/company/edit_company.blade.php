@@ -544,7 +544,7 @@ $(document).ready(function () {
         $('#images-plus .image-holder').each(function(index){
             if(!$(this).hasClass('removed')){
                 var image_info = $($(this).find('img')).attr('src');
-                listImages += ';' + image_info.substr(31, image_info.length);
+                listImages += image_info.substr(31, image_info.length) + ';';
             }
         });
         $('#images-plus-field').val(listImages);
