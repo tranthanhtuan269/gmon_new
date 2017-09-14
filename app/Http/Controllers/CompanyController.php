@@ -99,10 +99,18 @@ class CompanyController extends Controller {
                             ->join('cities', 'cities.id', '=', 'branches.city')
                             ->join('districts', 'districts.id', '=', 'branches.district')
                             ->where('company', '=', $company->id)
-                            ->select('branches.id', 'branches.name', 'branches.address', 'cities.name as city', 'districts.name as district')
+                            ->select('branches.id', 'branches.name as name_branch', 'branches.address as address_branch', 'cities.id as city_branch_id', 'cities.name as city_branch_name', 'districts.id as district_branch_id', 'districts.name as district_branch_name')
                             ->get();
-
-                return view('company.edit_company', compact('company_id', 'cv_id', 'company_types', 'company', 'cities', 'districts', 'towns', 'branches'));
+                $companytypes = \DB::table('company_company_types')
+                            ->join('company_types', 'company_types.id', '=', 'company_company_types.company_type')
+                            ->where('company', '=', $company_id)
+                            ->select('company_types.name as name')
+                            ->get()->toArray();
+                $companytypesArr = [];
+                foreach($companytypes as $t){
+                    array_push($companytypesArr, $t->name);
+                }
+                return view('company.edit_company', compact('company_id', 'cv_id', 'company_types', 'company', 'cities', 'districts', 'towns', 'branches', 'companytypesArr'));
             }
         }
 
@@ -119,8 +127,12 @@ class CompanyController extends Controller {
                 if ($input['description'] == null)
                     $input['description'] = '';
 
-                $input['logo'] = $request['logo-image-field'];
-                $input['banner'] = $request['banner-image-field'];
+                if($request['logo-image-field'] == ''){
+                    $input['logo'] = $request['logo-image-field'];
+                }
+                if($request['banner-image-field'] == ''){
+                    $input['banner'] = $request['banner-image-field'];
+                }
                 $input['images'] = $request['images-plus-field'];
                 $input['user'] = \Auth::user()->id;
 
@@ -150,15 +162,17 @@ class CompanyController extends Controller {
                         $branch_list = explode(";",$branchs);
                             
                         foreach ($branch_list as $braObject) {
-                            $bra = json_decode($braObject, true);
-                            $branObj = new Branch;
-                            $branObj->name = $bra['name_branch'];
-                            $branObj->address = $bra['address_branch'];
-                            $branObj->city = $bra['city_branch_id'];
-                            $branObj->district = $bra['district_branch_id'];
-                            $branObj->master = 1;
-                            $branObj->company = $company->id;
-                            $branObj->save();
+                            if($braObject != 'undefined'){
+                                $bra = json_decode($braObject, true);
+                                $branObj = new Branch;
+                                $branObj->name = $bra['name_branch'];
+                                $branObj->address = $bra['address_branch'];
+                                $branObj->city = $bra['city_branch_id'];
+                                $branObj->district = $bra['district_branch_id'];
+                                $branObj->master = 1;
+                                $branObj->company = $company->id;
+                                $branObj->save();
+                            }
                         }
                     }
                     
@@ -277,7 +291,6 @@ class CompanyController extends Controller {
             if(isset($branchs) && strlen($branchs) > 0){
                 $branchs = ltrim($branchs, ';');
                 $branch_list = explode(";",$branchs);
-                    
                 foreach ($branch_list as $braObject) {
                     $bra = json_decode($braObject, true);
                     $branObj = new Branch;

@@ -20,7 +20,7 @@
                     <div class="form-group {{ $errors->has('banner') ? 'has-error' : ''}}">
 
                         <div class="col-md-12">
-                            <input type="hidden" name="banner-image-field" id="banner-image-field" value="">
+                            <input type="hidden" name="banner-image-field" id="banner-image-field" value="{{ $company->banner }}">
                             <img src="http://test.gmon.com.vn/?image={{ $company->banner }}" id="banner-image" class="img" style="height: 160px; width: 100%; background-color: #fff; border: 2px solid gray; border-radius: 5px;">
                             <input type="file" name="banner-img" id="banner-img" style="display: none;">
                             {!! $errors->first('banner', '<p class="help-block">:message</p>') !!}
@@ -28,7 +28,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-2">
-                            <input type="hidden" name="logo-image-field" id="logo-image-field" value="">
+                            <input type="hidden" name="logo-image-field" id="logo-image-field" value="{{ $company->logo }}">
                             <div class="form-group {{ $errors->has('logo') ? 'has-error' : ''}}">
                                 <div class="col-md-12">
                                     <img src="http://test.gmon.com.vn/?image={{ $company->logo }}" id="logo-image" class="img" style="height: 150px; width: 150px; background-color: #fff; border: 2px solid gray; border-radius: 5px;">
@@ -109,11 +109,17 @@
                     <div class="panel panel-default">
                         <div class="panel-heading">Thêm chi nhánh</div>
                         <div class="panel-body">
-                            <input type="hidden" name="branchs" id="branch" value="{{ $company->branchs }}">
+                            <?php 
+                                $branchString = '';
+                                foreach($branches as $branch){
+                                    $branchString .= ';{"name_branch":"'.$branch->name_branch.'","address_branch":"'.$branch->address_branch.'","city_branch_id":"'.$branch->city_branch_id.'","city_branch_name":"'.$branch->city_branch_name.'","district_branch_id":"'.$branch->district_branch_id.'","district_branch_name":"'.$branch->district_branch_name.'"}';
+                                }
+                            ?>
+                            <input type="hidden" name="branchs" id="branch" value="{{ $branchString }}">
                             <div class="form-branch-group">
                                 <div class="form-group" id="branch_content">
                                     @foreach($branches as $branch)
-                                    <div class="col-md-12 branch-class"><label class="control-label"> - {{ $branch->name }} tại {{ $branch->address }}, {{ $branch->district }}, {{ $branch->city }}</label><span class="remove-branch-class"></span></div>
+                                    <div class="col-md-12 branch-class"><label class="control-label"> - {{ $branch->name_branch }} tại {{ $branch->address_branch }}, {{ $branch->district_branch_name }}, {{ $branch->city_branch_name }}</label><span class="remove-branch-class"></span></div>
                                     @endforeach
                                 </div>
                                 <div class="form-group">
@@ -144,9 +150,13 @@
                     <div class="form-group {{ $errors->has('jobs') ? 'has-error' : ''}}">
                         <div class="col-md-12">
                             <input type="hidden" id="jobs" name="jobs" value="">
-                            <select class="form-control selectpicker" multiple title="Chọn lĩnh vực hoạt động">
+                            <select class="form-control selectpicker" id="companytypesselect" multiple title="Chọn lĩnh vực hoạt động">
                                 @foreach($company_types as $company_type)
+                                    @if(in_array($company_type->name, $companytypesArr))
+                                    <option selected>{{ $company_type->name }}</option>
+                                    @else
                                     <option>{{ $company_type->name }}</option>
+                                    @endif
                                 @endforeach
                             </select>
                             {!! $errors->first('jobs', '<p class="help-block">:message</p>') !!}
@@ -264,6 +274,8 @@
         </div>
     </div>
 </div>
+
+
 <script src="https://cdn.ckeditor.com/4.7.1/standard/ckeditor.js"></script>
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.3/css/bootstrap-select.min.css">
 <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.3/js/bootstrap-select.min.js"></script>
@@ -530,7 +542,7 @@ $(document).ready(function () {
 
         var listImages = '';
         $('#images-plus .image-holder').each(function(index){
-            if(!$(this).hasClass('delete')){
+            if(!$(this).hasClass('removed')){
                 var image_info = $($(this).find('img')).attr('src');
                 listImages += ';' + image_info.substr(31, image_info.length);
             }
@@ -552,11 +564,6 @@ $(document).ready(function () {
         $('#jobs').val(listJobs);
         $('#branch').val(listBranchs);
         $("#create-company").submit();
-    });
-
-    var values="{{ $company->jobs }}";
-    $.each(values.split(";"), function(i,e){
-        $(".selectpicker option[value='" + e + "']").prop("selected", true);
     });
 });
 </script>
