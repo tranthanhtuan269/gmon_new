@@ -118,7 +118,6 @@ class CompanyController extends Controller {
     }
 
     public function updateCompany(Request $request) {
-        dd($request);
         $company_id = -1;
         if (\Auth::check()) {
             $user_info = \Auth::user()->getUserInfo();
@@ -148,15 +147,6 @@ class CompanyController extends Controller {
                 $affectedRows = Branch::where('company', '=', $company->id)->delete();
 
                 if ($company) {
-                    // add branchs 
-                    $branMaster = new Branch;
-                    $branMaster->name = "Trụ sở chính";
-                    $branMaster->address = $input['address'];
-                    $branMaster->city = $input['city'];
-                    $branMaster->district = $input['district'];
-                    $branMaster->master = 0;
-                    $branMaster->company = $company->id;
-                    $branMaster->save();
                     $branchs = $input['branchs'];
                     if(isset($branchs) && strlen($branchs) > 0){
                         $branchs = ltrim($branchs, ';');
