@@ -219,13 +219,6 @@
                                     {!! $errors->first('city', '<p class="help-block">:message</p>') !!}
                                 </div>
                             </div>
-                            <div class="form-group {{ $errors->has('town') ? 'has-error' : ''}}">
-                                {!! Form::label('town', 'Xã / Phường', ['class' => 'col-md-5 control-label']) !!}
-                                <div class="col-md-7">
-                                    <select class="form-control" id="town" name="town"><option value="0">--Chọn Phường / Xã --</option></select>
-                                    {!! $errors->first('town', '<p class="help-block">:message</p>') !!}
-                                </div>
-                            </div>
                             <div class="form-group {{ $errors->has('salary') ? 'has-error' : ''}}">
                                 {!! Form::label('birthday', 'Mức lương', ['class' => 'col-md-5 control-label']) !!}
                                 <div class="col-md-7">
@@ -238,44 +231,6 @@
                                     {!! $errors->first('salary', '<p class="help-block">:message</p>') !!}
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-md-5">
-                            <div class="form-group {{ $errors->has('gender') ? 'has-error' : ''}}">
-                                {!! Form::label('gender', 'Giới tính', ['class' => 'col-md-5 control-label']) !!}
-                                <div class="col-md-7">
-                                    <label>{!! Form::radio('gender', '1', true); !!}Nam</label>
-                                    <label>{!! Form::radio('gender', '0'); !!}Nữ</label>
-                                    {!! $errors->first('gender', '<p class="help-block">:message</p>') !!}
-                                </div>
-                            </div>
-                            <div class="form-group {{ $errors->has('district') ? 'has-error' : ''}}">
-                                {!! Form::label('district', 'Quận / Huyện', ['class' => 'col-md-5 control-label']) !!}
-                                <div class="col-md-7">
-                                    <select class="form-control" id="district" name="district"><option value="0">--Chọn Quận / Huyện --</option></select>
-                                    {!! $errors->first('district', '<p class="help-block">:message</p>') !!}
-                                </div>
-                            </div>
-                            <div class="form-group {{ $errors->has('address') ? 'has-error' : ''}}">
-                                {!! Form::label('address', 'Địa chỉ', ['class' => 'col-md-5 control-label']) !!}
-                                <div class="col-md-7">
-                                    {!! Form::text('address', null, ['class' => 'form-control', 'placeholder' => 'Số nhà và Đường']) !!}
-                                    {!! $errors->first('address', '<p class="help-block">:message</p>') !!}
-                                </div>
-                            </div>
-                            <div class="form-group {{ $errors->has('jobs') ? 'has-error' : ''}}">
-                                <div class="col-md-12">
-                                    <input type="hidden" id="jobs" name="jobs" value="">
-                                    <select class="form-control selectpicker" multiple title="Chọn Thời gian làm việc">
-                                        <option>Ca 1 (7h - 12h)</option>
-                                        <option>Ca 2 (12h - 17h)</option>
-                                        <option>Ca 3 (17h - 22h)</option>
-                                        <option>Fulltime</option>
-                                    </select>
-                                    {!! $errors->first('jobs', '<p class="help-block">:message</p>') !!}
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-12">
                             <div class="form-group {{ $errors->has('jobs') ? 'has-error' : ''}}">
                                 <div class="col-md-12">
                                     <input type="hidden" id="jobs" name="jobs" value="">
@@ -314,6 +269,43 @@
                                         <option>Pha chế</option>
                                         <option>Shipper</option>
                                         <option>Kế toán</option>
+                                    </select>
+                                    {!! $errors->first('jobs', '<p class="help-block">:message</p>') !!}
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <div class="col-md-5" style="margin:3px 0;">
+                            <div class="form-group {{ $errors->has('gender') ? 'has-error' : ''}}">
+                                {!! Form::label('gender', 'Giới tính', ['class' => 'col-md-5 control-label']) !!}
+                                <div class="col-md-7">
+                                    <label>{!! Form::radio('gender', '1', true); !!}Nam</label>
+                                    <label>{!! Form::radio('gender', '0'); !!}Nữ</label>
+                                    {!! $errors->first('gender', '<p class="help-block">:message</p>') !!}
+                                </div>
+                            </div>
+                            <div class="form-group {{ $errors->has('district') ? 'has-error' : ''}}">
+                                {!! Form::label('district', 'Quận / Huyện', ['class' => 'col-md-5 control-label']) !!}
+                                <div class="col-md-7">
+                                    <select class="form-control" id="district" name="district"><option value="0">--Chọn Quận / Huyện --</option></select>
+                                    {!! $errors->first('district', '<p class="help-block">:message</p>') !!}
+                                </div>
+                            </div>
+                            <div class="form-group {{ $errors->has('address') ? 'has-error' : ''}}">
+                                {!! Form::label('address', 'Địa chỉ', ['class' => 'col-md-5 control-label']) !!}
+                                <div class="col-md-7">
+                                    {!! Form::text('address', null, ['class' => 'form-control', 'placeholder' => 'Số nhà và Đường']) !!}
+                                    {!! $errors->first('address', '<p class="help-block">:message</p>') !!}
+                                </div>
+                            </div>
+                            <div class="form-group {{ $errors->has('jobs') ? 'has-error' : ''}}">
+                                <div class="col-md-12">
+                                    <input type="hidden" id="jobs" name="jobs" value="">
+                                    <select class="form-control selectpicker" multiple title="Chọn Thời gian làm việc">
+                                        <option>Ca 1 (7h - 12h)</option>
+                                        <option>Ca 2 (12h - 17h)</option>
+                                        <option>Ca 3 (17h - 22h)</option>
+                                        <option>Fulltime</option>
                                     </select>
                                     {!! $errors->first('jobs', '<p class="help-block">:message</p>') !!}
                                 </div>
@@ -443,7 +435,7 @@
                                     <input type="hidden" id="lam_viec_0_image" value="">
                                     <div class="form-group">
                                         <div class="col-md-6">
-                                            <label for="ten_cong_ty" class="col-md-4 control-label">Tên công ty đã làm</label>
+                                            <label for="ten_cong_ty" class="col-md-4 control-label">Tên công ty</label>
                                             <div class="col-md-8">
                                                 <input type="text" class="form-control" class="ten_cong_ty_0" id="ten_cong_ty_0">
                                             </div>
@@ -510,7 +502,7 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="form-group">
+                                    <!-- <div class="form-group">
                                         <div class="col-md-12">
                                             <label for="ten_cong_ty" class="col-md-2 control-label">Địa chỉ công ty</label>
                                             <div class="col-md-4">
@@ -523,13 +515,14 @@
                                                 <select class="form-control quan_huyen" id="quan_huyen_0"><option value="0">--Chọn Quận / Huyện --</option></select>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> -->
                                     <div class="form-group">
-                                        <div class="col-md-2 col-sm-offset-1 image_company">
+                                        <!-- <div class="col-md-2 col-sm-offset-1 image_company">
                                             <img src="http://test.gmon.com.vn/?image=anh_cong_ty.jpg" id="company_image_0" class="img-company" style="height: 92px; width:100%; background-color: #fff; border: 2px solid gray; border-radius: 5px;">
                                             <input type="file" class="company-img" id="company-img-0" style="display: none;">
-                                        </div>
-                                        <div class="col-md-8 col-sm-offset-1">
+                                        </div> -->
+                                        <label for="ten_cong_ty" class="col-md-2 control-label">Mô tả công việc</label>
+                                        <div class="col-md-10">
                                             <textarea rows="4" cols="50" class="form-control" class="mo_ta_0" id="mo_ta_0" placeholder="Mô tả ngắn về công việc"></textarea>
                                         </div>
                                     </div>
@@ -549,8 +542,33 @@
                     </div>
 
                     <div class="panel panel-default">
-                        <div class="panel-heading">Trình độ ngoại ngữ</div>
+                        <div class="panel-heading">Kỹ năng làm việc</div>
                         <div class="panel-body">
+                            <input type="hidden" name="qualification" id="qualification" value="">
+                            <div class="form-ngon-ngu-group">
+                                <div class="form-group" id="qualification_content">
+                                </div>
+                                <hr>
+                                <div class="form-group">
+                                    <label for="ten_ky_nang" class="col-md-2 control-label">Tên kỹ năng</label>
+                                    <div class="col-md-6">
+                                        <input type="text" class="form-control" class="ten_ky_nang" id="ten_ky_nang">
+                                    </div>
+                                    <div class="btn btn-primary" id="add-qualification">Thêm mới</div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-2"></div>
+                                    <div class="col-md-10">
+                                        VD: Word, Excel, Powerpoint,...
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="panel panel-default">
+                        <div class="panel-heading">Trình độ ngoại ngữ</div>
+                        <div class="panel-body" style="display: none;">
                             <input type="hidden" name="language" id="language" value="">
                             <div class="form-ngon-ngu-group">
                                 <div class="form-group" id="ngoai_ngu_content">
@@ -572,32 +590,8 @@
                     </div>
 
                     <div class="panel panel-default">
-                        <div class="panel-heading">Kỹ năng làm việc</div>
-                        <div class="panel-body">
-                            <input type="hidden" name="qualification" id="qualification" value="">
-                            <div class="form-ngon-ngu-group">
-                                <div class="form-group" id="qualification_content">
-                                </div>
-                                <hr>
-                                <div class="form-group">
-                                    <div class="col-md-12">
-                                        VD: Word, Excel, Powerpoint,...
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="ten_ky_nang" class="col-md-2 control-label">Tên kỹ năng</label>
-                                    <div class="col-md-2">
-                                        <input type="text" class="form-control" class="ten_ky_nang" id="ten_ky_nang">
-                                    </div>
-                                    <div class="btn btn-primary" id="add-qualification">Thêm mới</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="panel panel-default">
                         <div class="panel-heading">Sở thích - Tính cách</div>
-                        <div class="panel-body">
+                        <div class="panel-body" style="display: none;">
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="interests" class="col-md-12">Sở thích</label>
@@ -619,7 +613,7 @@
 
                     <div class="panel panel-default">
                         <div class="panel-heading">Mục tiêu nghề nghiệp</div>
-                        <div class="panel-body">
+                        <div class="panel-body" style="display: none;">
                             <input type="hidden" name="career_objective" id="career_objective" value="">
                             <div class="form-career-objective-group">
                                 <div class="form-group">
@@ -676,7 +670,7 @@
 
                     <div class="panel panel-default">
                         <div class="panel-heading">Hoạt động ngoại khóa</div>
-                        <div class="panel-body">
+                        <div class="panel-body" style="display: none;">
                             <div class="form-group">
                                 <div class="col-md-12">
                                     Mô tả một vài hoạt động mà bạn đã tham gia...

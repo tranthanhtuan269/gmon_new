@@ -63,22 +63,22 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-md-4">Thời gian học </div>
-                                            <div class="col-md-4">Từ {{ $edu->thang_bat_dau }}/{{ $edu->nam_bat_dau }} </div>
-                                            <div class="col-md-4">@if( $edu->student_process == 0) Đến nay @else Đến {{ $edu->thang_ket_thuc }}/{{ $edu->nam_ket_thuc }} @endif </div>
+                                            <div class="col-md-4">Từ {{ ($edu->thang_bat_dau > 0 && $edu->thang_bat_dau < 10) ? '0' . $edu->thang_bat_dau . '/' : '' }}{{ ($edu->thang_bat_dau > 0 && $edu->thang_bat_dau > 9) ? '' . $edu->thang_bat_dau . '/' : '' }}{{ $edu->nam_bat_dau }} </div>
+                                            <div class="col-md-4">@if( $edu->student_process == 0) Đến nay @else Đến {{ ($edu->thang_ket_thuc > 0 && $edu->thang_ket_thuc < 10) ? '0' . $edu->thang_ket_thuc . '/' : '' }}{{ ($edu->thang_ket_thuc > 0 && $edu->thang_ket_thuc > 9) ? '' . $edu->thang_ket_thuc . '/' : '' }}{{ $edu->nam_ket_thuc }} @endif </div>
                                         </div>
-                                        @if( $edu->bang_cap != 2)
+                                        @if( $edu->bang_cap != 2 && $edu->chuyen_nganh != "")
                                         <div class="row">
                                             <div class="col-md-4">Chuyên ngành </div>
                                             <div class="col-md-8">{{ $edu->chuyen_nganh }} </div>
                                         </div>
                                         @endif
-                                        @if(isset($edu->loai_tot_nghiep))
+                                        @if(isset($edu->loai_tot_nghiep) && $edu->loai_tot_nghiep != "--Chọn loại tốt nghiệp--")
                                         <div class="row">
                                             <div class="col-md-4">Thành tích học tập </div>
                                             <div class="col-md-8">{{ $edu->loai_tot_nghiep }}</div>
                                         </div>
-                                        <hr>
                                         @endif
+                                        <hr>
                                         <?php 
                                             }
                                         ?>
