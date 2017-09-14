@@ -15,11 +15,12 @@
                     </ul>
                     @endif
 
-                    {!! Form::open(['url' => '/company', 'method' => 'PATCH', 'class' => 'form-horizontal', 'files' => true, 'id' => 'create-company']) !!}
+                    {!! Form::open(['url' => 'company/update', 'method' => 'POST', 'class' => 'form-horizontal', 'files' => true, 'id' => 'edit-company']) !!}
 
                     <div class="form-group {{ $errors->has('banner') ? 'has-error' : ''}}">
 
                         <div class="col-md-12">
+                            <input type="hidden" name="banner-image-field" id="banner-image-field" value="">
                             <img src="http://test.gmon.com.vn/?image={{ $company->banner }}" id="banner-image" class="img" style="height: 160px; width: 100%; background-color: #fff; border: 2px solid gray; border-radius: 5px;">
                             <input type="file" name="banner-img" id="banner-img" style="display: none;">
                             {!! $errors->first('banner', '<p class="help-block">:message</p>') !!}
@@ -27,6 +28,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-2">
+                            <input type="hidden" name="logo-image-field" id="logo-image-field" value="">
                             <div class="form-group {{ $errors->has('logo') ? 'has-error' : ''}}">
                                 <div class="col-md-12">
                                     <img src="http://test.gmon.com.vn/?image={{ $company->logo }}" id="logo-image" class="img" style="height: 150px; width: 150px; background-color: #fff; border: 2px solid gray; border-radius: 5px;">
@@ -107,7 +109,7 @@
                     <div class="panel panel-default">
                         <div class="panel-heading">Thêm chi nhánh</div>
                         <div class="panel-body">
-                            <input type="hidden" name="branchs" id="branch" value="">
+                            <input type="hidden" name="branchs" id="branch" value="{{ $company->branchs }}">
                             <div class="form-branch-group">
                                 <div class="form-group" id="branch_content">
                                     @foreach($branches as $branch)
@@ -228,6 +230,7 @@
                             <label class="control-label">Thêm ảnh</label>
                         </div>
                         <div class="col-md-12">
+                            <input type="hidden" name="images-plus-field" id="images-plus-field" value="">
                             <div id="images-plus">
                                 <?php 
                                     $company->images=rtrim($company->images,";");
@@ -267,6 +270,7 @@
 <script type="text/javascript">
 $(document).ready(function () {
     CKEDITOR.replace('description');
+    CKEDITOR.instances['description'].setData('<?php echo $company->description; ?>');
     $('.remove-branch-class').click(function(){
         $(this).parent().addClass('removed').hide();
     });
@@ -280,12 +284,29 @@ $(document).ready(function () {
     });
     $('#logo-img').on('change', function (e) {
         var fileInput = this;
+        var id_obj = $(this).attr('id');
+        id_obj = id_obj.substring(12, id_obj.length);
         if (fileInput.files[0]) {
-            var reader = new FileReader();
-            reader.onload = function (e) {
-                $('#logo-image').attr('src', e.target.result);
-            }
-            reader.readAsDataURL(fileInput.files[0]);
+            var data = new FormData();
+            data.append('input_file_name', fileInput.files[0]);
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                type: 'POST',
+                processData: false, // important
+                contentType: false, // important
+                data: data,
+                url: "{{ URL::to('/') }}/postImage",
+                dataType: 'json',
+                success: function (jsonData) {
+                    if (jsonData.code == 200) {
+                        $('#logo-image').attr('src', 'http://test.gmon.com.vn/?image=' + jsonData.image_url);
+                        console.log(jsonData.image_url);
+                        $('#logo-image-field').val(jsonData.image_url);
+                    }
+                }
+            });
         }
     });
 
@@ -294,12 +315,28 @@ $(document).ready(function () {
     });
     $('#banner-img').on('change', function (e) {
         var fileInput = this;
+        var id_obj = $(this).attr('id');
+        id_obj = id_obj.substring(12, id_obj.length);
         if (fileInput.files[0]) {
-            var reader = new FileReader();
-            reader.onload = function (e) {
-                $('#banner-image').attr('src', e.target.result);
-            }
-            reader.readAsDataURL(fileInput.files[0]);
+            var data = new FormData();
+            data.append('input_file_name', fileInput.files[0]);
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                type: 'POST',
+                processData: false, // important
+                contentType: false, // important
+                data: data,
+                url: "{{ URL::to('/') }}/postImage",
+                dataType: 'json',
+                success: function (jsonData) {
+                    if (jsonData.code == 200) {
+                        $('#banner-image').attr('src', 'http://test.gmon.com.vn/?image=' + jsonData.image_url);
+                        $('#banner-image-field').val(jsonData.image_url);
+                    }
+                }
+            });
         }
     });
 
@@ -490,6 +527,15 @@ $(document).ready(function () {
         $('.dropdown-menu.inner>li.selected').each(function (index) {
             listJobs += $(this).text() + ';';
         });
+
+        var listImages = '';
+        $('#images-plus .image-holder').each(function(index){
+            if(!$(this).hasClass('delete')){
+                var image_info = $($(this).find('img')).attr('src');
+                listImages += ';' + image_info.substr(31, image_info.length);
+            }
+        });
+        $('#images-plus-field').val(listImages);
         
         var listBranchs = '';
         var branchs = $('#branch').val();

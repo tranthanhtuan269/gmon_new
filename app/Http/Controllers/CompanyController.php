@@ -110,122 +110,104 @@ class CompanyController extends Controller {
     }
 
     public function updateCompany(Request $request) {
-        $img_banner = '';
-        if ($request->hasFile('banner-img')) {
-            $file_banner = $request->file('banner-img');
-            $filename = $file_banner->getClientOriginalName();
-            $extension = $file_banner->getClientOriginalExtension();
-            $img_banner = date('His') . $filename;
-            $destinationPath = base_path('../../images');
-            $file_banner->move($destinationPath, $img_banner);
-        }
+        $company_id = -1;
+        if (\Auth::check()) {
+            $user_info = \Auth::user()->getUserInfo();
+            $company_id = $user_info['company_id'];
+            if($company_id > 0){
+                $input = $request->all();
+                if ($input['description'] == null)
+                    $input['description'] = '';
 
-        $img_logo = '';
-        if ($request->hasFile('logo-img')) {
-            $file_logo = $request->file('logo-img');
-            $filename = $file_logo->getClientOriginalName();
-            $extension = $file_logo->getClientOriginalExtension();
-            $img_logo = date('His') . $filename;
-            $destinationPath = base_path('../../images');
-            $file_logo->move($destinationPath, $img_logo);
-        }
+                $input['logo'] = $request['logo-image-field'];
+                $input['banner'] = $request['banner-image-field'];
+                $input['images'] = $request['images-plus-field'];
+                $input['user'] = \Auth::user()->id;
 
-        $picture = '';
-        $allPic = '';
-        if ($request->hasFile('images-img')) {
-            $files = $request->file('images-img');
-            foreach ($files as $file) {
-                $filename = $file->getClientOriginalName();
-                $extension = $file->getClientOriginalExtension();
-                $picture = date('His') . $filename;
-                $allPic .= $picture . ';';
-                $destinationPath = base_path('../../images');
-                $file->move($destinationPath, $picture);
-            }
-        }
+                $input['email'] = \Auth::user()->email;
+                $input['phone'] = \Auth::user()->phone;
+                
+                // $company = Company::create($input);
+                $company = Company::findOrFail($company_id);
+                $company->update($input);
 
-        $input = $request->all();
-        if ($input['description'] == null)
-            $input['description'] = '';
-        unset($input['banner-img']);
-        unset($input['logo-img']);
-        unset($input['images-img']);
-        $input['logo'] = $img_logo;
-        $input['banner'] = $img_banner;
-        $input['images'] = $allPic;
-        $input['user'] = \Auth::user()->id;
-        $input['email'] = \Auth::user()->email;
-        $input['phone'] = \Auth::user()->phone;
-        
-        $company = Company::create($input);
+                // remove all branches
+                $affectedRows = Branch::where('company', '=', $company->id)->delete();
 
-        if ($company) {
-            // add branchs 
-            $branMaster = new Branch;
-            $branMaster->name = "Trụ sở chính";
-            $branMaster->address = $input['address'];
-            $branMaster->city = $input['city'];
-            $branMaster->district = $input['district'];
-            $branMaster->master = 0;
-            $branMaster->company = $company->id;
-            $branMaster->save();
-            $branchs = $input['branchs'];
-            if(isset($branchs) && strlen($branchs) > 0){
-                $branchs = ltrim($branchs, ';');
-                $branch_list = explode(";",$branchs);
-                    
-                foreach ($branch_list as $braObject) {
-                    $bra = json_decode($braObject, true);
-                    $branObj = new Branch;
-                    $branObj->name = $bra['name_branch'];
-                    $branObj->address = $bra['address_branch'];
-                    $branObj->city = $bra['city_branch_id'];
-                    $branObj->district = $bra['district_branch_id'];
-                    $branObj->master = 1;
-                    $branObj->company = $company->id;
-                    $branObj->save();
-                }
-            }
-            
-            // add CompanyCompanyType
-            $jobs = $input['jobs'];
-            if(isset($jobs) && strlen($jobs) > 0){
-                $jobs = rtrim($jobs, ';');
-                $job_list = explode(";",$jobs);
-                    
-                foreach ($job_list as $job) {
-                    if($job == 'Khách sạn'){
-                        $jobObj = new CompanyCompanyType;
-                        $jobObj->company_type = 1;
-                        $jobObj->company = $company->id;
-                        $jobObj->save();
-                    }else if($job == 'Nhà Hàng'){
-                        $jobObj = new CompanyCompanyType;
-                        $jobObj->company_type = 2;
-                        $jobObj->company = $company->id;
-                        $jobObj->save();
-                    }else if($job == 'Cửa hàng'){
-                        $jobObj = new CompanyCompanyType;
-                        $jobObj->company_type = 3;
-                        $jobObj->company = $company->id;
-                        $jobObj->save();
-                    }else if($job == 'Doanh nghiệp'){
-                        $jobObj = new CompanyCompanyType;
-                        $jobObj->company_type = 4;
-                        $jobObj->company = $company->id;
-                        $jobObj->save();
-                    }else if($job == 'Spa'){
-                        $jobObj = new CompanyCompanyType;
-                        $jobObj->company_type = 5;
-                        $jobObj->company = $company->id;
-                        $jobObj->save();
+                if ($company) {
+                    // add branchs 
+                    $branMaster = new Branch;
+                    $branMaster->name = "Trụ sở chính";
+                    $branMaster->address = $input['address'];
+                    $branMaster->city = $input['city'];
+                    $branMaster->district = $input['district'];
+                    $branMaster->master = 0;
+                    $branMaster->company = $company->id;
+                    $branMaster->save();
+                    $branchs = $input['branchs'];
+                    if(isset($branchs) && strlen($branchs) > 0){
+                        $branchs = ltrim($branchs, ';');
+                        $branch_list = explode(";",$branchs);
+                            
+                        foreach ($branch_list as $braObject) {
+                            $bra = json_decode($braObject, true);
+                            $branObj = new Branch;
+                            $branObj->name = $bra['name_branch'];
+                            $branObj->address = $bra['address_branch'];
+                            $branObj->city = $bra['city_branch_id'];
+                            $branObj->district = $bra['district_branch_id'];
+                            $branObj->master = 1;
+                            $branObj->company = $company->id;
+                            $branObj->save();
+                        }
                     }
+                    
+                    // add CompanyCompanyType
+                    if($input['jobs'] != null){
+                        // remove companycompanytype
+                        $affectedRows = CompanyCompanyType::where('company', '=', $company->id)->delete();
+
+                        $jobs = $input['jobs'];
+                        if(isset($jobs) && strlen($jobs) > 0){
+                            $jobs = rtrim($jobs, ';');
+                            $job_list = explode(";",$jobs);
+                                
+                            foreach ($job_list as $job) {
+                                if($job == 'Khách sạn'){
+                                    $jobObj = new CompanyCompanyType;
+                                    $jobObj->company_type = 1;
+                                    $jobObj->company = $company->id;
+                                    $jobObj->save();
+                                }else if($job == 'Nhà Hàng'){
+                                    $jobObj = new CompanyCompanyType;
+                                    $jobObj->company_type = 2;
+                                    $jobObj->company = $company->id;
+                                    $jobObj->save();
+                                }else if($job == 'Cửa hàng'){
+                                    $jobObj = new CompanyCompanyType;
+                                    $jobObj->company_type = 3;
+                                    $jobObj->company = $company->id;
+                                    $jobObj->save();
+                                }else if($job == 'Doanh nghiệp'){
+                                    $jobObj = new CompanyCompanyType;
+                                    $jobObj->company_type = 4;
+                                    $jobObj->company = $company->id;
+                                    $jobObj->save();
+                                }else if($job == 'Spa'){
+                                    $jobObj = new CompanyCompanyType;
+                                    $jobObj->company_type = 5;
+                                    $jobObj->company = $company->id;
+                                    $jobObj->save();
+                                }
+                            }
+                        }
+                    }
+
+                    return redirect()->action(
+                            'CompanyController@info', ['id' => $company->id]
+                        );
                 }
             }
-
-            return redirect()->action(
-                    'CompanyController@info', ['id' => $company->id]
-                );
         }
 
         return redirect()->back();
