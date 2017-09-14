@@ -127,10 +127,10 @@ class CompanyController extends Controller {
                 if ($input['description'] == null)
                     $input['description'] = '';
 
-                if($request['logo-image-field'] == ''){
+                if($request['logo-image-field'] != ''){
                     $input['logo'] = $request['logo-image-field'];
                 }
-                if($request['banner-image-field'] == ''){
+                if($request['banner-image-field'] != ''){
                     $input['banner'] = $request['banner-image-field'];
                 }
                 $input['images'] = $request['images-plus-field'];
