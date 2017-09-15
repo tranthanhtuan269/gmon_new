@@ -63,6 +63,9 @@ class HomeController extends Controller
             $city = (int)$_GET['city'];
         }
 
+        $partners = \App\Partner::take(5)->get();
+        // dd($partners);
+
         if($district > 0){
             // get district of city
             $district = \DB::table('districts')
@@ -297,7 +300,7 @@ class HomeController extends Controller
                 ->where('expiration_date', '=', date("d/m/Y", strtotime($this_day . ' +3 day')))
                 ->count();
 
-        return view('welcome', compact('jobcount0', 'jobcount1', 'jobcount2', 'jobcount3', 'cvcount' ,'districts', 'city', 'cvs', 'jobs', 'jobsvip1', 'jobsvip2', 'companies', 'company_id', 'cv_id'));
+        return view('welcome', compact('jobcount0', 'jobcount1', 'jobcount2', 'jobcount3', 'cvcount' ,'districts', 'city', 'cvs', 'jobs', 'jobsvip1', 'jobsvip2', 'companies', 'company_id', 'cv_id', 'partners'));
     }
 
     public function getDistrict($id){

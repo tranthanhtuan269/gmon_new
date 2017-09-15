@@ -101,3 +101,4 @@ Route::group(['middleware' => ['auth', 'roles'], 'roles' => 'master'], function 
     Route::get('apply/admin', 'ApplyController@admin');
 });
 Route::resource('branch', 'BranchController');
+Route::resource('master/partner', 'PartnerController');
