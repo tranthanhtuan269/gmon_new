@@ -33,6 +33,7 @@ class PostController extends Controller
             $post = \DB::table('posts')
                 ->join('categories', 'categories.id', '=', 'posts.category')
                 ->select('posts.id', 'posts.title', 'posts.image', 'posts.views', 'posts.active', 'posts.likes', 'categories.name as categoryName')
+                ->orderBy('posts.created_at', 'desc')
                 ->paginate($perPage);
         }
 
