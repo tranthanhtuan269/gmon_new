@@ -113,10 +113,6 @@
                                                     <div class="col-md-7">{{ $exp->ten_cong_ty }}</div>
                                                 </div>
                                                 <div class="row">
-                                                    <div class="col-md-5">Địa chỉ</div>
-                                                    <div class="col-md-7">{{ $exp->dia_chi_cong_ty }} - {{ $exp->quan_huyen }} - {{ $exp->thanh_pho }}</div>
-                                                </div>
-                                                <div class="row">
                                                     <div class="col-md-5">Thời gian làm</div>
                                                     <div class="col-md-7">Từ {{ $exp->thang_bat_dau_lam_viec }}/{{ $exp->nam_bat_dau_lam_viec }} Đến {{ $exp->thang_ket_thuc_lam_viec }}/{{ $exp->nam_ket_thuc_lam_viec }}</div>
                                                 </div>
