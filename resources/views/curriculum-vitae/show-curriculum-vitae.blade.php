@@ -273,7 +273,7 @@
                                                         $i++;
                                                         if($i%4 == 0) break;
                                             ?>
-                                            <div class="col-md-4"><img src="http://test.gmon.com.vn/?image={{ $image }}" width="100%" height="102"></div>
+                                            <div class="col-md-4"><img id="image-{{ $i }}" class="image-cv" data-id="{{ $i }}" src="http://test.gmon.com.vn/?image={{ $image }}" width="100%" height="102"></div>
                                             <?php 
                                             }
                                             }
@@ -418,7 +418,187 @@
         </div>
       </div>
     </div>
+    <!-- The Modal -->
+    <div id="myModal" class="modal">
+
+      <!-- The Close Button -->
+      <span class="previous_btn">&lt;</span>
+      <span class="next_btn">&gt;</span>
+      <span class="close">&times;</span>
+
+      <!-- Modal Content (The Image) -->
+      <img class="modal-content" id="img01">
+    </div>
+    <style type="text/css">
+
+        /* The Modal (background) */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgb(0,0,0); /* Fallback color */
+            background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
+        }
+
+        /* Modal Content (Image) */
+        .modal-content {
+            margin: auto;
+            display: block;
+            width: 80%;
+            max-width: 700px;
+        }
+
+        /* Caption of Modal Image (Image Text) - Same Width as the Image */
+        #caption {
+            margin: auto;
+            display: block;
+            width: 80%;
+            max-width: 700px;
+            text-align: center;
+            color: #ccc;
+            padding: 10px 0;
+            height: 150px;
+        }
+
+        /* Add Animation - Zoom in the Modal */
+        .modal-content, #caption { 
+            -webkit-animation-name: zoom;
+            -webkit-animation-duration: 0.6s;
+            animation-name: zoom;
+            animation-duration: 0.6s;
+        }
+
+        @-webkit-keyframes zoom {
+            from {-webkit-transform:scale(0)} 
+            to {-webkit-transform:scale(1)}
+        }
+
+        @keyframes zoom {
+            from {transform:scale(0)} 
+            to {transform:scale(1)}
+        }
+
+        /* The Close Button */
+        .next_btn {
+            position: relative;
+            top: 264px;
+            left: 1098px;
+            color: #f1f1f1;
+            font-size: 40px;
+            font-weight: bold;
+            transition: 0.3s;
+            z-index: 56;
+        }
+
+        .next_btn:hover,
+        .next_btn:focus {
+            color: #bbb;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        /* The Close Button */
+        .previous_btn {
+            position: relative;
+            top: 264px;
+            left: 200px; 
+            color: #f1f1f1;
+            font-size: 40px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .previous_btn:hover,
+        .previous_btn:focus {
+            color: #bbb;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        /* The Close Button */
+        .close {
+            position: absolute;
+            top: 15px;
+            right: 35px;
+            color: #f1f1f1;
+            font-size: 40px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #bbb;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        /* 100% Image Width on Smaller Screens */
+        @media only screen and (max-width: 700px){
+            .modal-content {
+                width: 100%;
+            }
+        }
+    </style>
     <script type="text/javascript">
+        var $curr_image = 1;
+        $('.image-cv').click(function(){
+            $('#myModal').show();
+            $curr_image = $(this).attr('data-id');
+            if($curr_image - 1 <= 0){
+                $('.previous_btn').hide();
+            }else{
+                $('.previous_btn').show();
+            }
+            if($curr_image >= $('.image-cv').length){
+                $('.next_btn').hide();
+            }else{
+                $('.next_btn').show();
+            }
+            $('#img01').attr('src', $(this).attr('src'));
+        });
+
+        // When the user clicks on <span> (x), close the modal
+        $('#img01').click(function() { 
+          $('#myModal').hide();
+        });
+
+        // When the user clicks on <span> (x), close the modal
+        $('.close').click(function() { 
+          $('#myModal').hide();
+        });
+
+        $('.previous_btn').click(function(){
+            $('#myModal').hide();
+            $curr_image--;
+            if($curr_image - 1 <= 0){
+                $(this).hide();
+            }else{
+                $(this).show();
+            }
+            $('.next_btn').show();
+            $('#img01').attr('src', $('#image-' + $curr_image).attr('src'));
+            $('#myModal').show();
+        });
+
+        $('.next_btn').click(function(){
+            $('#myModal').hide();
+            $curr_image++;
+            if($curr_image >= $('.image-cv').length){
+                $(this).hide();
+            }else{
+                $(this).show();
+            }
+            $('.previous_btn').show();
+            $('#img01').attr('src', $('#image-' + $curr_image).attr('src'));
+            $('#myModal').show();
+        });
+
         $(document).ready(function(){
             $('#inputDescription').click(function(){
                 if($('#inputDescription').val() == 'Nói cho mọi người biết điều bạn nghĩ về ứng viên'){
