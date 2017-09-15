@@ -485,8 +485,8 @@
 
         /* The Close Button */
         .next_btn {
-            position: relative;
-            top: 264px;
+            position: fixed;
+            top: 210px;
             left: 1098px;
             color: #f1f1f1;
             font-size: 40px;
@@ -504,8 +504,8 @@
 
         /* The Close Button */
         .previous_btn {
-            position: relative;
-            top: 264px;
+            position: fixed;
+            top: 205px;
             left: 200px; 
             color: #f1f1f1;
             font-size: 40px;
