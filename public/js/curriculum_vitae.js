@@ -4,6 +4,7 @@ $(document).ready(function () {
     });
     CKEDITOR.replace('interests');
     CKEDITOR.replace('references');
+    CKEDITOR.replace('career_objective');
     CKEDITOR.replace('active');
     var url_site = $('base').attr('href');
     var count_hoc_tap = 0;
@@ -888,17 +889,13 @@ $(document).ready(function () {
 
     $("#submit-btn").click(function () {
 
-        $('#career_objective').val('');
         $('#education').val('');
         $('#word_experience').val('');
 
         $('#active').val(CKEDITOR.instances['active'].getData());
         $('#references').val(CKEDITOR.instances['references'].getData());
+        $('#career_objective').val(CKEDITOR.instances['career_objective'].getData());
         $('#interests').val(CKEDITOR.instances['interests'].getData());
-
-        $.each($(".career_objective:checked"), function(){            
-            $('#career_objective').val($('#career_objective').val() + ';' + $( this ).attr('id'));
-        });
 
         $.each($(".form-hoc-tap-group"), function(){            
             if($(this).hasClass('removed')){
@@ -916,19 +913,21 @@ $(document).ready(function () {
             }
         });
 
-        // var listJobs = '';
-        // $('#jobs_hold>.dropdown-menu.inner>li.selected').each(function (index) {
-        //     listJobs += $(this).text() + ';';
-        // });
-        // $('#jobs').val(listJobs);
+        var listJobs = '';
+        $('#jobs_hold .dropdown-menu.inner li.selected').each(function (index) {
+            listJobs += $(this).text() + ';';
+        });
+        $('#jobs').val(listJobs);
 
-        // var listTimes = '';
-        // $('#time_can_work_hold>.dropdown-menu.inner>li.selected').each(function (index) {
-        //     listTimes += $(this).text() + ';';
-        // });
-        // $('#time_can_work').val(listTimes);
+        var listTimes = '';
+        $('#time_can_work_hold .dropdown-menu.inner li.selected').each(function (index) {
+            listTimes += $(this).text() + ';';
+        });
+        $('#time_can_work').val(listTimes);
 
-        // $('#salary_want').val($('#salary_select').val());
+        $('#salary').val($('#salary_select').val());
+
+        // return false;
         
         // render education
         if (!validateForm()) {

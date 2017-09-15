@@ -60,12 +60,6 @@
                                                         <div id="register" class="tab-pane fade">
                                                             <h3>ĐĂNG KÝ TÀI KHOẢN GMON NGAY !</h3>
                                                             <form method="post">
-                                                                <!-- <div class="row text-center">
-                                                                    <p>Tiếp tục với</p>
-                                                                    <a target="_self" href="#" class="facebook"><i></i> Facebook</a>
-                                                                    <a target="_self" href="#" class="google"><i></i> Google</a>
-                                                                    <span class="col-md-12" style="display: inline-block;margin-bottom: 30px"><hr style="float: left;width: 40%;margin-top: 25px">Hoặc<hr style="float: right;width: 40%;margin-top: 25px"></span>
-                                                                </div> -->
                                                                 <div class="row">
                                                                     <div class="col-md-6 form-group ">
                                                                         <input type="text" class="form-control" id="firstname" placeholder="Họ" required autofocus><span class="required">*</span>
@@ -224,21 +218,25 @@
                                     {!! $errors->first('city', '<p class="help-block">:message</p>') !!}
                                 </div>
                             </div>
-                            <div class="form-group {{ $errors->has('town') ? 'has-error' : ''}}">
-                                {!! Form::label('town', 'Xã / Phường', ['class' => 'col-md-5 control-label']) !!}
-                                <div class="col-md-7">
-                                    {!! Form::select('town', $towns, $cv_user->town_id, ['placeholder' => '', 'class' => 'form-control']) !!}
-                                    {!! $errors->first('town', '<p class="help-block">:message</p>') !!}
-                                </div>
-                            </div>
-                            <!-- <div class="form-group {{ $errors->has('salary') ? 'has-error' : ''}}">
+                            <div class="form-group {{ $errors->has('salary') ? 'has-error' : ''}}">
                                 {!! Form::label('birthday', 'Mức lương', ['class' => 'col-md-5 control-label']) !!}
                                 <div class="col-md-7">
                                     <input type="hidden" id="salary" name="salary" value="1">
-                                    {!! Form::select('salary', $salaries, $cv_user->salary_want, ['placeholder' => '', 'class' => 'form-control', 'id' => 'salary_select', 'name' => 'salary_select']) !!}
+                                    {!! Form::select('salary', $salaries, ($cv_user->salary_want == null) ? 4 : $cv_user->salary_want, ['placeholder' => '', 'class' => 'form-control']) !!}
                                     {!! $errors->first('salary', '<p class="help-block">:message</p>') !!}
                                 </div>
-                            </div> -->
+                            </div>
+                            <div class="form-group {{ $errors->has('jobs') ? 'has-error' : ''}}">
+                                <div class="col-md-12">
+                                    <input type="hidden" id="jobs" name="jobs" value="">
+                                    <select class="form-control selectpicker" multiple title="Chọn công việc">
+                                        @foreach($job_types as $key => $value)
+                                        <option value="{{ $key }}">{{ $value }}</option>
+                                        @endforeach
+                                    </select>
+                                    {!! $errors->first('jobs', '<p class="help-block">:message</p>') !!}
+                                </div>
+                            </div>
                         </div>
                         <div class="col-md-5">
                             <div class="form-group {{ $errors->has('gender') ? 'has-error' : ''}}">
@@ -263,7 +261,7 @@
                                     {!! $errors->first('address', '<p class="help-block">:message</p>') !!}
                                 </div>
                             </div>
-                            <!-- <div class="form-group {{ $errors->has('jobs') ? 'has-error' : ''}}">
+                            <div class="form-group {{ $errors->has('jobs') ? 'has-error' : ''}}">
                                 <div class="col-md-12">
                                     <input type="hidden" id="jobs" name="jobs" value="">
                                     <select class="form-control selectpicker" multiple title="Chọn Thời gian làm việc">
@@ -273,52 +271,9 @@
                                     </select>
                                     {!! $errors->first('jobs', '<p class="help-block">:message</p>') !!}
                                 </div>
-                            </div> -->
-                        </div>
-                        <div class="col-md-12">
-                            <div class="form-group {{ $errors->has('jobs') ? 'has-error' : ''}}">
-                                <div class="col-md-12">
-                                    <input type="hidden" id="jobs" name="jobs" value="">
-                                    <select class="form-control selectpicker" multiple title="Chọn công việc">
-                                        <option>Làm bán thời gian</option>
-                                        <option>Bán hàng</option>
-                                        <option>Marketing-PR</option>
-                                        <option>Bảo vệ</option>
-                                        <option>Du lịch</option>
-                                        <option>Sale/Marketing online</option>
-                                        <option>Promotion Girl(PG)</option>
-                                        <option>Thực tập</option>
-                                        <option>Phụ bếp</option>
-                                        <option>Người giúp việc</option>
-                                        <option>Bếp chính</option>
-                                        <option>Nhân viên spa</option>
-                                        <option>Pha chế</option>
-                                        <option>Bell man</option>
-                                        <option>Chăm sóc khách hàng</option>
-                                        <option>Giao nhận, ship</option>
-                                        <option>Kinh doanh</option>
-                                        <option>Hành chính nhân sự</option>
-                                        <option>Phiên dịch</option>
-                                        <option>Gia sư</option>
-                                        <option>Hướng dẫn viên</option>
-                                        <option>Giám sát, quản lý</option>
-                                        <option>Phục vụ, bồi bàn</option>
-                                        <option>Telesale</option>
-                                        <option>Cộng tác viên</option>
-                                        <option>Phụ bếp</option>
-                                        <option>Lễ tân</option>
-                                        <option>Thu ngân</option>
-                                        <option>Marketing online</option>
-                                        <option>Phát tờ rơi</option>
-                                        <option>Buồng phòng</option>
-                                        <option>Pha chế</option>
-                                        <option>Shipper</option>
-                                        <option>Kế toán</option>
-                                    </select>
-                                    {!! $errors->first('jobs', '<p class="help-block">:message</p>') !!}
-                                </div>
                             </div>
                         </div>
+                        {{ dd($cv_user->salary_want) }}
                     </div>
 
                     <div class="panel panel-default" id="qua_trinh_hoc_tap">
@@ -330,6 +285,7 @@
                                 $educations = explode(";",$cv_user->education);
                                 for($i = 0; $i < count($educations); $i++){
                                     $edu = json_decode($educations[$i]);
+                                    dd($edu);
                             ?>
                             <div class="form-hoc-tap-group first-form" id="hoc_tap_{{ $i }}">
                                 <input type="hidden" class="education_json" id="hoc_tap_{{ $i }}_json" value="{{ $educations[$i] }}">
