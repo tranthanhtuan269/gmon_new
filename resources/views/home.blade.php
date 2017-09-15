@@ -411,6 +411,17 @@
                 @endforeach
             </div>
             <div class="col-md-3 right">
+                <h3>Đối tác</h3>
+                @foreach($partners as $partner)
+                <div class="item">
+                  <a href="{{ $partner->link }}">
+                    <div class="image">
+                        <img src="{{ $partner->image }}" alt="" />
+                    </div>
+                  </a>
+                </div>
+                @endforeach
+                <hr>
                 <h3>Nhà tuyển dụng HOT</h3>
                 @foreach($companies as $company)
                 <div class="item">

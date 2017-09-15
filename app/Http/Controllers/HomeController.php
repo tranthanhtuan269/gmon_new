@@ -72,6 +72,8 @@ class HomeController extends Controller
             $postSelect = (int)$_GET['post'];
         }
 
+        $partners = \App\Partner::take(4)->get();
+
         $categories = \DB::table('categories')
             ->select('id', 'name')
             ->get();
@@ -117,7 +119,7 @@ class HomeController extends Controller
             ->select('companies.logo', 'companies.banner', 'jobs.name', 'companies.name as companyName', 'jobs.id')
             ->take(5)
             ->get();
-        return view('home', compact('categories', 'companies', 'jobs', 'posts', 'company_id', 'cv_id'));
+        return view('home', compact('categories', 'companies', 'jobs', 'posts', 'company_id', 'cv_id', 'partners'));
     }
 
     public function welcome()
