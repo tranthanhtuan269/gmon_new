@@ -103,8 +103,9 @@
                                             $exp = json_decode($word_experience);
                                         ?>
                                         <div class="row">
-                                            <div class="col-md-4"><img src="{{ $exp->company_image }}" width="100%"></div>
-                                            <div class="col-md-8">
+
+                                            <!-- <div class="col-md-4"><img src="{{ $exp->company_image }}" width="100%"></div> -->
+                                            <div class="col-md-12">
                                                 <div class="row">
                                                     <div class="col-md-5">Vị trí công việc</div>
                                                     <div class="col-md-7">{{ $exp->vi_tri }}</div>
