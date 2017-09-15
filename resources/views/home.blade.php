@@ -411,6 +411,7 @@
                 @endforeach
             </div>
             <div class="col-md-3 right">
+              @if(count($partners) > 0)
                 <h3>Đối tác</h3>
                 @foreach($partners as $partner)
                 <div class="item">
@@ -422,6 +423,7 @@
                 </div>
                 @endforeach
                 <hr>
+              @endif
                 <h3>Nhà tuyển dụng HOT</h3>
                 @foreach($companies as $company)
                 <div class="item">
