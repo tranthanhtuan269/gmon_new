@@ -103,8 +103,6 @@
                                             $exp = json_decode($word_experience);
                                         ?>
                                         <div class="row">
-
-                                            <!-- <div class="col-md-4"><img src="{{ $exp->company_image }}" width="100%"></div> -->
                                             <div class="col-md-12">
                                                 <div class="row">
                                                     <div class="col-md-5">Vị trí công việc</div>
@@ -122,10 +120,6 @@
                                                     <div class="col-md-5">Thời gian làm</div>
                                                     <div class="col-md-7">Từ {{ $exp->thang_bat_dau_lam_viec }}/{{ $exp->nam_bat_dau_lam_viec }} Đến {{ $exp->thang_ket_thuc_lam_viec }}/{{ $exp->nam_ket_thuc_lam_viec }}</div>
                                                 </div>
-                                                <!-- <div class="row">
-                                                    <div class="col-md-5">Mô tả công việc</div>
-                                                    <div class="col-md-7"><?php echo $exp->mo_ta; ?></div>
-                                                </div> -->
                                             </div>
                                         </div>
                                         <hr>
