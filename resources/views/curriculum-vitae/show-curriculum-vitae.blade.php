@@ -187,11 +187,22 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="panel">
-                                    <div class="panel-heading">Sở thích / Tính cách</div>
+                                    <div class="panel-heading">Sở thích</div>
                                     <div class="panel-body">
                                         <div class="row">
-                                            <div class="col-md-6"><?php echo $curriculumvitae->interests; ?></div>
-                                            <div class="col-md-6"><?php echo $curriculumvitae->references; ?></div>
+                                            <div class="col-md-12"><?php echo $curriculumvitae->interests; ?></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="panel">
+                                    <div class="panel-heading">Tính cách</div>
+                                    <div class="panel-body">
+                                        <div class="row">
+                                            <div class="col-md-12"><?php echo $curriculumvitae->references; ?></div>
                                         </div>
                                     </div>
                                 </div>
