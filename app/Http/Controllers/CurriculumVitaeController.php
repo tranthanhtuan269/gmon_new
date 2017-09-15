@@ -422,7 +422,6 @@ class CurriculumVitaeController extends Controller
     }
     
     public function storeCurriculumVitae(Request $request) {
-        dd($request);
         $img_avatar = '';
         if ($request->hasFile('avatar-img')) {
             $file_avatar = $request->file('avatar-img');
