@@ -112,6 +112,7 @@
                                                                 <div class="text-center">
                                                                     <div id="login-btn" class="btn btn-primary">ĐĂNG NHẬP</div>
                                                                 </div>
+                                                                <p class="text-center text-danger" id="login-message" style="display: none;">Tài khoản không chính xác!</p>
                                                                 <hr>
                                                                 <p class="text-center">Hoặc đăng nhập nhanh bằng</p>
                                                                 <div class="row text-center">
@@ -654,7 +655,9 @@
                 request.done(function (msg) {
                     if(msg.code == 200) {
                         location.reload();
-                   }
+                    }else{
+                        $('#login-message').show();
+                    }
                 });
 
                 request.fail(function (jqXHR, textStatus) {
