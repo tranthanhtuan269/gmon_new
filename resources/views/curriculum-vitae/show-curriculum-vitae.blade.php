@@ -215,9 +215,11 @@
                                     <div class="panel-heading">Mục đích làm việc?</div>
                                     <div class="panel-body">
                                         <div class="row">
-                                        <?php 
-                                            echo $curriculumvitae->career_objective;
-                                        ?>
+                                            <div class="col-md-12">
+                                            <?php 
+                                                echo $curriculumvitae->career_objective;
+                                            ?>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
