@@ -216,38 +216,7 @@
                                     <div class="panel-body">
                                         <div class="row">
                                         <?php 
-                                            $curriculumvitae->career_objective = ltrim($curriculumvitae->career_objective, ';');
-                                            $career_objectives = explode(";",$curriculumvitae->career_objective);
-                                            foreach ($career_objectives as $career_objective) {
-                                                switch ($career_objective) {
-                                                    case 'career_objective_0':
-                                                        echo '<div class="col-md-12">- Muốn được trải nghiệm trong môi trường làm việc tại Doanh nghiệp!</div>';
-                                                        break;
-                                                    case 'career_objective_1':
-                                                        echo '<div class="col-md-12">- Học hỏi kinh nghiệm và các kỹ năng xử lý tình huống trong công việc!</div>';
-                                                        break;
-                                                    case 'career_objective_2':
-                                                        echo '<div class="col-md-12">- Rèn luyện thêm khả năng giao tiếp!</div>';
-                                                        break;
-                                                    case 'career_objective_3':
-                                                        echo '<div class="col-md-12">- Rèn luyện tác phong làm việc chuyên nghiệp!</div>';
-                                                        break;
-                                                    case 'career_objective_4':
-                                                        echo '<div class="col-md-12">- Thử đi làm thêm để trải nghiệm!</div>';
-                                                        break;
-                                                    case 'career_objective_5':
-                                                        echo '<div class="col-md-12">- Kiếm thêm thu nhập để đi du lịch!</div>';
-                                                        break;
-                                                    case 'career_objective_6':
-                                                        echo '<div class="col-md-12">- Kiếm thêm thu nhập trang trải chi tiêu cá nhân!</div>';
-                                                        break;
-                                                    case 'career_objective_7':
-                                                        echo '<div class="col-md-12">- Kiếm thêm thu nhập hỗ trợ gia đình!</div>';
-                                                        break;
-                                                    default:
-                                                        break;
-                                                }
-                                            }
+                                            echo $curriculumvitae->career_objective;
                                         ?>
                                         </div>
                                     </div>
