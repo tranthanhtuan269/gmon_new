@@ -403,7 +403,7 @@
     <style type="text/css">
 
         /* The Modal (background) */
-        .modal {
+        #myModal.modal {
             display: none; /* Hidden by default */
             position: fixed; /* Stay in place */
             z-index: 1; /* Sit on top */
@@ -417,7 +417,7 @@
         }
 
         /* Modal Content (Image) */
-        .modal-content {
+        #myModal .modal-content {
             margin: auto;
             display: block;
             width: 80%;
@@ -437,7 +437,7 @@
         }
 
         /* Add Animation - Zoom in the Modal */
-        .modal-content, #caption { 
+        #myModal .modal-content, #caption { 
             -webkit-animation-name: zoom;
             -webkit-animation-duration: 0.6s;
             animation-name: zoom;
