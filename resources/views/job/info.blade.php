@@ -666,6 +666,7 @@
             });
 
             $('#register-btn').click(function(){
+                $('#register-btn').off('click');
                 var username = $('#username').val();
                 var registersdt = $('#sdt').val();
                 var registerEmail = $('#register-email').val();
@@ -693,6 +694,7 @@
                 });
 
                 request.done(function (msg) {
+                    $('#register-btn').off('click');
                     if (msg.code == 200) {
                         location.reload();
                     }else if(msg.code == 201) {
