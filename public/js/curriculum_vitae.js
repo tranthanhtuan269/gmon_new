@@ -67,7 +67,6 @@ $(document).ready(function () {
         $('#trinh_do_ngoai_ngu').val('');
     });
     function validate_kinh_nghiem_cu(id) {
-        console.log(id);
         if ($('#ten_cong_ty_' + id).val().length <= 0) {
             swal("Tên công ty không được để trống!", "Xin hãy điền Tên công ty!");
             return false;
@@ -390,8 +389,6 @@ $(document).ready(function () {
             swal("Nơi học không được để trống!", "Xin hãy điền Nơi học!");
             return false;
         }
-
-
 
         if ($("input[name='bang_cap_" + id + "']:checked").val() == 0) {
             if ($("input[name='student_process_" + id + "']:checked").val() == 1) {
@@ -898,17 +895,13 @@ $(document).ready(function () {
         $('#interests').val(CKEDITOR.instances['interests'].getData());
 
         $.each($(".form-hoc-tap-group"), function(){            
-            if($(this).hasClass('removed')){
-                // next
-            }else{
+            if(!$(this).hasClass('removed')){
                 $('#education').val($('#education').val() + ';' + $(this).find(".education_json").val());
             }
         });
 
         $.each($(".form-kinh-nghiem-group"), function(){            
-            if($(this).hasClass('removed')){
-                // next
-            }else{
+            if(!$(this).hasClass('removed')){
                 $('#word_experience').val($('#word_experience').val() + ';' + $(this).find(".word_experience_json").val());
             }
         });
@@ -927,9 +920,6 @@ $(document).ready(function () {
 
         $('#salary').val($('#salary_select').val());
 
-        // return false;
-        
-        // render education
         if (!validateForm()) {
             return false;
         }
@@ -972,7 +962,6 @@ $(document).ready(function () {
         if(student_process!=0){
             ret_arr['loai_tot_nghiep'] = $('#loai_tot_nghiep_'+id + ' option:selected').text();
         }
-        // $('#education').val($('#education').val() + ';' + JSON.stringify(ret_arr));
         $('#hoc_tap_' + id + '_json').val(JSON.stringify(ret_arr));
     };
     function renderJsonKinhNghiem(id){
@@ -983,14 +972,7 @@ $(document).ready(function () {
         ret_arr['nam_bat_dau_lam_viec'] = $('#nam_bat_dau_lam_viec_'+id).val();
         ret_arr['thang_ket_thuc_lam_viec'] = $('#thang_ket_thuc_lam_viec_'+id).val();
         ret_arr['nam_ket_thuc_lam_viec'] = $('#nam_ket_thuc_lam_viec_'+id).val();
-        ret_arr['dia_chi_cong_ty'] = $('#dia_chi_cong_ty_'+id).val();
-        ret_arr['thanh_pho_id'] = $('#thanh_pho_'+id + ' option:selected').val();
-        ret_arr['thanh_pho'] = $('#thanh_pho_'+id + ' option:selected').text();
-        ret_arr['quan_huyen_id'] = $('#quan_huyen_'+id + ' option:selected').val();
-        ret_arr['quan_huyen'] = $('#quan_huyen_'+id + ' option:selected').text();
         ret_arr['mo_ta'] = $('#mo_ta_'+id).val();
-        ret_arr['company_image'] = $('#company_image_'+id).attr('src');
-        // $('#word_experience').val($('#word_experience').val() + ';' + JSON.stringify(ret_arr));
         $('#kinh_nghiem_lam_viec_' + id + '_json').val(JSON.stringify(ret_arr));
     };
     function renderJsonNgoaiNgu(){
