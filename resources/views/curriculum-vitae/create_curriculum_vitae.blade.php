@@ -215,7 +215,7 @@
                             <div class="form-group {{ $errors->has('city') ? 'has-error' : ''}}">
                                 {!! Form::label('city', 'Tỉnh / Thành phố', ['class' => 'col-md-5 control-label']) !!}
                                 <div class="col-md-7">
-                                    <select class="form-control col-md-2" class="city" id="city">
+                                    <select class="form-control col-md-2" class="city" id="city" name="city">
                                         <option value="0">--Chọn Tỉnh / Thành phố --</option>
                                         @foreach($cities as $key => $value)
                                         <option value="{{ $key }}">{{ $value }}</option>
