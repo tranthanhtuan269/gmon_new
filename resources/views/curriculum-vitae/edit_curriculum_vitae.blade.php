@@ -122,6 +122,7 @@
                         <div class="panel-body">
                             <input type="hidden" name="education" id="education" value="">
                             <?php 
+                                if(strlen($cv_user->education) > 3){
                                 $cv_user->education=ltrim($cv_user->education,";");
                                 $educations = explode(";",$cv_user->education);
                                 for($i = 0; $i < count($educations); $i++){
@@ -196,6 +197,92 @@
                             </div>
                             <?php
                                 }
+                            }else{
+                                ?>
+                            <div class="form-hoc-tap-group first-form" id="hoc_tap_0">
+                                <input type="hidden" class="education_json" id="hoc_tap_0_json" value="">
+                                <div id='hoc_tap_0_content'>
+                                    <div class="form-group">
+                                        <div class="col-md-12">
+                                            <label class="col-md-2"><input type="radio" class='bang_cap' name="bang_cap_0" value="0" checked> Chứng chỉ</label>
+                                            <label class="col-md-5"><input type="radio" class='bang_cap' name="bang_cap_0" value="1">Sau Đại học / Đại học / Cao đẳng / Trung cấp</label>
+                                            <label class="col-md-5"><input type="radio" class='bang_cap' name="bang_cap_0" value="2">Tiểu học / Trung học</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="birthday" class="col-md-2 control-label">Học tại</label>
+                                        <div class="col-md-4">
+                                            <input type="text" name="school" class="form-control truong_hoc" id="truong_hoc_0" placeholder="Nhập tên trường, trung tâm học">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="col-sm-offset-2"><input type="radio" class="student_process" name="student_process_0" value="0" checked>Đang học</label>
+                                            <label class="col-sm-offset-2"><input type="radio" class="student_process" name="student_process_0" value="1">Đã tốt nghiệp</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="birthday" class="col-md-2 control-label">Thời gian học</label>
+                                        <div class="col-md-1">
+                                            <label for="birthday" class="col-md-2 control-label">Từ:</label>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <select class="form-control col-md-2" class="thang_bat_dau" id="thang_bat_dau_0">
+                                                @foreach($months as $key => $value)
+                                                <option value="{{ $key }}">{{ $value }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <select class="form-control col-md-2" class="nam_bat_dau" id="nam_bat_dau_0">
+                                                @foreach($years as $key => $value)
+                                                <option value="{{ $key }}">{{ $value }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div class="col-md-1 learn-to-0" style="display: none;">
+                                            <label for="birthday" class="col-md-2 control-label">Đến:</label>
+                                        </div>
+                                        <div class="col-md-2 learn-to-0" style="display: none;">
+                                            <select class="form-control col-md-2" class="thang_ket_thuc" id="thang_ket_thuc_0">
+                                                @foreach($months as $key => $value)
+                                                <option value="{{ $key }}">{{ $value }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div class="col-md-2 learn-to-0" style="display: none;">
+                                            <select class="form-control col-md-2" class="nam_ket_thuc" id="nam_ket_thuc_0">
+                                                @foreach($years as $key => $value)
+                                                <option value="{{ $key }}">{{ $value }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="chuyen_nganh" class="col-md-2 control-label"><div id="chuyen_nganh_0_label">Chuyên ngành</div></label>
+                                        <div class="col-md-5">
+                                            <input type="text" class="form-control" class="chuyen_nganh" id="chuyen_nganh_0">
+                                        </div>
+                                        <label for="loai_tot_nghiep_0" class="col-md-2 control-label"><span  id="loai_tot_nghiep_0_label" style="display:none;">Tốt nghiệp loại</span></label>
+                                        <div class="col-md-3">
+                                            <select class="form-control loai_tot_nghiep" id="loai_tot_nghiep_0" style="display:none;">
+                                                @foreach($loaitotnghieps as $key => $value)
+                                                <option value="{{ $key }}">{{ $value }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class='col-md-8'>
+                                        <p id='truong_hoc_0_txt' class='truong-hoc-hide'></p>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class='btn btn-primary pull-right hoc_tap_edit-btn' id='edit_0' style='display:none;'>Chỉnh sửa</div>
+                                        <div class="btn btn-primary pull-right hoc_tap_success-btn" id='success_0'>Hoàn thành</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <?php
+                            }
                             ?>
                         </div>
                         <div class="text-center"><div class="btn btn-link" id="them_moi_hoc_tap"> + Thêm mới</div></div>
@@ -393,7 +480,7 @@
                             <div class="form-ngon-ngu-group">
                                 <div class="form-group" id="ngoai_ngu_content">
                                 <?php 
-                                    if(strlen($cv_user->language) > 1){
+                                    if(strlen($cv_user->language) > 3){
                                     $cv_user->language=ltrim($cv_user->language,";");
                                     $languages = explode(";",$cv_user->language);
                                     for($i = 0; $i < count($languages); $i++){
