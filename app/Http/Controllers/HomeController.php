@@ -78,7 +78,7 @@ class HomeController extends Controller
 
         if($categorySelect == 0){
             if($postSelect > 0){
-                $posts = $post->getPosts(null, $postSelect, 0, $number_get);
+                $posts = $post->getPosts(null, $postSelect, 0, 1);
             }else{
                 $posts = $post->getPosts(null, null, 0, $number_get);
             }

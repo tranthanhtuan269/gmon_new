@@ -537,32 +537,34 @@
   var $numberGet = 3;
   var $currentPossion = 0;
   var $newPossion = 0;
-  $(window).scroll(function (event) {
-      var scroll = $(window).scrollTop();
-      $newPossion = scroll;
-      if($newPossion - $currentPossion > 680){
-          $currentPossion = $newPossion;
-          $('.mass-content').show();
-          $('.loader').show();
-          var request = $.ajax({
-              url: "{{ URL::to('/') }}/getPost/?start=" + $currentPost + "&number=" + $numberGet + "<?php if(strlen(parse_url(url('/') . $_SERVER['REQUEST_URI'], PHP_URL_QUERY)) > 0){ echo '&'.parse_url(url('/') . $_SERVER['REQUEST_URI'], PHP_URL_QUERY); } ?>",
-              method: "GET",
-              dataType: "json"
-          });
-          request.done(function (msg) {
-              $('.mass-content').hide();
-              $('.loader').hide();
-              if(msg['code'] == 200){
-                  var $html = '';
-                  $currentPost += $numberGet;
-                  $('.main-content-news .middle').append(msg['posts']);
-              }
-          });
-          request.fail(function (jqXHR, textStatus) {
-              alert("Request failed: " + textStatus);
-          });
-      }
-  });
+  @if(!isset($_GET['post']))
+    $(window).scroll(function (event) {
+        var scroll = $(window).scrollTop();
+        $newPossion = scroll;
+        if($newPossion - $currentPossion > 680){
+            $currentPossion = $newPossion;
+            $('.mass-content').show();
+            $('.loader').show();
+            var request = $.ajax({
+                url: "{{ URL::to('/') }}/getPost/?start=" + $currentPost + "&number=" + $numberGet + "<?php if(strlen(parse_url(url('/') . $_SERVER['REQUEST_URI'], PHP_URL_QUERY)) > 0){ echo '&'.parse_url(url('/') . $_SERVER['REQUEST_URI'], PHP_URL_QUERY); } ?>",
+                method: "GET",
+                dataType: "json"
+            });
+            request.done(function (msg) {
+                $('.mass-content').hide();
+                $('.loader').hide();
+                if(msg['code'] == 200){
+                    var $html = '';
+                    $currentPost += $numberGet;
+                    $('.main-content-news .middle').append(msg['posts']);
+                }
+            });
+            request.fail(function (jqXHR, textStatus) {
+                alert("Request failed: " + textStatus);
+            });
+        }
+    });
+  @endif
     function onCloseModalLogin() {
         $("#myModal").modal('toggle');
     }
