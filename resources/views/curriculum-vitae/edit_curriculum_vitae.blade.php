@@ -207,7 +207,7 @@
                         <div class="panel-body">
                                 <input type="hidden" name="word_experience" id="word_experience" value="">
                             <?php 
-                                if(strlen($cv_user->word_experience) > 1){
+                                if(strlen($cv_user->word_experience) > 3){
                                 $cv_user->word_experience=ltrim($cv_user->word_experience,";");
                                 if(substr($cv_user->word_experience, -1) == ';'){
                                     $cv_user->word_experience=rtrim($cv_user->word_experience,";");
