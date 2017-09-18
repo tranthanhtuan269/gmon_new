@@ -621,6 +621,7 @@
     }
 
     function registerFunc(){
+      $('#register-btn').off('click');
       $('#register-message').val('');
       var username = $('#username').val();
       var registersdt = $('#sdt').val();
@@ -664,6 +665,7 @@
           });
 
           request.done(function (msg) {
+            $('#register-btn').on('click');
               if(msg.code == 200) {
                   location.reload();
                   // window.location.replace("{{ url('/') }}");

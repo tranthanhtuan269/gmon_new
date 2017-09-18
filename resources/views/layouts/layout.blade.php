@@ -283,6 +283,7 @@
                 });
 
                 $('#register-btn').click(function () {
+                    $('#register-btn').off('click');
                     $('#register-message').hide();
                     var username = $('#username').val();
                     var registersdt = $('#sdt').val();
@@ -311,6 +312,7 @@
                     });
 
                     request.done(function (msg) {
+                        $('#register-btn').on('click');
                         if (msg.code == 200) {
                             location.reload();
                         }else if(msg.code == 201) {

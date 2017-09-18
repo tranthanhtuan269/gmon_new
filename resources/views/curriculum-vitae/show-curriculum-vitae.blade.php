@@ -63,22 +63,22 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-md-4">Thời gian học </div>
-                                            <div class="col-md-4">Từ {{ $edu->thang_bat_dau }}/{{ $edu->nam_bat_dau }} </div>
-                                            <div class="col-md-4">@if( $edu->student_process == 0) Đến nay @else Đến {{ $edu->thang_ket_thuc }}/{{ $edu->nam_ket_thuc }} @endif </div>
+                                            <div class="col-md-4">Từ {{ ($edu->thang_bat_dau > 0 && $edu->thang_bat_dau < 10) ? '0' . $edu->thang_bat_dau . '/' : '' }}{{ ($edu->thang_bat_dau > 0 && $edu->thang_bat_dau > 9) ? '' . $edu->thang_bat_dau . '/' : '' }}{{ $edu->nam_bat_dau }} </div>
+                                            <div class="col-md-4">@if( $edu->student_process == 0) Đến nay @else Đến {{ ($edu->thang_ket_thuc > 0 && $edu->thang_ket_thuc < 10) ? '0' . $edu->thang_ket_thuc . '/' : '' }}{{ ($edu->thang_ket_thuc > 0 && $edu->thang_ket_thuc > 9) ? '' . $edu->thang_ket_thuc . '/' : '' }}{{ $edu->nam_ket_thuc }} @endif </div>
                                         </div>
-                                        @if( $edu->bang_cap != 2)
+                                        @if( $edu->bang_cap != 2 && $edu->chuyen_nganh != "")
                                         <div class="row">
                                             <div class="col-md-4">Chuyên ngành </div>
                                             <div class="col-md-8">{{ $edu->chuyen_nganh }} </div>
                                         </div>
                                         @endif
-                                        @if(isset($edu->loai_tot_nghiep))
+                                        @if(isset($edu->loai_tot_nghiep) && $edu->loai_tot_nghiep != "--Chọn loại tốt nghiệp--")
                                         <div class="row">
                                             <div class="col-md-4">Thành tích học tập </div>
                                             <div class="col-md-8">{{ $edu->loai_tot_nghiep }}</div>
                                         </div>
-                                        <hr>
                                         @endif
+                                        <hr>
                                         <?php 
                                             }
                                         ?>
@@ -103,8 +103,7 @@
                                             $exp = json_decode($word_experience);
                                         ?>
                                         <div class="row">
-                                            <div class="col-md-4"><img src="{{ $exp->company_image }}" width="100%"></div>
-                                            <div class="col-md-8">
+                                            <div class="col-md-12">
                                                 <div class="row">
                                                     <div class="col-md-5">Vị trí công việc</div>
                                                     <div class="col-md-7">{{ $exp->vi_tri }}</div>
@@ -114,16 +113,8 @@
                                                     <div class="col-md-7">{{ $exp->ten_cong_ty }}</div>
                                                 </div>
                                                 <div class="row">
-                                                    <div class="col-md-5">Địa chỉ</div>
-                                                    <div class="col-md-7">{{ $exp->dia_chi_cong_ty }} - {{ $exp->quan_huyen }} - {{ $exp->thanh_pho }}</div>
-                                                </div>
-                                                <div class="row">
                                                     <div class="col-md-5">Thời gian làm</div>
                                                     <div class="col-md-7">Từ {{ $exp->thang_bat_dau_lam_viec }}/{{ $exp->nam_bat_dau_lam_viec }} Đến {{ $exp->thang_ket_thuc_lam_viec }}/{{ $exp->nam_ket_thuc_lam_viec }}</div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-md-5">Mô tả công việc</div>
-                                                    <div class="col-md-7"><?php echo $exp->mo_ta; ?></div>
                                                 </div>
                                             </div>
                                         </div>
@@ -196,11 +187,22 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="panel">
-                                    <div class="panel-heading">Sở thích / Tính cách</div>
+                                    <div class="panel-heading">Sở thích</div>
                                     <div class="panel-body">
                                         <div class="row">
-                                            <div class="col-md-6"><?php echo $curriculumvitae->interests; ?></div>
-                                            <div class="col-md-6"><?php echo $curriculumvitae->references; ?></div>
+                                            <div class="col-md-12"><?php echo $curriculumvitae->interests; ?></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="panel">
+                                    <div class="panel-heading">Tính cách</div>
+                                    <div class="panel-body">
+                                        <div class="row">
+                                            <div class="col-md-12"><?php echo $curriculumvitae->references; ?></div>
                                         </div>
                                     </div>
                                 </div>
@@ -213,40 +215,11 @@
                                     <div class="panel-heading">Mục đích làm việc?</div>
                                     <div class="panel-body">
                                         <div class="row">
-                                        <?php 
-                                            $curriculumvitae->career_objective = ltrim($curriculumvitae->career_objective, ';');
-                                            $career_objectives = explode(";",$curriculumvitae->career_objective);
-                                            foreach ($career_objectives as $career_objective) {
-                                                switch ($career_objective) {
-                                                    case 'career_objective_0':
-                                                        echo '<div class="col-md-12">- Muốn được trải nghiệm trong môi trường làm việc tại Doanh nghiệp!</div>';
-                                                        break;
-                                                    case 'career_objective_1':
-                                                        echo '<div class="col-md-12">- Học hỏi kinh nghiệm và các kỹ năng xử lý tình huống trong công việc!</div>';
-                                                        break;
-                                                    case 'career_objective_2':
-                                                        echo '<div class="col-md-12">- Rèn luyện thêm khả năng giao tiếp!</div>';
-                                                        break;
-                                                    case 'career_objective_3':
-                                                        echo '<div class="col-md-12">- Rèn luyện tác phong làm việc chuyên nghiệp!</div>';
-                                                        break;
-                                                    case 'career_objective_4':
-                                                        echo '<div class="col-md-12">- Thử đi làm thêm để trải nghiệm!</div>';
-                                                        break;
-                                                    case 'career_objective_5':
-                                                        echo '<div class="col-md-12">- Kiếm thêm thu nhập để đi du lịch!</div>';
-                                                        break;
-                                                    case 'career_objective_6':
-                                                        echo '<div class="col-md-12">- Kiếm thêm thu nhập trang trải chi tiêu cá nhân!</div>';
-                                                        break;
-                                                    case 'career_objective_7':
-                                                        echo '<div class="col-md-12">- Kiếm thêm thu nhập hỗ trợ gia đình!</div>';
-                                                        break;
-                                                    default:
-                                                        break;
-                                                }
-                                            }
-                                        ?>
+                                            <div class="col-md-12">
+                                            <?php 
+                                                echo $curriculumvitae->career_objective;
+                                            ?>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -271,7 +244,7 @@
                                                         $i++;
                                                         if($i%4 == 0) break;
                                             ?>
-                                            <div class="col-md-4"><img src="http://test.gmon.com.vn/?image={{ $image }}" width="100%" height="102"></div>
+                                            <div class="col-md-4"><img id="image-{{ $i }}" class="image-cv" data-id="{{ $i }}" src="http://test.gmon.com.vn/?image={{ $image }}" width="100%" height="102"></div>
                                             <?php 
                                             }
                                             }
@@ -416,7 +389,187 @@
         </div>
       </div>
     </div>
+    <!-- The Modal -->
+    <div id="myModal" class="modal">
+
+      <!-- The Close Button -->
+      <span class="previous_btn">&lt;</span>
+      <span class="next_btn">&gt;</span>
+      <span class="close">&times;</span>
+
+      <!-- Modal Content (The Image) -->
+      <img class="modal-content" id="img01">
+    </div>
+    <style type="text/css">
+
+        /* The Modal (background) */
+        #myModal.modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgb(0,0,0); /* Fallback color */
+            background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
+        }
+
+        /* Modal Content (Image) */
+        #myModal .modal-content {
+            margin: auto;
+            display: block;
+            width: 80%;
+            max-width: 700px;
+        }
+
+        /* Caption of Modal Image (Image Text) - Same Width as the Image */
+        #caption {
+            margin: auto;
+            display: block;
+            width: 80%;
+            max-width: 700px;
+            text-align: center;
+            color: #ccc;
+            padding: 10px 0;
+            height: 150px;
+        }
+
+        /* Add Animation - Zoom in the Modal */
+        #myModal .modal-content, #caption { 
+            -webkit-animation-name: zoom;
+            -webkit-animation-duration: 0.6s;
+            animation-name: zoom;
+            animation-duration: 0.6s;
+        }
+
+        @-webkit-keyframes zoom {
+            from {-webkit-transform:scale(0)} 
+            to {-webkit-transform:scale(1)}
+        }
+
+        @keyframes zoom {
+            from {transform:scale(0)} 
+            to {transform:scale(1)}
+        }
+
+        /* The Close Button */
+        .next_btn {
+            position: fixed;
+            top: 210px;
+            left: 1098px;
+            color: #f1f1f1;
+            font-size: 40px;
+            font-weight: bold;
+            transition: 0.3s;
+            z-index: 56;
+        }
+
+        .next_btn:hover,
+        .next_btn:focus {
+            color: #bbb;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        /* The Close Button */
+        .previous_btn {
+            position: fixed;
+            top: 205px;
+            left: 200px; 
+            color: #f1f1f1;
+            font-size: 40px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .previous_btn:hover,
+        .previous_btn:focus {
+            color: #bbb;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        /* The Close Button */
+        .close {
+            position: absolute;
+            top: 15px;
+            right: 35px;
+            color: #f1f1f1;
+            font-size: 40px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #bbb;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        /* 100% Image Width on Smaller Screens */
+        @media only screen and (max-width: 700px){
+            .modal-content {
+                width: 100%;
+            }
+        }
+    </style>
     <script type="text/javascript">
+        var $curr_image = 1;
+        $('.image-cv').click(function(){
+            $('#myModal').show();
+            $curr_image = $(this).attr('data-id');
+            if($curr_image - 1 <= 0){
+                $('.previous_btn').hide();
+            }else{
+                $('.previous_btn').show();
+            }
+            if($curr_image >= $('.image-cv').length){
+                $('.next_btn').hide();
+            }else{
+                $('.next_btn').show();
+            }
+            $('#img01').attr('src', $(this).attr('src'));
+        });
+
+        // When the user clicks on <span> (x), close the modal
+        $('#img01').click(function() { 
+          $('#myModal').hide();
+        });
+
+        // When the user clicks on <span> (x), close the modal
+        $('.close').click(function() { 
+          $('#myModal').hide();
+        });
+
+        $('.previous_btn').click(function(){
+            $('#myModal').hide();
+            $curr_image--;
+            if($curr_image - 1 <= 0){
+                $(this).hide();
+            }else{
+                $(this).show();
+            }
+            $('.next_btn').show();
+            $('#img01').attr('src', $('#image-' + $curr_image).attr('src'));
+            $('#myModal').show();
+        });
+
+        $('.next_btn').click(function(){
+            $('#myModal').hide();
+            $curr_image++;
+            if($curr_image >= $('.image-cv').length){
+                $(this).hide();
+            }else{
+                $(this).show();
+            }
+            $('.previous_btn').show();
+            $('#img01').attr('src', $('#image-' + $curr_image).attr('src'));
+            $('#myModal').show();
+        });
+
         $(document).ready(function(){
             $('#inputDescription').click(function(){
                 if($('#inputDescription').val() == 'Nói cho mọi người biết điều bạn nghĩ về ứng viên'){

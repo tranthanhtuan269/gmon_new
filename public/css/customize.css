@@ -338,3 +338,11 @@ img.no-vote{
 .homepage header .header-top .tab-content select#areyou{
     margin-left: 0;
 }
+
+.bootstrap-select.btn-group .dropdown-menu li{
+    width: 100%;
+}
+
+.show-curriculum-vitae-page .panel-body li{
+    margin: 0 0 0 15px;
+}

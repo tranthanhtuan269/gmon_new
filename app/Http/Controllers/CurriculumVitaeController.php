@@ -90,8 +90,6 @@ class CurriculumVitaeController extends Controller
                 ->orderby('curriculum_vitaes.created_at', 'desc')
                 ->get();
 
-                // dd($curriculumvitaes);
-
         return view('curriculum-vitae.index_curriculum_vitae', compact('curriculumvitaes', 'curriculumvitaes2'));
     }
 
@@ -162,19 +160,19 @@ class CurriculumVitaeController extends Controller
             $input['images'] = $allPic;
         }
 
-        
-
         unset($input['avatar-img']);
         unset($input['images-img']);
         unset($input['bang_cap_0']);
         unset($input['student_process_0']);
 
+        $input['avatar'] = $img_avatar;
+        $input['images'] = $allPic;
+        $input['time_can_work'] = $request['time_can_work'];
+        $input['jobs'] = $request['jobs'];
+        $input['salary_want'] = $request['salary_want'];
         
-        
-        $input['active'] = $input['active'];
         $input['user'] = \Auth::user()->id;
         $input['updated_at'] = date("Y-m-d H:i:s");
-
 
         $curriculumvitae = CurriculumVitae::findOrFail($id);
         
@@ -318,8 +316,29 @@ class CurriculumVitaeController extends Controller
             $user_info = \Auth::user()->getUserInfo();
             $company_id = $user_info['company_id'];
             $cv_id = $user_info['cv_id'];
+            
+            $cities = \App\City::pluck('name', 'id');
+            $districts = \App\District::pluck('name', 'id');
+            $salaries = \App\Salary::pluck('name', 'id');
+            $job_types = \App\JobType::pluck('name', 'id');
+            $months = array('0' => '--Chọn Tháng--');
+            for($i = 1; $i <= 12; $i++){
+                $months[$i] = 'Tháng ' . $i;
+            }
+            
+            $years = array('0' => '--Chọn Năm--');
+            for($i = 2017; $i >= 1961; $i--){
+                $years[$i] = 'Năm ' . $i;
+            }
+
+            $loaitotnghieps = array('0' => '--Chọn Loại tốt nghiệp--');
+            $loaitotnghieps[] = 'Xuất sắc';
+            $loaitotnghieps[] = 'Giỏi';
+            $loaitotnghieps[] = 'Khá';
+            $loaitotnghieps[] = 'Trung bình khá';
+            $loaitotnghieps[] = 'Trung bình';
         }
-        return view('curriculum-vitae.create_curriculum_vitae', compact('company_id', 'cv_id', 'salaries'));
+        return view('curriculum-vitae.create_curriculum_vitae', compact('company_id', 'cv_id', 'salaries', 'cities', 'districts', 'salaries', 'months', 'years', 'job_types', 'loaitotnghieps'));
     }
     
     public function editCurriculumVitae($id) {
@@ -337,6 +356,7 @@ class CurriculumVitaeController extends Controller
             $districts = \App\District::pluck('name', 'id');
             $towns = \App\Town::pluck('name', 'id');
             $salaries = \App\Salary::pluck('name', 'id');
+            $job_types = \App\JobType::pluck('name', 'id');
             
             $months = array('0' => '--Chọn Tháng--');
             for($i = 1; $i <= 12; $i++){
@@ -355,11 +375,16 @@ class CurriculumVitaeController extends Controller
             $loaitotnghieps[] = 'Trung bình khá';
             $loaitotnghieps[] = 'Trung bình';
 
+            $time_can_works = array('0' => '--Chọn Thời gian làm việc--');
+            $time_can_works[] = 'Ca 1 (7h - 12h)';
+            $time_can_works[] = 'Ca 2 (12h - 17h)';
+            $time_can_works[] = 'Ca 3 (17h - 22h)';
+            $time_can_works[] = 'Fulltime';
+
             //get CV 
             $cv_user = \DB::table('curriculum_vitaes')
                     ->join('cities', 'cities.id', '=', 'curriculum_vitaes.city')
                     ->join('districts', 'districts.id', '=', 'curriculum_vitaes.district')
-                    ->join('towns', 'towns.id', '=', 'curriculum_vitaes.town')
                     ->join('users', 'users.id', '=', 'curriculum_vitaes.user')
                     ->select(
                             'curriculum_vitaes.id', 
@@ -373,8 +398,6 @@ class CurriculumVitaeController extends Controller
                             'cities.name as city', 
                             'districts.id as district_id', 
                             'districts.name as district', 
-                            'towns.id as town_id', 
-                            'towns.name as town',
                             'curriculum_vitaes.education', 
                             'curriculum_vitaes.word_experience', 
                             'curriculum_vitaes.language', 
@@ -382,6 +405,8 @@ class CurriculumVitaeController extends Controller
                             'curriculum_vitaes.references', 
                             'curriculum_vitaes.qualification', 
                             'curriculum_vitaes.career_objective', 
+                            'curriculum_vitaes.time_can_work', 
+                            'curriculum_vitaes.jobs', 
                             'curriculum_vitaes.images', 
                             'curriculum_vitaes.active', 
                             'curriculum_vitaes.updated_at' 
@@ -393,7 +418,7 @@ class CurriculumVitaeController extends Controller
             if($cv_user == NULL){
                 return view('errors.404');
             }
-            return view('curriculum-vitae.edit_curriculum_vitae', compact('cv_user', 'cities', 'districts', 'towns', 'months', 'years', 'loaitotnghieps', 'company_id', 'cv_id', 'salaries'));
+            return view('curriculum-vitae.edit_curriculum_vitae', compact('cv_user', 'cities', 'districts', 'towns', 'months', 'years', 'loaitotnghieps', 'company_id', 'cv_id', 'salaries', 'job_types', 'time_can_works'));
         }else{
             return view('errors.404');
         }
@@ -433,6 +458,9 @@ class CurriculumVitaeController extends Controller
 
         $input['avatar'] = $img_avatar;
         $input['images'] = $allPic;
+        $input['time_can_work'] = $request['time_can_work'];
+        $input['jobs'] = $request['jobs'];
+        $input['salary_want'] = $request['salary'];
         
         $input['user'] = \Auth::user()->id;
         $input['created_at'] = date("Y-m-d H:i:s");
