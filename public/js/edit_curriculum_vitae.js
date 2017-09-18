@@ -1,9 +1,10 @@
 $(document).ready(function () {
     CKEDITOR.replace('interests');
     CKEDITOR.replace('references');
+    CKEDITOR.replace('career_objective');
     CKEDITOR.replace('active');
     var url_site = $('base').attr('href');
-    var count_hoc_tap = $(".form-hoc-tap-group").length;
+    var count_hoc_tap = $(".form-hoc-tap-group").length - 1;
     var count_kinh_nghiem = $(".form-kinh-nghiem-group").length;
     var count_language = $('.language-json').length;
     var count_qualification = $('.qualification-holder').length;
@@ -19,13 +20,12 @@ $(document).ready(function () {
         html += " - <span class='ky-nang'>" + $('#ten_ky_nang').val() + "</span>";
         html += "<span class='qualification-delete' id='qualification-delete-" + count_qualification + "'>&nbsp;x&nbsp;</span></div></label>";
         $(html).appendTo('#qualification_content');
+
+        $("#qualification-" + count_qualification).attr('data-json', '{"ten_ky_nang":"'+ $('#ten_ky_nang').val() +'"}');
         $('.qualification-delete').off('click');
         $('.qualification-delete').click(function () {
-            var id_obj = $(this).attr('id');
-            id_obj = id_obj.substring(21, id_obj.length);
-            $('#qualification-' + id_obj).remove();
-            re_render_qualification(id_obj);
-            count_qualification--;
+            $(this).parent().parent().addClass('removed');
+            $(this).parent().parent().hide();
         });
         
         $('#ten_ky_nang').val('');
@@ -52,11 +52,8 @@ $(document).ready(function () {
         $(html).appendTo('#ngoai_ngu_content');
         $('.language-delete').off('click');
         $('.language-delete').click(function () {
-            var id_obj = $(this).attr('id');
-            id_obj = id_obj.substring(16, id_obj.length);
-            $('#language-' + id_obj).remove();
-            re_render_language(id_obj);
-            count_language--;
+            $(this).parent().parent().addClass('removed');
+            $(this).parent().parent().hide();
         });
         
         $('#ten_ngoai_ngu').val('');
@@ -103,26 +100,6 @@ $(document).ready(function () {
                 swal("Tháng bắt đầu lớn hơn Tháng kết thúc!", "Xin hãy chọn lại Tháng bắt đầu và Tháng kết thúc!");
                 return false;
             }
-        }
-
-        if ($('#dia_chi_cong_ty_' + id).val().length <= 0) {
-            swal("Địa chỉ công ty không được để trống!", "Xin hãy điền Địa chỉ công ty!");
-            return false;
-        }
-
-        if ($('#thanh_pho_' + id).val() <= 0) {
-            swal("Thành phố nơi làm việc không được để trống!", "Xin hãy điền Thành phố nơi làm việc!");
-            return false;
-        }
-
-        if ($('#quan_huyen_' + id).val() <= 0) {
-            swal("Quận / Huyện nơi làm việc không được để trống!", "Xin hãy điền Quận / Huyện nơi làm việc!");
-            return false;
-        }
-
-        if ($('#mo_ta_' + id).val().length <= 0) {
-            swal("Mô tả ngắn không được để trống!", "Xin hãy điền Mô tả ngắn!");
-            return false;
         }
 
         return true;
@@ -209,27 +186,9 @@ $(document).ready(function () {
         html += "</div>";
         html += "</div>";
         html += "<div class='form-group'>";
-        html += "<div class='col-md-12'>";
-        html += "<label for='ten_cong_ty' class='col-md-2 control-label'>Địa chỉ công ty</label>";
-        html += "<div class='col-md-4'>";
-        html += "<input type='text' class='form-control' class='dia_chi_cong_ty' id='dia_chi_cong_ty_" + count_kinh_nghiem + "'>";
-        html += "</div>";
-        html += "<div class='col-md-3'>";
-        html += "<select class='form-control thanh_pho' id='thanh_pho_" + count_kinh_nghiem + "'><option value='0'>--Chọn Tỉnh / Thành Phố--</option><option value='1'>Hà Nội</option><option value='2'>Hồ Chí Minh</option><option value='3'>Đà Nẵng</option><option value='4'>Hải Phòng</option><option value='5'>Cần Thơ</option><option value='6'>An Giang</option><option value='7'>Bà Rịa Vũng Tàu</option><option value='8'>Bạc Liêu</option><option value='9'>Bắc Cạn</option><option value='10'>Bắc Giang</option><option value='11'>Hải Dương</option><option value='12'>Bắc Ninh</option><option value='13'>Bến Tre</option><option value='14'>Bình Dương</option><option value='15'>Bình Định</option><option value='16'>Bình Phước</option><option value='17'>Bình Thuận</option><option value='18'>Cà Mau</option><option value='19'>Cao Bằng</option><option value='20'>Đắk Lắk</option><option value='21'>Đăk Nông</option><option value='22'>Điện Biên</option><option value='23'>Đồng Nai</option><option value='24'>Đồng Tháp</option><option value='25'>Gia Lai</option><option value='26'>Hà Giang</option><option value='27'>Hà Nam</option><option value='28'>Hà Tĩnh</option><option value='29'>Hậu Giang</option><option value='30'>Hòa Bình</option><option value='31'>Hưng Yên</option><option value='32'>Khánh Hòa</option><option value='33'>Kiên Giang</option><option value='34'>Kon Tum</option><option value='35'>Lai Châu</option><option value='36'>Lâm Đồng</option><option value='37'>Lạng Sơn</option><option value='38'>Lào Cai</option><option value='39'>Long An</option><option value='40'>Nam Định</option><option value='41'>Nghệ An</option><option value='42'>Ninh Bình</option><option value='43'>Ninh Thuận</option><option value='44'>Phú Thọ</option><option value='45'>Phú Yên</option><option value='46'>Quảng Bình</option><option value='47'>Quảng Nam</option><option value='48'>Quảng Ngãi</option><option value='49'>Quảng Ninh</option><option value='50'>Quảng Trị</option><option value='51'>Sóc Trăng</option><option value='52'>Sơn La</option><option value='53'>Tây Ninh</option><option value='54'>Thái Bình</option><option value='55'>Thái Nguyên</option><option value='56'>Thanh Hóa</option><option value='57'>Huế</option><option value='58'>Tiền Giang</option><option value='59'>Trà Vinh</option><option value='60'>Tuyên Quang</option><option value='61'>Vĩnh Long</option><option value='62'>Vĩnh Phúc</option><option value='63'>Yên Bái</option></select>";
-        html += "</div>";
-        html += "<div class='col-md-3'>";
-        html += "<select class='form-control quan_huyen' id='quan_huyen_" + count_kinh_nghiem + "'><option value='0'>--Chọn Quận / Huyện --</option></select>";
-        html += "</div>";
-        html += "</div>";
-        html += "</div>";
-        html += "<div class='form-group'>";
-        html += "<div class='col-md-2 col-sm-offset-1 image_company'>";
-        html += "<img src='" + url_site + "/public/images/anh_cong_ty.jpg' id='company_image_" + count_kinh_nghiem + "' class='img-company' style='height: 92px; width:100%; background-color: #fff; border: 2px solid gray; border-radius: 5px;'>";
-        html += "<input type='file' class='company-img' id='company-img-" + count_kinh_nghiem + "' style='display: none;'>";
-        html += "</div>";
-        html += "<div class='col-md-8 col-sm-offset-1'>";
+        html += "<label for='birthday' class='col-md-2 control-label'>Mô tả công việc</label>";
+        html += "<div class='col-md-10'>";
         html += "<textarea rows='4' cols='50' class='form-control' class='mo_ta_" + count_kinh_nghiem + "' id='mo_ta_" + count_kinh_nghiem + "' placeholder='Mô tả ngắn về công việc?'></textarea>";
-        html += "</div>";
         html += "</div>";
         html += "</div>";
         html += "<div class='form-group'>";
@@ -384,49 +343,110 @@ $(document).ready(function () {
             return false;
         }
 
-        if ($("input[name='student_process_" + id + "']:checked").val() == 1) {
-            // hoc xong
-            if (parseInt($('#nam_bat_dau_' + id).val()) == parseInt($('#nam_ket_thuc_' + id).val())) {
-                if (parseInt($('#thang_bat_dau_' + id).val()) > parseInt($('#thang_ket_thuc_' + id).val())) {
-                    swal("Tháng bắt đầu lớn hơn Tháng kết thúc!", "Xin hãy chọn lại Tháng bắt đầu và Tháng kết thúc!");
+        if ($("input[name='bang_cap_" + id + "']:checked").val() == 0) {
+            if ($("input[name='student_process_" + id + "']:checked").val() == 1) {
+                // hoc xong
+                if (parseInt($('#nam_bat_dau_' + id).val()) == parseInt($('#nam_ket_thuc_' + id).val())) {
+                    if (parseInt($('#thang_bat_dau_' + id).val()) > parseInt($('#thang_ket_thuc_' + id).val())) {
+                        swal("Tháng bắt đầu lớn hơn Tháng kết thúc!", "Xin hãy chọn lại Tháng bắt đầu và Tháng kết thúc!");
+                        return false;
+                    }
+                }
+                
+                if ($('#thang_ket_thuc_' + id).val() <= 0) {
+                    swal("Tháng kết thúc học tập không được bỏ trống!", "Xin hãy chọn Tháng kết thúc học tập!");
+                    return false;
+                }
+
+                if (parseInt($('#nam_bat_dau_' + id).val()) > parseInt($('#nam_ket_thuc_' + id).val())) {
+                    swal("Năm bắt đầu lớn hơn Năm kết thúc!", "Xin hãy chọn lại Năm bắt đầu và Năm kết thúc!");
+                    return false;
+                }
+                
+                if ($('#nam_ket_thuc_' + id).val() <= 0) {
+                    swal("Năm kết thúc học tập không được bỏ trống!", "Xin hãy chọn Năm kết thúc học tập!");
                     return false;
                 }
             }
             
-            if ($('#thang_ket_thuc_' + id).val() <= 0) {
-                swal("Tháng kết thúc học tập không được bỏ trống!", "Xin hãy chọn Tháng kết thúc học tập!");
+            if ($('#nam_bat_dau_' + id).val() <= 0) {
+                swal("Năm bắt đầu học tập không được bỏ trống!", "Xin hãy chọn Năm bắt đầu học tập!");
                 return false;
             }
 
-            if (parseInt($('#nam_bat_dau_' + id).val()) > parseInt($('#nam_ket_thuc_' + id).val())) {
-                swal("Năm bắt đầu lớn hơn Năm kết thúc!", "Xin hãy chọn lại Năm bắt đầu và Năm kết thúc!");
+            if ($('#thang_bat_dau_' + id).val() <= 0) {
+                swal("Tháng bắt đầu học tập không được bỏ trống!", "Xin hãy chọn Tháng bắt đầu học tập!");
                 return false;
+            }
+        }
+
+        if ($("input[name='bang_cap_" + id + "']:checked").val() == 1) {
+            if ($("input[name='student_process_" + id + "']:checked").val() == 1) {
+                // hoc xong
+                if (parseInt($('#nam_bat_dau_' + id).val()) == parseInt($('#nam_ket_thuc_' + id).val())) {
+                    if (parseInt($('#thang_bat_dau_' + id).val()) > parseInt($('#thang_ket_thuc_' + id).val())) {
+                        swal("Tháng bắt đầu lớn hơn Tháng kết thúc!", "Xin hãy chọn lại Tháng bắt đầu và Tháng kết thúc!");
+                        return false;
+                    }
+                }
+                
+                if ($('#thang_ket_thuc_' + id).val() <= 0) {
+                    swal("Tháng kết thúc học tập không được bỏ trống!", "Xin hãy chọn Tháng kết thúc học tập!");
+                    return false;
+                }
+
+                if (parseInt($('#nam_bat_dau_' + id).val()) > parseInt($('#nam_ket_thuc_' + id).val())) {
+                    swal("Năm bắt đầu lớn hơn Năm kết thúc!", "Xin hãy chọn lại Năm bắt đầu và Năm kết thúc!");
+                    return false;
+                }
+                
+                if ($('#nam_ket_thuc_' + id).val() <= 0) {
+                    swal("Năm kết thúc học tập không được bỏ trống!", "Xin hãy chọn Năm kết thúc học tập!");
+                    return false;
+                }
             }
             
-            if ($('#nam_ket_thuc_' + id).val() <= 0) {
-                swal("Năm kết thúc học tập không được bỏ trống!", "Xin hãy chọn Năm kết thúc học tập!");
+            if ($('#nam_bat_dau_' + id).val() <= 0) {
+                swal("Năm bắt đầu học tập không được bỏ trống!", "Xin hãy chọn Năm bắt đầu học tập!");
                 return false;
+            }
+
+            if ($('#thang_bat_dau_' + id).val() <= 0) {
+                swal("Tháng bắt đầu học tập không được bỏ trống!", "Xin hãy chọn Tháng bắt đầu học tập!");
+                return false;
+            }
+
+            if ($('#chuyen_nganh_' + id).val().length <= 1) {
+                if ($("input[name='bang_cap_" + id + "']:checked").val() == 1 || $("input[name='bang_cap_" + id + "']:checked").val() == 0) {
+                    swal("Bạn chưa điền Chuyên ngành!", "Xin hãy điền Chuyên ngành!");
+                    return false;
+                }
+            }
+        }
+
+        if ($("input[name='bang_cap_" + id + "']:checked").val() == 2) {
+            if ($("input[name='student_process_" + id + "']:checked").val() == 1) {
+                // hoc xong
+                if (parseInt($('#nam_bat_dau_' + id).val()) == parseInt($('#nam_ket_thuc_' + id).val())) {
+                    if (parseInt($('#thang_bat_dau_' + id).val()) > parseInt($('#thang_ket_thuc_' + id).val())) {
+                        swal("Tháng bắt đầu lớn hơn Tháng kết thúc!", "Xin hãy chọn lại Tháng bắt đầu và Tháng kết thúc!");
+                        return false;
+                    }
+                }
+
+                if (parseInt($('#nam_bat_dau_' + id).val()) > parseInt($('#nam_ket_thuc_' + id).val())) {
+                    swal("Năm bắt đầu lớn hơn Năm kết thúc!", "Xin hãy chọn lại Năm bắt đầu và Năm kết thúc!");
+                    return false;
+                }
+                
+                if ($('#nam_ket_thuc_' + id).val() <= 0) {
+                    swal("Năm kết thúc học tập không được bỏ trống!", "Xin hãy chọn Năm kết thúc học tập!");
+                    return false;
+                }
             }
             
-            if ($('#loai_tot_nghiep_' + id).val() <= 0) {
-                swal("Bạn chưa chọn loại tốt nghiệp!", "Xin hãy chọn Loại tốt nghiệp!");
-                return false;
-            }
-        }
-        
-        if ($('#nam_bat_dau_' + id).val() <= 0) {
-            swal("Năm bắt đầu học tập không được bỏ trống!", "Xin hãy chọn Năm bắt đầu học tập!");
-            return false;
-        }
-
-        if ($('#thang_bat_dau_' + id).val() <= 0) {
-            swal("Tháng bắt đầu học tập không được bỏ trống!", "Xin hãy chọn Tháng bắt đầu học tập!");
-            return false;
-        }
-
-        if ($('#chuyen_nganh_' + id).val().length <= 1) {
-            if ($("input[name='bang_cap_" + id + "']:checked").val() == 1 || $("input[name='bang_cap_" + id + "']:checked").val() == 0) {
-                swal("Bạn chưa điền Chuyên ngành!", "Xin hãy điền Chuyên ngành!");
+            if ($('#nam_bat_dau_' + id).val() <= 0) {
+                swal("Năm bắt đầu học tập không được bỏ trống!", "Xin hãy chọn Năm bắt đầu học tập!");
                 return false;
             }
         }
@@ -823,56 +843,47 @@ $(document).ready(function () {
         $('#active').val(CKEDITOR.instances['active'].getData());
         $('#references').val(CKEDITOR.instances['references'].getData());
         $('#interests').val(CKEDITOR.instances['interests'].getData());
+        $('#career_objective').val(CKEDITOR.instances['career_objective'].getData());
 
-        $('#career_objective').val('');
-        $.each($(".career_objective:checked"), function(){            
-            $('#career_objective').val($('#career_objective').val() + ';' + $( this ).attr('id'));
-        });
         $.each($(".form-hoc-tap-group"), function(){            
-            if($(this).hasClass('removed')){
-                // next
-            }else{
+            if(!$(this).hasClass('removed')){
                 $('#education').val($('#education').val() + ';' + $(this).find(".education_json").val());
             }
         });
 
         $('#word_experience').val('');
         $.each($(".form-kinh-nghiem-group"), function(){            
-            if($(this).hasClass('removed')){
-                // next
-            }else{
+            if(!$(this).hasClass('removed')){
                 $('#word_experience').val($('#word_experience').val() + ';' + $(this).find(".word_experience_json").val());
             }
         });
 
-        $.each($(".language-json"), function(){            
-            var ret_arr = {};
-            ret_arr['ten_ngoai_ngu'] = $(this).find(".ngoai-ngu").html();
-            ret_arr['trinh_do_ngoai_ngu'] = $(this).find(".trinh-do-ngoai-ngu").html();
-            $('#language').val($('#language').val() + ';' + JSON.stringify(ret_arr));
+        $.each($(".language-json"), function(){
+            if(!$(this).hasClass('removed')){
+                $('#language').val($('#language').val() + ';' + $(this).attr('data-json'));
+            }
         });
 
         $.each($(".qualification-holder"), function(){  
-            var ret_arr = {};
-            ret_arr['ten_ky_nang'] = $(this).find(".ky-nang").html();
-            $('#qualification').val($('#qualification').val() + ';' + JSON.stringify(ret_arr));
+            if(!$(this).hasClass('removed')){
+                $('#qualification').val($('#qualification').val() + ';' + $(this).attr('data-json'));
+            }
         });
-
-        // var listJobs = '';
-        // $('#jobs_hold>.dropdown-menu.inner>li.selected').each(function (index) {
-        //     listJobs += $(this).text() + ';';
-        // });
-        // $('#jobs').val(listJobs);
-
-        // var listTimes = '';
-        // $('#time_can_work_hold>.dropdown-menu.inner>li.selected').each(function (index) {
-        //     listTimes += $(this).text() + ';';
-        // });
-        // $('#time_can_work').val(listTimes);
-
-        // $('#salary_want').val($('#salary_select').val());
         
-        // render education
+        var listJobs = '';
+        $('#jobs_hold .dropdown-menu.inner li.selected').each(function (index) {
+            listJobs += $(this).text() + ';';
+        });
+        $('#jobs').val(listJobs);
+
+        var listTimes = '';
+        $('#time_can_work_hold .dropdown-menu.inner li.selected').each(function (index) {
+            listTimes += $(this).text() + ';';
+        });
+        $('#time_can_work').val(listTimes);
+
+        $('#salary').val($('#salary_select').val());
+        
         if (!validateForm()) {
             return false;
         }
@@ -897,7 +908,6 @@ $(document).ready(function () {
         if(student_process!=0){
             ret_arr['loai_tot_nghiep'] = $('#loai_tot_nghiep_'+id + ' option:selected').text();
         }
-        // $('#education').val($('#education').val() + ';' + JSON.stringify(ret_arr));
         $('#hoc_tap_' + id + '_json').val(JSON.stringify(ret_arr));
     };
     function renderJsonKinhNghiem(id){
@@ -908,14 +918,7 @@ $(document).ready(function () {
         ret_arr['nam_bat_dau_lam_viec'] = $('#nam_bat_dau_lam_viec_'+id).val();
         ret_arr['thang_ket_thuc_lam_viec'] = $('#thang_ket_thuc_lam_viec_'+id).val();
         ret_arr['nam_ket_thuc_lam_viec'] = $('#nam_ket_thuc_lam_viec_'+id).val();
-        ret_arr['dia_chi_cong_ty'] = $('#dia_chi_cong_ty_'+id).val();
-        ret_arr['thanh_pho_id'] = $('#thanh_pho_'+id + ' option:selected').val();
-        ret_arr['thanh_pho'] = $('#thanh_pho_'+id + ' option:selected').text();
-        ret_arr['quan_huyen_id'] = $('#quan_huyen_'+id + ' option:selected').val();
-        ret_arr['quan_huyen'] = $('#quan_huyen_'+id + ' option:selected').text();
         ret_arr['mo_ta'] = $('#mo_ta_'+id).val();
-        ret_arr['company_image'] = $('#company_image_'+id).attr('src');
-        // $('#word_experience').val($('#word_experience').val() + ';' + JSON.stringify(ret_arr));
         $('#kinh_nghiem_lam_viec_' + id + '_json').val(JSON.stringify(ret_arr));
     };
     function renderJsonNgoaiNgu(){
@@ -929,34 +932,6 @@ $(document).ready(function () {
         ret_arr['ten_ky_nang'] = $('#ten_ky_nang').val();
         $('#qualification').val($('#qualification').val() + ';' + JSON.stringify(ret_arr));
     };
-
-    function re_render_qualification(id){
-        var json_string = $('#qualification').val();
-        $('#qualification').val('');
-        json_string = json_string.substring(1, json_string.length);
-        json_array = json_string.split(";");
-        $('#qualification_content').html('');
-        var j=0;
-        for(var i = 0; i < json_array.length; i++){
-            if(i+1 == id){
-                
-            }else{
-                var obj = $.parseJSON(json_array[i]);
-                var html = ren_ky_nang(j+1, obj.ten_ky_nang);
-                $('#qualification_content').append(html);
-                $('#qualification').val($('#qualification').val() + ';' + json_array[i]);
-                j++;
-            }
-        }
-        $('.qualification-delete').off('click');
-        $('.qualification-delete').click(function () {
-            var id_obj = $(this).attr('id');
-            id_obj = id_obj.substring(21, id_obj.length);
-            $('#qualification-' + id_obj).remove();
-            re_render_qualification(id_obj);
-            count_qualification--;
-        });
-    }
 
     function re_render_language(id){
         var json_string = $('#language').val();
@@ -980,11 +955,8 @@ $(document).ready(function () {
         }
         $('.language-delete').off('click');
         $('.language-delete').click(function () {
-            var id_obj = $(this).attr('id');
-            id_obj = id_obj.substring(16, id_obj.length);
-            $('#language-' + id_obj).remove();
-            re_render_language(id_obj);
-            count_language--;
+            $(this).parent().parent().addClass('removed');
+            $(this).parent().parent().hide();
         });
     }
 
