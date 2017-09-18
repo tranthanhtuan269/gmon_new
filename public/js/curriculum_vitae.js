@@ -25,11 +25,8 @@ $(document).ready(function () {
         $(html).appendTo('#qualification_content');
         $('.qualification-delete').off('click');
         $('.qualification-delete').click(function () {
-            var id_obj = $(this).attr('id');
-            id_obj = id_obj.substring(21, id_obj.length);
-            $('#qualification-' + id_obj).remove();
-            re_render_qualification(id_obj);
-            count_qualification--;
+            $(this).parent().parent().addClass('removed');
+            $(this).parent().parent().hide();
         });
         
         $('#ten_ky_nang').val('');
@@ -1007,11 +1004,8 @@ $(document).ready(function () {
         }
         $('.qualification-delete').off('click');
         $('.qualification-delete').click(function () {
-            var id_obj = $(this).attr('id');
-            id_obj = id_obj.substring(21, id_obj.length);
-            $('#qualification-' + id_obj).remove();
-            re_render_qualification(id_obj);
-            count_qualification--;
+            $(this).parent().parent().addClass('removed');
+            $(this).parent().parent().hide();
         });
     }
 
