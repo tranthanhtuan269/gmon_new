@@ -8,7 +8,7 @@
                     <div class="col-md-12">
                         <div class="row main-top">
                             <div class="col-md-5">
-                                @if(strlen($curriculumvitae->avatar) > 1)
+                                @if(strlen($curriculumvitae->avatar) > 3)
                                 <img src="http://test.gmon.com.vn/?image={{ $curriculumvitae->avatar }}" width="200" height="200" class="img-circle
                                 ">
                                 @else
@@ -44,7 +44,7 @@
                                 </div>
                             </div>
                         </div>
-                        @if(strlen($curriculumvitae->education) > 1)
+                        @if(strlen($curriculumvitae->education) > 3)
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="panel">
@@ -87,7 +87,7 @@
                             </div>
                         </div>
                         @endif
-                        @if(strlen($curriculumvitae->word_experience) > 1)
+                        @if(strlen($curriculumvitae->word_experience) > 3)
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="panel">
@@ -127,7 +127,7 @@
                             </div>
                         </div>
                         @endif
-                        @if(strlen($curriculumvitae->qualification) > 1)
+                        @if(strlen($curriculumvitae->qualification) > 3)
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="panel">
@@ -159,7 +159,7 @@
                             </div>
                         </div>
                         @endif
-                        @if(strlen($curriculumvitae->language) > 1)
+                        @if(strlen($curriculumvitae->language) > 3)
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="panel">
