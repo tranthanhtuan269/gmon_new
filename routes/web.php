@@ -39,6 +39,8 @@ Route::get('/getDistrict/{id}', 'HomeController@getDistrict');
 Route::get('/getDistrictli/{id}', 'HomeController@getDistrictLi');
 Route::get('/getTown/{id}', 'HomeController@getTown');
 
+Route::get('/getPost/', 'PostController@getPosts');
+
 Route::group(['middleware' => 'auth'], function(){
 
     Route::post('send-comment', 'CompanyController@sendcomment');

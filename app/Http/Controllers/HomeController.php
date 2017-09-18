@@ -24,11 +24,6 @@ class HomeController extends Controller
      */
     public function index()
     {
-
-        // $start_date = new \DateTime('2007-09-01 04:10:58');
-        // $since_start = $start_date->diff(new \DateTime());
-        // echo $since_start->days.' days total<br>';
-        // die;
         $categories = [];
         $jobs = [];
         $companies = [];
@@ -38,6 +33,7 @@ class HomeController extends Controller
         $company_id = -1;
         $cv_id = -1;
         $perPage = 1000;
+        $number_get = 3;
         if (\Auth::check()) {
             $current_id = \Auth::user()->id;
             
@@ -78,31 +74,16 @@ class HomeController extends Controller
             ->select('id', 'name')
             ->get();
 
+        $post = new \App\Post;
+
         if($categorySelect == 0){
             if($postSelect > 0){
-                $posts = \DB::table('posts')
-                    ->join('categories', 'categories.id', '=', 'posts.category')
-                    ->select('posts.id', 'posts.title', 'posts.description', 'posts.sub_description', 'posts.category', 'posts.image', 'posts.created_at')
-                    ->where('posts.id', '=', $postSelect)
-                    ->where('posts.active', '=', 1)
-                    ->orderBy('posts.created_at', 'desc')
-                    ->get();
+                $posts = $post->getPosts(null, $postSelect, 0, $number_get);
             }else{
-                $posts = \DB::table('posts')
-                    ->join('categories', 'categories.id', '=', 'posts.category')
-                    ->select('posts.id', 'posts.title', 'posts.description', 'posts.sub_description', 'posts.category', 'posts.image', 'posts.created_at')
-                    ->where('posts.active', '=', 1)
-                    ->orderBy('posts.created_at', 'desc')
-                    ->get();
+                $posts = $post->getPosts(null, null, 0, $number_get);
             }
         }else{
-            $posts = \DB::table('posts')
-                ->join('categories', 'categories.id', '=', 'posts.category')
-                ->select('posts.id', 'posts.title', 'posts.description', 'posts.sub_description', 'posts.category', 'posts.image', 'posts.created_at')
-                ->where('posts.category', '=', $categorySelect)
-                ->where('posts.active', '=', 1)
-                ->orderBy('posts.created_at', 'desc')
-                ->get();
+            $posts = $post->getPosts($categorySelect, null, 0, $number_get);
         }
 
         $companies = \DB::table('companies')

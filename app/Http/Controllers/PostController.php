@@ -189,4 +189,28 @@ class PostController extends Controller
 
         return redirect('post');
     }
+
+    public function getPosts(){
+        $postGetObj = new Post;
+        $category = $post = $start = $number = null;
+
+        if(isset($_GET)){
+            if(isset($_GET['start']) && $_GET['start'] > 0){
+                $from = $_GET['start'];
+            }
+            if(isset($_GET['number']) && $_GET['number'] > 0){
+                $number = $_GET['number'];
+            }
+            if(isset($_GET['category']) && $_GET['category'] > 0){
+                $category = $_GET['category'];
+            }
+            if(isset($_GET['post']) && $_GET['post'] > 0){
+                $post = $_GET['post'];
+            }
+            $posts = $postGetObj->getPosts($category, $post, $from, $number);
+            $dataRet = $postGetObj->getPostsHtml($posts, $category, $post);
+            // dd($dataRet);
+            return \Response::json(array('code' => '200', 'message' => 'Success!', 'posts' => $dataRet));
+        }
+    }
 }

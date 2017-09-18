@@ -20,7 +20,10 @@
 </head>
 <body>
 <div class="header-homepage">
-   <div class="top-menu">
+    <div class="mass-content">
+      <div class="loader"></div>
+    </div>
+    <div class="top-menu">
        <div class="container-fluid">
            <div class="row">
                <div class="col-xl-6 col-lg-8 left-menu">
@@ -501,8 +504,65 @@
         color: #9B9B9B;
         margin-bottom: 50px;
     }
+    .mass-content{
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        background-color:rgba(0, 0, 0, 0.5);
+        z-index: 1;
+        display: none;
+    }
+    .loader {
+        z-index: 10000;
+        border: 16px solid #f3f3f3; /* Light grey */
+        border-top: 16px solid #3498db; /* Blue */
+        border-bottom: 16px solid #3498db; /* Blue */
+        border-radius: 50%;
+        width: 120px;
+        height: 120px;
+        animation: spin 1s linear infinite;
+        position: absolute;
+        top: 50%;
+        left: 45%;
+        display: none;
+    }
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
 </style>
 <script type="text/javascript">
+  var site_url = $('base').attr('href');
+  var $currentPost = 3;
+  var $numberGet = 3;
+  var $currentPossion = 0;
+  var $newPossion = 0;
+  $(window).scroll(function (event) {
+      var scroll = $(window).scrollTop();
+      $newPossion = scroll;
+      if($newPossion - $currentPossion > 680){
+          $currentPossion = $newPossion;
+          $('.mass-content').show();
+          $('.loader').show();
+          var request = $.ajax({
+              url: "{{ URL::to('/') }}/getPost/?start=" + $currentPost + "&number=" + $numberGet + "<?php if(strlen(parse_url(url('/') . $_SERVER['REQUEST_URI'], PHP_URL_QUERY)) > 0){ echo '&'.parse_url(url('/') . $_SERVER['REQUEST_URI'], PHP_URL_QUERY); } ?>",
+              method: "GET",
+              dataType: "json"
+          });
+          request.done(function (msg) {
+              $('.mass-content').hide();
+              $('.loader').hide();
+              if(msg['code'] == 200){
+                  var $html = '';
+                  $currentPost += $numberGet;
+                  $('.main-content-news .middle').append(msg['posts']);
+              }
+          });
+          request.fail(function (jqXHR, textStatus) {
+              alert("Request failed: " + textStatus);
+          });
+      }
+  });
     function onCloseModalLogin() {
         $("#myModal").modal('toggle');
     }
