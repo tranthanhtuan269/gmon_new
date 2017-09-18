@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Post;
 use Illuminate\Http\Request;
 use Session;
+use Auth;
 
 class PostController extends Controller
 {
@@ -58,7 +59,7 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        if (\Auth::check()) {
+        if (Auth::check()) {
             if(Auth::user()->hasRole('admin') || Auth::user()->hasRole('master')){
                 $img_avatar = '';
                 if ($request->hasFile('imagePost')) {
