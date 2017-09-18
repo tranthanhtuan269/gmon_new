@@ -20,6 +20,8 @@ $(document).ready(function () {
         html += " - <span class='ky-nang'>" + $('#ten_ky_nang').val() + "</span>";
         html += "<span class='qualification-delete' id='qualification-delete-" + count_qualification + "'>&nbsp;x&nbsp;</span></div></label>";
         $(html).appendTo('#qualification_content');
+
+        $("#qualification-" + count_qualification).attr('data-json', '{"ten_ky_nang":"'+ $('#ten_ky_nang').val() +'"}');
         $('.qualification-delete').off('click');
         $('.qualification-delete').click(function () {
             $(this).parent().parent().addClass('removed');
@@ -856,17 +858,16 @@ $(document).ready(function () {
             }
         });
 
-        $.each($(".language-json"), function(){            
-            var ret_arr = {};
-            ret_arr['ten_ngoai_ngu'] = $(this).find(".ngoai-ngu").html();
-            ret_arr['trinh_do_ngoai_ngu'] = $(this).find(".trinh-do-ngoai-ngu").html();
-            $('#language').val($('#language').val() + ';' + JSON.stringify(ret_arr));
+        $.each($(".language-json"), function(){
+            if(!$(this).hasClass('removed')){
+                $('#language').val($('#language').val() + ';' + $(this).attr('data-json'));
+            }
         });
 
         $.each($(".qualification-holder"), function(){  
-            var ret_arr = {};
-            ret_arr['ten_ky_nang'] = $(this).find(".ky-nang").html();
-            $('#qualification').val($('#qualification').val() + ';' + JSON.stringify(ret_arr));
+            if(!$(this).hasClass('removed')){
+                $('#qualification').val($('#qualification').val() + ';' + $(this).attr('data-json'));
+            }
         });
         
         var listJobs = '';
@@ -931,31 +932,6 @@ $(document).ready(function () {
         ret_arr['ten_ky_nang'] = $('#ten_ky_nang').val();
         $('#qualification').val($('#qualification').val() + ';' + JSON.stringify(ret_arr));
     };
-
-    function re_render_qualification(id){
-        var json_string = $('#qualification').val();
-        $('#qualification').val('');
-        json_string = json_string.substring(1, json_string.length);
-        json_array = json_string.split(";");
-        $('#qualification_content').html('');
-        var j=0;
-        for(var i = 0; i < json_array.length; i++){
-            if(i+1 == id){
-                
-            }else{
-                var obj = $.parseJSON(json_array[i]);
-                var html = ren_ky_nang(j+1, obj.ten_ky_nang);
-                $('#qualification_content').append(html);
-                $('#qualification').val($('#qualification').val() + ';' + json_array[i]);
-                j++;
-            }
-        }
-        $('.qualification-delete').off('click');
-        $('.qualification-delete').click(function () {
-            $(this).parent().parent().addClass('removed');
-            $(this).parent().parent().hide();
-        });
-    }
 
     function re_render_language(id){
         var json_string = $('#language').val();

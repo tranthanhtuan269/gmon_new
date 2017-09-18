@@ -885,6 +885,8 @@ $(document).ready(function () {
 
         $('#education').val('');
         $('#word_experience').val('');
+        $('#language').val();
+        $('#qualification').val();
 
         $('#active').val(CKEDITOR.instances['active'].getData());
         $('#references').val(CKEDITOR.instances['references'].getData());
@@ -900,6 +902,18 @@ $(document).ready(function () {
         $.each($(".form-kinh-nghiem-group"), function(){            
             if(!$(this).hasClass('removed')){
                 $('#word_experience').val($('#word_experience').val() + ';' + $(this).find(".word_experience_json").val());
+            }
+        });
+
+        $.each($(".language-json"), function(){
+            if(!$(this).hasClass('removed')){
+                $('#language').val($('#language').val() + ';' + $(this).attr('data-json'));
+            }
+        });
+
+        $.each($(".qualification-holder"), function(){  
+            if(!$(this).hasClass('removed')){
+                $('#qualification').val($('#qualification').val() + ';' + $(this).attr('data-json'));
             }
         });
 
@@ -984,30 +998,6 @@ $(document).ready(function () {
         $('#qualification').val($('#qualification').val() + ';' + JSON.stringify(ret_arr));
     };
 
-    function re_render_qualification(id){
-        var json_string = $('#qualification').val();
-        $('#qualification').val('');
-        json_string = json_string.substring(1, json_string.length);
-        json_array = json_string.split(";");
-        $('#qualification_content').html('');
-        var j=0;
-        for(var i = 0; i < json_array.length; i++){
-            if(i+1 == id){
-                
-            }else{
-                var obj = $.parseJSON(json_array[i]);
-                var html = ren_ky_nang(j+1, obj.ten_ky_nang);
-                $('#qualification_content').append(html);
-                $('#qualification').val($('#qualification').val() + ';' + json_array[i]);
-                j++;
-            }
-        }
-        $('.qualification-delete').off('click');
-        $('.qualification-delete').click(function () {
-            $(this).parent().parent().addClass('removed');
-            $(this).parent().parent().hide();
-        });
-    }
 
     function re_render_language(id){
         var json_string = $('#language').val();
