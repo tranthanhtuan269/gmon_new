@@ -34,7 +34,8 @@ Route::get('/job/view/{id}', 'JobController@info');
 Route::get('/job/{id}/{slug}', 'JobController@info');
 
 Route::post('/job/join', 'JobController@join');
-Route::get('company/{id}/info', 'CompanyController@info');
+// Route::get('company/{id}/info', 'CompanyController@info');
+Route::get('company/{id}/{slug}', 'CompanyController@info');
 Route::get('company/{id}/listjobs', 'CompanyController@listjobs');
 Route::get('/getDistrict/{id}', 'HomeController@getDistrict');
 Route::get('/getDistrictli/{id}', 'HomeController@getDistrictLi');

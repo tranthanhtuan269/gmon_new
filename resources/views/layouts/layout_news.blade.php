@@ -328,6 +328,10 @@
                               
                               if (isset($_GET['category'])) {
                                   $categorySelected = $_GET['category'];
+                              }else{
+                                if(isset($id) && $id > 0){
+                                  $categorySelected = $id;
+                                }
                               }
                           ?>
                           @foreach($categories as $category)
@@ -360,7 +364,7 @@
                                   <img src="http://test.gmon.com.vn/?image={{ $job->banner }}" width="305" height="156" alt="HOT" />
                               </div>
                               <div class="title" style="text-transform: uppercase;">
-                                  <a href="http://gmon.vn/job/{{ $job->id }}/{{ $job->slug }}">{{ $job->companyName }} TUYỂN DỤNG {{ $job->name }}</a>
+                                  <a href="http://gmon.vn/job/view/{{ $job->id }}">{{ $job->companyName }} TUYỂN DỤNG {{ $job->name }}</a>
                               </div>
                           </div>
                           @endforeach

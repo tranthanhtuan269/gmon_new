@@ -170,7 +170,7 @@ class PostController extends Controller
         $companies = \DB::table('companies')
             ->join('company_company_types', 'company_company_types.company', '=', 'companies.id')
             ->where('company_company_types.company_type', '=', 5)
-            ->select('companies.id', 'companies.logo', 'companies.banner', 'companies.name')
+            ->select('companies.id', 'companies.logo', 'companies.banner', 'companies.name', 'companies.slug')
             ->take(5)
             ->get();
 
@@ -178,10 +178,15 @@ class PostController extends Controller
             ->join('companies', 'companies.id', '=', 'jobs.company')
             ->join('company_company_types', 'company_company_types.company', '=', 'companies.id')
             ->where('company_company_types.company_type', '=', 5)
-            ->select('companies.logo', 'companies.banner', 'jobs.name', 'companies.name as companyName', 'jobs.id')
+            ->select('companies.logo', 'companies.banner', 'jobs.name', 'companies.name as companyName', 'jobs.id', 'jobs.slug')
             ->take(5)
             ->get();
-        return view('post.show', compact('categories', 'companies', 'jobs', 'posts', 'company_id', 'cv_id', 'partners'));
+
+        if(count($posts) > 0){
+            $id = $posts[0]->category;
+        }
+
+        return view('post.show', compact('id' ,'categories', 'companies', 'jobs', 'posts', 'company_id', 'cv_id', 'partners'));
     }
 
     /**
@@ -244,7 +249,7 @@ class PostController extends Controller
         $companies = \DB::table('companies')
             ->join('company_company_types', 'company_company_types.company', '=', 'companies.id')
             ->where('company_company_types.company_type', '=', 5)
-            ->select('companies.id', 'companies.logo', 'companies.banner', 'companies.name')
+            ->select('companies.id', 'companies.logo', 'companies.banner', 'companies.name', 'companies.slug')
             ->take(5)
             ->get();
 
@@ -252,7 +257,7 @@ class PostController extends Controller
             ->join('companies', 'companies.id', '=', 'jobs.company')
             ->join('company_company_types', 'company_company_types.company', '=', 'companies.id')
             ->where('company_company_types.company_type', '=', 5)
-            ->select('companies.logo', 'companies.banner', 'jobs.name', 'companies.name as companyName', 'jobs.id')
+            ->select('companies.logo', 'companies.banner', 'jobs.name', 'companies.name as companyName', 'jobs.id', 'jobs.slug')
             ->take(5)
             ->get();
         return view('post.show', compact('categories', 'companies', 'jobs', 'posts', 'company_id', 'cv_id', 'partners'));

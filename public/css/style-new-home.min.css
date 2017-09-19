@@ -625,13 +625,13 @@ header .top-menu-mobile .right .fa {
 }
 
 .footer-homepage .top-footer .item ul li {
-    padding: 20px 0;
+    padding: 2px 0 0px;
     list-style-type: none
 }
 
 .footer-homepage .top-footer .item ul li a {
     text-transform: capitalize;
-    font-size: 15px;
+    font-size: 14px;
     color: #000
 }
 
