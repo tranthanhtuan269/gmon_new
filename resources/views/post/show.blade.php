@@ -1,46 +1,35 @@
-@extends('layouts.backend')
+@extends('layouts.layout_news')
 
 @section('content')
-    <div class="container">
-        <div class="row">
-            @include('admin.sidebar')
-
-            <div class="col-md-9">
-                <div class="panel panel-default">
-                    <div class="panel-heading">Post {{ $post->id }}</div>
-                    <div class="panel-body">
-
-                        <a href="{{ url('/post') }}" title="Back"><button class="btn btn-warning btn-xs"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>
-                        <a href="{{ url('/post/' . $post->id . '/edit') }}" title="Edit Post"><button class="btn btn-primary btn-xs"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></a>
-                        {!! Form::open([
-                            'method'=>'DELETE',
-                            'url' => ['post', $post->id],
-                            'style' => 'display:inline'
-                        ]) !!}
-                            {!! Form::button('<i class="fa fa-trash-o" aria-hidden="true"></i> Delete', array(
-                                    'type' => 'submit',
-                                    'class' => 'btn btn-danger btn-xs',
-                                    'title' => 'Delete Post',
-                                    'onclick'=>'return confirm("Confirm delete?")'
-                            ))!!}
-                        {!! Form::close() !!}
-                        <br/>
-                        <br/>
-
-                        <div class="table-responsive">
-                            <table class="table table-borderless">
-                                <tbody>
-                                    <tr>
-                                        <th>ID</th><td>{{ $post->id }}</td>
-                                    </tr>
-                                    <tr><th> Title </th><td> {{ $post->title }} </td></tr><tr><th> Description </th><td> {{ $post->description }} </td></tr><tr><th> Category </th><td> {{ $post->category }} </td></tr>
-                                </tbody>
-                            </table>
-                        </div>
-
-                    </div>
-                </div>
+<div class="col-md-6 middle">
+    @foreach($posts as $post)
+    <div class="item">
+        <div class="top-content">
+            <div class="avatar">
+                <img src="http://test.gmon.com.vn/?image=avatar.png" alt="" />
+            </div>
+            <div class="name">
+                <h3>Gmon</h3>
+                <div class="time"><i class="fa fa-clock-o" aria-hidden="true"></i> <?php $datetime = new \DateTime($post->created_at);
+                echo $datetime->format('H:i d-m-Y'); ?></div>
             </div>
         </div>
+        <div class="clearboth"></div>
+        <div class="middle-content">
+            <div class="title">
+                <?php echo $post->title; ?>
+            </div>
+            <p>
+            <div class="description">
+                <?php echo str_replace("/public/templateEditor/kcfinder/upload/images/","http://gmon.vn/public/templateEditor/kcfinder/upload/images/",$post->description); ?>
+            </div>
+        </div>
+        <div class="bottom-content row" style="display: none">
+            <a class="comment col-md-3" href=""><i class="fa fa-commenting-o" aria-hidden="true"></i> 0 Bình luận</a>
+            <a class="facebook col-md-3" href=""><i class="fa fa-facebook-official" aria-hidden="true"></i> Chia sẻ</a>
+            <a class="like col-md-3" href=""><i class="fa fa-heart" aria-hidden="true"></i> 0 Yêu thích</a>
+        </div>
     </div>
+    @endforeach
+</div>
 @endsection

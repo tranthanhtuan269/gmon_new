@@ -67,11 +67,136 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\View\View
      */
+    public function getCategory($id, $slug)
+    {
+        $categories = [];
+        $jobs = [];
+        $companies = [];
+
+        $company_id = -1;
+        $cv_id = -1;
+        $perPage = 1000;
+        $number_get = 3;
+        if (\Auth::check()) {
+            $current_id = \Auth::user()->id;
+            
+            //get company 
+            $company = \DB::table('companies')
+                    ->where('companies.user', $current_id)
+                    ->select(
+                        'id'
+                    )
+                    ->first();
+            if($company){
+                $company_id = $company->id;
+            }
+            
+            //get CV 
+            $cv_user = \DB::table('curriculum_vitaes')
+                    ->where('curriculum_vitaes.user', $current_id)
+                    ->select(
+                        'id'
+                    )
+                    ->first();
+            if($cv_user){
+                $cv_id = $cv_user->id;
+            }
+        }
+
+        $partners = \App\Partner::take(4)->get();
+
+        $categories = \DB::table('categories')
+            ->select('id', 'name', 'slug')
+            ->get();
+
+        $post = new \App\Post;
+        $posts = $post->getPosts($id, null, 0, $number_get);
+
+        $companies = \DB::table('companies')
+            ->join('company_company_types', 'company_company_types.company', '=', 'companies.id')
+            ->where('company_company_types.company_type', '=', 5)
+            ->select('companies.id', 'companies.logo', 'companies.banner', 'companies.name', 'companies.slug')
+            ->take(5)
+            ->get();
+
+        $jobs = \DB::table('jobs')
+            ->join('companies', 'companies.id', '=', 'jobs.company')
+            ->join('company_company_types', 'company_company_types.company', '=', 'companies.id')
+            ->where('company_company_types.company_type', '=', 5)
+            ->select('companies.logo', 'companies.banner', 'jobs.name', 'companies.name as companyName', 'jobs.id', 'jobs.slug')
+            ->take(5)
+            ->get();
+
+        return view('category.show', compact('id', 'categories', 'companies', 'jobs', 'posts', 'company_id', 'cv_id', 'partners'));
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     *
+     * @return \Illuminate\View\View
+     */
     public function show($id)
     {
-        $category = Category::findOrFail($id);
+        $categories = [];
+        $jobs = [];
+        $companies = [];
 
-        return view('category.show', compact('category'));
+        $company_id = -1;
+        $cv_id = -1;
+        $perPage = 1000;
+        $number_get = 3;
+        if (\Auth::check()) {
+            $current_id = \Auth::user()->id;
+            
+            //get company 
+            $company = \DB::table('companies')
+                    ->where('companies.user', $current_id)
+                    ->select(
+                        'id'
+                    )
+                    ->first();
+            if($company){
+                $company_id = $company->id;
+            }
+            
+            //get CV 
+            $cv_user = \DB::table('curriculum_vitaes')
+                    ->where('curriculum_vitaes.user', $current_id)
+                    ->select(
+                        'id'
+                    )
+                    ->first();
+            if($cv_user){
+                $cv_id = $cv_user->id;
+            }
+        }
+
+        $partners = \App\Partner::take(4)->get();
+
+        $categories = \DB::table('categories')
+            ->select('id', 'name', 'slug')
+            ->get();
+
+        $post = new \App\Post;
+        $posts = $post->getPosts($id, null, 0, $number_get);
+
+        $companies = \DB::table('companies')
+            ->join('company_company_types', 'company_company_types.company', '=', 'companies.id')
+            ->where('company_company_types.company_type', '=', 5)
+            ->select('companies.id', 'companies.logo', 'companies.banner', 'companies.name', 'companies.slug')
+            ->take(5)
+            ->get();
+
+        $jobs = \DB::table('jobs')
+            ->join('companies', 'companies.id', '=', 'jobs.company')
+            ->join('company_company_types', 'company_company_types.company', '=', 'companies.id')
+            ->where('company_company_types.company_type', '=', 5)
+            ->select('companies.logo', 'companies.banner', 'jobs.name', 'companies.name as companyName', 'jobs.id', 'jobs.slug')
+            ->take(5)
+            ->get();
+        return view('category.show', compact('categories', 'companies', 'jobs', 'posts', 'company_id', 'cv_id', 'partners'));
     }
 
     /**

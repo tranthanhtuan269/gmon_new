@@ -3,9 +3,12 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Cviebrock\EloquentSluggable\Sluggable;
+
 
 class Post extends Model
 {
+    use Sluggable;
     /**
      * The database table used by the model.
      *
@@ -25,8 +28,21 @@ class Post extends Model
      *
      * @var array
      */
-    protected $fillable = ['title', 'sub_description', 'description', 'category', 'views', 'likes', 'image', 'sub_url'];
+    protected $fillable = ['title', 'sub_description', 'description', 'category', 'views', 'likes', 'image', 'sub_url', 'slug'];
 
+    /**
+     * Return the sluggable configuration array for this model.
+     *
+     * @return array
+     */
+    public function sluggable()
+    {
+        return [
+            'slug' => [
+                'source' => 'title'
+            ]
+        ];
+    }
     
     public function getPosts($category, $post, $start, $number){
         $posts = [];
@@ -34,7 +50,7 @@ class Post extends Model
             if($post > 0){
                 $posts = \DB::table('posts')
                     ->join('categories', 'categories.id', '=', 'posts.category')
-                    ->select('posts.id', 'posts.title', 'posts.description', 'posts.sub_description', 'posts.category', 'posts.image', 'posts.created_at')
+                    ->select('posts.id', 'posts.title', 'posts.slug', 'posts.description', 'posts.sub_description', 'posts.category', 'posts.image', 'posts.created_at')
                     ->where('posts.id', '=', $post)
                     ->where('posts.active', '=', 1)
                     ->orderBy('posts.created_at', 'desc')
@@ -42,7 +58,7 @@ class Post extends Model
             }else{
                 $posts = \DB::table('posts')
                     ->join('categories', 'categories.id', '=', 'posts.category')
-                    ->select('posts.id', 'posts.title', 'posts.description', 'posts.sub_description', 'posts.category', 'posts.image', 'posts.created_at')
+                    ->select('posts.id', 'posts.title', 'posts.slug', 'posts.description', 'posts.sub_description', 'posts.category', 'posts.image', 'posts.created_at')
                     ->where('posts.active', '=', 1)
                     ->where('posts.category', '=', $category)
                     ->orderBy('posts.created_at', 'desc')
@@ -53,19 +69,19 @@ class Post extends Model
             if($post > 0){
                 $posts = \DB::table('posts')
                     ->join('categories', 'categories.id', '=', 'posts.category')
-                    ->select('posts.id', 'posts.title', 'posts.description', 'posts.sub_description', 'posts.category', 'posts.image', 'posts.created_at')
+                    ->select('posts.id', 'posts.title', 'posts.slug', 'posts.description', 'posts.sub_description', 'posts.category', 'posts.image', 'posts.created_at')
                     ->where('posts.id', '=', $post)
                     ->where('posts.active', '=', 1)
                     ->orderBy('posts.created_at', 'desc')
                     ->get();
             }else{
                 $posts = \DB::table('posts')
-                    ->join('categories', 'categories.id', '=', 'posts.category')
-                    ->select('posts.id', 'posts.title', 'posts.description', 'posts.sub_description', 'posts.category', 'posts.image', 'posts.created_at')
-                    ->where('posts.active', '=', 1)
-                    ->orderBy('posts.created_at', 'desc')
-                    ->skip($start)->take($number)
-                    ->get();
+                ->join('categories', 'categories.id', '=', 'posts.category')
+                ->select('posts.id', 'posts.title', 'posts.slug', 'posts.description', 'posts.sub_description', 'posts.category', 'posts.image', 'posts.created_at')
+                ->where('posts.active', '=', 1)
+                ->orderBy('posts.created_at', 'desc')
+                ->skip($start)->take($number)
+                ->get();
             }
         }
 
@@ -101,7 +117,7 @@ class Post extends Model
                 }else{
                 $dataRet .= '<div class="sub-description">';
                     $dataRet .= $post->sub_description;
-                    $dataRet .= '<a href="' . url('/') . '/?post=' . $post->id . '">Xem thêm</a>';
+                    $dataRet .= '<a href="' . url('/') . '/post/' . $post->id . '/' . $post->slug .'">Xem thêm</a>';
                 $dataRet .= '</div>';
                 $dataRet .= '<div class="description" style="display: none;">';
                     $dataRet .= str_replace("/public/templateEditor/kcfinder/upload/images/","http://gmon.vn/public/templateEditor/kcfinder/upload/images/",$post->description);
