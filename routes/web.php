@@ -40,6 +40,9 @@ Route::get('/getDistrictli/{id}', 'HomeController@getDistrictLi');
 Route::get('/getTown/{id}', 'HomeController@getTown');
 
 Route::get('/getPost/', 'PostController@getPosts');
+Route::get('/post/{id}/{slug}', 'PostController@getPost');
+Route::get('/post/updateSlug', 'PostController@updateSlug');
+
 
 Route::group(['middleware' => 'auth'], function(){
 
