@@ -50,13 +50,23 @@ class Post extends Model
                     ->get();
             }
         }else{
-            $posts = \DB::table('posts')
-                ->join('categories', 'categories.id', '=', 'posts.category')
-                ->select('posts.id', 'posts.title', 'posts.description', 'posts.sub_description', 'posts.category', 'posts.image', 'posts.created_at')
-                ->where('posts.active', '=', 1)
-                ->orderBy('posts.created_at', 'desc')
-                ->skip($start)->take($number)
-                ->get();
+            if($post > 0){
+                $posts = \DB::table('posts')
+                    ->join('categories', 'categories.id', '=', 'posts.category')
+                    ->select('posts.id', 'posts.title', 'posts.description', 'posts.sub_description', 'posts.category', 'posts.image', 'posts.created_at')
+                    ->where('posts.id', '=', $post)
+                    ->where('posts.active', '=', 1)
+                    ->orderBy('posts.created_at', 'desc')
+                    ->get();
+            }else{
+                $posts = \DB::table('posts')
+                    ->join('categories', 'categories.id', '=', 'posts.category')
+                    ->select('posts.id', 'posts.title', 'posts.description', 'posts.sub_description', 'posts.category', 'posts.image', 'posts.created_at')
+                    ->where('posts.active', '=', 1)
+                    ->orderBy('posts.created_at', 'desc')
+                    ->skip($start)->take($number)
+                    ->get();
+            }
         }
 
         return $posts;
