@@ -354,11 +354,32 @@ class PostController extends Controller
     }
 
     public function updateSlug(){
-        $jobs = \App\Company::select('id')->get();
+        $companies = \App\Company::select('id')->get();
+        foreach($companies as $c){
+            $company = \App\Company::find($c->id);
+            $company->slug = null;
+            $company->save();
+        }
+
+        $jobs = \App\Job::select('id')->get();
         foreach($jobs as $j){
-            $job = \App\Company::find($j->id);
+            $job = \App\Job::find($j->id);
             $job->slug = null;
             $job->save();
+        }
+
+        $categories = \App\Category::select('id')->get();
+        foreach($categories as $ca){
+            $category = \App\Category::find($ca->id);
+            $category->slug = null;
+            $category->save();
+        }
+
+        $posts = \App\Post::select('id')->get();
+        foreach($posts as $p){
+            $post = \App\Post::find($p->id);
+            $post->slug = null;
+            $post->save();
         }
     }
 }

@@ -107,31 +107,4 @@ class HomeController extends Controller
     {
         return redirect('/home');
     }
-
-    public function updateSlugJob(){
-        $jobs = \App\Job::select('id')->get();
-        foreach($jobs as $j){
-            $job = \App\Job::find($j->id);
-            $job->slug = null;
-            $job->save();
-        }
-    }
-
-    public function updateSlugCategory(){
-        $jobs = \App\Category::select('id')->get();
-        foreach($jobs as $j){
-            $job = \App\Category::find($j->id);
-            $job->slug = null;
-            $job->save();
-        }
-    }
-
-    public function updateSlugPost(){
-        $jobs = \App\Post::select('id')->get();
-        foreach($jobs as $j){
-            $job = \App\Post::find($j->id);
-            $job->slug = null;
-            $job->save();
-        }
-    }
 }
