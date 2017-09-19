@@ -19,7 +19,7 @@
                         }
                     ?>
                     @foreach($categories as $category)
-                        <li><a @if($categorySelected == $category->id || ($categorySelected == 0 && $count == 0)) class="active" @endif href="{{ url('/') }}/?category={{ $category->id }}">{{ $category->name }}</a></li>
+                        <li><a @if($categorySelected == $category->id || ($categorySelected == 0 && $count == 0)) class="active" @endif href="{{ url('/') }}/category/{{ $category->id }}/{{ $category->slug }}">{{ $category->name }}</a></li>
                         <?php $count++; ?>
                     @endforeach
                 </ul>
@@ -34,7 +34,7 @@
                             $count = 0;
                         ?>
                         @foreach($categories as $category)
-                            <li><a @if($categorySelected == $category->id || ($categorySelected == 0 && $count == 0)) class="active" @endif href="{{ url('/') }}/?category={{ $category->id }}">{{ $category->name }}</a></li>
+                            <li><a @if($categorySelected == $category->id || ($categorySelected == 0 && $count == 0)) class="active" @endif href="{{ url('/') }}/category/{{ $category->id }}/{{ $category->slug }}">{{ $category->name }}</a></li>
                             <?php $count++; ?>
                         @endforeach
                         <li><a href="">liên hệ <i class="fa fa-envelope-o" aria-hidden="true"></i></a></li>

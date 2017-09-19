@@ -161,7 +161,7 @@ class PostController extends Controller
         $partners = \App\Partner::take(4)->get();
 
         $categories = \DB::table('categories')
-            ->select('id', 'name')
+            ->select('id', 'name', 'slug')
             ->get();
 
         $post = new \App\Post;
@@ -235,7 +235,7 @@ class PostController extends Controller
         $partners = \App\Partner::take(4)->get();
 
         $categories = \DB::table('categories')
-            ->select('id', 'name')
+            ->select('id', 'name', 'slug')
             ->get();
 
         $post = new \App\Post;
@@ -344,16 +344,16 @@ class PostController extends Controller
             }
             $posts = $postGetObj->getPosts($category, $post, $from, $number);
             $dataRet = $postGetObj->getPostsHtml($posts, $category, $post);
-            // dd($dataRet);
             return \Response::json(array('code' => '200', 'message' => 'Success!', 'posts' => $dataRet));
         }
     }
 
     public function updateSlug(){
-        $posts = Post::select('id')->get();
-        foreach($posts as $p){
-            $post = Post::find($p->id);
-            $post->save();
+        $jobs = \App\Company::select('id')->get();
+        foreach($jobs as $j){
+            $job = \App\Company::find($j->id);
+            $job->slug = null;
+            $job->save();
         }
     }
 }

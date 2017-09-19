@@ -316,8 +316,88 @@
               }
             </script>
         </div>
+        <div class="wrapper-homepage news">
+          <div class="container-fluid">
+              <div class="row menu-top">
+                  <div class="col-md-3"></div>
+                  <div class="col-md-6 content">
+                      <ul class="list-inline">
+                          <?php 
+                              $categorySelected = 0;
+                              $count = 0;
+                              
+                              if (isset($_GET['category'])) {
+                                  $categorySelected = $_GET['category'];
+                              }
+                          ?>
+                          @foreach($categories as $category)
+                              <li><a @if($categorySelected == $category->id || ($categorySelected == 0 && $count == 0)) class="active" @endif href="{{ url('/') }}/category/{{ $category->id }}/{{ $category->slug }}">{{ $category->name }}</a></li>
+                              <?php $count++; ?>
+                          @endforeach
+                      </ul>
+                  </div>
+              </div>
+              <div class="main-content-news row">
+                  <div class="col-md-3 left">
+                      <div class="left-menu">
+                          <h3>chủ đề</h3>
+                          <ul class="list-inline">                        
+                              <?php 
+                                  $count = 0;
+                              ?>
+                              @foreach($categories as $category)
+                                  <li><a @if($categorySelected == $category->id || ($categorySelected == 0 && $count == 0)) class="active" @endif href="{{ url('/') }}/category/{{ $category->id }}/{{ $category->slug }}">{{ $category->name }}</a></li>
+                                  <?php $count++; ?>
+                              @endforeach
+                              <li><a href="">liên hệ <i class="fa fa-envelope-o" aria-hidden="true"></i></a></li>
+                          </ul>
+                      </div>
+                      <div class="left-content">
+                          <h3>Việc làm HOT</h3>
+                          @foreach($jobs as $job)
+                          <div class="item">
+                              <div class="image">
+                                  <img src="http://test.gmon.com.vn/?image={{ $job->banner }}" width="305" height="156" alt="HOT" />
+                              </div>
+                              <div class="title" style="text-transform: uppercase;">
+                                  <a href="http://gmon.vn/job/{{ $job->id }}/{{ $job->slug }}">{{ $job->companyName }} TUYỂN DỤNG {{ $job->name }}</a>
+                              </div>
+                          </div>
+                          @endforeach
+                      </div>
+                  </div>
 
-        @yield('content')
+                  @yield('content')
+
+                  <div class="col-md-3 right">
+                      @if(count($partners) > 0)
+                        <h3>Đối tác</h3>
+                        @foreach($partners as $partner)
+                        <div class="item">
+                          <a href="{{ $partner->link }}">
+                            <div class="image">
+                                <img src="{{ $partner->image }}" alt="" />
+                            </div>
+                          </a>
+                        </div>
+                        @endforeach
+                        <hr>
+                      @endif
+                        <h3>Nhà tuyển dụng HOT</h3>
+                        @foreach($companies as $company)
+                        <div class="item">
+                            <div class="image">
+                                <img src="http://test.gmon.com.vn/?image={{ $company->banner }}" alt="" />
+                            </div>
+                            <div class="title">
+                                <a href="http://gmon.vn/company/{{ $company->id }}/info">Công việc tại {{ $company->name }}</a>
+                            </div>
+                        </div>
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+        </div>
         
         <div class="footer-homepage">
             <div class="top-footer">

@@ -3,9 +3,11 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Cviebrock\EloquentSluggable\Sluggable;
 
 class Company extends Model
 {
+    use Sluggable;
     /**
      * The database table used by the model.
      *
@@ -27,6 +29,15 @@ class Company extends Model
      */
     protected $fillable = ['user', 'banner', 'logo', 'name', 'sub_name', 'tax_code', 'sologan', 'size', 'jobs', 'city', 'district', 'town', 'address', 'description', 'images', 'branchs', 'lat', 'lng', 'youtube_link', 'template'];
 
+    public function sluggable()
+    {
+        return [
+            'slug' => [
+                'source' => 'name'
+            ]
+        ];
+    }
+    
     public function getPhoneNumber($user_id){
         $user = User::findOrFail($user_id);
         if($user)

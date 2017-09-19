@@ -71,7 +71,7 @@ class HomeController extends Controller
         $partners = \App\Partner::take(4)->get();
 
         $categories = \DB::table('categories')
-            ->select('id', 'name')
+            ->select('id', 'name', 'slug')
             ->get();
 
         $post = new \App\Post;
@@ -89,7 +89,7 @@ class HomeController extends Controller
         $companies = \DB::table('companies')
             ->join('company_company_types', 'company_company_types.company', '=', 'companies.id')
             ->where('company_company_types.company_type', '=', 5)
-            ->select('companies.id', 'companies.logo', 'companies.banner', 'companies.name')
+            ->select('companies.id', 'companies.logo', 'companies.banner', 'companies.name', 'companies.slug')
             ->take(5)
             ->get();
 
@@ -97,7 +97,7 @@ class HomeController extends Controller
             ->join('companies', 'companies.id', '=', 'jobs.company')
             ->join('company_company_types', 'company_company_types.company', '=', 'companies.id')
             ->where('company_company_types.company_type', '=', 5)
-            ->select('companies.logo', 'companies.banner', 'jobs.name', 'companies.name as companyName', 'jobs.id')
+            ->select('companies.logo', 'companies.banner', 'jobs.name', 'companies.name as companyName', 'jobs.id', 'jobs.slug')
             ->take(5)
             ->get();
         return view('home', compact('categories', 'companies', 'jobs', 'posts', 'company_id', 'cv_id', 'partners'));
@@ -106,5 +106,32 @@ class HomeController extends Controller
     public function welcome()
     {
         return redirect('/home');
+    }
+
+    public function updateSlugJob(){
+        $jobs = \App\Job::select('id')->get();
+        foreach($jobs as $j){
+            $job = \App\Job::find($j->id);
+            $job->slug = null;
+            $job->save();
+        }
+    }
+
+    public function updateSlugCategory(){
+        $jobs = \App\Category::select('id')->get();
+        foreach($jobs as $j){
+            $job = \App\Category::find($j->id);
+            $job->slug = null;
+            $job->save();
+        }
+    }
+
+    public function updateSlugPost(){
+        $jobs = \App\Post::select('id')->get();
+        foreach($jobs as $j){
+            $job = \App\Post::find($j->id);
+            $job->slug = null;
+            $job->save();
+        }
     }
 }

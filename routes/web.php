@@ -31,6 +31,7 @@ Route::post('auth/register', 'SiteController@registerApi');
 Route::get('curriculumvitae', 'CurriculumVitaeController@indexCurriculumVitae');
 Route::get('curriculumvitae/view/{id}', 'CurriculumVitaeController@showCurriculumVitae');
 Route::get('/job/view/{id}', 'JobController@info');
+Route::get('/job/{id}/{slug}', 'JobController@info');
 
 Route::post('/job/join', 'JobController@join');
 Route::get('company/{id}/info', 'CompanyController@info');
@@ -41,6 +42,7 @@ Route::get('/getTown/{id}', 'HomeController@getTown');
 
 Route::get('/getPost/', 'PostController@getPosts');
 Route::get('/post/{id}/{slug}', 'PostController@getPost');
+Route::get('/category/{id}/{slug}', 'CategoryController@getCategory');
 Route::get('/post/updateSlug', 'PostController@updateSlug');
 
 

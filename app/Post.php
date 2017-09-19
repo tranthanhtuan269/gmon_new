@@ -50,7 +50,7 @@ class Post extends Model
             if($post > 0){
                 $posts = \DB::table('posts')
                     ->join('categories', 'categories.id', '=', 'posts.category')
-                    ->select('posts.id', 'posts.title', 'posts.description', 'posts.sub_description', 'posts.category', 'posts.image', 'posts.created_at')
+                    ->select('posts.id', 'posts.title', 'posts.slug', 'posts.description', 'posts.sub_description', 'posts.category', 'posts.image', 'posts.created_at')
                     ->where('posts.id', '=', $post)
                     ->where('posts.active', '=', 1)
                     ->orderBy('posts.created_at', 'desc')
@@ -58,7 +58,7 @@ class Post extends Model
             }else{
                 $posts = \DB::table('posts')
                     ->join('categories', 'categories.id', '=', 'posts.category')
-                    ->select('posts.id', 'posts.title', 'posts.description', 'posts.sub_description', 'posts.category', 'posts.image', 'posts.created_at')
+                    ->select('posts.id', 'posts.title', 'posts.slug', 'posts.description', 'posts.sub_description', 'posts.category', 'posts.image', 'posts.created_at')
                     ->where('posts.active', '=', 1)
                     ->where('posts.category', '=', $category)
                     ->orderBy('posts.created_at', 'desc')
@@ -68,7 +68,7 @@ class Post extends Model
         }else{
             $posts = \DB::table('posts')
                 ->join('categories', 'categories.id', '=', 'posts.category')
-                ->select('posts.id', 'posts.title', 'posts.description', 'posts.sub_description', 'posts.category', 'posts.image', 'posts.created_at')
+                ->select('posts.id', 'posts.title', 'posts.slug', 'posts.description', 'posts.sub_description', 'posts.category', 'posts.image', 'posts.created_at')
                 ->where('posts.active', '=', 1)
                 ->orderBy('posts.created_at', 'desc')
                 ->skip($start)->take($number)
@@ -107,7 +107,7 @@ class Post extends Model
                 }else{
                 $dataRet .= '<div class="sub-description">';
                     $dataRet .= $post->sub_description;
-                    $dataRet .= '<a href="' . url('/') . '/?post=' . $post->id . '">Xem thêm</a>';
+                    $dataRet .= '<a href="' . url('/') . '/post/' . $post->id . '/' . $post->slug .'">Xem thêm</a>';
                 $dataRet .= '</div>';
                 $dataRet .= '<div class="description" style="display: none;">';
                     $dataRet .= str_replace("/public/templateEditor/kcfinder/upload/images/","http://gmon.vn/public/templateEditor/kcfinder/upload/images/",$post->description);
