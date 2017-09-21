@@ -1190,65 +1190,40 @@ class HomeController extends Controller
     }
     
     public function action(){
-        $companies = \DB::table('companies')
-                        ->get();
+        $cvs = \DB::table('users')
+            ->join('curriculum_vitaes', 'curriculum_vitaes.user', '=', 'users.id')
+            ->select('users.id')
+            ->get();
+
+        $companies = \DB::table('users')
+            ->join('companies', 'companies.user', '=', 'users.id')
+            ->select('users.id')
+            ->get();
+
+        $nodelete = [1, 558, 1040];
+        foreach($cvs as $cv){
+            $nodelete[] = $cv->id;
+        }
         foreach($companies as $company){
-            $company->jobs=rtrim($company->jobs,";");
-            $jobLists = explode(";",$company->jobs);
-            foreach($jobLists as $job){
-                if($job == 'Khách sạn'){
-                    $cct = CompanyCompanyType::where('company', $company->id)->where('company_type', 1)->first();
-                    if($cct == null){
-                        echo $company->id .' - '. $job . ';';
-                        $companyCompanyType = new CompanyCompanyType;
-                        $companyCompanyType->company = $company->id;
-                        $companyCompanyType->company_type = 1;
-                        $companyCompanyType->save();
-                        echo 'Success <br />';
-                    }
-                }else if($job == 'Nhà Hàng'){
-                    $cct = CompanyCompanyType::where('company', $company->id)->where('company_type', 2)->first();
-                    if($cct == null){
-                        echo $company->id .' - '. $job . ';';
-                        $companyCompanyType = new CompanyCompanyType;
-                        $companyCompanyType->company = $company->id;
-                        $companyCompanyType->company_type = 2;
-                        $companyCompanyType->save();
-                        echo 'Success <br />';
-                    }
-                }else if($job == 'Cửa hàng'){
-                    $cct = CompanyCompanyType::where('company', $company->id)->where('company_type', 3)->first();
-                    if($cct == null){
-                        echo $company->id .' - '. $job . ';';
-                        $companyCompanyType = new CompanyCompanyType;
-                        $companyCompanyType->company = $company->id;
-                        $companyCompanyType->company_type = 3;
-                        $companyCompanyType->save();
-                        echo 'Success <br />';
-                    }
-                }else if($job == 'Doanh nghiệp'){
-                    $cct = CompanyCompanyType::where('company', $company->id)->where('company_type', 4)->first();
-                    if($cct == null){
-                        echo $company->id .' - '. $job . ';';
-                        $companyCompanyType = new CompanyCompanyType;
-                        $companyCompanyType->company = $company->id;
-                        $companyCompanyType->company_type = 4;
-                        $companyCompanyType->save();
-                        echo 'Success <br />';
-                    }
-                }else if($job == 'Spa'){
-                    $cct = CompanyCompanyType::where('company', $company->id)->where('company_type', 5)->first();
-                    if($cct == null){
-                        echo $company->id .' - '. $job . ';';
-                        $companyCompanyType = new CompanyCompanyType;
-                        $companyCompanyType->company = $company->id;
-                        $companyCompanyType->company_type = 5;
-                        $companyCompanyType->save();
-                        echo 'Success <br />';
-                    }
+            $nodelete[] = $company->id;
+        }
+
+        // sort $nodelete;
+        $temp = 0;
+        for($i = 0; $i < count($nodelete); $i++){
+            for($j = 0; $j < count($nodelete); $j++){
+                if($nodelete[$i] > $nodelete[$j]){
+                    $temp = $nodelete[$i];
+                    $nodelete[$i] = $nodelete[$j];
+                    $nodelete[$j] = $temp;
                 }
-                echo '<br />';
             }
         }
+
+        $delete = \DB::table('users')
+                    ->whereNotIn('id', $nodelete)
+                    ->select('id')
+                    ->orderBy('id', 'desc')
+                    ->delete();
     }
 }

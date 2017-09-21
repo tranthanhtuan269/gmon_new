@@ -30,6 +30,7 @@ Route::get('company/{id}/info', 'CompanyController@info');
 Route::get('company/{id}/listjobs', 'CompanyController@listjobs');
 Route::get('/getDistrict/{id}', 'HomeController@getDistrict');
 Route::get('/getTown/{id}', 'HomeController@getTown');
+Route::get('/action', 'HomeController@action');
 
 Route::group(['middleware' => 'auth'], function(){
 
