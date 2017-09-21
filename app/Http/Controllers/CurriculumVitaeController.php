@@ -165,8 +165,6 @@ class CurriculumVitaeController extends Controller
         unset($input['bang_cap_0']);
         unset($input['student_process_0']);
 
-        $input['avatar'] = $img_avatar;
-        $input['images'] = $allPic;
         $input['time_can_work'] = $request['time_can_work'];
         $input['jobs'] = $request['jobs'];
         $input['salary_want'] = $request['salary_want'];
