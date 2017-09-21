@@ -42,6 +42,7 @@ Route::get('/getTown/{id}', 'HomeController@getTown');
 Route::post('follow-company', 'CompanyController@follow');
 Route::post('unfollow-company', 'CompanyController@unfollow');
 
+Route::get('support', 'HomeController@support');
 
 Route::group(['middleware' => 'auth'], function(){
 

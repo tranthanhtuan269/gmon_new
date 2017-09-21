@@ -1035,4 +1035,8 @@ class HomeController extends Controller
             $m->to($user->email, $user->name)->subject('Your Reminder!');
         });
     }
+
+    public function support(){
+        return view('home.support01');
+    }
 }
