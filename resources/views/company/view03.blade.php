@@ -17,6 +17,15 @@
     <link rel="stylesheet" href="{{ url('/') }}/public/css/view03.css">
 </head>
 <body class="homepage">
+    <!-- Global Site Tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-106844998-1"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments)};
+    gtag('js', new Date());
+
+    gtag('config', 'UA-106844998-1');
+    </script>
     <input type="hidden" name="company-id" value="{{ $company->id }}">
     <header>
         <div class="header-top clearfix">

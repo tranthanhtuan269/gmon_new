@@ -18,6 +18,16 @@
         <link href="{{ url('/') }}/public/css/customize.css" rel="stylesheet">
     </head>
     <body data-site="{{ url('/') }}">
+        <!-- Global Site Tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-106844998-1"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments)};
+          gtag('js', new Date());
+
+          gtag('config', 'UA-106844998-1');
+        </script>
+
         <nav class="navbar navbar-default navbar-static-top">
             <div class="container">
                 <div class="navbar-header">
