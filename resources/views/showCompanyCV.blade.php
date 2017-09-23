@@ -7,7 +7,7 @@
             <div class="container" >
                 <div class="clearfix row" style="padding-bottom: 30px">
                     <div class="col-md-3">
-                        <a target="_self" href="" class="logo row"><img src="http://test.gmon.com.vn/?image=home.png" alt="gmon.vn"></a>
+                        <a target="_self" href="" class="logo row"><img src="http://test.gmon.com.vn/?image=home.png" alt="http://spa.gmon.vn"></a>
                     </div>
                     <div class="col-md-9" style="background-color:rgba(255, 255, 255, 0.9);">
                         <div class="">
@@ -94,9 +94,9 @@
                 <div class="item-u" >
                     <a target="_self" href="{{ url('/') }}/curriculumvitae/view/{{ $cv->id }}" onmouseenter="onFocusCandidates(event)" onmouseleave ="onDisFocusCandidates(event)">
                         @if(strlen($cv->avatar) > 0)
-                        <div class="img"><img src="http://test.gmon.com.vn/?image={{ $cv->avatar }}" alt=""></div>
+                        <div class="img"><img src="http://test.gmon.com.vn/?image={{ $cv->avatar }}" alt="{{ url('/') }}/curriculumvitae/view/{{ $cv->id }}"></div>
                         @else
-                        <div class="img"><img src="http://test.gmon.com.vn/?image=avatar.png" alt=""></div>
+                        <div class="img"><img src="http://test.gmon.com.vn/?image=avatar.png" alt="{{ url('/') }}/curriculumvitae/view/{{ $cv->id }}"></div>
                         @endif
                         <p class="name text-center">{{ $cv->username }}</p>
                         <p class="university text-center">{{ $cv->school }}</p>
@@ -104,9 +104,9 @@
                             <div class="info">
                                 <div class="sub-img"><div class="border">
                                         @if(strlen($cv->avatar) > 0)
-                                        <img src="http://test.gmon.com.vn/?image={{ $cv->avatar }}" alt="">
+                                        <img src="http://test.gmon.com.vn/?image={{ $cv->avatar }}" alt="{{ url('/') }}/curriculumvitae/view/{{ $cv->id }}">
                                         @else
-                                        <img src="http://test.gmon.com.vn/?image=avatar.png" alt="">
+                                        <img src="http://test.gmon.com.vn/?image=avatar.png" alt="{{ url('/') }}/curriculumvitae/view/{{ $cv->id }}">
                                         @endif
                                     </div></div>
                                 <p>{{ $cv->username }}</p>
@@ -131,7 +131,7 @@
                     @foreach($jobsvip1 as $job)
                     <div class="row item-job">
                         <div class="job-image">
-                            <div style="padding: 10%;"><img src="http://test.gmon.com.vn/?image={{ $job->logo }}" alt=""></div>
+                            <div style="padding: 10%;"><img src="http://test.gmon.com.vn/?image={{ $job->logo }}" alt="{{ url('/') }}/job/view/{{ $job->id }}"></div>
                         </div>
                         <div class="job-content">
                             <div class="job-name"><a target="_self" href="{{ url('/') }}/job/view/{{ $job->id }}"> {{ $job->name }} </a></div>
@@ -157,7 +157,7 @@
                     @foreach($jobsvip2 as $job)
                     <div class="row item-job">
                         <div class="job-image">
-                            <div style="padding: 10%;"><img src="http://test.gmon.com.vn/?image={{ $job->logo }}" alt=""></div>
+                            <div style="padding: 10%;"><img src="http://test.gmon.com.vn/?image={{ $job->logo }}" alt="{{ url('/') }}/job/view/{{ $job->id }}"></div>
                         </div>
                         <div class="job-content">
                             <div class="job-name"><a target="_self" href="{{ url('/') }}/job/view/{{ $job->id }}"> {{ $job->name }} </a></div>
@@ -187,7 +187,7 @@
                     ?>
                     <div class="row item-job job-list-<?php echo intval($count / 10); ?>">
                         <div class="job-image">
-                            <div style="padding: 10%;"><img src="http://test.gmon.com.vn/?image={{ $job->logo }}" alt=""></div>
+                            <div style="padding: 10%;"><img src="http://test.gmon.com.vn/?image={{ $job->logo }}" alt="{{ url('/') }}/job/view/{{ $job->id }}"></div>
                         </div>
                         <div class="job-content">
                             <div class="job-name"><a target="_self" href="{{ url('/') }}/job/view/{{ $job->id }}"> {{ $job->name }} </a></div>
@@ -215,8 +215,8 @@
                         <div class="item-work" >
                             <div class="border-item">
                                 <a target="_self" href="{{ url('/') }}/company/{{ $company->id }}/info">
-                                    <span class="icon-new"><img src="http://test.gmon.com.vn/?image=icon-new.png" alt=""></span>
-                                    <p class="work-img"><img  src="http://test.gmon.com.vn/?image={{ $company->logo }}" alt=""></p>
+                                    <span class="icon-new"><img src="http://test.gmon.com.vn/?image=icon-new.png" alt="{{ url('/') }}/company/{{ $company->id }}/info"></span>
+                                    <p class="work-img"><img src="http://test.gmon.com.vn/?image={{ $company->logo }}" alt="{{ url('/') }}/company/{{ $company->id }}/info"></p>
                                     <div class="details">
                                         <div class="single"><p>{{ $company->name }}</p></div>
                                         <div class="work-view">

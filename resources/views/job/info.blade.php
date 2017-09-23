@@ -197,7 +197,7 @@
             <div class="col-md-4 info-company col-xs-12">
                 <div class="logo"><a target="_self" href="{{ url('/') }}/company/{{ $company->id }}/info"><img src="http://test.gmon.com.vn/?image={{ $company->logo }}" width="250"></a></div>
                 <div class="info">
-                    <p class="title">{{ $company->name }}</p>
+                    <h1 class="obj-name">{{ $job->name }}</h1>
                     <div class="star">
                         <img src="http://test.gmon.com.vn/?image=star.png" alt="">
                         <img src="http://test.gmon.com.vn/?image=star.png" alt="">
@@ -241,7 +241,7 @@
             </div>
             <div class="col-md-8  col-xs-12">
                 <div class="info-job">
-                    <p class="title" style="margin-top: -8px">{{ $job->name }}</p>
+                    <h1 class="obj-name">{{ $job->name }}</h1>
                     <p class="time-new-roman"><i class="master-point"></i><span style="margin-right: 35px">
                     {{ $company->district }}, {{ $company->city }}
                     </span>
@@ -277,15 +277,15 @@
                 </div>
                 <div class="item">
                     <div class="title">việc bạn sẽ làm</div>
-                                        <div class="content"><?php echo str_replace("<p>&nbsp;</p>","",$job->description); ?></div>
+                        <div class="content"><?php echo str_replace("<p>&nbsp;</p>","",$job->description); ?></div>
                 </div>
                 <div class="item">
                     <div class="title">chúng tôi kỳ vọng ở bạn</div>
-                                        <div class="content"><?php echo str_replace("<p>&nbsp;</p>","",$job->requirement); ?></div>
+                        <div class="content"><?php echo str_replace("<p>&nbsp;</p>","",$job->requirement); ?></div>
                 </div>
                 <div class="item">
                     <div class="title">điều bạn mong muốn</div>
-                                        <div class="content"><?php echo str_replace("<p>&nbsp;</p>","",$job->benefit); ?></div>
+                        <div class="content"><?php echo str_replace("<p>&nbsp;</p>","",$job->benefit); ?></div>
                 </div>
                 @if(!Auth::check() || Auth::user()->hasRole('user'))
                 <p style="margin-top: 20px;text-align: center;"><a id="join-btn" target="_self" href="javascript:void(0)" class="bt-join" data-id="{{ $job->id }}" @if($applied == 0)style="display:inline-block;" @else style="display:none;"@endif>Ứng tuyển ngay</a><a id="joined-btn" target="_self" href="javascript:void(0)" class="bt-joined" data-id="{{ $job->id }}" @if($applied == 0)style="display:none;" @else style="display:inline-block;"@endif>Đã ứng tuyển</a></p>

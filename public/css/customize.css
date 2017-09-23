@@ -346,3 +346,7 @@ img.no-vote{
     position: relative;
     top: 3px;
 }
+
+h1.obj-name{
+    font-size: 25px; margin: 0 0 10px 0;
+}

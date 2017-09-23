@@ -203,7 +203,7 @@
                             ?>
                         </div>
                         <div class="clear"></div>
-                        <h2 class="pull-left block-title">{{ $company->name }}</h2>
+                        <h1 class="obj-name">{{ $company->name }}</h1>
                         <!-- <a class="pull-right follow">Theo dõi</a> -->
                         @if($company_id != $company->id)
                         <button type="button" class="btn btn-primary follow" id="follow-btn" @if($followed) style="display: none;" @else style="display: block;" @endif><i></i>Theo dõi</button>
@@ -229,7 +229,7 @@
                             <img src="http://test.gmon.com.vn/?image={{ $company->logo }}">
                         </div>
                         <div class="about-us">
-                            <div class="sblg-title"><span>{{ $company->name }}</span></div>
+                            <div class="sblg-title"><h1 class="obj-name">{{ $company->name }}</h1></div>
                             <div class="sb-body clearfix">
                                 <p>
                                     <img src="http://test.gmon.com.vn/?image=sbicon1.png">

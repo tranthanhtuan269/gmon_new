@@ -7,7 +7,7 @@
             <div class="container" >
                 <div class="clearfix row" style="padding-bottom: 30px">
                     <div class="col-md-3">
-                        <a target="_self" href="" class="logo row"><img src="http://test.gmon.com.vn/?image=home.png" alt=""></a>
+                        <a target="_self" href="" class="logo row"><img src="http://test.gmon.com.vn/?image=home.png" alt="http://spa.gmon.vn"></a>
                     </div>
                     <div class="col-md-9" style="background-color:rgba(255, 255, 255, 0.9);">
                         <div class="">
@@ -88,7 +88,7 @@
         <div class="row">
             <div class="col-md-9 col-xs-12">
                 <div class="banner row">
-                    <a width="50%" target="_self" href="http://gmon.vn/company/323/info"><img src="http://test.gmon.com.vn/?image=Banner-Web-Gmon-01.jpg" alt=""></a><a width="50%" target="_self" href="http://gmon.vn/company/199/info"><img src="http://test.gmon.com.vn/?image=Banner-Web-Gmon-02.jpg" alt=""></a>
+                    <a width="50%" target="_self" href="http://gmon.vn/company/323/info"><img src="http://test.gmon.com.vn/?image=Banner-Web-Gmon-01.jpg" alt="http://gmon.vn/company/323/info"></a><a width="50%" target="_self" href="http://gmon.vn/company/199/info"><img src="http://test.gmon.com.vn/?image=Banner-Web-Gmon-02.jpg" alt="http://gmon.vn/company/199/info"></a>
                 </div>
                 <div class="row news">
                     <div class="col-md-6" style="margin-right: -1px">
@@ -169,9 +169,9 @@
                 </div>
             </div>
             <div class="col-md-3 col-xs-12">
-                <div class="ads-top"><a target="_self" href=""><img src="http://test.gmon.com.vn/?image=ads.png" alt=""></a></div>
+                <div class="ads-top"><a target="_self" href=""><img src="http://test.gmon.com.vn/?image=ads.png" alt="http://spa.gmon.vn"></a></div>
                 <div class="ads-bot">
-                    <a target="_self" href="http://gmon.vn/company/244/info"><img src="http://test.gmon.com.vn/?image=Banner-Web-Gmon-03.gif" alt=""></a>
+                    <a target="_self" href="http://gmon.vn/company/244/info"><img src="http://test.gmon.com.vn/?image=Banner-Web-Gmon-03.gif" alt="http://gmon.vn/company/244/info"></a>
                 </div>
             </div>
         </div>
@@ -186,11 +186,11 @@
                         <?php $i = 0;?>
                         @foreach($companies as $company)
                         <?php if($i == 0){?>
-                        <li class="item-logo"><a target="_self" href="{{ url('/') }}/company/{{ $company->id }}/info"><img src="http://test.gmon.com.vn/?image={{ $company->logo }}" alt=""></a></li>
+                        <li class="item-logo"><a target="_self" href="{{ url('/') }}/company/{{ $company->id }}/info"><img src="http://test.gmon.com.vn/?image={{ $company->logo }}" alt="{{ url('/') }}/company/{{ $company->id }}/info"></a></li>
                         <?php 
                         $i++;
                         }else{ ?>
-                        <li><a target="_self" href="{{ url('/') }}/company/{{ $company->id }}/info"><img src="http://test.gmon.com.vn/?image={{ $company->logo }}" alt=""></a></li>
+                        <li><a target="_self" href="{{ url('/') }}/company/{{ $company->id }}/info"><img src="http://test.gmon.com.vn/?image={{ $company->logo }}" alt="{{ url('/') }}/company/{{ $company->id }}/info"></a></li>
                         <?php 
                         $i++;
                         } 
@@ -210,9 +210,9 @@
                 <div class="item-u" >
                     <a target="_self" href="{{ url('/') }}/curriculumvitae/view/{{ $cv->id }}" onmouseenter="onFocusCandidates(event)" onmouseleave ="onDisFocusCandidates(event)">
                         @if(strlen($cv->avatar) > 0)
-                        <div class="img"><img src="http://test.gmon.com.vn/?image={{ $cv->avatar }}" alt=""></div>
+                        <div class="img"><img src="http://test.gmon.com.vn/?image={{ $cv->avatar }}" alt="{{ url('/') }}/curriculumvitae/view/{{ $cv->id }}"></div>
                         @else
-                        <div class="img"><img src="http://test.gmon.com.vn/?image=avatar.png" alt=""></div>
+                        <div class="img"><img src="http://test.gmon.com.vn/?image=avatar.png" alt="{{ url('/') }}/curriculumvitae/view/{{ $cv->id }}"></div>
                         @endif
                         <p class="name text-center">{{ $cv->username }}</p>
                         <p class="university text-center">{{ $cv->school }}</p>
@@ -220,9 +220,9 @@
                             <div class="info">
                                 <div class="sub-img"><div class="border">
                                         @if(strlen($cv->avatar) > 0)
-                                        <img src="http://test.gmon.com.vn/?image={{ $cv->avatar }}" alt="">
+                                        <img src="http://test.gmon.com.vn/?image={{ $cv->avatar }}" alt="{{ url('/') }}/curriculumvitae/view/{{ $cv->id }}">
                                         @else
-                                        <img src="http://test.gmon.com.vn/?image=avatar.png" alt="">
+                                        <img src="http://test.gmon.com.vn/?image=avatar.png" alt="{{ url('/') }}/curriculumvitae/view/{{ $cv->id }}">
                                         @endif
                                     </div></div>
                                 <p>{{ $cv->username }}</p>
@@ -249,7 +249,7 @@
                         <div class="item-work" >
                             <div class="border-item">
                                 <a target="_self" href="{{ url('/') }}/job/view/{{ $job->id }}">
-                                    <p class="work-img"><img  src="http://test.gmon.com.vn/?image={{ $job->logo }}" alt=""></p>
+                                    <p class="work-img"><img  src="http://test.gmon.com.vn/?image={{ $job->logo }}" alt="{{ url('/') }}/job/view/{{ $job->id }}"></p>
                                     <div class="details">
                                         <div class="single"><p>{{ $job->name }} tại {{ $job->companyname }}</p></div>
                                         <div class="work-view">
@@ -276,7 +276,7 @@
                         <div class="item-work" >
                             <div class="border-item">
                                 <a target="_self" href="{{ url('/') }}/job/view/{{ $job->id }}">
-                                    <p class="work-img"><img  src="http://test.gmon.com.vn/?image={{ $job->logo }}" alt=""></p>
+                                    <p class="work-img"><img  src="http://test.gmon.com.vn/?image={{ $job->logo }}" alt="{{ url('/') }}/job/view/{{ $job->id }}"></p>
                                     <div class="details">
                                         <div class="single"><p>{{ $job->name }} tại {{ $job->companyname }}</p></div>
                                         <div class="work-view">
@@ -302,16 +302,16 @@
         <div class="new-jobs row">
             <div class="title clearfix"><span>Việc làm mới <i></i></span><a target="_self" href="{{ url('/') }}/showmore?job=new">Xem thêm việc làm MỚI <i></i></a></div>
             <div class="wrapper" id="wrapper">
-                <div class="prev" id="btPrevNewJobs"><img src="http://test.gmon.com.vn/?image=prev.png" alt=""></div>
-                <div class="next"  id="btNextNewJobs"><img src="http://test.gmon.com.vn/?image=next.png" alt=""></div>
+                <div class="prev" id="btPrevNewJobs"><img src="http://test.gmon.com.vn/?image=prev.png" alt="prev"></div>
+                <div class="next"  id="btNextNewJobs"><img src="http://test.gmon.com.vn/?image=next.png" alt="next"></div>
                 <div style="width: 100%;overflow: hidden;display: inline-block;position: relative;">
                     <div class="contents" id="contents-jobs">
                         @foreach($jobs as $job)
                         <div class="item-work" >
                             <div class="border-item">
                                 <a target="_self" href="{{ url('/') }}/job/view/{{ $job->id }}">
-                                    <span class="icon-new"><img src="http://test.gmon.com.vn/?image=icon-new.png" alt=""></span>
-                                    <p class="work-img"><img  src="http://test.gmon.com.vn/?image={{ $job->logo }}" alt=""></p>
+                                    <span class="icon-new"><img src="http://test.gmon.com.vn/?image=icon-new.png" alt="{{ url('/') }}/job/view/{{ $job->id }}"></span>
+                                    <p class="work-img"><img  src="http://test.gmon.com.vn/?image={{ $job->logo }}" alt="{{ url('/') }}/job/view/{{ $job->id }}"></p>
                                     <div class="details">
                                         <div class="single"><p>{{ $job->name }} tại {{ $job->companyname }}</p></div>
                                         <div class="work-view">
@@ -332,16 +332,16 @@
         <div class="new-employer row">
             <div class="title clearfix"><span>Nhà tuyển dụng mới <i></i></span><a target="_self" href="{{ url('/') }}/showmore?company=new">Xem thêm nhà tuyển dụng MỚI <i></i></a></div>
             <div class="wrapper" id="wrapper2">
-                <div class="prev" id="btPrevNewEmployer"><img src="http://test.gmon.com.vn/?image=prev.png" alt=""></div>
-                <div class="next"  id="btNextNewEmployer"><img src="http://test.gmon.com.vn/?image=next.png" alt=""></div>
+                <div class="prev" id="btPrevNewEmployer"><img src="http://test.gmon.com.vn/?image=prev.png" alt="prev"></div>
+                <div class="next"  id="btNextNewEmployer"><img src="http://test.gmon.com.vn/?image=next.png" alt="next"></div>
                 <div style="width: 100%;overflow: hidden;display: inline-block;position: relative;">
                     <div class="contents" id="contents-employer">
                         @foreach($companies as $company)
                         <div class="item-work" >
                             <div class="border-item">
                                 <a target="_self" href="{{ url('/') }}/company/{{ $company->id }}/info">
-                                    <span class="icon-new"><img src="http://test.gmon.com.vn/?image=icon-new.png" alt=""></span>
-                                    <p class="work-img"><img  src="http://test.gmon.com.vn/?image={{ $company->logo }}" alt=""></p>
+                                    <span class="icon-new"><img src="http://test.gmon.com.vn/?image=icon-new.png" alt="{{ url('/') }}/company/{{ $company->id }}/info"></span>
+                                    <p class="work-img"><img  src="http://test.gmon.com.vn/?image={{ $company->logo }}" alt="{{ url('/') }}/company/{{ $company->id }}/info"></p>
                                     <div class="details">
                                         <div class="single"><p>{{ $company->name }}</p></div>
                                         <div class="work-view">

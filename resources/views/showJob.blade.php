@@ -7,7 +7,7 @@
             <div class="container" >
                 <div class="clearfix row" style="padding-bottom: 30px">
                     <div class="col-md-3">
-                        <a target="_self" href="" class="logo row"><img src="http://test.gmon.com.vn/?image=home.png" alt=""></a>
+                        <a target="_self" href="" class="logo row"><img src="http://test.gmon.com.vn/?image=home.png" alt="http://spa.gmon.vn"></a>
                     </div>
                     <div class="col-md-9" style="background-color:rgba(255, 255, 255, 0.9);">
                         <div class="">
@@ -103,9 +103,7 @@
                         <div class="img-item">
                             <a href="{{ url('/') }}/job/view/{{ $job->id }}">
                                 <span class="wp-avatar">
-                                    
-                                        <img src="http://test.gmon.com.vn/?image={{ $job->logo }}" alt="">
-                                    
+                                    <img src="http://test.gmon.com.vn/?image={{ $job->logo }}" alt="{{ url('/') }}/job/view/{{ $job->id }}">
                                 </span>
                             </a>
                         </div>
@@ -147,7 +145,7 @@
                         <li>
                             <a href="{{ url('/') }}/job/view/{{ $job->id }}">
                             <span class="wp-avatar-mini">
-                                <img src="http://test.gmon.com.vn/?image={{ $jobvip->logo }}" alt="">
+                                <img src="http://test.gmon.com.vn/?image={{ $jobvip->logo }}" alt="{{ url('/') }}/job/view/{{ $job->id }}">
                             </span>
                             <p class="title-content-right">{{ $jobvip->name }} tại {{ $jobvip->companyname }}</p>
                             </a>
@@ -156,9 +154,9 @@
                     </ul>
                 </div>
                 <div class="ads">
-                    <div class="ads-top"><a href=""><img src="{{ url('/') }}/public/images/ads.png" alt=""></a></div>
+                    <div class="ads-top"><a href=""><img src="http://test.gmon.com.vn/?image=ads.png" alt=""></a></div>
                     <div class="ads-bot">
-                        <a href=""><img src="{{ url('/') }}/public/images/zalo.png" alt=""></a>
+                        <a href="http://gmon.vn/company/244/info"><img src="http://test.gmon.com.vn/?image=Banner-Web-Gmon-03.gif" alt="http://gmon.vn/company/244/info"></a>
                     </div>
                 </div>
                 <div class="content_hot info">
@@ -168,7 +166,7 @@
                         <li>
                             <a href="http://news.gmon.vn/?post={{ $new->id }}">
                             <span class="wp-avatar-mini">
-                                    <img src="http://test.gmon.com.vn/?image={{ $new->image }}" alt="">
+                                    <img src="http://test.gmon.com.vn/?image={{ $new->image }}" alt="http://news.gmon.vn/?post={{ $new->id }}">
                             </span>
                             <p class="title-content-right">{{ $new->title }}</p>
                             </a>
@@ -191,11 +189,11 @@
                         foreach($companies as $company){
                             if($count == 0){
                             ?>
-                        <li class="item-logo"><a href=""><img src="http://test.gmon.com.vn/?image={{ $company->logo }}" alt=""></a></li>
+                        <li class="item-logo"><a href=""><img src="http://test.gmon.com.vn/?image={{ $company->logo }}" alt="{{ url('/') }}/company/{{ $company->id }}/info"></a></li>
                         <?php
                             }else{
                             ?>
-                        <li><a href="{{ url('/') }}/company/{{ $company->id }}/info"><img src="http://test.gmon.com.vn/?image={{ $company->logo }}" alt=""></a></li>
+                        <li><a href="{{ url('/') }}/company/{{ $company->id }}/info"><img src="http://test.gmon.com.vn/?image={{ $company->logo }}" alt="{{ url('/') }}/company/{{ $company->id }}/info"></a></li>
                         <?php 
                             }
                             $count++;

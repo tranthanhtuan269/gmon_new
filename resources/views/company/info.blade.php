@@ -235,7 +235,7 @@ gtag('config', 'UA-106844998-1');
                             <img src="http://test.gmon.com.vn/?image={{ $company->logo }}">
                         </div>
                         <div class="col-md-8 col-xs-12 border-blue">
-                            <p class="row"><h3 class="text-upper">{{ $company->name }}</h3></p>
+                            <p class="row"><h1 class="obj-name">{{ $company->name }}</h1></p>
                             <p class="row"><i></i>{{ $company->address }}, {{ $company->city }}</p>
                             <p class="row"><i></i>{{ $company->district }}, {{ $company->city }}</p>
                             @if(strlen($company->jobs) > 0)

@@ -193,7 +193,7 @@ gtag('config', 'UA-106844998-1');
                 </div>
                 <div class="move-info row">
                     <div class="col-md-10 col-lg-10">
-                        <h4>{{ $company->name }}</h4>
+                        <h1 class="obj-name">{{ $company->name }}</h1>
                     </div>
                     <div class="col-md-2 col-lg-2 btn-follow">
                         @if($company_id != $company->id)

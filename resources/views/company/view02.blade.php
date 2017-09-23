@@ -193,7 +193,7 @@ gtag('config', 'UA-106844998-1');
                             <img src="http://test.gmon.com.vn/?image={{ $company->logo }}">
                         </div>
                         <div class="about-us">
-                            <div class="sblg-title"><span>{{ $company->name }}</span></div>
+                            <div class="sblg-title"><h1 class="obj-name">{{ $company->name }}</h1></div>
                             <div class="sb-body clearfix">
                                 <p>
                                     <img src="http://test.gmon.com.vn/?image=sbicon1.png">
