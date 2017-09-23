@@ -1226,4 +1226,78 @@ class HomeController extends Controller
                     ->orderBy('id', 'desc')
                     ->delete();
     }
+
+    public function generatorSitemap(){
+        // create new sitemap object
+        $sitemap = \App::make("sitemap");
+
+        // add items to the sitemap (url, date, priority, freq)
+        $sitemap->add(\URL('/'), '2017-09-21T20:10:00+02:00', '1.0', 'daily');
+        $sitemap->add(\URL('/'), '2017-09-21T12:30:00+02:00', '0.9', 'monthly');
+
+        $sitemap->add(\URL('/') . '/showmore?cv=vip', '2017-09-21T20:10:00+02:00', '0.8', 'daily');
+        $sitemap->add(\URL('/') . '/showmore?company=new', '2017-09-21T20:10:00+02:00', '0.8', 'daily');
+        $sitemap->add(\URL('/') . '/showmore?company=new', '2017-09-21T20:10:00+02:00', '0.8', 'daily');
+        // get all posts from db
+        $curriculum_vitaes = \DB::table('curriculum_vitaes')->orderBy('created_at', 'desc')->get();
+        $companies = \DB::table('companies')->orderBy('created_at', 'desc')->get();
+        $jobs = \DB::table('jobs')->orderBy('created_at', 'desc')->get();
+
+        // add every post to the sitemap
+        foreach ($curriculum_vitaes as $curriculum_vita)
+        {
+            $sitemap->add(URL('/'). '/curriculumvitae/'.$curriculum_vita->id. '/' .$curriculum_vita->slug, $curriculum_vita->updated_at, 0.6, 'monthly');
+        }
+        // add every post to the sitemap
+        foreach ($companies as $company)
+        {
+            $sitemap->add(URL('/'). '/company/'.$company->id. '/' .$company->slug, $company->updated_at, 0.6, 'monthly');
+        }
+        // add every post to the sitemap
+        foreach ($jobs as $job)
+        {
+            $sitemap->add(URL('/'). '/job/'.$job->id. '/' .$job->slug, $job->updated_at, 0.6, 'monthly');
+        }
+
+        // generate your sitemap (format, filename)
+        $sitemap->store('xml', 'sitemap');
+
+    }
+
+    public function updateSlug(){
+        $cvs = \App\CurriculumVitae::select('id')->get();
+        foreach($cvs as $j){
+            $cv = \App\CurriculumVitae::find($j->id);
+            $cv->slug = null;
+            $cv->save();
+        }
+
+        $companies = \App\Company::select('id')->get();
+        foreach($companies as $c){
+            $company = \App\Company::find($c->id);
+            $company->slug = null;
+            $company->save();
+        }
+
+        $jobs = \App\Job::select('id')->get();
+        foreach($jobs as $j){
+            $job = \App\Job::find($j->id);
+            $job->slug = null;
+            $job->save();
+        }
+
+        $categories = \App\Category::select('id')->get();
+        foreach($categories as $cat){
+            $category = \App\Category::find($cat->id);
+            $category->slug = null;
+            $category->save();
+        }
+
+        $posts = \App\Post::select('id')->get();
+        foreach($posts as $po){
+            $post = \App\Post::find($po->id);
+            $post->slug = null;
+            $post->save();
+        }
+    }
 }

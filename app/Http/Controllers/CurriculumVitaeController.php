@@ -12,7 +12,6 @@ use App\User;
 use App\Salary;
 use Illuminate\Http\Request;
 use Session;
-// use Carbon\Carbon;
 
 class CurriculumVitaeController extends Controller
 {

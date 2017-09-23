@@ -31,6 +31,8 @@ Route::get('company/{id}/listjobs', 'CompanyController@listjobs');
 Route::get('/getDistrict/{id}', 'HomeController@getDistrict');
 Route::get('/getTown/{id}', 'HomeController@getTown');
 Route::get('/action', 'HomeController@action');
+Route::get('/sitemap', 'HomeController@generatorSitemap');
+Route::get('/updateSlug', 'HomeController@updateSlug');
 
 Route::group(['middleware' => 'auth'], function(){
 
