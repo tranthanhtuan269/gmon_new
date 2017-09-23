@@ -360,5 +360,19 @@ class PostController extends Controller
             $job->slug = null;
             $job->save();
         }
+
+        $posts = \App\Post::select('id')->get();
+        foreach($posts as $p){
+            $post = \App\Post::find($p->id);
+            $post->slug = null;
+            $post->save();
+        }
+
+        $categories = \App\Category::select('id')->get();
+        foreach($categories as $c){
+            $category = \App\Category::find($c->id);
+            $category->slug = null;
+            $category->save();
+        }
     }
 }
