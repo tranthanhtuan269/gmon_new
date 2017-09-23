@@ -42,10 +42,12 @@ Route::get('/getDistrictli/{id}', 'HomeController@getDistrictLi');
 Route::get('/getTown/{id}', 'HomeController@getTown');
 
 Route::get('/getPost/', 'PostController@getPosts');
+Route::get('/post/{id}', 'PostController@show');
 Route::get('/post/{id}/{slug}', 'PostController@getPost');
 Route::get('/category/{id}/{slug}', 'CategoryController@getCategory');
 Route::get('/post/updateSlug', 'PostController@updateSlug');
 
+Route::resource('branch', 'BranchController');
 
 Route::group(['middleware' => 'auth'], function(){
 
@@ -123,4 +125,3 @@ Route::group(['middleware' => ['auth', 'roles'], 'roles' => 'master'], function 
     Route::resource('master/category', 'CategoryController');
     Route::resource('post', 'PostController');
 });
-Route::resource('branch', 'BranchController');
