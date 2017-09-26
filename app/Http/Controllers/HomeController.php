@@ -33,7 +33,7 @@ class HomeController extends Controller
         $company_id = -1;
         $cv_id = -1;
         $perPage = 1000;
-        $number_get = 3;
+        $number_get = 10;
         if (\Auth::check()) {
             $current_id = \Auth::user()->id;
             
