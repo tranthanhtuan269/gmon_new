@@ -1246,7 +1246,7 @@ class HomeController extends Controller
         // add every post to the sitemap
         foreach ($curriculum_vitaes as $curriculum_vita)
         {
-            $sitemap->add(URL('/'). '/curriculumvitae/'.$curriculum_vita->id. '/' .$curriculum_vita->slug, $curriculum_vita->updated_at, 0.6, 'monthly');
+            $sitemap->add(URL('/'). '/curriculumvitae/view/'.$curriculum_vita->id, $curriculum_vita->updated_at, 0.6, 'monthly');
         }
         // add every post to the sitemap
         foreach ($companies as $company)
