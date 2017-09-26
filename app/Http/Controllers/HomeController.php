@@ -1265,12 +1265,12 @@ class HomeController extends Controller
     }
 
     public function updateSlug(){
-        $cvs = \App\CurriculumVitae::select('id')->get();
-        foreach($cvs as $j){
-            $cv = \App\CurriculumVitae::find($j->id);
-            $cv->slug = null;
-            $cv->save();
-        }
+        // $cvs = \App\CurriculumVitae::select('id')->get();
+        // foreach($cvs as $j){
+        //     $cv = \App\CurriculumVitae::find($j->id);
+        //     $cv->slug = null;
+        //     $cv->save();
+        // }
 
         $companies = \App\Company::select('id')->get();
         foreach($companies as $c){
