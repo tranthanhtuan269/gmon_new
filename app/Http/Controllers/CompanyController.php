@@ -380,6 +380,107 @@ class CompanyController extends Controller {
         return view('errors.404');
     }
 
+    public function showslug($id, $slug) {
+        $company_id = -1;
+        $cv_id = -1;
+        if (\Auth::check()) {
+            $user_info = \Auth::user()->getUserInfo();
+            $company_id = $user_info['company_id'];
+            $cv_id = $user_info['cv_id'];
+
+            // check followed
+            $follow = Follow::where('user', $user_info['user_id'])->where('company', $id)->first();
+            if ($follow)
+                $followed = 1;
+            else
+                $followed = 0;
+        }else {
+            $followed = 0;
+        }
+        // $company = Company::find($id);
+        $company = \DB::table('companies')
+                ->join('cities', 'cities.id', '=', 'companies.city')
+                ->join('districts', 'districts.id', '=', 'companies.district')
+                ->join('towns', 'towns.id', '=', 'companies.town')
+                ->join('company_sizes', 'company_sizes.id', '=', 'companies.size')
+                ->join('users', 'users.id', '=', 'companies.user')
+                ->select(
+                        'companies.id', 
+                        'companies.name', 
+                        'companies.logo', 
+                        'companies.user', 
+                        'companies.banner', 
+                        'companies.youtube_link', 
+                        'companies.lat', 
+                        'companies.lng', 
+                        'companies.address', 
+                        'cities.name as city', 
+                        'districts.name as district', 
+                        'towns.name as town', 
+                        'companies.jobs', 
+                        'company_sizes.size as size', 
+                        'companies.sologan', 
+                        'companies.description',
+                        'companies.images',
+                        'companies.template',
+                        'companies.site_url',
+                        'users.phone as hotline'
+                )
+                ->where('companies.id', $id)
+                ->first();
+
+        if ($company) {
+            // load comment of company
+            $comments = Comment::where('company', $id)->get();
+            $totalStar = 0;
+            foreach ($comments as $comment) {
+                $totalStar = $comment->star;
+            }
+
+            if (count($comments) == 0)
+                $numberComment = 1;
+            else
+                $numberComment = count($comments);
+
+            $star = intval($totalStar / $numberComment);
+
+            $jobs = \DB::table('jobs')
+                    ->join('companies', 'companies.id', '=', 'jobs.company')
+                    ->join('salaries', 'salaries.id', '=', 'jobs.salary')
+                    ->join('cities', 'cities.id', '=', 'companies.city')
+                    ->join('districts', 'districts.id', '=', 'companies.district')
+                    ->where('companies.id', '=', $company->id)
+                    ->select(
+                        'jobs.id as id', 
+                        'jobs.name as name', 
+                        'jobs.number as number', 
+                        'jobs.views as views', 
+                        'jobs.applied as applied', 
+                        'jobs.expiration_date as expiration_date', 
+                        'salaries.name as salary', 
+                        'companies.logo', 
+                        'companies.name as companyname', 
+                        'cities.name as city', 
+                        'districts.name as district')
+                    ->orderBy('jobs.created_at', 'desc')
+                    ->take(12)
+                    ->get();
+
+            if($company->template == 0){
+                return view('company.info', array('company' => $company, 'company_id' => $company_id, 'cv_id' => $cv_id, 'followed' => $followed, 'comments' => $comments, 'votes' => $star, 'template' => $company->template, 'jobs' => $jobs));
+            }else if($company->template == 1){
+                return view('company.view01', array('company' => $company, 'company_id' => $company_id, 'cv_id' => $cv_id, 'followed' => $followed, 'comments' => $comments, 'votes' => $star, 'template' => $company->template, 'jobs' => $jobs));
+            }else if($company->template == 2){
+                return view('company.view02', array('company' => $company, 'company_id' => $company_id, 'cv_id' => $cv_id, 'followed' => $followed, 'comments' => $comments, 'votes' => $star, 'template' => $company->template, 'jobs' => $jobs));
+            }else if($company->template == 3){
+                return view('company.view03', array('company' => $company, 'company_id' => $company_id, 'cv_id' => $cv_id, 'followed' => $followed, 'comments' => $comments, 'votes' => $star, 'template' => $company->template, 'jobs' => $jobs));
+            }else{
+                return view('company.info', array('company' => $company, 'company_id' => $company_id, 'cv_id' => $cv_id, 'followed' => $followed, 'comments' => $comments, 'votes' => $star, 'jobs' => $jobs));
+            }
+        }
+        return view('errors.404');
+    }
+
     public function returnView($id){
         $company_id = -1;
         $cv_id = -1;

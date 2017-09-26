@@ -248,8 +248,8 @@
                         @foreach($jobsvip1 as $job)
                         <div class="item-work" >
                             <div class="border-item">
-                                <a target="_self" href="{{ url('/') }}/job/view/{{ $job->id }}">
-                                    <p class="work-img"><img  src="http://test.gmon.com.vn/?image={{ $job->logo }}" alt="{{ url('/') }}/job/view/{{ $job->id }}"></p>
+                                <a target="_self" href="{{ url('/') }}/job/{{ $job->id }}/{{ $job->slug }}">
+                                    <p class="work-img"><img  src="http://test.gmon.com.vn/?image={{ $job->logo }}" alt="{{ url('/') }}/job/{{ $job->id }}/{{ $job->slug }}"></p>
                                     <div class="details">
                                         <div class="single"><p>{{ $job->name }} tại {{ $job->companyname }}</p></div>
                                         <div class="work-view">
@@ -275,8 +275,8 @@
                     @foreach($jobsvip2 as $job)
                         <div class="item-work" >
                             <div class="border-item">
-                                <a target="_self" href="{{ url('/') }}/job/view/{{ $job->id }}">
-                                    <p class="work-img"><img  src="http://test.gmon.com.vn/?image={{ $job->logo }}" alt="{{ url('/') }}/job/view/{{ $job->id }}"></p>
+                                <a target="_self" href="{{ url('/') }}/job/{{ $job->id }}/{{ $job->slug }}">
+                                    <p class="work-img"><img  src="http://test.gmon.com.vn/?image={{ $job->logo }}" alt="{{ url('/') }}/job/{{ $job->id }}/{{ $job->slug }}"></p>
                                     <div class="details">
                                         <div class="single"><p>{{ $job->name }} tại {{ $job->companyname }}</p></div>
                                         <div class="work-view">
@@ -309,9 +309,9 @@
                         @foreach($jobs as $job)
                         <div class="item-work" >
                             <div class="border-item">
-                                <a target="_self" href="{{ url('/') }}/job/view/{{ $job->id }}">
-                                    <span class="icon-new"><img src="http://test.gmon.com.vn/?image=icon-new.png" alt="{{ url('/') }}/job/view/{{ $job->id }}"></span>
-                                    <p class="work-img"><img  src="http://test.gmon.com.vn/?image={{ $job->logo }}" alt="{{ url('/') }}/job/view/{{ $job->id }}"></p>
+                                <a target="_self" href="{{ url('/') }}/job/{{ $job->id }}/{{ $job->slug }}">
+                                    <span class="icon-new"><img src="http://test.gmon.com.vn/?image=icon-new.png" alt="{{ url('/') }}/job/{{ $job->id }}/{{ $job->slug }}"></span>
+                                    <p class="work-img"><img  src="http://test.gmon.com.vn/?image={{ $job->logo }}" alt="{{ url('/') }}/job/{{ $job->id }}/{{ $job->slug }}"></p>
                                     <div class="details">
                                         <div class="single"><p>{{ $job->name }} tại {{ $job->companyname }}</p></div>
                                         <div class="work-view">
@@ -341,7 +341,7 @@
                             <div class="border-item">
                                 <a target="_self" href="{{ url('/') }}/company/{{ $company->id }}/info">
                                     <span class="icon-new"><img src="http://test.gmon.com.vn/?image=icon-new.png" alt="{{ url('/') }}/company/{{ $company->id }}/info"></span>
-                                    <p class="work-img"><img  src="http://test.gmon.com.vn/?image={{ $company->logo }}" alt="{{ url('/') }}/company/{{ $company->id }}/info"></p>
+                                    <p class="work-img"><img  src="http://test.gmon.com.vn/?image={{ $company->logo }}" alt="{{ url('/') }}/company/{{ $company->id }}/{{ $company->slug }}"></p>
                                     <div class="details">
                                         <div class="single"><p>{{ $company->name }}</p></div>
                                         <div class="work-view">
