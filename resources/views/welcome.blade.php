@@ -73,7 +73,7 @@
                             @if($company_id == -1)
                             <a target="_self" href="{{ url('/') }}/company/create"><i></i>Trang tuyển dụng</a>
                             @else
-                            <a target="_self" href="{{ url('/') }}/company/{{ $company_id }}/info"><i></i>Trang tuyển dụng</a>
+                            <a target="_self" href="{{ url('/') }}/company/{{ $company_id }}/{{ $company->slug }}"><i></i>Trang tuyển dụng</a>
                             <a target="_self" href="{{ url('/') }}/job/create"><i></i>Đăng tuyển dụng</a>
                             @endif
                             @endif
@@ -186,11 +186,11 @@
                         <?php $i = 0;?>
                         @foreach($companies as $company)
                         <?php if($i == 0){?>
-                        <li class="item-logo"><a target="_self" href="{{ url('/') }}/company/{{ $company->id }}/info"><img src="http://test.gmon.com.vn/?image={{ $company->logo }}" alt="{{ url('/') }}/company/{{ $company->id }}/info"></a></li>
+                        <li class="item-logo"><a target="_self" href="{{ url('/') }}/company/{{ $company->id }}/{{ $company->slug }}"><img src="http://test.gmon.com.vn/?image={{ $company->logo }}" alt="{{ url('/') }}/company/{{ $company->id }}/{{ $company->slug }}"></a></li>
                         <?php 
                         $i++;
                         }else{ ?>
-                        <li><a target="_self" href="{{ url('/') }}/company/{{ $company->id }}/info"><img src="http://test.gmon.com.vn/?image={{ $company->logo }}" alt="{{ url('/') }}/company/{{ $company->id }}/info"></a></li>
+                        <li><a target="_self" href="{{ url('/') }}/company/{{ $company->id }}/{{ $company->slug }}"><img src="http://test.gmon.com.vn/?image={{ $company->logo }}" alt="{{ url('/') }}/company/{{ $company->id }}/{{ $company->slug }}"></a></li>
                         <?php 
                         $i++;
                         } 
@@ -339,8 +339,8 @@
                         @foreach($companies as $company)
                         <div class="item-work" >
                             <div class="border-item">
-                                <a target="_self" href="{{ url('/') }}/company/{{ $company->id }}/info">
-                                    <span class="icon-new"><img src="http://test.gmon.com.vn/?image=icon-new.png" alt="{{ url('/') }}/company/{{ $company->id }}/info"></span>
+                                <a target="_self" href="{{ url('/') }}/company/{{ $company->id }}/{{ $company->slug }}">
+                                    <span class="icon-new"><img src="http://test.gmon.com.vn/?image=icon-new.png" alt="{{ url('/') }}/company/{{ $company->id }}/{{ $company->slug }}"></span>
                                     <p class="work-img"><img  src="http://test.gmon.com.vn/?image={{ $company->logo }}" alt="{{ url('/') }}/company/{{ $company->id }}/{{ $company->slug }}"></p>
                                     <div class="details">
                                         <div class="single"><p>{{ $company->name }}</p></div>
