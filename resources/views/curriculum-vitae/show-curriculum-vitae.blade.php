@@ -1,5 +1,13 @@
 @extends('layouts.layout')
 
+@section('title')
+    - {{ $curriculumvitae->name }} - {{ $curriculumvitae->address }} - {{ $curriculumvitae->district }} - {{ $curriculumvitae->city }}
+@endsection
+
+@section('description')
+    {{ $curriculumvitae->name }} - {{ $curriculumvitae->address }} - {{ $curriculumvitae->district }} - {{ $curriculumvitae->city }}
+@endsection
+
 @section('content')
     <div class="container show-curriculum-vitae-page" style="margin-top: 20px;">
         <div class="row">
