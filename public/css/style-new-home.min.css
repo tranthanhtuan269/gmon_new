@@ -1062,11 +1062,11 @@ header .top-menu-mobile .right .fa {
 }
 
 .main-content-news .middle .item .top-content .name .time {
-    font-size: 14px
+    font-size: 12px
 }
 
 .main-content-news .middle .item .top-content .name .time .fa {
-    color: #fcd59f
+    color: #faa61a;
 }
 
 .main-content-news .middle .item .middle-content {
@@ -1075,8 +1075,18 @@ header .top-menu-mobile .right .fa {
 }
 
 .main-content-news .middle .item .middle-content .title {
-    font-weight: 600;
-    text-transform: uppercase
+    text-transform: uppercase;
+    color: #223e99;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.main-content-news .middle .item .middle-content .time {
+    font-size: 12px
+}
+
+.main-content-news .middle .item .middle-content .time .fa {
+    color: #faa61a;
 }
 
 .main-content-news .middle .item .middle-content .images {
@@ -1191,3 +1201,4 @@ header .top-menu-mobile .right .fa {
     left: auto;
     right: -18px;
 }
+
