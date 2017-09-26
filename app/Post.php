@@ -92,22 +92,14 @@ class Post extends Model
         $dataRet = '';
         foreach($posts as $post){
         $dataRet .= '<div class="item">';
-            $dataRet .= '<div class="top-content">';
-                $dataRet .= '<div class="avatar">';
-                    $dataRet .= '<img src="http://test.gmon.com.vn/?image=avatar.png" alt="" />';
-                $dataRet .= '</div>';
-                $dataRet .= '<div class="name">';
-                    $dataRet .= '<h3>Gmon</h3>';
-                    $dataRet .= '<div class="time"><i class="fa fa-clock-o" aria-hidden="true"></i>';
-                    $datetime = new \DateTime($post->created_at);
-                    $dataRet .= $datetime->format('H:i d-m-Y');
-                    $dataRet .= '</div>';
-                $dataRet .= '</div>';
-            $dataRet .= '</div>';
             $dataRet .= '<div class="clearboth"></div>';
             $dataRet .= '<div class="middle-content">';
                 $dataRet .= '<div class="title">';
                     $dataRet .= $post->title;
+                $dataRet .= '</div>';
+                $dataRet .= '<div class="time"><i class="fa fa-clock-o" aria-hidden="true"></i>';
+                $datetime = new \DateTime($post->created_at);
+                $dataRet .= $datetime->format('H:i d-m-Y');
                 $dataRet .= '</div>';
                 $dataRet .= '<p>';
                 if($postSelected > 0){
