@@ -44,8 +44,8 @@
 </div>
 <script type="text/javascript">
   var site_url = $('base').attr('href');
-  var $currentPost = 3;
-  var $numberGet = 3;
+  var $currentPost = 10;
+  var $numberGet = 5;
   var $currentPossion = 0;
   var $newPossion = 0;
   @if(!isset($_GET['post']))
