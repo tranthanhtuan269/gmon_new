@@ -1,6 +1,7 @@
 @extends('layouts.layout_cv')
 
 @section('content')
+<link rel="stylesheet" href="{{ url('/') }}/public/css/croppie.css">
 <div class="container" style="margin-top: 15px;">
     <div class="row">
         <div class="col-md-12">
@@ -19,7 +20,7 @@
                         <div class="col-md-2">
                             <div class="form-group {{ $errors->has('avatar') ? 'has-error' : ''}}">
                                 <div class="col-md-12">
-                                    <img src="http://test.gmon.com.vn/?image={{ $cv_user->avatar }}" id="avatar-image" class="img" style="height: 150px; width: 150px; background-color: #fff; border: 2px solid gray; border-radius: 5px;">
+                                    <img src="http://test.gmon.com.vn/?image={{ $cv_user->avatar }}" id="avatar-image" class="img" style="height: 150px; width: 150px; background-color: #fff; border: 2px solid gray; border-radius: 50%;">
                                     <input type="file" name="avatar-img" id="avatar-img" style="display: none;">
                                     {!! $errors->first('avatar', '<p class="help-block">:message</p>') !!}
                                 </div>
@@ -624,6 +625,117 @@
             $('#qualification-' + id_obj).remove();
             re_render_qualification(id_obj);
             count_qualification--;
+        });
+    });
+</script>
+
+
+<div class="modal fade modal-show-avatar" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="panel panel-default">
+                  <div class="panel-heading">Upload Avatar</div>
+                  <div class="panel-body">
+
+                    <div class="row">
+                        <div class="col-md-5 text-center">
+                            <div id="upload-demo" style="width:350px"></div>
+                        </div>
+                        <div class="col-md-3" style="padding-top:30px;">
+                            <input type="file" id="upload" style="display: none;">
+                            <button class="btn btn-default select-avatar" style="margin: 10px 0;">Chọn avatar</button>
+                            <button class="btn btn-success upload-result">Cắt Avatar</button>
+                        </div>
+                        <div class="col-md-4" style="">
+                            <div id="upload-demo-i" style="background:#e1e1e1;width:200px;height:200px;margin-top: 30px;"></div>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary ok-select">Lựa chọn</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy bỏ</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="{{ url('/') }}/public/js/croppie.js"></script>
+<script type="text/javascript">
+
+    var src_avatar = "http://test.gmon.com.vn/?image={{ $cv_user->avatar }}";
+    $uploadCrop = $('#upload-demo').croppie({
+        enableExif: true,
+        viewport: {
+            width: 200,
+            height: 200,
+            type: 'circle'
+        },
+        boundary: {
+            width: 300,
+            height: 300
+        }
+    });
+
+    $('.select-avatar').click(function(){
+        $("#upload").click();
+    });
+
+    $('.ok-select').click(function(){
+        $('#avatar-image').attr('src',src_avatar);
+        $('.modal-show-avatar').modal('toggle');
+    });
+
+    $('#avatar-img').on('change', function () {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            $uploadCrop.croppie('bind', {
+                url: e.target.result
+            }).then(function(){
+                console.log('jQuery bind complete');
+            });
+            
+        }
+        reader.readAsDataURL(this.files[0]);
+    });
+
+    $('#upload').on('change', function () {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            $uploadCrop.croppie('bind', {
+                url: e.target.result
+            }).then(function(){
+                console.log('jQuery bind complete');
+            });
+            
+        }
+        reader.readAsDataURL(this.files[0]);
+    });
+
+    $('.upload-result').on('click', function (ev) {
+        $uploadCrop.croppie('result', {
+            type: 'canvas',
+            size: 'viewport'
+        }).then(function (resp) {
+
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                url: "{{ url('/') }}/ajaxpro",
+                type: "POST",
+                data: {"image":resp},
+                success: function (data) {
+                    if(data.code == 200){
+                        $('#avatar').val(data.image_url);
+                        src_avatar = resp;
+                        html = '<img src="' + resp + '" />';
+                        $("#upload-demo-i").html(html);
+                    }
+                }
+            });
         });
     });
 </script>

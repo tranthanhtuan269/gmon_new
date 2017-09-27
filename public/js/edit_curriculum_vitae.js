@@ -744,7 +744,8 @@ $(document).ready(function () {
         }
     });
     $('#avatar-image').on('click', function (e) {
-        $('#avatar-img').click();
+        // $('#avatar-img').click();
+        $('.modal-show-avatar').modal('show');
     });
     $('#avatar-img').on('change', function (e) {
         var fileInput = this;
