@@ -4,21 +4,12 @@
 <div class="col-md-6 middle">
     @foreach($posts as $post)
     <div class="item">
-        <div class="top-content">
-            <div class="avatar">
-                <img src="http://test.gmon.com.vn/?image=avatar.png" alt="" />
-            </div>
-            <div class="name">
-                <h3>Gmon</h3>
-                <div class="time"><i class="fa fa-clock-o" aria-hidden="true"></i> <?php $datetime = new \DateTime($post->created_at);
-                echo $datetime->format('H:i d-m-Y'); ?></div>
-            </div>
-        </div>
-        <div class="clearboth"></div>
         <div class="middle-content">
             <div class="title">
                 <?php echo $post->title; ?>
             </div>
+            <div class="time"><i class="fa fa-clock-o" aria-hidden="true"></i> <?php $datetime = new \DateTime($post->created_at);
+                echo $datetime->format('H:i d-m-Y'); ?></div>
             <p>
             <div class="description">
                 <?php echo str_replace("/public/templateEditor/kcfinder/upload/images/","http://gmon.vn/public/templateEditor/kcfinder/upload/images/",$post->description); ?>
