@@ -138,7 +138,7 @@ $(document).ready(function () {
         html += "</div>";
         html += "<div class='col-md-2'>";
         html += "<select class='form-control col-md-2' class='thang_bat_dau' id='thang_bat_dau_lam_viec_" + count_kinh_nghiem + "'>";
-        html += "<option value='0'>--Chọn Tháng--</option>";
+        html += "<option value='0'>Chọn Tháng</option>";
         html += "<option value='1'>Tháng 1</option>";
         html += "<option value='2'>Tháng 2</option>";
         html += "<option value='3'>Tháng 3</option>";
@@ -155,7 +155,7 @@ $(document).ready(function () {
         html += "</div>";
         html += "<div class='col-md-2'>";
         html += "<select class='form-control col-md-2' class='nam_bat_dau' id='nam_bat_dau_lam_viec_" + count_kinh_nghiem + "'>";
-        html += "<option value='0'>--Chọn Năm--</option>";
+        html += "<option value='0'>Chọn Năm</option>";
         html += "<option value='2017'>Năm 2017</option><option value='2016'>Năm 2016</option><option value='2015'>Năm 2015</option><option value='2014'>Năm 2014</option><option value='2013'>Năm 2013</option><option value='2012'>Năm 2012</option><option value='2011'>Năm 2011</option><option value='2010'>Năm 2010</option><option value='2009'>Năm 2009</option><option value='2008'>Năm 2008</option><option value='2007'>Năm 2007</option><option value='2006'>Năm 2006</option><option value='2005'>Năm 2005</option><option value='2004'>Năm 2004</option><option value='2003'>Năm 2003</option><option value='2002'>Năm 2002</option><option value='2001'>Năm 2001</option><option value='2000'>Năm 2000</option><option value='1999'>Năm 1999</option><option value='1998'>Năm 1998</option><option value='1997'>Năm 1997</option><option value='1996'>Năm 1996</option><option value='1995'>Năm 1995</option><option value='1994'>Năm 1994</option><option value='1993'>Năm 1993</option><option value='1992'>Năm 1992</option><option value='1991'>Năm 1991</option><option value='1990'>Năm 1990</option><option value='1989'>Năm 1989</option><option value='1988'>Năm 1988</option><option value='1987'>Năm 1987</option><option value='1986'>Năm 1986</option><option value='1985'>Năm 1985</option><option value='1984'>Năm 1984</option><option value='1983'>Năm 1983</option><option value='1982'>Năm 1982</option><option value='1981'>Năm 1981</option><option value='1980'>Năm 1980</option><option value='1979'>Năm 1979</option><option value='1978'>Năm 1978</option><option value='1977'>Năm 1977</option><option value='1976'>Năm 1976</option><option value='1975'>Năm 1975</option><option value='1974'>Năm 1974</option><option value='1973'>Năm 1973</option><option value='1972'>Năm 1972</option><option value='1971'>Năm 1971</option><option value='1970'>Năm 1970</option><option value='1969'>Năm 1969</option><option value='1968'>Năm 1968</option><option value='1967'>Năm 1967</option><option value='1966'>Năm 1966</option><option value='1965'>Năm 1965</option><option value='1964'>Năm 1964</option><option value='1963'>Năm 1963</option><option value='1962'>Năm 1962</option><option value='1961'>Năm 1961</option>";
         html += "</select>";
         html += "</div>";
@@ -164,7 +164,7 @@ $(document).ready(function () {
         html += "</div>";
         html += "<div class='col-md-2'>";
         html += "<select class='form-control col-md-2' class='thang_ket_thuc' id='thang_ket_thuc_lam_viec_" + count_kinh_nghiem + "'>";
-        html += "<option value='0'>--Chọn Tháng--</option>";
+        html += "<option value='0'>Chọn Tháng</option>";
         html += "<option value='1'>Tháng 1</option>";
         html += "<option value='2'>Tháng 2</option>";
         html += "<option value='3'>Tháng 3</option>";
@@ -181,7 +181,7 @@ $(document).ready(function () {
         html += "</div>";
         html += "<div class='col-md-2'>";
         html += "<select class='form-control col-md-2' class='nam_ket_thuc' id='nam_ket_thuc_lam_viec_" + count_kinh_nghiem + "'>";
-        html += "<option value='0'>--Chọn Năm--</option>";
+        html += "<option value='0'>Chọn Năm</option>";
         html += "<option value='2017'>Năm 2017</option><option value='2016'>Năm 2016</option><option value='2015'>Năm 2015</option><option value='2014'>Năm 2014</option><option value='2013'>Năm 2013</option><option value='2012'>Năm 2012</option><option value='2011'>Năm 2011</option><option value='2010'>Năm 2010</option><option value='2009'>Năm 2009</option><option value='2008'>Năm 2008</option><option value='2007'>Năm 2007</option><option value='2006'>Năm 2006</option><option value='2005'>Năm 2005</option><option value='2004'>Năm 2004</option><option value='2003'>Năm 2003</option><option value='2002'>Năm 2002</option><option value='2001'>Năm 2001</option><option value='2000'>Năm 2000</option><option value='1999'>Năm 1999</option><option value='1998'>Năm 1998</option><option value='1997'>Năm 1997</option><option value='1996'>Năm 1996</option><option value='1995'>Năm 1995</option><option value='1994'>Năm 1994</option><option value='1993'>Năm 1993</option><option value='1992'>Năm 1992</option><option value='1991'>Năm 1991</option><option value='1990'>Năm 1990</option><option value='1989'>Năm 1989</option><option value='1988'>Năm 1988</option><option value='1987'>Năm 1987</option><option value='1986'>Năm 1986</option><option value='1985'>Năm 1985</option><option value='1984'>Năm 1984</option><option value='1983'>Năm 1983</option><option value='1982'>Năm 1982</option><option value='1981'>Năm 1981</option><option value='1980'>Năm 1980</option><option value='1979'>Năm 1979</option><option value='1978'>Năm 1978</option><option value='1977'>Năm 1977</option><option value='1976'>Năm 1976</option><option value='1975'>Năm 1975</option><option value='1974'>Năm 1974</option><option value='1973'>Năm 1973</option><option value='1972'>Năm 1972</option><option value='1971'>Năm 1971</option><option value='1970'>Năm 1970</option><option value='1969'>Năm 1969</option><option value='1968'>Năm 1968</option><option value='1967'>Năm 1967</option><option value='1966'>Năm 1966</option><option value='1965'>Năm 1965</option><option value='1964'>Năm 1964</option><option value='1963'>Năm 1963</option><option value='1962'>Năm 1962</option><option value='1961'>Năm 1961</option>";
         html += "</select>";
         html += "</div>";
@@ -212,7 +212,7 @@ $(document).ready(function () {
         id_obj = id_obj.substring(19, id_obj.length);
         $('#kinh_nghiem_lam_viec_' + id_obj).hide();
         $('#kinh_nghiem_lam_viec_' + id_obj).addClass('removed');
-        count_kinh_nghiem--;
+        count_kinh_nghiem;
     });
     $('.kinh_nghiem_success-btn').click(function () {
         var id_obj = $(this).attr('id');
@@ -259,7 +259,7 @@ $(document).ready(function () {
             id_obj = id_obj.substring(19, id_obj.length);
             $('#kinh_nghiem_lam_viec_' + id_obj).hide();
             $('#kinh_nghiem_lam_viec_' + id_obj).addClass('removed');
-            count_kinh_nghiem--;
+            count_kinh_nghiem;
         });
         $('.kinh_nghiem_success-btn').off('click');
         $('.kinh_nghiem_success-btn').click(function () {
@@ -489,7 +489,7 @@ $(document).ready(function () {
         html += "</div>";
         html += "<div class='col-md-2'>";
         html += "<select class='form-control col-md-2' class='thang_bat_dau' id='thang_bat_dau_" + count_hoc_tap + "'>";
-        html += "<option value='0'>--Chọn Tháng--</option>";
+        html += "<option value='0'>Chọn Tháng</option>";
         html += "<option value='1'>Tháng 1</option>";
         html += "<option value='2'>Tháng 2</option>";
         html += "<option value='3'>Tháng 3</option>";
@@ -506,7 +506,7 @@ $(document).ready(function () {
         html += "</div>";
         html += "<div class='col-md-2'>";
         html += "<select class='form-control col-md-2' class='nam_bat_dau' id='nam_bat_dau_" + count_hoc_tap + "'>";
-        html += "<option value='0'>--Chọn Năm--</option>";
+        html += "<option value='0'>Chọn Năm</option>";
         html += "<option value='2017'>Năm 2017</option><option value='2016'>Năm 2016</option><option value='2015'>Năm 2015</option><option value='2014'>Năm 2014</option><option value='2013'>Năm 2013</option><option value='2012'>Năm 2012</option><option value='2011'>Năm 2011</option><option value='2010'>Năm 2010</option><option value='2009'>Năm 2009</option><option value='2008'>Năm 2008</option><option value='2007'>Năm 2007</option><option value='2006'>Năm 2006</option><option value='2005'>Năm 2005</option><option value='2004'>Năm 2004</option><option value='2003'>Năm 2003</option><option value='2002'>Năm 2002</option><option value='2001'>Năm 2001</option><option value='2000'>Năm 2000</option><option value='1999'>Năm 1999</option><option value='1998'>Năm 1998</option><option value='1997'>Năm 1997</option><option value='1996'>Năm 1996</option><option value='1995'>Năm 1995</option><option value='1994'>Năm 1994</option><option value='1993'>Năm 1993</option><option value='1992'>Năm 1992</option><option value='1991'>Năm 1991</option><option value='1990'>Năm 1990</option><option value='1989'>Năm 1989</option><option value='1988'>Năm 1988</option><option value='1987'>Năm 1987</option><option value='1986'>Năm 1986</option><option value='1985'>Năm 1985</option><option value='1984'>Năm 1984</option><option value='1983'>Năm 1983</option><option value='1982'>Năm 1982</option><option value='1981'>Năm 1981</option><option value='1980'>Năm 1980</option><option value='1979'>Năm 1979</option><option value='1978'>Năm 1978</option><option value='1977'>Năm 1977</option><option value='1976'>Năm 1976</option><option value='1975'>Năm 1975</option><option value='1974'>Năm 1974</option><option value='1973'>Năm 1973</option><option value='1972'>Năm 1972</option><option value='1971'>Năm 1971</option><option value='1970'>Năm 1970</option><option value='1969'>Năm 1969</option><option value='1968'>Năm 1968</option><option value='1967'>Năm 1967</option><option value='1966'>Năm 1966</option><option value='1965'>Năm 1965</option><option value='1964'>Năm 1964</option><option value='1963'>Năm 1963</option><option value='1962'>Năm 1962</option><option value='1961'>Năm 1961</option>";
         html += "</select>";
         html += "</div>";
@@ -515,7 +515,7 @@ $(document).ready(function () {
         html += "</div>";
         html += "<div class='col-md-2 learn-to-" + count_hoc_tap + "' style='display:none;'>";
         html += "<select class='form-control col-md-2' class='thang_ket_thuc' id='thang_ket_thuc_" + count_hoc_tap + "'>";
-        html += "<option value='0'>--Chọn Tháng--</option>";
+        html += "<option value='0'>Chọn Tháng</option>";
         html += "<option value='1'>Tháng 1</option>";
         html += "<option value='2'>Tháng 2</option>";
         html += "<option value='3'>Tháng 3</option>";
@@ -532,7 +532,7 @@ $(document).ready(function () {
         html += "</div>";
         html += "<div class='col-md-2 learn-to-" + count_hoc_tap + "' style='display:none;'>";
         html += "<select class='form-control col-md-2' class='nam_ket_thuc' id='nam_ket_thuc_" + count_hoc_tap + "'>";
-        html += "<option value='0'>--Chọn Năm--</option>";
+        html += "<option value='0'>Chọn Năm</option>";
         html += "<option value='2017'>Năm 2017</option><option value='2016'>Năm 2016</option><option value='2015'>Năm 2015</option><option value='2014'>Năm 2014</option><option value='2013'>Năm 2013</option><option value='2012'>Năm 2012</option><option value='2011'>Năm 2011</option><option value='2010'>Năm 2010</option><option value='2009'>Năm 2009</option><option value='2008'>Năm 2008</option><option value='2007'>Năm 2007</option><option value='2006'>Năm 2006</option><option value='2005'>Năm 2005</option><option value='2004'>Năm 2004</option><option value='2003'>Năm 2003</option><option value='2002'>Năm 2002</option><option value='2001'>Năm 2001</option><option value='2000'>Năm 2000</option><option value='1999'>Năm 1999</option><option value='1998'>Năm 1998</option><option value='1997'>Năm 1997</option><option value='1996'>Năm 1996</option><option value='1995'>Năm 1995</option><option value='1994'>Năm 1994</option><option value='1993'>Năm 1993</option><option value='1992'>Năm 1992</option><option value='1991'>Năm 1991</option><option value='1990'>Năm 1990</option><option value='1989'>Năm 1989</option><option value='1988'>Năm 1988</option><option value='1987'>Năm 1987</option><option value='1986'>Năm 1986</option><option value='1985'>Năm 1985</option><option value='1984'>Năm 1984</option><option value='1983'>Năm 1983</option><option value='1982'>Năm 1982</option><option value='1981'>Năm 1981</option><option value='1980'>Năm 1980</option><option value='1979'>Năm 1979</option><option value='1978'>Năm 1978</option><option value='1977'>Năm 1977</option><option value='1976'>Năm 1976</option><option value='1975'>Năm 1975</option><option value='1974'>Năm 1974</option><option value='1973'>Năm 1973</option><option value='1972'>Năm 1972</option><option value='1971'>Năm 1971</option><option value='1970'>Năm 1970</option><option value='1969'>Năm 1969</option><option value='1968'>Năm 1968</option><option value='1967'>Năm 1967</option><option value='1966'>Năm 1966</option><option value='1965'>Năm 1965</option><option value='1964'>Năm 1964</option><option value='1963'>Năm 1963</option><option value='1962'>Năm 1962</option><option value='1961'>Năm 1961</option>";
         html += "</select>";
         html += "</div>";
@@ -545,7 +545,7 @@ $(document).ready(function () {
         html += "<label for='birthday' class='col-md-2 control-label'><span  id='loai_tot_nghiep_" + count_hoc_tap + "_label' style='display:none;'>Tốt nghiệp loại</span></label>";
         html += "<div class='col-md-3'>";
         html += "<select class='form-control' class='loai_tot_nghiep' id='loai_tot_nghiep_" + count_hoc_tap + "' style='display:none;'>";
-        html += "<option value='0'>--Chọn loại tốt nghiệp--</option>";
+        html += "<option value='0'>Chọn loại tốt nghiệp--</option>";
         html += "<option value='1'>Xuất sắc</option>";
         html += "<option value='2'>Giỏi</option>";
         html += "<option value='3'>Khá</option>";

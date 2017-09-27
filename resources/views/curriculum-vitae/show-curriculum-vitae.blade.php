@@ -72,7 +72,7 @@
                                             <div class="col-md-8">{{ $edu->chuyen_nganh }} </div>
                                         </div>
                                         @endif
-                                        @if(isset($edu->loai_tot_nghiep) && $edu->loai_tot_nghiep != "--Chọn loại tốt nghiệp--")
+                                        @if(isset($edu->loai_tot_nghiep) && $edu->loai_tot_nghiep != "--Chọn Loại tốt nghiệp--" && $edu->loai_tot_nghiep != "Chọn Loại tốt nghiệp")
                                         <div class="row">
                                             <div class="col-md-4">Thành tích học tập </div>
                                             <div class="col-md-8">{{ $edu->loai_tot_nghiep }}</div>

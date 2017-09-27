@@ -1039,17 +1039,18 @@ class HomeController extends Controller
     public function support(){
         return view('home.support01');
     }
-    
-    public function ajaxpro(){
-        $data = $_POST['image'];
 
-        list($type, $data) = explode(';', $data);
-        list(, $data)      = explode(',', $data);
-
-        $data = base64_decode($data);
-        $imageName = time().'.png';
-        file_put_contents('upload/'.$imageName, $data);
-
-        echo 'done';
+    public function ajaxpro(Request $request){
+        if(isset($_POST["image"])){
+            $data = $_POST["image"];
+            list($type, $data) = explode(';', $data);
+            list(, $data)      = explode(',', $data);
+            $data = base64_decode($data);
+            $imageName = time().'.png';
+            $destinationPath = base_path('../../images');
+            file_put_contents($destinationPath.'/'.$imageName, $data);
+            return \Response::json(array('code' => '200', 'message' => 'success', 'image_url' => $imageName));
+        }
+        return \Response::json(array('code' => '404', 'message' => 'unsuccess', 'image_url' => ""));
     }
 }

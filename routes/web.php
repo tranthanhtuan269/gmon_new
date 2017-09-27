@@ -43,7 +43,7 @@ Route::post('follow-company', 'CompanyController@follow');
 Route::post('unfollow-company', 'CompanyController@unfollow');
 
 Route::get('support', 'HomeController@support');
-Route::get('ajaxpro', 'HomeController@ajaxpro');
+Route::post('ajaxpro', 'HomeController@ajaxpro');
 
 Route::group(['middleware' => 'auth'], function(){
 

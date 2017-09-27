@@ -329,7 +329,7 @@ class CurriculumVitaeController extends Controller
                 $years[$i] = 'Năm ' . $i;
             }
 
-            $loaitotnghieps = array('0' => '--Chọn Loại tốt nghiệp--');
+            $loaitotnghieps = array('0' => 'Chọn Loại tốt nghiệp');
             $loaitotnghieps[] = 'Xuất sắc';
             $loaitotnghieps[] = 'Giỏi';
             $loaitotnghieps[] = 'Khá';
@@ -366,7 +366,7 @@ class CurriculumVitaeController extends Controller
                 $years[$i] = 'Năm ' . $i;
             }
             
-            $loaitotnghieps = array('0' => '--Chọn Loại tốt nghiệp--');
+            $loaitotnghieps = array('0' => 'Chọn Loại tốt nghiệp');
             $loaitotnghieps[] = 'Xuất sắc';
             $loaitotnghieps[] = 'Giỏi';
             $loaitotnghieps[] = 'Khá';
@@ -423,16 +423,6 @@ class CurriculumVitaeController extends Controller
     }
     
     public function storeCurriculumVitae(Request $request) {
-        $img_avatar = '';
-        if ($request->hasFile('avatar-img')) {
-            $file_avatar = $request->file('avatar-img');
-            $filename = $file_avatar->getClientOriginalName();
-            $extension = $file_avatar->getClientOriginalExtension();
-            $img_avatar = date('His') . $filename;
-            $destinationPath = base_path('../../images');
-            $file_avatar->move($destinationPath, $img_avatar);
-        }
-
         $picture = '';
         $allPic = '';
         if ($request->hasFile('images-img')) {
@@ -449,12 +439,10 @@ class CurriculumVitaeController extends Controller
 
         $input = $request->all();
 
-        unset($input['avatar-img']);
         unset($input['images-img']);
         unset($input['bang_cap_0']);
         unset($input['student_process_0']);
 
-        $input['avatar'] = $img_avatar;
         $input['images'] = $allPic;
         $input['time_can_work'] = $request['time_can_work'];
         $input['jobs'] = $request['jobs'];

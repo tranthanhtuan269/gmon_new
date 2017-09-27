@@ -172,7 +172,11 @@
                                     <div class="form-group">
                                         <label for="chuyen_nganh" class="col-md-2 control-label"><div id="chuyen_nganh_{{ $i }}_label">Chuyên ngành</div></label>
                                         <div class="col-md-5">
+                                            @if(isset($edu->chuyen_nganh))
                                             <input type="text" class="form-control" class="chuyen_nganh" id="chuyen_nganh_{{ $i }}" value="{{ $edu->chuyen_nganh }}">
+                                            @else
+                                            <input type="text" class="form-control" class="chuyen_nganh" id="chuyen_nganh_{{ $i }}" value="">
+                                            @endif
                                         </div>
                                         <label for="loai_tot_nghiep_{{ $i }}" class="col-md-2 control-label"><span  id="loai_tot_nghiep_{{ $i }}_label" @if($edu->student_process == 0)style="display:none;" @endif>Tốt nghiệp loại</span></label>
                                         <div class="col-md-3">
