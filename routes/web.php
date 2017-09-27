@@ -49,7 +49,7 @@ Route::get('updateSlug', 'PostController@updateSlug');
 
 Route::get('/download/{file_name}', function($file_name = null)
 {
-    $path = url('/').'/public/templateEditor/kcfinder/upload/files/'.$file_name;
+    $path = url('/').'/public/files/'.$file_name;
     if (file_exists($path)) {
         return Response::download($path);
     }
