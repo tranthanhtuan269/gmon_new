@@ -94,9 +94,9 @@ class Post extends Model
         $dataRet .= '<div class="item">';
             $dataRet .= '<div class="clearboth"></div>';
             $dataRet .= '<div class="middle-content">';
-                $dataRet .= '<div class="title">';
+                $dataRet .= '<div class="title"><a href="' . url('/') . '/post/' . $post->id . '/' . $post->slug . '">';
                     $dataRet .= $post->title;
-                $dataRet .= '</div>';
+                $dataRet .= '</a></div>';
                 $dataRet .= '<div class="time"><i class="fa fa-clock-o" aria-hidden="true"></i>';
                 $datetime = new \DateTime($post->created_at);
                 $dataRet .= $datetime->format('H:i d-m-Y');

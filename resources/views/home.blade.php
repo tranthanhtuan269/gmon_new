@@ -12,7 +12,7 @@
     <div class="item">
         <div class="middle-content">
             <div class="title">
-                <?php echo $post->title; ?>
+                <a href="{{ url('/') }}/post/{{ $post->id }}/{{ $post->slug }}"><?php echo $post->title; ?></a>
             </div>
             <div class="time"><i class="fa fa-clock-o" aria-hidden="true"></i> <?php $datetime = new \DateTime($post->created_at);
                 echo $datetime->format('H:i d-m-Y'); ?></div>
