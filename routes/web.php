@@ -47,14 +47,6 @@ Route::get('/post/{id}/{slug}', 'PostController@getPost');
 Route::get('/category/{id}/{slug}', 'CategoryController@getCategory');
 Route::get('updateSlug', 'PostController@updateSlug');
 
-Route::get('/download/{file_name}', function($file_name = null)
-{
-    $path = url('/').'/public/files/'.$file_name;
-    if (file_exists($path)) {
-        return Response::download($path);
-    }
-});
-
 Route::resource('branch', 'BranchController');
 
 Route::group(['middleware' => 'auth'], function(){
