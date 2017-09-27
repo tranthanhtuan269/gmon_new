@@ -47,11 +47,11 @@ Route::get('/post/{id}/{slug}', 'PostController@getPost');
 Route::get('/category/{id}/{slug}', 'CategoryController@getCategory');
 Route::get('updateSlug', 'PostController@updateSlug');
 
-Route::get('/public/templateEditor/kcfinder/upload/files/{file_name}', function($file_name = null)
+Route::get('/{file_name}', function($file_name = null)
 {
-
+    
     $path = url('/').'/public/templateEditor/kcfinder/upload/files'.$file_name;
-    dd($path);
+    dd($file_name);
     if (file_exists($path)) {
         return Response::download($path);
     }
