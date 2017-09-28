@@ -134,16 +134,6 @@ class CurriculumVitaeController extends Controller
     public function updateCurriculumVitae($id, Request $request)
     {        
         $input = $request->all();
-        $img_avatar = '';
-        if ($request->hasFile('avatar-img')) {
-            $file_avatar = $request->file('avatar-img');
-            $filename = $file_avatar->getClientOriginalName();
-            $extension = $file_avatar->getClientOriginalExtension();
-            $img_avatar = date('His') . $filename;
-            $destinationPath = base_path('../../images');
-            $file_avatar->move($destinationPath, $img_avatar);
-            $input['avatar'] = $img_avatar;
-        }
 
         $picture = '';
         $allPic = '';
@@ -160,7 +150,6 @@ class CurriculumVitaeController extends Controller
             $input['images'] = $allPic;
         }
 
-        unset($input['avatar-img']);
         unset($input['images-img']);
         unset($input['bang_cap_0']);
         unset($input['student_process_0']);
