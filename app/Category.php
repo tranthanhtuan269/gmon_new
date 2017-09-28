@@ -27,7 +27,7 @@ class Category extends Model
      *
      * @var array
      */
-    protected $fillable = ['name', 'slug'];
+    protected $fillable = ['name', 'description', 'slug'];
 
     /**
      * Return the sluggable configuration array for this model.

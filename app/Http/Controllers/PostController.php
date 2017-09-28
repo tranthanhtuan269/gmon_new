@@ -167,6 +167,11 @@ class PostController extends Controller
         $post = new \App\Post;
         $posts = $post->getPosts(null, $id, 0, 1);
 
+        $slug_url = "";
+        if(count($posts) > 0){
+            $slug_url = $posts[0]->title;
+        }
+
         $companies = \DB::table('companies')
             ->join('company_company_types', 'company_company_types.company', '=', 'companies.id')
             ->where('company_company_types.company_type', '=', 5)
@@ -186,7 +191,7 @@ class PostController extends Controller
             $id = $posts[0]->category;
         }
 
-        return view('post.show', compact('id' ,'categories', 'companies', 'jobs', 'posts', 'company_id', 'cv_id', 'partners'));
+        return view('post.show', compact('slug_url', 'id' ,'categories', 'companies', 'jobs', 'posts', 'company_id', 'cv_id', 'partners'));
     }
 
     /**
@@ -246,6 +251,11 @@ class PostController extends Controller
         $post = new \App\Post;
         $posts = $post->getPosts(null, $id, 0, 1);
 
+        $slug_url = "";
+        if(count($posts) > 0){
+            $slug_url = $posts[0]->title;
+        }
+
         $companies = \DB::table('companies')
             ->join('company_company_types', 'company_company_types.company', '=', 'companies.id')
             ->where('company_company_types.company_type', '=', 5)
@@ -260,7 +270,7 @@ class PostController extends Controller
             ->select('companies.logo', 'companies.banner', 'jobs.name', 'companies.name as companyName', 'jobs.id', 'jobs.slug')
             ->take(5)
             ->get();
-        return view('post.show', compact('categories', 'companies', 'jobs', 'posts', 'company_id', 'cv_id', 'partners'));
+        return view('post.show', compact('slug_url','categories', 'companies', 'jobs', 'posts', 'company_id', 'cv_id', 'partners'));
     }
 
     /**
