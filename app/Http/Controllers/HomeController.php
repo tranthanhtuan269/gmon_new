@@ -108,6 +108,38 @@ class HomeController extends Controller
         return redirect('/home');
     }
 
+    public function generatorSitemap(){
+        // create new sitemap object
+        $sitemap = \App::make("sitemap");
+        // add items to the sitemap (url, date, priority, freq)
+        $sitemap->add(\URL('/'), '2017-09-28T20:10:00+02:00', '1.0', 'daily');
+        $sitemap->add(\URL('/'), '2017-09-28T12:30:00+02:00', '0.9', 'monthly');
+        $sitemap->add(\URL('/') . '/showmore?cv=vip', '2017-09-28T20:10:00+02:00', '0.8', 'daily');
+        $sitemap->add(\URL('/') . '/showmore?company=new', '2017-09-28T20:10:00+02:00', '0.8', 'daily');
+        $sitemap->add(\URL('/') . '/showmore?company=new', '2017-09-28T20:10:00+02:00', '0.8', 'daily');
+        // get all posts from db
+        $categories = \DB::table('categories')->orderBy('created_at', 'desc')->get();
+        $companies = \DB::table('companies')->orderBy('created_at', 'desc')->get();
+        $jobs = \DB::table('jobs')->orderBy('created_at', 'desc')->get();
+        // add every post to the sitemap
+        foreach ($curriculum_vitaes as $curriculum_vita)
+        {
+            $sitemap->add(URL('/'). '/curriculumvitae/view/'.$curriculum_vita->id, $curriculum_vita->updated_at, 0.6, 'monthly');
+        }
+        // add every post to the sitemap
+        foreach ($companies as $company)
+        {
+            $sitemap->add(URL('/'). '/company/'.$company->id. '/' .$company->slug, $company->updated_at, 0.6, 'monthly');
+        }
+        // add every post to the sitemap
+        foreach ($jobs as $job)
+        {
+            $sitemap->add(URL('/'). '/job/'.$job->id. '/' .$job->slug, $job->updated_at, 0.6, 'monthly');
+        }
+        // generate your sitemap (format, filename)
+        $sitemap->store('xml', 'sitemap');
+    }
+
     public function updateSlugJob(){
         $jobs = \App\Job::select('id')->get();
         foreach($jobs as $j){
