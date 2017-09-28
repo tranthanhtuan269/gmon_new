@@ -28,7 +28,7 @@ class Post extends Model
      *
      * @var array
      */
-    protected $fillable = ['title', 'sub_description', 'description', 'category', 'views', 'likes', 'image', 'sub_url', 'slug'];
+    protected $fillable = ['title', 'sub_description', 'description', 'category', 'views', 'likes', 'image', 'sub_url', 'slug', 'keyword'];
 
     /**
      * Return the sluggable configuration array for this model.
@@ -50,7 +50,7 @@ class Post extends Model
             if($post > 0){
                 $posts = \DB::table('posts')
                     ->join('categories', 'categories.id', '=', 'posts.category')
-                    ->select('posts.id', 'posts.title', 'posts.slug', 'posts.description', 'posts.sub_description', 'posts.category', 'posts.image', 'posts.created_at')
+                    ->select('posts.id', 'posts.title', 'posts.slug', 'posts.keyword', 'posts.description', 'posts.sub_description', 'posts.category', 'posts.image', 'posts.created_at')
                     ->where('posts.id', '=', $post)
                     ->where('posts.active', '=', 1)
                     ->orderBy('posts.created_at', 'desc')
@@ -58,7 +58,7 @@ class Post extends Model
             }else{
                 $posts = \DB::table('posts')
                     ->join('categories', 'categories.id', '=', 'posts.category')
-                    ->select('posts.id', 'posts.title', 'posts.slug', 'posts.description', 'posts.sub_description', 'posts.category', 'posts.image', 'posts.created_at')
+                    ->select('posts.id', 'posts.title', 'posts.slug', 'posts.keyword', 'posts.description', 'posts.sub_description', 'posts.category', 'posts.image', 'posts.created_at')
                     ->where('posts.active', '=', 1)
                     ->where('posts.category', '=', $category)
                     ->orderBy('posts.created_at', 'desc')
@@ -69,7 +69,7 @@ class Post extends Model
             if($post > 0){
                 $posts = \DB::table('posts')
                     ->join('categories', 'categories.id', '=', 'posts.category')
-                    ->select('posts.id', 'posts.title', 'posts.slug', 'posts.description', 'posts.sub_description', 'posts.category', 'posts.image', 'posts.created_at')
+                    ->select('posts.id', 'posts.title', 'posts.slug', 'posts.keyword', 'posts.description', 'posts.sub_description', 'posts.category', 'posts.image', 'posts.created_at')
                     ->where('posts.id', '=', $post)
                     ->where('posts.active', '=', 1)
                     ->orderBy('posts.created_at', 'desc')
@@ -77,7 +77,7 @@ class Post extends Model
             }else{
                 $posts = \DB::table('posts')
                 ->join('categories', 'categories.id', '=', 'posts.category')
-                ->select('posts.id', 'posts.title', 'posts.slug', 'posts.description', 'posts.sub_description', 'posts.category', 'posts.image', 'posts.created_at')
+                ->select('posts.id', 'posts.title', 'posts.slug', 'posts.keyword', 'posts.description', 'posts.sub_description', 'posts.category', 'posts.image', 'posts.created_at')
                 ->where('posts.active', '=', 1)
                 ->orderBy('posts.created_at', 'desc')
                 ->skip($start)->take($number)

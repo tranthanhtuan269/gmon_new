@@ -113,9 +113,11 @@ class CategoryController extends Controller
         $posts = $post->getPosts($id, null, 0, $number_get);
 
         $slug_url = "";
+        $keyword = "";
         $category_selected = \App\Category::find($id);
         if(isset($category_selected)){
             $slug_url = $category_selected->name . ' - ' . $category_selected->description;
+            $keyword = $category_selected->keyword;
         }
 
         $companies = \DB::table('companies')
@@ -133,7 +135,7 @@ class CategoryController extends Controller
             ->take(5)
             ->get();
 
-        return view('category.show', compact('slug_url', 'id', 'categories', 'companies', 'jobs', 'posts', 'company_id', 'cv_id', 'partners'));
+        return view('category.show', compact('slug_url', 'keyword', 'id', 'categories', 'companies', 'jobs', 'posts', 'company_id', 'cv_id', 'partners'));
     }
 
     /**
@@ -189,9 +191,11 @@ class CategoryController extends Controller
         $posts = $post->getPosts($id, null, 0, $number_get);
 
         $slug_url = "";
+        $keyword = "";
         $category_selected = \App\Category::find($id);
         if(isset($category_selected)){
             $slug_url = $category_selected->name . ' - ' . $category_selected->description;
+            $keyword = $category_selected->keyword;
         }
 
         $companies = \DB::table('companies')
@@ -208,7 +212,7 @@ class CategoryController extends Controller
             ->select('companies.logo', 'companies.banner', 'jobs.name', 'companies.name as companyName', 'jobs.id', 'jobs.slug')
             ->take(5)
             ->get();
-        return view('category.show', compact('slug_url', 'categories', 'companies', 'jobs', 'posts', 'company_id', 'cv_id', 'partners'));
+        return view('category.show', compact('slug_url', 'keyword', 'categories', 'companies', 'jobs', 'posts', 'company_id', 'cv_id', 'partners'));
     }
 
     /**

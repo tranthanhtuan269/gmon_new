@@ -6,20 +6,16 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
         @if(isset($slug_url))
         <title>{{ $slug_url }}</title>
+        <meta name="description" content="{{ $slug_url }}">
         @else
         <title>{{ config('app.name', 'Gmon') }} - Việc làm partime số 1</title>
-        @endif
-        
-        @if(!isset($description))
         <meta name="description" content="Gmon.vn - Trang số 1 về tuyển dụng partime">
-        @else
-        <meta name="description" content="{{ $description }}">
         @endif
 
-        @if(!isset($keywords))
+        @if(!isset($keyword))
         <meta name="keywords" content="viec lam, việc làm, tim viec lam, tìm việc làm, tim viec nhanh, tìm việc nhanh, tuyen dung, tuyển dụng, ha noi, sai gon, tp ho chi minh, da nang, can tho">
         @else
-        <meta name="keywords" content="{{ $keywords }}">
+        <meta name="keywords" content="{{ $keyword }}">
         @endif
         <meta name="copyright" content="©2017 gmon.vn" />
         <meta name="robots" content="follow" />
