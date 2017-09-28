@@ -1,5 +1,9 @@
 @extends('layouts.layout_news')
 
+@section('title')
+    
+@endsection
+
 @section('content')
 <div class="col-md-6 middle">
     @foreach($posts as $post)
@@ -32,14 +36,15 @@
 </div>
 <script type="text/javascript">
     var site_url = $('base').attr('href');
-    var $currentPost = 3;
-    var $numberGet = 3;
+    var $currentPost = 10;
+    var $numberGet = 5;
     var $currentPossion = 0;
     var $newPossion = 0;
     $(window).scroll(function (event) {
+        if($(window).scrollTop() + $(window).height() == $(document).height()) {
         var scroll = $(window).scrollTop();
         $newPossion = scroll;
-        if($newPossion - $currentPossion > 680){
+        if($newPossion - $currentPossion > 1280){
             $currentPossion = $newPossion;
             $('.mass-content').show();
             $('.loader').show();
@@ -61,6 +66,7 @@
                 alert("Request failed: " + textStatus);
             });
         }
+    }
     });
 </script>
 @endsection

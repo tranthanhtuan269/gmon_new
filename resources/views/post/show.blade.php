@@ -1,5 +1,9 @@
 @extends('layouts.layout_news')
 
+@section('title')
+    
+@endsection
+
 @section('content')
 <div class="col-md-6 middle">
     @foreach($posts as $post)
