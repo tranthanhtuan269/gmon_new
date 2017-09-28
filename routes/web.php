@@ -46,6 +46,7 @@ Route::get('/post/{id}', 'PostController@show');
 Route::get('/post/{id}/{slug}', 'PostController@getPost');
 Route::get('/category/{id}/{slug}', 'CategoryController@getCategory');
 Route::get('updateSlug', 'PostController@updateSlug');
+Route::get('generatorSitemap', 'HomeController@generatorSitemap');
 
 Route::resource('branch', 'BranchController');
 

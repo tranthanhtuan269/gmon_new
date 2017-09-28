@@ -185,6 +185,9 @@ return [
         Collective\Html\HtmlServiceProvider::class,
         Laravel\Socialite\SocialiteServiceProvider::class,
 
+        
+        Roumen\Sitemap\SitemapServiceProvider::class,
+
     ],
 
     /*
