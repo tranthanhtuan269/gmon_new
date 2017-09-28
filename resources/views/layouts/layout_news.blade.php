@@ -7,8 +7,12 @@
         @if(isset($slug_url))
         <title>{{ $slug_url }}</title>
         @else
-        <title>{{ config('app.name', 'Gmon') }} </title>
+        <title>{{ config('app.name', 'Gmon') }} - Việc làm partime số 1</title>
         @endif
+        <meta name="description" content="Danh sách người mua">
+        <meta name="keywords" content="chodatso, chodat, datso, cho, dat, so, cần mua nhà, nhà bán, mua bán nhà, Hà Nội, tìm mua nhà, nhaban, bán nhà mặt phố, nhà mặt tiền, sổ đỏ, chỉnh chủ, sdcc, giá rẻ">
+        <meta name="copyright" content="©2016 chodatso.com" />
+        <meta name="robots" content="follow" />
         <link rel="stylesheet" href="{{ url('/') }}/public/css/bootstrap.min.css" />
         <link rel="stylesheet" href="{{ url('/') }}/public/css/font-awesome.min.css" />
         <link rel="stylesheet" href="{{ url('/') }}/public/css/jquery.fancybox.min.css" />
