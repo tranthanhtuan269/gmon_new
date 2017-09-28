@@ -42,6 +42,10 @@
                                         <th> Description </th>
                                         <td> {{ $category->description }} </td>
                                     </tr>
+                                    <tr>
+                                        <th> Keyword </th>
+                                        <td> {{ $category->keyword }} </td>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>

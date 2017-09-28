@@ -27,12 +27,12 @@ class PostController extends Controller
                 ->where('title', 'LIKE', "%$keyword%")
 				->orWhere('description', 'LIKE', "%$keyword%")
 				->orWhere('category', 'LIKE', "%$keyword%")
-                ->select('posts.id', 'posts.title', 'posts.image', 'posts.views', 'posts.active', 'posts.likes', 'categories.name as categoryName')
+                ->select('posts.id', 'posts.title', 'posts.image', 'posts.views', 'posts.active', 'posts.keyword', 'posts.likes', 'categories.name as categoryName')
 				->paginate($perPage);
         } else {
             $post = \DB::table('posts')
                 ->join('categories', 'categories.id', '=', 'posts.category')
-                ->select('posts.id', 'posts.title', 'posts.image', 'posts.views', 'posts.active', 'posts.likes', 'categories.name as categoryName')
+                ->select('posts.id', 'posts.title', 'posts.image', 'posts.views', 'posts.active', 'posts.keyword', 'posts.likes', 'categories.name as categoryName')
                 ->orderBy('posts.created_at', 'desc')
                 ->paginate($perPage);
         }

@@ -36,6 +36,7 @@
                                         <th>Views</th>
                                         <th>Likes</th>
                                         <th>Category</th>
+                                        <th>Keyword</th>
                                         @if(Auth::check() && (Auth::user()->id == 558))
                                         <th>Active</th>
                                         @endif
@@ -51,6 +52,7 @@
                                         <td>{{ $item->views }}</td>
                                         <td>{{ $item->likes }}</td>
                                         <td>{{ $item->categoryName }}</td>
+                                        <td>{{ $item->keyword }}</td>
                                         @if(Auth::check() && (Auth::user()->id == 558))
                                         <td>
                                             <div class="btn btn-default btn-xs active-post @if($item->active==1) hidden-object @else show-object @endif" data-id="{{ $item->id }}">

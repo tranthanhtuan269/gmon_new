@@ -33,7 +33,10 @@
                                     <tr>
                                         <th>ID</th><td>{{ $post->id }}</td>
                                     </tr>
-                                    <tr><th> Title </th><td> {{ $post->title }} </td></tr><tr><th> Description </th><td> {{ $post->description }} </td></tr><tr><th> Category </th><td> {{ $post->category }} </td></tr>
+                                    <tr><th> Title </th><td> {{ $post->title }} </td></tr>
+                                    <tr><th> Description </th><td> {{ $post->description }} </td></tr>
+                                    <tr><th> Category </th><td> {{ $post->category }} </td></tr>
+                                    <tr><th> Keyword </th><td> {{ $post->keyword }} </td></tr>
                                 </tbody>
                             </table>
                         </div>
