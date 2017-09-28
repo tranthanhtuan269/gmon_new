@@ -1081,6 +1081,11 @@ header .top-menu-mobile .right .fa {
     font-weight: bold;
 }
 
+.main-content-news .middle .item .middle-content .title a h1{
+    font-size: 16px;
+    font-weight: bold;
+}
+
 .main-content-news .middle .item .middle-content .time {
     font-size: 12px
 }
