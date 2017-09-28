@@ -9,9 +9,19 @@
         @else
         <title>{{ config('app.name', 'Gmon') }} - Việc làm partime số 1</title>
         @endif
-        <meta name="description" content="Danh sách người mua">
-        <meta name="keywords" content="chodatso, chodat, datso, cho, dat, so, cần mua nhà, nhà bán, mua bán nhà, Hà Nội, tìm mua nhà, nhaban, bán nhà mặt phố, nhà mặt tiền, sổ đỏ, chỉnh chủ, sdcc, giá rẻ">
-        <meta name="copyright" content="©2016 chodatso.com" />
+        
+        @if(!isset($description))
+        <meta name="description" content="Gmon.vn - Trang số 1 về tuyển dụng partime">
+        @else
+        <meta name="description" content="{{ $description }}">
+        @endif
+
+        @if(!isset($keywords))
+        <meta name="keywords" content="viec lam, việc làm, tim viec lam, tìm việc làm, tim viec nhanh, tìm việc nhanh, tuyen dung, tuyển dụng, ha noi, sai gon, tp ho chi minh, da nang, can tho">
+        @else
+        <meta name="keywords" content="{{ $keywords }}">
+        @endif
+        <meta name="copyright" content="©2017 gmon.vn" />
         <meta name="robots" content="follow" />
         <link rel="stylesheet" href="{{ url('/') }}/public/css/bootstrap.min.css" />
         <link rel="stylesheet" href="{{ url('/') }}/public/css/font-awesome.min.css" />
