@@ -3,9 +3,21 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Cviebrock\EloquentSluggable\Sluggable;
 
 class City extends Model
 {
+    use Sluggable;
+
+    public function sluggable()
+    {
+        return [
+            'slug' => [
+                'source' => ['name']
+            ]
+        ];
+    }
+
     /**
      * The database table used by the model.
      *
@@ -13,7 +25,6 @@ class City extends Model
      */
     protected $table = 'cities';
     public $timestamps = false;
-
 
     /**
     * The database primary key value.
@@ -27,7 +38,7 @@ class City extends Model
      *
      * @var array
      */
-    protected $fillable = ['name', 'active'];
+    protected $fillable = ['name', 'active', 'slug'];
 
     
 }

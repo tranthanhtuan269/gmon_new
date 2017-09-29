@@ -35,6 +35,10 @@ Route::get('/getTown/{id}', 'HomeController@getTown');
 Route::get('/action', 'HomeController@action');
 Route::get('/sitemap', 'HomeController@generatorSitemap');
 Route::get('/updateSlug', 'HomeController@updateSlug');
+Route::get('/city/{id}', 'CityController@getAll');
+Route::get('/city/{id}/{slug}', 'CityController@getAllSlug');
+Route::get('/district/{id}', 'DistrictController@getAll');
+Route::get('/district/{id}/{slug}', 'DistrictController@getAllSlug');
 
 Route::group(['middleware' => 'auth'], function(){
 

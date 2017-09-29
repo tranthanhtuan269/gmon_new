@@ -1,5 +1,25 @@
 @extends('layouts.layout')
 
+@section('title')
+    - trang số 1 về việc làm parttime
+@endsection
+
+@section('description')
+    @if(isset($meta_description))
+        {{ $meta_description }}
+    @else
+
+    @endif
+@endsection
+
+@section('keyword')
+    @if(isset($meta_keyword))
+        {{ $meta_keyword }}
+    @else
+    
+    @endif
+@endsection
+
 @section('content')
 <?php $jobstype = \App\JobType::where('spa_show', '=', 1)->select('id', 'name')->get(); ?>
     <header>
@@ -33,11 +53,11 @@
                                     <button class="submit visible-xs search-btn" style="width: auto;border:1px solid #EBEAEA;padding:5px 7px;height: auto;margin:auto;margin-top: 10px;background-color: #F5F5F5;color:#A8A8A8;border-radius: 4px">Tìm kiếm</button>
                                 </form>
                                 <div class="city">
-                                    <a target="_self" href="{{ url('/') }}/home?city=1">Hà Nội</a>
-                                    <a target="_self" href="{{ url('/') }}/home?city=2">TP HCM</a>
-                                    <a target="_self" href="{{ url('/') }}/home?city=3">Đà Nẵng</a>
-                                    <a target="_self" href="{{ url('/') }}/home?city=4">Hải Phòng</a>
-                                    <a target="_self" href="{{ url('/') }}/home?city=14">Bình Dương</a>
+                                    <a target="_self" href="{{ url('/') }}/city/1/ha-noi">Hà Nội</a>
+                                    <a target="_self" href="{{ url('/') }}/city/2/ho-chi-minh">TP HCM</a>
+                                    <a target="_self" href="{{ url('/') }}/city/3/da-nang">Đà Nẵng</a>
+                                    <a target="_self" href="{{ url('/') }}/city/4/hai-phong">Hải Phòng</a>
+                                    <a target="_self" href="{{ url('/') }}/city/14/binh-duong">Bình Dương</a>
                                 </div>
                             </div>
                             <div class="col-md-3 clearfix">
