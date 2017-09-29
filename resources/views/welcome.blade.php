@@ -1,5 +1,9 @@
 @extends('layouts.layout')
 
+@section('title')
+    - trang số 1 về việc làm parttime
+@endsection
+
 @section('content')
 <?php $jobstype = \App\JobType::where('spa_show', '=', 1)->select('id', 'name')->get(); ?>
     <header>
