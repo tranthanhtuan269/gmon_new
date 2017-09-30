@@ -516,7 +516,7 @@
                         về gmon
                     </div>
                     <ul>
-                        <li><a href="{{ url('/') }}">giới thiệu</a></li>
+                        <li><a href="http://news.gmon.vn/post/10/lich-su-phat-trien-gmon">giới thiệu</a></li>
                         <li><a href="{{ url('/') }}/showmore?job=new">việc làm</a></li>
                         <li><a href="{{ url('/') }}/showmore?company=new">nhà tuyển dụng</a></li>
                         <li><a href="{{ url('/') }}">hồ sơ ứng viên</a></li>

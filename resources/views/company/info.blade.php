@@ -341,7 +341,7 @@ gtag('config', 'UA-106844998-1');
                 <div class="footer-top row">
                     <div class="col-md-4 col-xs-6 footer-col">
                         <p class="title">về gmon</p>
-                        <p><a target="_self" href="{{ url('/') }}">Giới thiệu</a></p>
+                        <p><a target="_self" href="http://news.gmon.vn/post/10/lich-su-phat-trien-gmon">Giới thiệu</a></p>
                         <p><a target="_self" href="{{ url('/') }}/showmore?job=new">Việc làm</a></p>
                         <p><a target="_self" href="{{ url('/') }}/showmore?company=new">Nhà tuyển dụng</a></p>
                         <p><a target="_self" href="{{ url('/') }}/showmore?cv=vip">Hồ sơ ứng viên</a></p>
