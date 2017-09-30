@@ -17,6 +17,8 @@
         <script src="{{ url('/') }}/public/js/jquery.cookie.js"></script>
         <link rel="stylesheet" href="{{ url('/') }}/public/css/home.css">
         <link href="{{ url('/') }}/public/css/customize.css" rel="stylesheet">
+        <link rel="shortcut icon" href="http://test.gmon.com.vn/?image=favicon.png" type="image/x-icon">
+        <link rel="icon" href="http://test.gmon.com.vn/?image=favicon.png" type="image/x-icon">
     </head>
     <body class="homepage">
         <div class="header-homepage">
