@@ -116,6 +116,12 @@
                                                     <div class="col-md-5">Thời gian làm</div>
                                                     <div class="col-md-7">Từ {{ $exp->thang_bat_dau_lam_viec }}/{{ $exp->nam_bat_dau_lam_viec }} Đến {{ $exp->thang_ket_thuc_lam_viec }}/{{ $exp->nam_ket_thuc_lam_viec }}</div>
                                                 </div>
+                                                @if(strlen($exp->mo_ta) > 0)
+                                                <div class="row">
+                                                    <div class="col-md-5">Mô tả công việc</div>
+                                                    <div class="col-md-7">{{ $exp->mo_ta }}</div>
+                                                </div>
+                                                @endif
                                             </div>
                                         </div>
                                         <hr>
