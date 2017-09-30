@@ -23,6 +23,8 @@
         <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.3/js/bootstrap-select.min.js"></script>
         <link rel="stylesheet" href="{{ url('/') }}/public/css/style.css">
         <link rel="stylesheet" href="{{ url('/') }}/public/css/customize.css">
+        <link rel="shortcut icon" href="http://test.gmon.com.vn/?image=favicon.ico" type="image/x-icon">
+        <link rel="icon" href="http://test.gmon.com.vn/?image=favicon.ico" type="image/x-icon">
     </head>
     <body class="homepage">
         <header>

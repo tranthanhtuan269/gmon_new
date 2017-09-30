@@ -17,6 +17,8 @@
     <link href="https://fonts.googleapis.com/css?family=Noto+Sans" rel="stylesheet">
     @yield('css')
     <link href="{{ url('/') }}/public/css/customize.css" rel="stylesheet">
+    <link rel="shortcut icon" href="http://test.gmon.com.vn/?image=favicon.ico" type="image/x-icon">
+        <link rel="icon" href="http://test.gmon.com.vn/?image=favicon.ico" type="image/x-icon">
 </head>
 <body>
     <div id="app">
