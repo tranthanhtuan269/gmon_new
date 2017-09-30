@@ -20,8 +20,8 @@
     <script type="text/javascript" src="{{ url('/') }}/public/bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
     <link rel="stylesheet" href="{{ url('/') }}/public/bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" />
     <link rel="stylesheet" href="{{ url('/') }}/public/css/fptHomeCss.css">
-    <link rel="shortcut icon" href="http://test.gmon.com.vn/?image=favicon.ico" type="image/x-icon">
-    <link rel="icon" href="http://test.gmon.com.vn/?image=favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="http://test.gmon.com.vn/?image=favicon.png" type="image/x-icon">
+    <link rel="icon" href="http://test.gmon.com.vn/?image=favicon.png" type="image/x-icon">
     
 </head>
 <body class="homepage">

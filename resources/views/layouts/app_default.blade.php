@@ -12,8 +12,8 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link rel="shortcut icon" href="http://test.gmon.com.vn/?image=favicon.ico" type="image/x-icon">
-        <link rel="icon" href="http://test.gmon.com.vn/?image=favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="http://test.gmon.com.vn/?image=favicon.png" type="image/x-icon">
+        <link rel="icon" href="http://test.gmon.com.vn/?image=favicon.png" type="image/x-icon">
 </head>
 <body>
     <div id="app">

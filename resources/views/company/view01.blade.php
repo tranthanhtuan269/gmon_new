@@ -15,8 +15,8 @@
     <script src="{{ url('/') }}/public/sweetalert/sweetalert.min.js"></script>
     <link rel="stylesheet" type="text/css" href="{{ url('/') }}/public/sweetalert/sweetalert.css">
     <link rel="stylesheet" href="{{ url('/') }}/public/css/view01.css">
-    <link rel="shortcut icon" href="http://test.gmon.com.vn/?image=favicon.ico" type="image/x-icon">
-    <link rel="icon" href="http://test.gmon.com.vn/?image=favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="http://test.gmon.com.vn/?image=favicon.png" type="image/x-icon">
+    <link rel="icon" href="http://test.gmon.com.vn/?image=favicon.png" type="image/x-icon">
 </head>
 <body class="homepage">
     <input type="hidden" name="company-id" value="{{ $company->id }}">
