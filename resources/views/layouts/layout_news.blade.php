@@ -19,6 +19,7 @@
         @endif
         <meta name="copyright" content="©2017 gmon.vn" />
         <meta name="robots" content="follow" />
+        <link rel="icon" href="http://test.gmon.com.vn/?image=favicon.png" type="image/x-icon">
         <link rel="stylesheet" href="{{ url('/') }}/public/css/bootstrap.min.css" />
         <link rel="stylesheet" href="{{ url('/') }}/public/css/font-awesome.min.css" />
         <link rel="stylesheet" href="{{ url('/') }}/public/css/jquery.fancybox.min.css" />
