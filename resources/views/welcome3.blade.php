@@ -17,8 +17,7 @@
     <script type="text/javascript" src="{{ url('/') }}/public/js/jquery.fancybox.min.js"></script>
     <script type="text/javascript" src="{{ url('/') }}/public/js/jquery.mmenu.all.min.js"></script>
     <script type="text/javascript" src="{{ url('/') }}/public/js/custom.js"></script>
-    <link rel="shortcut icon" href="http://test.gmon.com.vn/?image=favicon.png" type="image/x-icon">
-        <link rel="icon" href="http://test.gmon.com.vn/?image=favicon.png" type="image/x-icon">
+    <link rel="icon" href="http://test.gmon.com.vn/?image=favicon.png" type="image/x-icon">
 </head>
 <body>
 <div class="header-homepage">
