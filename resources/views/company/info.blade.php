@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <base href="{{ url('/') }}" target="_self">
-    <title>{{ config('app.name', 'Gmon') }}</title>
+    <title>{{ config('app.name', 'Gmon') }} - {{ $company->name }}</title>
+    <meta name="description" content="{{ $company->name }}, {{ $company->address }}, {{ $company->district }}, {{ $company->city }}"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -19,6 +20,15 @@
     <link rel="stylesheet" href="{{ url('/') }}/public/css/customize.css">
 </head>
 <body class="homepage">
+<!-- Global Site Tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-106844998-1"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments)};
+gtag('js', new Date());
+
+gtag('config', 'UA-106844998-1');
+</script>
     <header>
         <div class="header-top clearfix">
             <nav class="navbar navbar-default">
@@ -226,7 +236,7 @@
                             <img src="http://test.gmon.com.vn/?image={{ $company->logo }}">
                         </div>
                         <div class="col-md-8 col-xs-12 border-blue">
-                            <p class="row"><h3 class="text-upper">{{ $company->name }}</h3></p>
+                            <p class="row"><h1 class="obj-name">{{ $company->name }}</h1></p>
                             <p class="row"><i></i>{{ $company->address }}, {{ $company->city }}</p>
                             <p class="row"><i></i>{{ $company->district }}, {{ $company->city }}</p>
                             @if(strlen($company->jobs) > 0)
@@ -234,7 +244,7 @@
                             @endif
                             <p class="row"><i></i>{{ $company->size }} người</p>
                             @if(strlen($company->sologan)>0)<p class="row"><i></i>{{ $company->sologan }}</p>@endif
-                            @if(strlen($company->site_url)>0)<p class="row"><i class="fa fa-link fa-1 icon-plus"></i>{{ $company->site_url }}</p>@endif
+                            @if(strlen($company->site_url)>0)<p class="row"><i class="fa fa-link fa-1 icon-plus"></i><a href="{{ $company->site_url }}">{{ $company->site_url }}</a></p>@endif
                         </div>
                         <div class="col-md-12 col-xs-12" style="margin-top: 15px;">
                             <div class="row"><div class="col-md-12 col-xs-12"><?php echo $company->description; ?></div></div>
@@ -363,7 +373,7 @@
                         <p><b>Email:</b> support@gmon.vn</p>
                     </div>
                     <div class="col-md-4">
-                        <p style="margin-top: 15px">&#64; 2016-2017 Gmon.vn,inc. All rights reserved</p>
+                        <p style="margin-top: 72px">&#64; 2016-2017 Gmon.vn,inc. All rights reserved</p>
                     </div>
                 </div>
             </div>

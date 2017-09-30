@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <base href="{{ url('/') }}" target="_self">
-    <title>{{ config('app.name', 'Gmon') }}</title>
+    <title>{{ config('app.name', 'Gmon') }} - {{ $company->name }}</title>
+    <meta name="description" content="{{ $company->name }}, {{ $company->address }}, {{ $company->district }}, {{ $company->city }}"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -22,6 +23,15 @@
     
 </head>
 <body class="homepage">
+    <!-- Global Site Tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-106844998-1"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments)};
+    gtag('js', new Date());
+
+    gtag('config', 'UA-106844998-1');
+    </script>
     <header>
         <div class="header-top clearfix">
             <nav class="navbar navbar-default">
@@ -90,7 +100,6 @@
                                                                         <option value="2">Nhà tuyển dụng</option>
                                                                     </select>
                                                                 </div>
-                                                                <p class="text-center text-danger" id="register-message" style="display: none;">Đăng ký không thành công!</p>
                                                                 <div class="text-center">
                                                                     <div id="register-btn" class="btn btn-primary">ĐĂNG KÝ NGAY</div>
                                                                 </div>
@@ -112,7 +121,6 @@
                                                                 <div class="text-center">
                                                                     <div id="login-btn" class="btn btn-primary">ĐĂNG NHẬP</div>
                                                                 </div>
-                                                                <p class="text-center text-danger" id="login-message" style="display: none;">Tài khoản không chính xác!</p>
                                                                 <hr>
                                                                 <p class="text-center">Hoặc đăng nhập nhanh bằng</p>
                                                                 <div class="row text-center">
@@ -190,7 +198,7 @@
             <div class="col-md-4 info-company col-xs-12">
                 <div class="logo"><a target="_self" href="{{ url('/') }}/company/{{ $company->id }}/info"><img src="http://test.gmon.com.vn/?image={{ $company->logo }}" width="250"></a></div>
                 <div class="info">
-                    <p class="title">{{ $company->name }}</p>
+                    <h1 class="obj-name">{{ $job->name }}</h1>
                     <div class="star">
                         <img src="http://test.gmon.com.vn/?image=star.png" alt="">
                         <img src="http://test.gmon.com.vn/?image=star.png" alt="">
@@ -228,13 +236,13 @@
                     @if(strlen($company->sologan) > 0)
                     <p class="time-new-roman"><i class="sologan-point"></i>{{ $company->sologan }}</p>
                     @endif
-                    @if(strlen($company->site_url)>0)<p class="time-new-roman"><i class="fa fa-link fa-1 icon-plus"></i>{{ $company->site_url }}</p>@endif
+                    @if(strlen($company->site_url)>0)<p class="time-new-roman"><i class="fa fa-link fa-1 icon-plus"></i><a style="word-break: break-all;" href=" {{ $company->site_url }}"> {{ $company->site_url }}</a></p>@endif
                     <div class="link time-new-roman" ><a target="_self" href="{{ url('/') }}/company/{{ $company->id }}/listjobs" class="underline">Trang tuyển dụng <i class="muiten"></i></a></div>
                 </div>
             </div>
             <div class="col-md-8  col-xs-12">
                 <div class="info-job">
-                    <p class="title" style="margin-top: -8px">{{ $job->name }}</p>
+                    <h1 class="obj-name">{{ $job->name }}</h1>
                     <p class="time-new-roman"><i class="master-point"></i><span style="margin-right: 35px">
                     {{ $company->district }}, {{ $company->city }}
                     </span>
@@ -270,15 +278,15 @@
                 </div>
                 <div class="item">
                     <div class="title">việc bạn sẽ làm</div>
-                                        <div class="content"><?php echo str_replace("<p>&nbsp;</p>","",$job->description); ?></div>
+                        <div class="content"><?php echo str_replace("<p>&nbsp;</p>","",$job->description); ?></div>
                 </div>
                 <div class="item">
                     <div class="title">chúng tôi kỳ vọng ở bạn</div>
-                                        <div class="content"><?php echo str_replace("<p>&nbsp;</p>","",$job->requirement); ?></div>
+                        <div class="content"><?php echo str_replace("<p>&nbsp;</p>","",$job->requirement); ?></div>
                 </div>
                 <div class="item">
                     <div class="title">điều bạn mong muốn</div>
-                                        <div class="content"><?php echo str_replace("<p>&nbsp;</p>","",$job->benefit); ?></div>
+                        <div class="content"><?php echo str_replace("<p>&nbsp;</p>","",$job->benefit); ?></div>
                 </div>
                 @if(!Auth::check() || Auth::user()->hasRole('user'))
                 <p style="margin-top: 20px;text-align: center;"><a id="join-btn" target="_self" href="javascript:void(0)" class="bt-join" data-id="{{ $job->id }}" @if($applied == 0)style="display:inline-block;" @else style="display:none;"@endif>Ứng tuyển ngay</a><a id="joined-btn" target="_self" href="javascript:void(0)" class="bt-joined" data-id="{{ $job->id }}" @if($applied == 0)style="display:none;" @else style="display:inline-block;"@endif>Đã ứng tuyển</a></p>
@@ -496,18 +504,18 @@
 				</div>
 			</div>
 			<div class="footer-bot row">
-				<div class="col-md-8">
-					<p><b>Công ty cổ phần giải pháp và công nghệ Gmon</b></p>
+                <div class="col-md-8">
+                    <p><b>Công ty cổ phần giải pháp và công nghệ Gmon</b></p>
                     <p><b>Trụ sở chính:</b> Tầng 8, Tòa nhà Trần Phú, Dương Đình Nghệ, Cầu Giấy, Hà Nội</p>
                     <p><b>Điện thoại:</b> 0243.212.1515</p>
                     <p><b>VPĐD:</b> Số 31, Trần Phú, Hải Châu I, Hải Châu, Đà Nẵng</p>
                     <p><b>Điện thoại:</b> 0961 545 115</p>
                     <p><b>Email:</b> support@gmon.vn</p>
-				</div>
-				<div class="col-md-4">
-					<p style="margin-top: 15px">&#64; 2016-2017 Gmon.vn,inc. All rights reserved</p>
-				</div>
-			</div>
+                </div>
+                <div class="col-md-4">
+                    <p style="margin-top: 72px">&#64; 2016-2017 Gmon.vn,inc. All rights reserved</p>
+                </div>
+            </div>
 		</div>
 	</footer>
 
@@ -655,9 +663,7 @@
                 request.done(function (msg) {
                     if(msg.code == 200) {
                         location.reload();
-                    }else{
-                        $('#login-message').show();
-                    }
+                   }
                 });
 
                 request.fail(function (jqXHR, textStatus) {
@@ -666,7 +672,6 @@
             });
 
             $('#register-btn').click(function(){
-                $('#register-btn').off('click');
                 var username = $('#username').val();
                 var registersdt = $('#sdt').val();
                 var registerEmail = $('#register-email').val();
@@ -694,16 +699,9 @@
                 });
 
                 request.done(function (msg) {
-                    $('#register-btn').off('click');
-                    if (msg.code == 200) {
+                    if(msg.code == 200) {
                         location.reload();
-                    }else if(msg.code == 201) {
-                        $('#register-message').html('Email đã tồn tại!')
-                        $('#register-message').show();
-                    }else{
-                        $('#register-message').html('Đăng ký không thành công!')
-                        $('#register-message').show();
-                    }
+                   }
                 });
 
                 request.fail(function (jqXHR, textStatus) {
