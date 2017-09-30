@@ -1,14 +1,18 @@
 @extends('layouts.layout')
 
 @section('title')
-    - trang số 1 về việc làm parttime
+    @if(isset($meta_title))
+        {{ $meta_title }}
+    @else
+        spa.gmon.vn - Trang số 1 về việc làm parttime spa
+    @endif
 @endsection
 
 @section('description')
     @if(isset($meta_description))
         {{ $meta_description }}
     @else
-
+        Gmon - Trang số 1 về việc làm parttime
     @endif
 @endsection
 
@@ -108,7 +112,7 @@
     <div class="container list-info">
         @if(count($cvs) > 0)
         <div class="vip-candidates row">
-            <div class="title clearfix"><span>Ứng viên VIP <i class="hot"></i></span></div>
+            <div class="title clearfix"><h1>Ứng viên VIP <i class="hot"></i></h1></div>
             <div class="clearfix wrapper" id="wrapper-candidates">
                 @foreach($cvs as $cv)
                 <div class="item-u" >
@@ -145,7 +149,7 @@
         @endif
         @if(count($jobsvip1) > 0)
         <div class="new-jobs row">
-            <div class="title clearfix"><span>Việc làm HOT <i class="hot"></i></span></div>
+            <div class="title clearfix"><h1>Việc làm HOT <i class="hot"></i></h1></div>
             <div class="wrapper" id="wrapper3">
                 <div style="width: 100%;overflow: visible;display: inline-block;position: relative;">
                     @foreach($jobsvip1 as $job)
@@ -171,7 +175,7 @@
         @endif
         @if(count($jobsvip2) > 0)
         <div class="new-jobs row">
-            <div class="title clearfix"><span>Đang tuyển GẤP <i class="hot"></i></span></div>
+            <div class="title clearfix"><h1>Đang tuyển GẤP <i class="hot"></i></h1></div>
             <div class="wrapper" id="wrapper3">
                 <div style="width: 100%;overflow: visible;display: inline-block;position: relative;">
                     @foreach($jobsvip2 as $job)
@@ -197,7 +201,7 @@
         @endif
         @if(count($jobs) > 0)
         <div class="new-jobs row">
-            <div class="title clearfix"><span>Việc làm mới </span><i class="new"></i></div>
+            <div class="title clearfix"><h1>Việc làm mới </h1><i class="new"></i></div>
             <div class="wrapper" id="wrapper3">
                 <div style="width: 100%;overflow: visible;display: inline-block;position: relative;">
                     <?php $count = 0; ?>
@@ -227,7 +231,7 @@
         @endif
         @if(count($companies) > 0)
         <div class="new-employer row">
-            <div class="title clearfix"><span>Nhà tuyển dụng mới</span> <i class="new"></i></div>
+            <div class="title clearfix"><h1>Nhà tuyển dụng mới</h1> <i class="new"></i></div>
             <div class="wrapper" id="wrapper2">
                 <div style="width: 100%;overflow: hidden;display: inline-block;position: relative;">
                     <div class="contents" id="contents-employer">

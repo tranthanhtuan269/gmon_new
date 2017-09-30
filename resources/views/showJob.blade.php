@@ -1,14 +1,18 @@
 @extends('layouts.layout')
 
 @section('title')
-    - trang số 1 về việc làm parttime
+    @if(isset($meta_title))
+        {{ $meta_title }}
+    @else
+        spa.gmon.vn - Trang số 1 về việc làm parttime spa
+    @endif
 @endsection
 
 @section('description')
     @if(isset($meta_description))
         {{ $meta_description }}
     @else
-
+        Gmon - Trang số 1 về việc làm parttime
     @endif
 @endsection
 
