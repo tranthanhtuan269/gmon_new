@@ -11,7 +11,7 @@
         <base href="{{ url('/') }}" target="_self">
 
         <title>{{ config('app.name', 'Laravel') }}</title>
-
+        <link rel="icon" href="http://test.gmon.com.vn/?image=favicon.png" type="image/x-icon">
         <!-- Styles -->
         <link href="{{ url('/') }}/public/css/app.css" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
