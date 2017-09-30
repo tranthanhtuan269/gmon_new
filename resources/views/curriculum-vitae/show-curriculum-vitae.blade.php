@@ -1,13 +1,5 @@
 @extends('layouts.layout')
 
-@section('title')
-    - {{ $curriculumvitae->name }} - {{ $curriculumvitae->address }} - {{ $curriculumvitae->district }} - {{ $curriculumvitae->city }}
-@endsection
-
-@section('description')
-    {{ $curriculumvitae->name }} - {{ $curriculumvitae->address }} - {{ $curriculumvitae->district }} - {{ $curriculumvitae->city }}
-@endsection
-
 @section('content')
     <div class="container show-curriculum-vitae-page" style="margin-top: 20px;">
         <div class="row">
@@ -16,7 +8,7 @@
                     <div class="col-md-12">
                         <div class="row main-top">
                             <div class="col-md-5">
-                                @if(strlen($curriculumvitae->avatar) > 1)
+                                @if(strlen($curriculumvitae->avatar) > 3)
                                 <img src="http://test.gmon.com.vn/?image={{ $curriculumvitae->avatar }}" width="200" height="200" class="img-circle
                                 ">
                                 @else
@@ -52,7 +44,7 @@
                                 </div>
                             </div>
                         </div>
-                        @if(strlen($curriculumvitae->education) > 1)
+                        @if(strlen($curriculumvitae->education) > 3)
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="panel">
@@ -80,7 +72,7 @@
                                             <div class="col-md-8">{{ $edu->chuyen_nganh }} </div>
                                         </div>
                                         @endif
-                                        @if(isset($edu->loai_tot_nghiep) && $edu->loai_tot_nghiep != "--Chọn loại tốt nghiệp--")
+                                        @if(isset($edu->loai_tot_nghiep) && $edu->loai_tot_nghiep != "--Chọn Loại tốt nghiệp--" && $edu->loai_tot_nghiep != "Chọn Loại tốt nghiệp")
                                         <div class="row">
                                             <div class="col-md-4">Thành tích học tập </div>
                                             <div class="col-md-8">{{ $edu->loai_tot_nghiep }}</div>
@@ -95,7 +87,7 @@
                             </div>
                         </div>
                         @endif
-                        @if(strlen($curriculumvitae->word_experience) > 1)
+                        @if(strlen($curriculumvitae->word_experience) > 3)
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="panel">
@@ -124,6 +116,12 @@
                                                     <div class="col-md-5">Thời gian làm</div>
                                                     <div class="col-md-7">Từ {{ $exp->thang_bat_dau_lam_viec }}/{{ $exp->nam_bat_dau_lam_viec }} Đến {{ $exp->thang_ket_thuc_lam_viec }}/{{ $exp->nam_ket_thuc_lam_viec }}</div>
                                                 </div>
+                                                @if(strlen($exp->mo_ta) > 0)
+                                                <div class="row">
+                                                    <div class="col-md-5">Mô tả công việc</div>
+                                                    <div class="col-md-7">{{ $exp->mo_ta }}</div>
+                                                </div>
+                                                @endif
                                             </div>
                                         </div>
                                         <hr>
@@ -135,7 +133,7 @@
                             </div>
                         </div>
                         @endif
-                        @if(strlen($curriculumvitae->qualification) > 1)
+                        @if(strlen($curriculumvitae->qualification) > 3)
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="panel">
@@ -167,7 +165,7 @@
                             </div>
                         </div>
                         @endif
-                        @if(strlen($curriculumvitae->language) > 1)
+                        @if(strlen($curriculumvitae->language) > 3)
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="panel">
