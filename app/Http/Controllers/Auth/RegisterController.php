@@ -129,7 +129,7 @@ class RegisterController extends Controller
     {
 
         try {
-            dd(Socialite::driver('facebook'));
+            dd(Socialite::driver('facebook')->user());
             $socialUser = Socialite::driver('facebook')->user();
             dd($socialUser);
         } catch (Exception $e) {
