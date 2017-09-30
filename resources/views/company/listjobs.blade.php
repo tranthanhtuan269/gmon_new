@@ -252,7 +252,7 @@
                 <div class="footer-top row">
                     <div class="col-md-4 col-xs-6 footer-col">
                         <p class="title">về gmon</p>
-                        <p><a target="_self" href="">Giới thiệu</a></p>
+                        <p><a target="_self" href="http://news.gmon.vn/post/10/lich-su-phat-trien-gmon">Giới thiệu</a></p>
                         <p><a target="_self" href="">Việc làm</a></p>
                         <p><a target="_self" href="">Nhà tuyển dụng</a></p>
                         <p><a target="_self" href="">Hồ sơ ứng viên</a></p>
