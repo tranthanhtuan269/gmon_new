@@ -236,7 +236,7 @@
                     @if(strlen($company->sologan) > 0)
                     <p class="time-new-roman"><i class="sologan-point"></i>{{ $company->sologan }}</p>
                     @endif
-                    @if(strlen($company->site_url)>0)<p class="time-new-roman"><i class="fa fa-link fa-1 icon-plus"></i><a href=" {{ $company->site_url }}"> Website</a></p>@endif
+                    @if(strlen($company->site_url)>0)<p class="time-new-roman"><i class="fa fa-link fa-1 icon-plus"></i><a style="word-break: break-all;" href=" {{ $company->site_url }}"> {{ $company->site_url }}</a></p>@endif
                     <div class="link time-new-roman" ><a target="_self" href="{{ url('/') }}/company/{{ $company->id }}/listjobs" class="underline">Trang tuyển dụng <i class="muiten"></i></a></div>
                 </div>
             </div>
