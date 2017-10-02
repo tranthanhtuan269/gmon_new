@@ -579,6 +579,7 @@
                                 <div class="col-md-12">
                                     <div id="images-plus">
                                         <?php 
+                                            if(strlen($cv_user->images) > 0){
                                             $cv_user->images=rtrim($cv_user->images,";");
                                             $images = explode(";",$cv_user->images);
                                             for($i = 0; $i < count($images); $i++){
@@ -588,6 +589,7 @@
                                             <span class="remove-image-class"></span>
                                         </div>
                                         <?php
+                                            }
                                             }
                                         ?>
                                     </div>
