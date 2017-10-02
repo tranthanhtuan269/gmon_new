@@ -8,9 +8,9 @@ $(document).ready(function () {
     CKEDITOR.replace('active');
     var url_site = $('base').attr('href');
     var count_hoc_tap = $(".form-hoc-tap-group").length - 1;
-    var count_kinh_nghiem = $(".form-kinh-nghiem-group").length;
-    var count_language = $('.language-json').length;
-    var count_qualification = $('.qualification-holder').length;
+    var count_kinh_nghiem = $(".form-kinh-nghiem-group").length-1;
+    var count_language = $('.language-json').length-1;
+    var count_qualification = $('.qualification-holder').length-1;
     $('#add-qualification').click(function () {
         if ($('#ten_ky_nang').val().length <= 1) {
             swal("Tên kỹ năng trống!", "Xin hãy điền tên kỹ năng trước khi thêm mới!");
@@ -110,7 +110,7 @@ $(document).ready(function () {
     }
 
     $('#them_moi_kinh_nghiem').click(function () {
-        if (!validate_kinh_nghiem_cu(count_kinh_nghiem - 1)) {
+        if (!validate_kinh_nghiem_cu(count_kinh_nghiem)) {
             swal("Kinh nghiệm trước chưa được hoàn thành!", "Xin hãy hoàn thành kinh nghiệm trước để có thể thêm mới!");
             return false;
         }
