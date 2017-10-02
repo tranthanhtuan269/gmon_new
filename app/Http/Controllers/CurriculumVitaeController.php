@@ -133,17 +133,6 @@ class CurriculumVitaeController extends Controller
     public function updateCurriculumVitae($id, Request $request)
     {        
         $input = $request->all();
-        $img_avatar = '';
-        if ($request->hasFile('avatar-img')) {
-            $file_avatar = $request->file('avatar-img');
-            $filename = $file_avatar->getClientOriginalName();
-            $extension = $file_avatar->getClientOriginalExtension();
-            $img_avatar = date('His') . $filename;
-            $destinationPath = base_path('../../images');
-            $file_avatar->move($destinationPath, $img_avatar);
-            $input['avatar'] = $img_avatar;
-        }
-
         $picture = '';
         $allPic = '';
         if ($request->hasFile('images-img')) {
@@ -158,29 +147,23 @@ class CurriculumVitaeController extends Controller
             }
             $input['images'] = $allPic;
         }
-
-        unset($input['avatar-img']);
         unset($input['images-img']);
         unset($input['bang_cap_0']);
         unset($input['student_process_0']);
-
         $input['time_can_work'] = $request['time_can_work'];
         $input['jobs'] = $request['jobs'];
         $input['salary_want'] = $request['salary_want'];
         
         $input['user'] = \Auth::user()->id;
         $input['updated_at'] = date("Y-m-d H:i:s");
-
         $curriculumvitae = CurriculumVitae::findOrFail($id);
         
-
         if ($curriculumvitae) {
             $curriculumvitae->update($input);
             return redirect()->action(
                     'CurriculumVitaeController@showCurriculumVitae', ['id' => $curriculumvitae->id]
                 );
         }
-
         return redirect()->back();
     }
 
@@ -422,16 +405,6 @@ class CurriculumVitaeController extends Controller
     }
     
     public function storeCurriculumVitae(Request $request) {
-        $img_avatar = '';
-        if ($request->hasFile('avatar-img')) {
-            $file_avatar = $request->file('avatar-img');
-            $filename = $file_avatar->getClientOriginalName();
-            $extension = $file_avatar->getClientOriginalExtension();
-            $img_avatar = date('His') . $filename;
-            $destinationPath = base_path('../../images');
-            $file_avatar->move($destinationPath, $img_avatar);
-        }
-
         $picture = '';
         $allPic = '';
         if ($request->hasFile('images-img')) {
@@ -445,15 +418,10 @@ class CurriculumVitaeController extends Controller
                 $file->move($destinationPath, $picture);
             }
         }
-
         $input = $request->all();
-
-        unset($input['avatar-img']);
         unset($input['images-img']);
         unset($input['bang_cap_0']);
         unset($input['student_process_0']);
-
-        $input['avatar'] = $img_avatar;
         $input['images'] = $allPic;
         $input['time_can_work'] = $request['time_can_work'];
         $input['jobs'] = $request['jobs'];
@@ -464,13 +432,11 @@ class CurriculumVitaeController extends Controller
         $input['updated_at'] = date("Y-m-d H:i:s");
         
         $curriculumVitae = CurriculumVitae::create($input);
-
         if ($curriculumVitae) {
             return redirect()->action(
                     'CurriculumVitaeController@showCurriculumVitae', ['id' => $curriculumVitae->id]
                 );
         }
-
         return redirect()->back();
     }
 

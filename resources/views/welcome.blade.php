@@ -97,14 +97,13 @@
                             @if($company_id == -1)
                             <a target="_self" href="{{ url('/') }}/company/create"><i></i>Trang tuyển dụng</a>
                             @else
-                            <a target="_self" href="{{ url('/') }}/company/{{ $company_id }}/{{ $company->slug }}"><i></i>Trang tuyển dụng</a>
+                            <a target="_self" href="{{ url('/') }}/company/{{ $company_id }}"><i></i>Trang tuyển dụng</a>
                             <a target="_self" href="{{ url('/') }}/job/create"><i></i>Đăng tuyển dụng</a>
                             @endif
                             @endif
                         @endif
                     </div>
                 </div>
-                
             </div>
         </div>
     </header>

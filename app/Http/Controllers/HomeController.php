@@ -601,6 +601,20 @@ class HomeController extends Controller
 
     }
 
+    public function ajaxpro(Request $request){
+        if(isset($_POST["image"])){
+            $data = $_POST["image"];
+            list($type, $data) = explode(';', $data);
+            list(, $data)      = explode(',', $data);
+            $data = base64_decode($data);
+            $imageName = time().'.png';
+            $destinationPath = base_path('../../images');
+            file_put_contents($destinationPath.'/'.$imageName, $data);
+            return \Response::json(array('code' => '200', 'message' => 'success', 'image_url' => $imageName));
+        }
+        return \Response::json(array('code' => '404', 'message' => 'unsuccess', 'image_url' => ""));
+    }
+
     public function updateSlug(){
         // $cvs = \App\CurriculumVitae::select('id')->get();
         // foreach($cvs as $j){

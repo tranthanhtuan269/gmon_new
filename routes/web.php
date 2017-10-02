@@ -39,6 +39,7 @@ Route::get('/city/{id}', 'CityController@getAll');
 Route::get('/city/{id}/{slug}', 'CityController@getAllSlug');
 Route::get('/district/{id}', 'DistrictController@getAll');
 Route::get('/district/{id}/{slug}', 'DistrictController@getAllSlug');
+Route::post('ajaxpro', 'HomeController@ajaxpro');
 
 Route::group(['middleware' => 'auth'], function(){
 
