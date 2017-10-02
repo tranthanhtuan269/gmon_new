@@ -232,7 +232,6 @@ $(document).ready(function () {
         id_obj = id_obj.substring(19, id_obj.length);
         $('#kinh_nghiem_lam_viec_' + id_obj).hide();
         $('#kinh_nghiem_lam_viec_' + id_obj).addClass('removed');
-        count_kinh_nghiem;
     });
     $('.kinh_nghiem_success-btn').click(function () {
         var id_obj = $(this).attr('id');
@@ -279,7 +278,6 @@ $(document).ready(function () {
             id_obj = id_obj.substring(19, id_obj.length);
             $('#kinh_nghiem_lam_viec_' + id_obj).hide();
             $('#kinh_nghiem_lam_viec_' + id_obj).addClass('removed');
-            count_kinh_nghiem--;
         });
         $('.kinh_nghiem_success-btn').off('click');
         $('.kinh_nghiem_success-btn').click(function () {
@@ -595,7 +593,6 @@ $(document).ready(function () {
         id_obj = id_obj.substring(7, id_obj.length);
         $('#hoc_tap_' + id_obj).hide();
         $('#hoc_tap_' + id_obj).addClass('removed');
-        count_hoc_tap--;
     });
     $('.student_process').click(function () {
         var id_obj = $(this).attr('name');
@@ -663,7 +660,6 @@ $(document).ready(function () {
             id_obj = id_obj.substring(7, id_obj.length);
             $('#hoc_tap_' + id_obj).hide();
             $('#hoc_tap_' + id_obj).addClass('removed');
-            count_hoc_tap;
         });
         $('.hoc_tap_success-btn').click(function () {
 
@@ -972,7 +968,6 @@ $(document).ready(function () {
             id_obj = id_obj.substring(21, id_obj.length);
             $('#qualification-' + id_obj).remove();
             re_render_qualification(id_obj);
-            count_qualification--;
         });
     }
 
@@ -1002,7 +997,6 @@ $(document).ready(function () {
             id_obj = id_obj.substring(16, id_obj.length);
             $('#language-' + id_obj).remove();
             re_render_language(id_obj);
-            count_language--;
         });
     }
 
