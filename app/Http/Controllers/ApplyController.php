@@ -138,11 +138,50 @@ class ApplyController extends Controller
 
         $apply = \DB::table('applies')
             ->join('users', 'users.id', '=', 'applies.user')
+            ->join('curriculum_vitaes', 'curriculum_vitaes.user', '=', 'users.id')
             ->join('jobs', 'jobs.id', '=', 'applies.job')
-            ->select('applies.id as id', 'users.name as user', 'jobs.name as job')
+            ->join('companies', 'companies.id', '=', 'jobs.company')
+            ->select(
+                'applies.id as id',
+                'applies.active as active', 
+                'curriculum_vitaes.id as cv_id',
+                'applies.created_at as created_at', 
+                'users.name as user',
+                'users.email as email',
+                'users.phone as phone',
+                'jobs.name as job',
+                'companies.id as companyId',
+                'companies.name as companyName',
+                'companies.phone as companyPhone',
+                'companies.email as companyEmail'
+                )
+            ->orderBy('applies.created_at', 'desc')
             ->paginate($perPage);
 
-        var_dump($apply);die;
         return view('apply.admin', compact('apply'));
+    }
+
+    public function active(Request $request){
+        $input = $request->all();
+        if(isset($input) && isset($input['apply'])){
+            $apply = Apply::findOrFail($input['apply']);
+            $apply->active = 1;
+            if($apply->save()){
+                return \Response::json(array('code' => '200', 'message' => 'Update success!'));
+            }
+        }
+        return \Response::json(array('code' => '404', 'message' => 'Update unsuccess!'));
+    }
+
+    public function unactive(Request $request){
+        $input = $request->all();
+        if(isset($input) && isset($input['apply'])){
+            $apply = Apply::findOrFail($input['apply']);
+            $apply->active = 0;
+            if($apply->save()){
+                return \Response::json(array('code' => '200', 'message' => 'Update success!'));
+            }
+        }
+        return \Response::json(array('code' => '404', 'message' => 'Update unsuccess!'));
     }
 }

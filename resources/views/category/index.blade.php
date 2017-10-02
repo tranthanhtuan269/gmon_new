@@ -30,7 +30,7 @@
                             <table class="table table-borderless">
                                 <thead>
                                     <tr>
-                                        <th>ID</th><th>Name</th><th>Actions</th>
+                                        <th>ID</th><th>Name</th><th>Description</th><th>Keyword</th><th>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -38,6 +38,8 @@
                                     <tr>
                                         <td>{{ $item->id }}</td>
                                         <td>{{ $item->name }}</td>
+                                        <td>{{ $item->description }}</td>
+                                        <td>{{ $item->keyword }}</td>
                                         <td>
                                             <a href="{{ url('/master/category/' . $item->id) }}" title="View Category"><button class="btn btn-info btn-xs"><i class="fa fa-eye" aria-hidden="true"></i> View</button></a>
                                             <a href="{{ url('/master/category/' . $item->id . '/edit') }}" title="Edit Category"><button class="btn btn-primary btn-xs"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></a>

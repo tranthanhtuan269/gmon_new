@@ -5,8 +5,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <base href="{{ url('/') }}" target="_blank">
-    <title>{{ config('app.name', 'Gmon') }}</title>
+    <base href="{{ url('/') }}" target="_self">
+    <title>{{ config('app.name', 'Gmon') }} - {{ $company->name }}</title>
+    <meta name="description" content="{{ $company->name }}, {{ $company->address }}, {{ $company->district }}, {{ $company->city }}"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -19,9 +20,20 @@
     <script type="text/javascript" src="{{ url('/') }}/public/bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
     <link rel="stylesheet" href="{{ url('/') }}/public/bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" />
     <link rel="stylesheet" href="{{ url('/') }}/public/css/fptHomeCss.css">
+    <link rel="shortcut icon" href="http://test.gmon.com.vn/?image=favicon.png" type="image/x-icon">
+    <link rel="icon" href="http://test.gmon.com.vn/?image=favicon.png" type="image/x-icon">
     
 </head>
 <body class="homepage">
+    <!-- Global Site Tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-106844998-1"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments)};
+    gtag('js', new Date());
+
+    gtag('config', 'UA-106844998-1');
+    </script>
     <header>
         <div class="header-top clearfix">
             <nav class="navbar navbar-default">
@@ -60,20 +72,10 @@
                                                         <div id="register" class="tab-pane fade">
                                                             <h3>ĐĂNG KÝ TÀI KHOẢN GMON NGAY !</h3>
                                                             <form method="post">
-                                                                <!-- <div class="row text-center">
-                                                                    <p>Tiếp tục với</p>
-                                                                    <a target="_self" href="#" class="facebook"><i></i> Facebook</a>
-                                                                    <a target="_self" href="#" class="google"><i></i> Google</a>
-                                                                    <span class="col-md-12" style="display: inline-block;margin-bottom: 30px"><hr style="float: left;width: 40%;margin-top: 25px">Hoặc<hr style="float: right;width: 40%;margin-top: 25px"></span>
-                                                                </div> -->
                                                                 <div class="row">
-                                                                    <div class="col-md-6 form-group ">
-                                                                        <input type="text" class="form-control" id="firstname" placeholder="Họ" required autofocus><span class="required">*</span>
+                                                                    <div class="col-md-12 form-group ">
+                                                                        <input type="text" class="form-control" id="username" placeholder="Họ & tên" required autofocus><span class="required">*</span>
                                                                     </div>
-                                                                    <div class="col-md-6 form-group ">
-                                                                        <input type="text" class="form-control" id="lastname" placeholder="Tên" required><span class="required">*</span>
-                                                                    </div>
-
                                                                 </div>
                                                                 <div class="row">
                                                                     <div class="form-group col-md-12">
@@ -198,7 +200,7 @@
             <div class="col-md-4 info-company col-xs-12">
                 <div class="logo"><a target="_self" href="{{ url('/') }}/company/{{ $company->id }}/info"><img src="http://test.gmon.com.vn/?image={{ $company->logo }}" width="250"></a></div>
                 <div class="info">
-                    <p class="title">{{ $company->name }}</p>
+                    <h1 class="obj-name">{{ $job->name }}</h1>
                     <div class="star">
                         <img src="http://test.gmon.com.vn/?image=star.png" alt="">
                         <img src="http://test.gmon.com.vn/?image=star.png" alt="">
@@ -236,16 +238,17 @@
                     @if(strlen($company->sologan) > 0)
                     <p class="time-new-roman"><i class="sologan-point"></i>{{ $company->sologan }}</p>
                     @endif
+                    @if(strlen($company->site_url)>0)<p class="time-new-roman"><i class="fa fa-link fa-1 icon-plus"></i><a style="word-break: break-all;" href=" {{ $company->site_url }}"> {{ $company->site_url }}</a></p>@endif
                     <div class="link time-new-roman" ><a target="_self" href="{{ url('/') }}/company/{{ $company->id }}/listjobs" class="underline">Trang tuyển dụng <i class="muiten"></i></a></div>
                 </div>
             </div>
             <div class="col-md-8  col-xs-12">
                 <div class="info-job">
-                    <p class="title" style="margin-top: -8px">{{ $job->name }}</p>
+                    <h1 class="obj-name">{{ $job->name }}</h1>
                     <p class="time-new-roman"><i class="master-point"></i><span style="margin-right: 35px">
                     {{ $company->district }}, {{ $company->city }}
                     </span>
-                    <a target="_self" href="" style="color:#2a70b8;display: inline-block;" class="underline">Xem bản đồ <i class="muiten"></i></a></p>
+                    <a target="_self" href="" style="color:#2a70b8;display: none;" class="underline">Xem bản đồ <i class="muiten"></i></a></p>
                     @if(strlen($job->branches) > 0)
                         <?php 
                             $job->branches = ltrim($job->branches,";");
@@ -277,17 +280,19 @@
                 </div>
                 <div class="item">
                     <div class="title">việc bạn sẽ làm</div>
-                                        <div class="content"><?php echo str_replace("<p>&nbsp;</p>","",$job->description); ?></div>
+                        <div class="content"><?php echo str_replace("<p>&nbsp;</p>","",$job->description); ?></div>
                 </div>
                 <div class="item">
                     <div class="title">chúng tôi kỳ vọng ở bạn</div>
-                                        <div class="content"><?php echo str_replace("<p>&nbsp;</p>","",$job->requirement); ?></div>
+                        <div class="content"><?php echo str_replace("<p>&nbsp;</p>","",$job->requirement); ?></div>
                 </div>
                 <div class="item">
                     <div class="title">điều bạn mong muốn</div>
-                                        <div class="content"><?php echo str_replace("<p>&nbsp;</p>","",$job->benefit); ?></div>
+                        <div class="content"><?php echo str_replace("<p>&nbsp;</p>","",$job->benefit); ?></div>
                 </div>
+                @if(!Auth::check() || Auth::user()->hasRole('user'))
                 <p style="margin-top: 20px;text-align: center;"><a id="join-btn" target="_self" href="javascript:void(0)" class="bt-join" data-id="{{ $job->id }}" @if($applied == 0)style="display:inline-block;" @else style="display:none;"@endif>Ứng tuyển ngay</a><a id="joined-btn" target="_self" href="javascript:void(0)" class="bt-joined" data-id="{{ $job->id }}" @if($applied == 0)style="display:none;" @else style="display:inline-block;"@endif>Đã ứng tuyển</a></p>
+                @endif
             </div>
         </div>
         @if(false)
@@ -501,17 +506,18 @@
 				</div>
 			</div>
 			<div class="footer-bot row">
-				<div class="col-md-8">
-					<p>Công ty cổ phần Giải pháp và công nghệ GMon</p>
-					<p>Địa chỉ: Tầng 8 - Tòa nhà Trần Phú - số 17 tổ 24 đường Dương Đình Nghệ - P.Yên Hòa - Q.Cầu Giấy - Hà Nội</p>
-					<p>Điện thoại: 0243.212.1515</p>
-					<p>Email nhà tuyển dụng: vieclamhn@gmon.vnEmail nhà tuyển dụng</p>
-					<p>Email ứng viên: tuyendunghn@gmon.vn</p>
-				</div>
-				<div class="col-md-4">
-					<p style="margin-top: 15px">&#64; 2016-2017 Gmon.vn,inc. All rights reserved</p>
-				</div>
-			</div>
+                <div class="col-md-8">
+                    <p><b>Công ty cổ phần giải pháp và công nghệ Gmon</b></p>
+                    <p><b>Trụ sở chính:</b> Tầng 8, Tòa nhà Trần Phú, Dương Đình Nghệ, Cầu Giấy, Hà Nội</p>
+                    <p><b>Điện thoại:</b> 0243.212.1515</p>
+                    <p><b>VPĐD:</b> Số 31, Trần Phú, Hải Châu I, Hải Châu, Đà Nẵng</p>
+                    <p><b>Điện thoại:</b> 0961 545 115</p>
+                    <p><b>Email:</b> support@gmon.vn</p>
+                </div>
+                <div class="col-md-4">
+                    <p style="margin-top: 72px">&#64; 2016-2017 Gmon.vn,inc. All rights reserved</p>
+                </div>
+            </div>
 		</div>
 	</footer>
 
@@ -577,7 +583,7 @@
                             // Move to a new location or you can do something else
                             window.location.href = url_site + "/curriculumvitae/create";
                         }, 3000);
-                    }
+                }
 	        });
 
 	        request.fail(function (jqXHR, textStatus) {
@@ -668,9 +674,7 @@
             });
 
             $('#register-btn').click(function(){
-                var registerFirstname = $('#firstname').val();
-                var registerLastname = $('#lastname').val();
-                var username = registerFirstname + ' ' + registerLastname;
+                var username = $('#username').val();
                 var registersdt = $('#sdt').val();
                 var registerEmail = $('#register-email').val();
                 var registerPassword = $('#register-password').val();

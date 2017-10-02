@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\CompanyCompanyType;
+use App\User;
+use App\Company;
+use App\Job;
 
 class HomeController extends Controller
 {
@@ -49,30 +52,11 @@ class HomeController extends Controller
         $company_id = -1;
         $cv_id = -1;
         if (\Auth::check()) {
-            $current_id = \Auth::user()->id;
-            
-            //get company 
-            $company = \DB::table('companies')
-                    ->where('companies.user', $current_id)
-                    ->select(
-                        'id'
-                    )
-                    ->first();
-            if($company){
-                $company_id = $company->id;
-            }
-            
-            //get CV 
-            $cv_user = \DB::table('curriculum_vitaes')
-                    ->where('curriculum_vitaes.user', $current_id)
-                    ->select(
-                        'id'
-                    )
-                    ->first();
-            if($cv_user){
-                $cv_id = $cv_user->id;
-            }
+            $user_info = \Auth::user()->getUserInfo();
+            $company_id = $user_info['company_id'];
+            $cv_id = $user_info['cv_id'];
         }
+        
         $city = 0;
         $district = 0;
         $field = 0;
@@ -636,44 +620,46 @@ class HomeController extends Controller
         return \Response::json(array('code' => '404', 'message' => 'unsuccess', 'image_url' => ""));
     }
 
+    public function postImages(Request $request){
+        // dd(count($request->files));
+        $picture = '';
+        $allPic = '';
+        if (count($request->files) > 0) {
+            $files = $request->files;
+            foreach ($files as $file) {
+                $filename = $file->getClientOriginalName();
+                $extension = $file->getClientOriginalExtension();
+                $picture = date('His') . $filename;
+                $allPic .= $picture . ';';
+                $destinationPath = base_path('../../images');
+                $file->move($destinationPath, $picture);
+            }
+            return \Response::json(array('code' => '200', 'message' => 'success', 'images_url' => $allPic));
+        }
+        return \Response::json(array('code' => '404', 'message' => 'unsuccess', 'images_url' => ""));
+    }
+
     public function showmore()
     {
         $company_id = -1;
         $cv_id = -1;
+        if (\Auth::check()) {
+            $user_info = \Auth::user()->getUserInfo();
+            $company_id = $user_info['company_id'];
+            $cv_id = $user_info['cv_id'];
+        }
+
+        $jobGetObj = new Job;
+        $companyGetObj = new Company;
+
         $perPage = 1000;
         $checkJobVip = 0;
-        if (\Auth::check()) {
-            $current_id = \Auth::user()->id;
-            
-            //get company 
-            $company = \DB::table('companies')
-                    ->where('companies.user', $current_id)
-                    ->select(
-                        'id'
-                    )
-                    ->first();
-            if($company){
-                $company_id = $company->id;
-            }
-            
-            //get CV 
-            $cv_user = \DB::table('curriculum_vitaes')
-                    ->where('curriculum_vitaes.user', $current_id)
-                    ->select(
-                        'id'
-                    )
-                    ->first();
-            if($cv_user){
-                $cv_id = $cv_user->id;
-            }
-        }
-        $city = 0;
-        $district = 0;
-        $cv = "";
-        $job = "";
-        $company = "";
-        $job_type = "";
-        $field = "";
+        $district = $city = $field = $job_type = $company = $cv = $vip = $from = $number_get = null;
+
+        $from  = 0;
+        $number_get = 10;
+
+
         if(isset($_GET['district']) && is_numeric($_GET['district'])){
             $district = (int)$_GET['district'];
         }
@@ -690,6 +676,8 @@ class HomeController extends Controller
 
         if(isset($_GET['job'])){
             $job = $_GET['job'];
+        }else{
+            $job = null;
         }
 
         if(isset($_GET['field'])){
@@ -703,6 +691,12 @@ class HomeController extends Controller
         if(isset($_GET['company'])){
             $company = $_GET['company'];
         }
+
+        // get news 
+        $news = \DB::table('posts')
+           ->select('id', 'title', 'image')
+           ->orderBy('posts.created_at', 'desc')
+           ->take(5)->get();
 
         if($district > 0){
             // get district of city
@@ -732,186 +726,47 @@ class HomeController extends Controller
                     // get cv of vip
                     $companies = [];
 
-                    return view('showCompanyCV', compact('districts', 'city', 'cvs', 'jobs', 'jobsvip1', 'jobsvip2', 'companies', 'company_id', 'cv_id'));
+                    return view('showCompanyCV', compact('districts', 'city', 'cvs', 'jobs', 'jobsvip1', 'jobsvip2', 'companies', 'company_id', 'cv_id', 'news'));
                 }else if($job == "vip1"){
                     $checkJobVip = 1;
-                    // get job of vip
-                    $jobs = \DB::table('jobs')
-                        ->join('companies', 'companies.id', '=', 'jobs.company')
-                        ->join('salaries', 'salaries.id', '=', 'jobs.salary')
-                        ->join('cities', 'cities.id', '=', 'companies.city')
-                        ->join('districts', 'districts.id', '=', 'companies.district')
-                        ->where('companies.district', '=', $district)
-                        ->where('jobs.vip', '=', 1)
-                        ->select('jobs.id as id', 'jobs.name as name', 'jobs.number as number', 'jobs.expiration_date as expiration_date', 'salaries.name as salary', 'companies.logo', 'companies.name as companyname', 'cities.name as city', 'districts.name as district')
-                        ->paginate($perPage);
 
-                    $jobsvip = \DB::table('jobs')
-                        ->join('companies', 'companies.id', '=', 'jobs.company')
-                        ->join('salaries', 'salaries.id', '=', 'jobs.salary')
-                        ->join('cities', 'cities.id', '=', 'companies.city')
-                        ->join('districts', 'districts.id', '=', 'companies.district')
-                        ->where('companies.district', '=', $district)
-                        ->where('jobs.vip', '=', 2)
-                        ->select('jobs.id as id', 'jobs.name as name', 'jobs.number as number', 'jobs.expiration_date as expiration_date', 'salaries.name as salary', 'companies.logo', 'companies.name as companyname', 'cities.name as city', 'districts.name as district')
-                        ->take(5)
-                        ->get();
-                        
-                    // get cv of vip
-                    $companies = \DB::table('companies')
-                        ->select('id', 'name', 'logo', 'sologan')
-                        ->where('companies.district', '=', $district)
-                        ->orderBy('companies.created_at', 'desc')
-                        ->take(20)
-                        ->get();
+                    $jobs = $jobGetObj->getJob($district, $city, $field, $job_type, $company, $cv, 1, $from, $number_get);
+                    $jobcount = $jobGetObj->getJobNumber($district, $city, $field, $job_type, $company, $cv, 1);
+                    $jobsvip = $jobGetObj->getJob($district, $city, $field, $job_type, $company, $cv, 2, $from, 5);
+                    $companies = $companyGetObj->getCompany($district, $city, $field, $from, 20);
 
-                    return view('showJob', compact('districts', 'city', 'checkJobVip', 'cvs', 'jobs', 'jobsvip', 'companies', 'company_id', 'cv_id'));
+                    return view('showJob', compact('districts', 'city', 'checkJobVip', 'cvs', 'jobs', 'jobsvip', 'companies', 'company_id', 'cv_id', 'news', 'jobcount'));
                 }else if($job == "vip2"){
                     $checkJobVip = 1;
-                    // get job of vip
-                    $jobs = \DB::table('jobs')
-                        ->join('companies', 'companies.id', '=', 'jobs.company')
-                        ->join('salaries', 'salaries.id', '=', 'jobs.salary')
-                        ->join('cities', 'cities.id', '=', 'companies.city')
-                        ->join('districts', 'districts.id', '=', 'companies.district')
-                        ->where('companies.district', '=', $district)
-                        ->where('jobs.vip', '=', 1)
-                        ->select('jobs.id as id', 'jobs.name as name', 'jobs.number as number', 'jobs.expiration_date as expiration_date', 'salaries.name as salary', 'companies.logo', 'companies.name as companyname', 'cities.name as city', 'districts.name as district')
-                        ->paginate($perPage);
 
-                    $jobsvip = \DB::table('jobs')
-                        ->join('companies', 'companies.id', '=', 'jobs.company')
-                        ->join('salaries', 'salaries.id', '=', 'jobs.salary')
-                        ->join('cities', 'cities.id', '=', 'companies.city')
-                        ->join('districts', 'districts.id', '=', 'companies.district')
-                        ->where('companies.district', '=', $district)
-                        ->where('jobs.vip', '=', 2)
-                        ->select('jobs.id as id', 'jobs.name as name', 'jobs.number as number', 'jobs.expiration_date as expiration_date', 'salaries.name as salary', 'companies.logo', 'companies.name as companyname', 'cities.name as city', 'districts.name as district')
-                        ->take(5)
-                        ->get();
-                        
-                    // get cv of vip
-                    $companies = \DB::table('companies')
-                        ->select('id', 'name', 'logo', 'sologan')
-                        ->where('companies.district', '=', $district)
-                        ->orderBy('companies.created_at', 'desc')
-                        ->take(20)
-                        ->get();
+                    $jobs = $jobGetObj->getJob($district, $city, $field, $job_type, $company, $cv, 1, $from, $number_get);
+                    $jobcount = $jobGetObj->getJobNumber($district, $city, $field, $job_type, $company, $cv, 1);
+                    $jobsvip = $jobGetObj->getJob($district, $city, $field, $job_type, $company, $cv, 2, $from, 5);
+                    $companies = $companyGetObj->getCompany($district, $city, $field, $from, 20);
 
-                    return view('showJob', compact('districts', 'city', 'checkJobVip', 'cvs', 'jobs', 'jobsvip', 'companies', 'company_id', 'cv_id'));
+                    return view('showJob', compact('districts', 'city', 'checkJobVip', 'cvs', 'jobs', 'jobsvip', 'companies', 'company_id', 'cv_id', 'news', 'jobcount'));
                 }else if($job == "new"){
-                    // get job of vip
-                    $jobs = \DB::table('jobs')
-                        ->join('companies', 'companies.id', '=', 'jobs.company')
-                        ->join('salaries', 'salaries.id', '=', 'jobs.salary')
-                        ->join('cities', 'cities.id', '=', 'companies.city')
-                        ->join('districts', 'districts.id', '=', 'companies.district')
-                        ->where('companies.district', '=', $district)
-                        ->select('jobs.id as id', 'jobs.name as name', 'jobs.number as number', 'jobs.expiration_date as expiration_date', 'salaries.name as salary', 'companies.logo', 'companies.name as companyname', 'cities.name as city', 'districts.name as district')
-                        ->paginate($perPage);
 
-                    $jobsvip = \DB::table('jobs')
-                        ->join('companies', 'companies.id', '=', 'jobs.company')
-                        ->join('salaries', 'salaries.id', '=', 'jobs.salary')
-                        ->join('cities', 'cities.id', '=', 'companies.city')
-                        ->join('districts', 'districts.id', '=', 'companies.district')
-                        ->where('companies.district', '=', $district)
-                        ->where('jobs.vip', '=', 1)
-                        ->select('jobs.id as id', 'jobs.name as name', 'jobs.number as number', 'jobs.expiration_date as expiration_date', 'salaries.name as salary', 'companies.logo', 'companies.name as companyname', 'cities.name as city', 'districts.name as district')
-                        ->take(5)
-                        ->get();
-                        
-                    // get cv of vip
-                    $companies = \DB::table('companies')
-                        ->select('id', 'name', 'logo', 'sologan')
-                        ->where('companies.district', '=', $district)
-                        ->orderBy('companies.created_at', 'desc')
-                        ->take(20)
-                        ->get();
+                    $jobs = $jobGetObj->getJob($district, $city, $field, $job_type, $company, $cv, 0, $from, $number_get);
+                    $jobcount = $jobGetObj->getJobNumber($district, $city, $field, $job_type, $company, $cv, 0, $from, $number_get);
+                    $jobsvip = $jobGetObj->getJob($district, $city, $field, $job_type, $company, $cv, 1, $from, 5);
+                    $companies = $companyGetObj->getCompany($district, $city, $field, $from, 20);
 
-                    return view('showJob', compact('districts', 'city', 'checkJobVip', 'cvs', 'jobs', 'jobsvip', 'companies', 'company_id', 'cv_id'));
+                    return view('showJob', compact('districts', 'city', 'checkJobVip', 'cvs', 'jobs', 'jobsvip', 'companies', 'company_id', 'cv_id', 'news', 'jobcount'));
                 }else if($field > 0 && $field < 6){
-                    // get job of vip
-                    $jobs = \DB::table('jobs')
-                        ->join('companies', 'companies.id', '=', 'jobs.company')
-                        ->join('company_company_types', 'companies.id', '=', 'company_company_types.company')
-                        ->join('salaries', 'salaries.id', '=', 'jobs.salary')
-                        ->join('cities', 'cities.id', '=', 'companies.city')
-                        ->join('districts', 'districts.id', '=', 'companies.district')
-                        ->where('companies.district', '=', $district)
-                        ->where('company_company_types.company_type', '=', $field)
-                        ->select('jobs.id as id', 'jobs.name as name', 'jobs.number as number', 'jobs.expiration_date as expiration_date', 'salaries.name as salary', 'companies.logo', 'companies.name as companyname', 'cities.name as city', 'districts.name as district')
-                        ->paginate($perPage);
+                    $jobs = $jobGetObj->getJob($district, $city, $field, $job_type, $company, $cv, 0, $from, $number_get);
+                    $jobcount = $jobGetObj->getJobNumber($district, $city, $field, $job_type, $company, $cv, 0, $from, $number_get);
+                    $jobsvip = $jobGetObj->getJob($district, $city, $field, $job_type, $company, $cv, 1, $from, 5);
+                    $companies = $companyGetObj->getCompany($district, $city, $field, $from, 20);
 
-                    // get job of vip
-                    $jobs = \DB::table('jobs')
-                        ->join('companies', 'companies.id', '=', 'jobs.company')
-                        ->join('company_company_types', 'companies.id', '=', 'company_company_types.company')
-                        ->join('salaries', 'salaries.id', '=', 'jobs.salary')
-                        ->join('cities', 'cities.id', '=', 'companies.city')
-                        ->join('districts', 'districts.id', '=', 'companies.district')
-                        ->where('companies.district', '=', $district)
-                        ->where('company_company_types.company_type', '=', $field)
-                        ->select('jobs.id as id', 'jobs.name as name', 'jobs.number as number', 'jobs.expiration_date as expiration_date', 'salaries.name as salary', 'companies.logo', 'companies.name as companyname', 'cities.name as city', 'districts.name as district')
-                        ->paginate($perPage);
-
-                    $jobsvip = \DB::table('jobs')
-                        ->join('companies', 'companies.id', '=', 'jobs.company')
-                        ->join('company_company_types', 'companies.id', '=', 'company_company_types.company')
-                        ->join('salaries', 'salaries.id', '=', 'jobs.salary')
-                        ->join('cities', 'cities.id', '=', 'companies.city')
-                        ->join('districts', 'districts.id', '=', 'companies.district')
-                        ->where('companies.district', '=', $district)
-                        ->where('company_company_types.company_type', '=', $field)
-                        ->where('jobs.vip', '=', 1)
-                        ->select('jobs.id as id', 'jobs.name as name', 'jobs.number as number', 'jobs.expiration_date as expiration_date', 'salaries.name as salary', 'companies.logo', 'companies.name as companyname', 'cities.name as city', 'districts.name as district')
-                        ->take(5)
-                        ->get();
-                        
-                    // get cv of vip
-                    $companies = \DB::table('companies')
-                        ->join('company_company_types', 'companies.id', '=', 'company_company_types.company')
-                        ->select('id', 'name', 'logo', 'sologan')
-                        ->where('companies.district', '=', $district)
-                        ->where('company_company_types.company_type', '=', $field)
-                        ->orderBy('companies.created_at', 'desc')
-                        ->take(20)
-                        ->get();
-
-                    return view('showJob', compact('districts', 'city', 'checkJobVip', 'cvs', 'jobs', 'jobsvip', 'companies', 'company_id', 'cv_id'));
+                    return view('showJob', compact('districts', 'city', 'checkJobVip', 'cvs', 'jobs', 'jobsvip', 'companies', 'company_id', 'cv_id', 'news', 'jobcount'));
                 }else if($job_type > 0){
-                    // get job of vip
-                    $jobs = \DB::table('jobs')
-                        ->join('companies', 'companies.id', '=', 'jobs.company')
-                        ->join('salaries', 'salaries.id', '=', 'jobs.salary')
-                        ->join('cities', 'cities.id', '=', 'companies.city')
-                        ->join('districts', 'districts.id', '=', 'companies.district')
-                        ->where('companies.district', '=', $district)
-                        ->where('jobs.job_type', '=', $job_type)
-                        ->select('jobs.id as id', 'jobs.name as name', 'jobs.number as number', 'jobs.expiration_date as expiration_date', 'salaries.name as salary', 'companies.logo', 'companies.name as companyname', 'cities.name as city', 'districts.name as district')
-                        ->paginate($perPage);
+                    $jobs = $jobGetObj->getJob($district, $city, $field, $job_type, $company, $cv, 0, $from, $number_get);
+                    $jobcount = $jobGetObj->getJobNumber($district, $city, $field, $job_type, $company, $cv, 0, $from, $number_get);
+                    $jobsvip = $jobGetObj->getJob($district, $city, $field, $job_type, $company, $cv, 1, $from, 5);
+                    $companies = $companyGetObj->getCompany($district, $city, $field, $from, 20);
 
-                    $jobsvip = \DB::table('jobs')
-                        ->join('companies', 'companies.id', '=', 'jobs.company')
-                        ->join('salaries', 'salaries.id', '=', 'jobs.salary')
-                        ->join('cities', 'cities.id', '=', 'companies.city')
-                        ->join('districts', 'districts.id', '=', 'companies.district')
-                        ->where('companies.district', '=', $district)
-                        ->where('jobs.vip', '=', 1)
-                        ->where('jobs.job_type', '=', $job_type)
-                        ->select('jobs.id as id', 'jobs.name as name', 'jobs.number as number', 'jobs.expiration_date as expiration_date', 'salaries.name as salary', 'companies.logo', 'companies.name as companyname', 'cities.name as city', 'districts.name as district')
-                        ->take(5)
-                        ->get();
-                        
-                    // get cv of vip
-                    $companies = \DB::table('companies')
-                        ->select('id', 'name', 'logo', 'sologan')
-                        ->where('companies.district', '=', $district)
-                        ->orderBy('companies.created_at', 'desc')
-                        ->take(20)
-                        ->get();
-
-                    return view('showJob', compact('districts', 'city', 'checkJobVip', 'cvs', 'jobs', 'jobsvip', 'companies', 'company_id', 'cv_id'));
+                    return view('showJob', compact('districts', 'city', 'checkJobVip', 'cvs', 'jobs', 'jobsvip', 'companies', 'company_id', 'cv_id', 'news', 'jobcount'));
                 }else if($company == "new"){
                     // get job of vip
                     $jobsvip1 = [];
@@ -925,45 +780,16 @@ class HomeController extends Controller
                     // get cv of vip
                     $cvs = [];
                     // get cv of vip
-                    $companies = \DB::table('companies')
-                        ->select('id', 'name', 'logo', 'sologan')
-                        ->where('companies.district', '=', $district)
-                        ->orderBy('companies.created_at', 'desc')
-                        ->take($perPage)
-                        ->get();
+                    $companies = $companyGetObj->getCompany($district, $city, $field, $from, 1000);
 
-                    return view('showCompanyCV', compact('districts', 'city', 'cvs', 'jobs', 'jobsvip1', 'jobsvip2', 'companies', 'company_id', 'cv_id'));
+                    return view('showCompanyCV', compact('districts', 'city', 'cvs', 'jobs', 'jobsvip1', 'jobsvip2', 'companies', 'company_id', 'cv_id', 'news'));
                 }else{
-                    // get job of vip
-                    $jobs = \DB::table('jobs')
-                        ->join('companies', 'companies.id', '=', 'jobs.company')
-                        ->join('salaries', 'salaries.id', '=', 'jobs.salary')
-                        ->join('cities', 'cities.id', '=', 'companies.city')
-                        ->join('districts', 'districts.id', '=', 'companies.district')
-                        ->where('companies.district', '=', $district)
-                        ->select('jobs.id as id', 'jobs.name as name', 'jobs.number as number', 'jobs.expiration_date as expiration_date', 'salaries.name as salary', 'companies.logo', 'companies.name as companyname', 'cities.name as city', 'districts.name as district')
-                        ->paginate($perPage);
+                    $jobs = $jobGetObj->getJob($district, $city, $field, $job_type, $company, $cv, 0, $from, $number_get);
+                    $jobcount = $jobGetObj->getJobNumber($district, $city, $field, $job_type, $company, $cv, 0, $from, $number_get);
+                    $jobsvip = $jobGetObj->getJob($district, $city, $field, $job_type, $company, $cv, 1, $from, 5);
+                    $companies = $companyGetObj->getCompany($district, $city, $field, $from, 20);
 
-                    $jobsvip = \DB::table('jobs')
-                        ->join('companies', 'companies.id', '=', 'jobs.company')
-                        ->join('salaries', 'salaries.id', '=', 'jobs.salary')
-                        ->join('cities', 'cities.id', '=', 'companies.city')
-                        ->join('districts', 'districts.id', '=', 'companies.district')
-                        ->where('companies.district', '=', $district)
-                        ->where('jobs.vip', '=', 1)
-                        ->select('jobs.id as id', 'jobs.name as name', 'jobs.number as number', 'jobs.expiration_date as expiration_date', 'salaries.name as salary', 'companies.logo', 'companies.name as companyname', 'cities.name as city', 'districts.name as district')
-                        ->take(5)
-                        ->get();
-                        
-                    // get cv of vip
-                    $companies = \DB::table('companies')
-                        ->select('id', 'name', 'logo', 'sologan')
-                        ->where('companies.district', '=', $district)
-                        ->orderBy('companies.created_at', 'desc')
-                        ->take(20)
-                        ->get();
-
-                    return view('showJob', compact('districts', 'city', 'checkJobVip', 'cvs', 'jobs', 'jobsvip', 'companies', 'company_id', 'cv_id'));
+                    return view('showJob', compact('districts', 'city', 'checkJobVip', 'cvs', 'jobs', 'jobsvip', 'companies', 'company_id', 'cv_id', 'news', 'jobcount'));
                 }
             }else{
                 return redirect('/');
@@ -1014,174 +840,47 @@ class HomeController extends Controller
                         ->paginate($perPage);
 
                     // get cv of vip
-                    $companies = []; 
+                    $companies = [];
 
-                    return view('showCompanyCV', compact('districts', 'city', 'cvs', 'jobs', 'jobsvip1', 'jobsvip2', 'companies', 'company_id', 'cv_id'));
+                    return view('showCompanyCV', compact('districts', 'city', 'cvs', 'jobs', 'jobsvip1', 'jobsvip2', 'companies', 'company_id', 'cv_id', 'news'));
                 }else if($job == "vip1"){
                     $checkJobVip = 1;
-                    // get job of vip
-                    $jobs = \DB::table('jobs')
-                        ->join('companies', 'companies.id', '=', 'jobs.company')
-                        ->join('salaries', 'salaries.id', '=', 'jobs.salary')
-                        ->join('cities', 'cities.id', '=', 'companies.city')
-                        ->join('districts', 'districts.id', '=', 'companies.district')
-                        ->where('companies.city', '=', $city)
-                        ->where('jobs.vip', '=', 1)
-                        ->select('jobs.id as id', 'jobs.name as name', 'jobs.number as number', 'jobs.expiration_date as expiration_date', 'salaries.name as salary', 'companies.logo', 'companies.name as companyname', 'cities.name as city', 'districts.name as district')
-                        ->paginate($perPage);
 
-                    $jobsvip = \DB::table('jobs')
-                        ->join('companies', 'companies.id', '=', 'jobs.company')
-                        ->join('salaries', 'salaries.id', '=', 'jobs.salary')
-                        ->join('cities', 'cities.id', '=', 'companies.city')
-                        ->join('districts', 'districts.id', '=', 'companies.district')
-                        ->where('companies.city', '=', $city)
-                        ->where('jobs.vip', '=', 2)
-                        ->select('jobs.id as id', 'jobs.name as name', 'jobs.number as number', 'jobs.expiration_date as expiration_date', 'salaries.name as salary', 'companies.logo', 'companies.name as companyname', 'cities.name as city', 'districts.name as district')
-                        ->take(5)
-                        ->get();
-                        
-                    // get cv of vip
-                    $companies = \DB::table('companies')
-                        ->select('id', 'name', 'logo', 'sologan')
-                        ->where('companies.city', '=', $city)
-                        ->orderBy('companies.created_at', 'desc')
-                        ->take(20)
-                        ->get();
+                    $jobs = $jobGetObj->getJob($district, $city, $field, $job_type, $company, $cv, 1, $from, $number_get);
+                    $jobcount = $jobGetObj->getJobNumber($district, $city, $field, $job_type, $company, $cv, 1, $from, $number_get);
+                    $jobsvip = $jobGetObj->getJob($district, $city, $field, $job_type, $company, $cv, 2, $from, 5);
+                    $companies = $companyGetObj->getCompany($district, $city, $field, $from, 20);
 
-                    return view('showJob', compact('districts', 'city', 'checkJobVip', 'cvs', 'jobs', 'jobsvip', 'companies', 'company_id', 'cv_id'));
+                    return view('showJob', compact('districts', 'city', 'checkJobVip', 'cvs', 'jobs', 'jobsvip', 'companies', 'company_id', 'cv_id', 'news', 'jobcount'));
                 }else if($job == "vip2"){
                     $checkJobVip = 1;
-                    // get job of vip
-                    $jobs = \DB::table('jobs')
-                        ->join('companies', 'companies.id', '=', 'jobs.company')
-                        ->join('salaries', 'salaries.id', '=', 'jobs.salary')
-                        ->join('cities', 'cities.id', '=', 'companies.city')
-                        ->join('districts', 'districts.id', '=', 'companies.district')
-                        ->where('companies.city', '=', $city)
-                        ->where('jobs.vip', '=', 2)
-                        ->select('jobs.id as id', 'jobs.name as name', 'jobs.number as number', 'jobs.expiration_date as expiration_date', 'salaries.name as salary', 'companies.logo', 'companies.name as companyname', 'cities.name as city', 'districts.name as district')
-                        ->paginate($perPage);
+                    $jobs = $jobGetObj->getJob($district, $city, $field, $job_type, $company, $cv, 2, $from, $number_get);
+                    $jobcount = $jobGetObj->getJobNumber($district, $city, $field, $job_type, $company, $cv, 2, $from, $number_get);
+                    $jobsvip = $jobGetObj->getJob($district, $city, $field, $job_type, $company, $cv, 1, $from, 5);
+                    $companies = $companyGetObj->getCompany($district, $city, $field, $from, 20);
 
-                    $jobsvip = \DB::table('jobs')
-                        ->join('companies', 'companies.id', '=', 'jobs.company')
-                        ->join('salaries', 'salaries.id', '=', 'jobs.salary')
-                        ->join('cities', 'cities.id', '=', 'companies.city')
-                        ->join('districts', 'districts.id', '=', 'companies.district')
-                        ->where('companies.city', '=', $city)
-                        ->where('jobs.vip', '=', 1)
-                        ->select('jobs.id as id', 'jobs.name as name', 'jobs.number as number', 'jobs.expiration_date as expiration_date', 'salaries.name as salary', 'companies.logo', 'companies.name as companyname', 'cities.name as city', 'districts.name as district')
-                        ->take(5)
-                        ->get();
-                        
-                    // get cv of vip
-                    $companies = \DB::table('companies')
-                        ->select('id', 'name', 'logo', 'sologan')
-                        ->where('companies.city', '=', $city)
-                        ->orderBy('companies.created_at', 'desc')
-                        ->take(20)
-                        ->get();
-
-                    return view('showJob', compact('districts', 'city', 'checkJobVip', 'cvs', 'jobs', 'jobsvip', 'companies', 'company_id', 'cv_id'));
+                    return view('showJob', compact('districts', 'city', 'checkJobVip', 'cvs', 'jobs', 'jobsvip', 'companies', 'company_id', 'cv_id', 'news', 'jobcount'));
                 }else if($job == "new"){
-                    // get job of vip
-                    $jobs = \DB::table('jobs')
-                        ->join('companies', 'companies.id', '=', 'jobs.company')
-                        ->join('salaries', 'salaries.id', '=', 'jobs.salary')
-                        ->join('cities', 'cities.id', '=', 'companies.city')
-                        ->join('districts', 'districts.id', '=', 'companies.district')
-                        ->where('companies.city', '=', $city)
-                        ->select('jobs.id as id', 'jobs.name as name', 'jobs.number as number', 'jobs.expiration_date as expiration_date', 'salaries.name as salary', 'companies.logo', 'companies.name as companyname', 'cities.name as city', 'districts.name as district')
-                        ->paginate($perPage);
+                    $jobs = $jobGetObj->getJob($district, $city, $field, $job_type, $company, $cv, 0, $from, $number_get);
+                    $jobcount = $jobGetObj->getJobNumber($district, $city, $field, $job_type, $company, $cv, 0, $from, $number_get);
+                    $jobsvip = $jobGetObj->getJob($district, $city, $field, $job_type, $company, $cv, 1, $from, 5);
+                    $companies = $companyGetObj->getCompany($district, $city, $field, $from, 20);
 
-                    $jobsvip = \DB::table('jobs')
-                        ->join('companies', 'companies.id', '=', 'jobs.company')
-                        ->join('salaries', 'salaries.id', '=', 'jobs.salary')
-                        ->join('cities', 'cities.id', '=', 'companies.city')
-                        ->join('districts', 'districts.id', '=', 'companies.district')
-                        ->where('companies.city', '=', $city)
-                        ->where('jobs.vip', '=', 1)
-                        ->select('jobs.id as id', 'jobs.name as name', 'jobs.number as number', 'jobs.expiration_date as expiration_date', 'salaries.name as salary', 'companies.logo', 'companies.name as companyname', 'cities.name as city', 'districts.name as district')
-                        ->take(5)
-                        ->get();
-                        
-                    // get cv of vip
-                    $companies = \DB::table('companies')
-                        ->select('id', 'name', 'logo', 'sologan')
-                        ->where('companies.city', '=', $city)
-                        ->orderBy('companies.created_at', 'desc')
-                        ->take(20)
-                        ->get();
-
-                    return view('showJob', compact('districts', 'city', 'checkJobVip', 'cvs', 'jobs', 'jobsvip', 'companies', 'company_id', 'cv_id'));
+                    return view('showJob', compact('districts', 'city', 'checkJobVip', 'cvs', 'jobs', 'jobsvip', 'companies', 'company_id', 'cv_id', 'news', 'jobcount'));
                 }else if($field > 0 && $field < 6){
-                    // get job of vip
-                    $jobs = \DB::table('jobs')
-                        ->join('companies', 'companies.id', '=', 'jobs.company')
-                        ->join('company_company_types', 'companies.id', '=', 'company_company_types.company')
-                        ->join('salaries', 'salaries.id', '=', 'jobs.salary')
-                        ->join('cities', 'cities.id', '=', 'companies.city')
-                        ->join('districts', 'districts.id', '=', 'companies.district')
-                        ->where('companies.city', '=', $city)
-                        ->where('company_company_types.company_type', '=', $field)
-                        ->select('jobs.id as id', 'jobs.name as name', 'jobs.number as number', 'jobs.expiration_date as expiration_date', 'salaries.name as salary', 'companies.logo', 'companies.name as companyname', 'cities.name as city', 'districts.name as district')
-                        ->paginate($perPage);
+                    $jobs = $jobGetObj->getJob($district, $city, $field, $job_type, $company, $cv, 0, $from, $number_get);
+                    $jobcount = $jobGetObj->getJobNumber($district, $city, $field, $job_type, $company, $cv, 0, $from, $number_get);
+                    $jobsvip = $jobGetObj->getJob($district, $city, $field, $job_type, $company, $cv, 1, $from, 5);
+                    $companies = $companyGetObj->getCompany($district, $city, $field, $from, 20);
 
-                    $jobsvip = \DB::table('jobs')
-                        ->join('companies', 'companies.id', '=', 'jobs.company')
-                        ->join('company_company_types', 'companies.id', '=', 'company_company_types.company')
-                        ->join('salaries', 'salaries.id', '=', 'jobs.salary')
-                        ->join('cities', 'cities.id', '=', 'companies.city')
-                        ->join('districts', 'districts.id', '=', 'companies.district')
-                        ->where('companies.city', '=', $city)
-                        ->where('jobs.vip', '=', 1)
-                        ->where('company_company_types.company_type', '=', $field)
-                        ->select('jobs.id as id', 'jobs.name as name', 'jobs.number as number', 'jobs.expiration_date as expiration_date', 'salaries.name as salary', 'companies.logo', 'companies.name as companyname', 'cities.name as city', 'districts.name as district')
-                        ->take(5)
-                        ->get();
-                        
-                    // get cv of vip
-                    $companies = \DB::table('companies')
-                        ->select('id', 'name', 'logo', 'sologan')
-                        ->where('companies.city', '=', $city)
-                        ->orderBy('companies.created_at', 'desc')
-                        ->take(20)
-                        ->get();
-
-                    return view('showJob', compact('districts', 'city', 'checkJobVip', 'cvs', 'jobs', 'jobsvip', 'companies', 'company_id', 'cv_id'));
+                    return view('showJob', compact('districts', 'city', 'checkJobVip', 'cvs', 'jobs', 'jobsvip', 'companies', 'company_id', 'cv_id', 'news', 'jobcount'));
                 }else if($job_type > 0){
-                    // get job of vip
-                    $jobs = \DB::table('jobs')
-                        ->join('companies', 'companies.id', '=', 'jobs.company')
-                        ->join('salaries', 'salaries.id', '=', 'jobs.salary')
-                        ->join('cities', 'cities.id', '=', 'companies.city')
-                        ->join('districts', 'districts.id', '=', 'companies.district')
-                        ->where('companies.city', '=', $city)
-                        ->where('jobs.job_type', '=', $job_type)
-                        ->select('jobs.id as id', 'jobs.name as name', 'jobs.number as number', 'jobs.expiration_date as expiration_date', 'salaries.name as salary', 'companies.logo', 'companies.name as companyname', 'cities.name as city', 'districts.name as district')
-                        ->paginate($perPage);
+                    $jobs = $jobGetObj->getJob($district, $city, $field, $job_type, $company, $cv, 0, $from, $number_get);
+                    $jobcount = $jobGetObj->getJobNumber($district, $city, $field, $job_type, $company, $cv, 0, $from, $number_get);
+                    $jobsvip = $jobGetObj->getJob($district, $city, $field, $job_type, $company, $cv, 1, $from, 5);
+                    $companies = $companyGetObj->getCompany($district, $city, $field, $from, 20);
 
-                    $jobsvip = \DB::table('jobs')
-                        ->join('companies', 'companies.id', '=', 'jobs.company')
-                        ->join('salaries', 'salaries.id', '=', 'jobs.salary')
-                        ->join('cities', 'cities.id', '=', 'companies.city')
-                        ->join('districts', 'districts.id', '=', 'companies.district')
-                        ->where('companies.city', '=', $city)
-                        ->where('jobs.vip', '=', 1)
-                        ->where('jobs.job_type', '=', $job_type)
-                        ->select('jobs.id as id', 'jobs.name as name', 'jobs.number as number', 'jobs.expiration_date as expiration_date', 'salaries.name as salary', 'companies.logo', 'companies.name as companyname', 'cities.name as city', 'districts.name as district')
-                        ->take(5)
-                        ->get();
-                        
-                    // get cv of vip
-                    $companies = \DB::table('companies')
-                        ->select('id', 'name', 'logo', 'sologan')
-                        ->where('companies.city', '=', $city)
-                        ->orderBy('companies.created_at', 'desc')
-                        ->take(20)
-                        ->get();
-
-                    return view('showJob', compact('districts', 'city', 'checkJobVip', 'cvs', 'jobs', 'jobsvip', 'companies', 'company_id', 'cv_id'));
+                    return view('showJob', compact('districts', 'city', 'checkJobVip', 'cvs', 'jobs', 'jobsvip', 'companies', 'company_id', 'cv_id', 'news', 'jobcount'));
                 }else if($company == "new"){
                     // get job of vip
                     $jobsvip1 = [];
@@ -1195,48 +894,18 @@ class HomeController extends Controller
                     // get cv of vip
                     $cvs = [];
                     // get cv of vip
-                    $companies = \DB::table('companies')
-                        ->select('id', 'name', 'logo', 'sologan')
-                        ->where('companies.city', '=', $city)
-                        ->orderBy('companies.created_at', 'desc')
-                        ->take($perPage)
-                        ->get();
+                    $companies = $companyGetObj->getCompany($district, $city, $field, $from, 1000);
 
-                    return view('showCompanyCV', compact('districts', 'city', 'cvs', 'jobs', 'jobsvip1', 'jobsvip2', 'companies', 'company_id', 'cv_id'));
+                    return view('showCompanyCV', compact('districts', 'city', 'cvs', 'jobs', 'jobsvip1', 'jobsvip2', 'companies', 'company_id', 'cv_id', 'news'));
                 }else{
-                    // get job of vip
-                    $jobs = \DB::table('jobs')
-                        ->join('companies', 'companies.id', '=', 'jobs.company')
-                        ->join('salaries', 'salaries.id', '=', 'jobs.salary')
-                        ->join('cities', 'cities.id', '=', 'companies.city')
-                        ->join('districts', 'districts.id', '=', 'companies.district')
-                        ->where('companies.city', '=', $city)
-                        ->select('jobs.id as id', 'jobs.name as name', 'jobs.number as number', 'jobs.expiration_date as expiration_date', 'salaries.name as salary', 'companies.logo', 'companies.name as companyname', 'cities.name as city', 'districts.name as district')
-                        ->paginate($perPage);
+                    $jobs = $jobGetObj->getJob($district, $city, $field, $job_type, $company, $cv, 0, $from, $number_get);
+                    $jobcount = $jobGetObj->getJobNumber($district, $city, $field, $job_type, $company, $cv, 0, $from, $number_get);
+                    $jobsvip = $jobGetObj->getJob($district, $city, $field, $job_type, $company, $cv, 1, $from, 5);
+                    $companies = $companyGetObj->getCompany($district, $city, $field, $from, 20);
 
-                    $jobsvip = \DB::table('jobs')
-                        ->join('companies', 'companies.id', '=', 'jobs.company')
-                        ->join('salaries', 'salaries.id', '=', 'jobs.salary')
-                        ->join('cities', 'cities.id', '=', 'companies.city')
-                        ->join('districts', 'districts.id', '=', 'companies.district')
-                        ->where('companies.city', '=', $city)
-                        ->where('jobs.vip', '=', 1)
-                        ->select('jobs.id as id', 'jobs.name as name', 'jobs.number as number', 'jobs.expiration_date as expiration_date', 'salaries.name as salary', 'companies.logo', 'companies.name as companyname', 'cities.name as city', 'districts.name as district')
-                        ->take(5)
-                        ->get();
-                        
-                    // get cv of vip
-                    $companies = \DB::table('companies')
-                        ->select('id', 'name', 'logo', 'sologan')
-                        ->where('companies.city', '=', $city)
-                        ->orderBy('companies.created_at', 'desc')
-                        ->take(20)
-                        ->get();
-
-                    return view('showJob', compact('districts', 'city', 'checkJobVip', 'cvs', 'jobs', 'jobsvip', 'companies', 'company_id', 'cv_id'));
+                    return view('showJob', compact('districts', 'city', 'checkJobVip', 'cvs', 'jobs', 'jobsvip', 'companies', 'company_id', 'cv_id', 'news', 'jobcount'));
                 }
             }else{
-
                 if($cv == "vip"){
                     // get job of vip
                     $jobs = [];
@@ -1254,159 +923,46 @@ class HomeController extends Controller
                         ->paginate($perPage);
 
                     // get cv of vip
-                    $companies = []; 
+                    $companies = [];
 
-                    return view('showCompanyCV', compact('districts', 'city', 'cvs', 'jobs', 'jobsvip1', 'jobsvip2', 'companies', 'company_id', 'cv_id'));
+                    return view('showCompanyCV', compact('districts', 'city', 'cvs', 'jobs', 'jobsvip1', 'jobsvip2', 'companies', 'company_id', 'cv_id', 'news'));
                 }else if($job == "vip1"){
                     $checkJobVip = 1;
-                    // get job of vip
-                    $jobs = \DB::table('jobs')
-                        ->join('companies', 'companies.id', '=', 'jobs.company')
-                        ->join('salaries', 'salaries.id', '=', 'jobs.salary')
-                        ->join('cities', 'cities.id', '=', 'companies.city')
-                        ->join('districts', 'districts.id', '=', 'companies.district')
-                        ->where('jobs.vip', '=', 1)
-                        ->select('jobs.id as id', 'jobs.name as name', 'jobs.number as number', 'jobs.expiration_date as expiration_date', 'salaries.name as salary', 'companies.logo', 'companies.name as companyname', 'cities.name as city', 'districts.name as district')
-                        ->paginate($perPage);
+                    $jobs = $jobGetObj->getJob($district, $city, $field, $job_type, $company, $cv, 1, $from, $number_get);
+                    $jobcount = $jobGetObj->getJobNumber($district, $city, $field, $job_type, $company, $cv, 1, $from, $number_get);
+                    $jobsvip = $jobGetObj->getJob($district, $city, $field, $job_type, $company, $cv, 2, $from, 5);
+                    $companies = $companyGetObj->getCompany($district, $city, $field, $from, 20);
 
-                    $jobsvip = \DB::table('jobs')
-                        ->join('companies', 'companies.id', '=', 'jobs.company')
-                        ->join('salaries', 'salaries.id', '=', 'jobs.salary')
-                        ->join('cities', 'cities.id', '=', 'companies.city')
-                        ->join('districts', 'districts.id', '=', 'companies.district')
-                        ->where('jobs.vip', '=', 2)
-                        ->select('jobs.id as id', 'jobs.name as name', 'jobs.number as number', 'jobs.expiration_date as expiration_date', 'salaries.name as salary', 'companies.logo', 'companies.name as companyname', 'cities.name as city', 'districts.name as district')
-                        ->take(5)
-                        ->get();
-                        
-                    // get cv of vip
-                    $companies = \DB::table('companies')
-                        ->select('id', 'name', 'logo', 'sologan')
-                        ->orderBy('companies.created_at', 'desc')
-                        ->take(20)
-                        ->get();
-
-                    return view('showJob', compact('districts', 'city', 'checkJobVip', 'cvs', 'jobs', 'jobsvip', 'companies', 'company_id', 'cv_id'));
+                    return view('showJob', compact('districts', 'city', 'checkJobVip', 'cvs', 'jobs', 'jobsvip', 'companies', 'company_id', 'cv_id', 'news', 'jobcount'));
                 }else if($job == "vip2"){
                     $checkJobVip = 1;
-                    // get job of vip
-                    $jobs = \DB::table('jobs')
-                        ->join('companies', 'companies.id', '=', 'jobs.company')
-                        ->join('salaries', 'salaries.id', '=', 'jobs.salary')
-                        ->join('cities', 'cities.id', '=', 'companies.city')
-                        ->join('districts', 'districts.id', '=', 'companies.district')
-                        ->where('jobs.vip', '=', 2)
-                        ->select('jobs.id as id', 'jobs.name as name', 'jobs.number as number', 'jobs.expiration_date as expiration_date', 'salaries.name as salary', 'companies.logo', 'companies.name as companyname', 'cities.name as city', 'districts.name as district')
-                        ->paginate($perPage);
+                    $jobs = $jobGetObj->getJob($district, $city, $field, $job_type, $company, $cv, 2, $from, $number_get);
+                    $jobcount = $jobGetObj->getJobNumber($district, $city, $field, $job_type, $company, $cv, 2, $from, $number_get);
+                    $jobsvip = $jobGetObj->getJob($district, $city, $field, $job_type, $company, $cv, 1, $from, 5);
+                    $companies = $companyGetObj->getCompany($district, $city, $field, $from, 20);
 
-                    $jobsvip = \DB::table('jobs')
-                        ->join('companies', 'companies.id', '=', 'jobs.company')
-                        ->join('salaries', 'salaries.id', '=', 'jobs.salary')
-                        ->join('cities', 'cities.id', '=', 'companies.city')
-                        ->join('districts', 'districts.id', '=', 'companies.district')
-                        ->where('jobs.vip', '=', 1)
-                        ->select('jobs.id as id', 'jobs.name as name', 'jobs.number as number', 'jobs.expiration_date as expiration_date', 'salaries.name as salary', 'companies.logo', 'companies.name as companyname', 'cities.name as city', 'districts.name as district')
-                        ->take(5)
-                        ->get();
-                        
-                    // get cv of vip
-                    $companies = \DB::table('companies')
-                        ->select('id', 'name', 'logo', 'sologan')
-                        ->orderBy('companies.created_at', 'desc')
-                        ->take(20)
-                        ->get();
-
-                    return view('showJob', compact('districts', 'city', 'checkJobVip', 'cvs', 'jobs', 'jobsvip', 'companies', 'company_id', 'cv_id'));
+                    return view('showJob', compact('districts', 'city', 'checkJobVip', 'cvs', 'jobs', 'jobsvip', 'companies', 'company_id', 'cv_id', 'news', 'jobcount'));
                 }else if($job == "new"){
-                    // get job of vip
-                    $jobs = \DB::table('jobs')
-                        ->join('companies', 'companies.id', '=', 'jobs.company')
-                        ->join('salaries', 'salaries.id', '=', 'jobs.salary')
-                        ->join('cities', 'cities.id', '=', 'companies.city')
-                        ->join('districts', 'districts.id', '=', 'companies.district')
-                        ->select('jobs.id as id', 'jobs.name as name', 'jobs.number as number', 'jobs.expiration_date as expiration_date', 'salaries.name as salary', 'companies.logo', 'companies.name as companyname', 'cities.name as city', 'districts.name as district')
-                        ->paginate($perPage);
+                    $jobs = $jobGetObj->getJob($district, $city, $field, $job_type, $company, $cv, 0, $from, $number_get);
+                    $jobcount = $jobGetObj->getJobNumber($district, $city, $field, $job_type, $company, $cv, 0, $from, $number_get);
+                    $jobsvip = $jobGetObj->getJob($district, $city, $field, $job_type, $company, $cv, 1, $from, 5);
+                    $companies = $companyGetObj->getCompany($district, $city, $field, $from, 20);
 
-                    $jobsvip = \DB::table('jobs')
-                        ->join('companies', 'companies.id', '=', 'jobs.company')
-                        ->join('salaries', 'salaries.id', '=', 'jobs.salary')
-                        ->join('cities', 'cities.id', '=', 'companies.city')
-                        ->join('districts', 'districts.id', '=', 'companies.district')
-                        ->where('jobs.vip', '=', 1)
-                        ->select('jobs.id as id', 'jobs.name as name', 'jobs.number as number', 'jobs.expiration_date as expiration_date', 'salaries.name as salary', 'companies.logo', 'companies.name as companyname', 'cities.name as city', 'districts.name as district')
-                        ->take(5)
-                        ->get();
-                        
-                    // get cv of vip
-                    $companies = \DB::table('companies')
-                        ->select('id', 'name', 'logo', 'sologan')
-                        ->orderBy('companies.created_at', 'desc')
-                        ->take(20)
-                        ->get();
-
-                    return view('showJob', compact('districts', 'city', 'checkJobVip', 'cvs', 'jobs', 'jobsvip', 'companies', 'company_id', 'cv_id'));
+                    return view('showJob', compact('districts', 'city', 'checkJobVip', 'cvs', 'jobs', 'jobsvip', 'companies', 'company_id', 'cv_id', 'news', 'jobcount'));
                  }else if($field > 0 && $field < 6){
-                   // get job of vip
-                    $jobs = \DB::table('jobs')
-                        ->join('companies', 'companies.id', '=', 'jobs.company')
-                        ->join('company_company_types', 'companies.id', '=', 'company_company_types.company')
-                        ->join('salaries', 'salaries.id', '=', 'jobs.salary')
-                        ->join('cities', 'cities.id', '=', 'companies.city')
-                        ->join('districts', 'districts.id', '=', 'companies.district')
-                        ->where('company_company_types.company_type', '=', $field)
-                        ->select('jobs.id as id', 'jobs.name as name', 'jobs.number as number', 'jobs.expiration_date as expiration_date', 'salaries.name as salary', 'companies.logo', 'companies.name as companyname', 'cities.name as city', 'districts.name as district')
-                        ->paginate($perPage);
+                    $jobs = $jobGetObj->getJob($district, $city, $field, $job_type, $company, $cv, 0, $from, $number_get);
+                    $jobcount = $jobGetObj->getJobNumber($district, $city, $field, $job_type, $company, $cv, 0, $from, $number_get);
+                    $jobsvip = $jobGetObj->getJob($district, $city, $field, $job_type, $company, $cv, 1, $from, 5);
+                    $companies = $companyGetObj->getCompany($district, $city, $field, $from, 20);
 
-                    $jobsvip = \DB::table('jobs')
-                        ->join('companies', 'companies.id', '=', 'jobs.company')
-                        ->join('company_company_types', 'companies.id', '=', 'company_company_types.company')
-                        ->join('salaries', 'salaries.id', '=', 'jobs.salary')
-                        ->join('cities', 'cities.id', '=', 'companies.city')
-                        ->join('districts', 'districts.id', '=', 'companies.district')
-                        ->where('jobs.vip', '=', 1)
-                        ->where('company_company_types.company_type', '=', $field)
-                        ->select('jobs.id as id', 'jobs.name as name', 'jobs.number as number', 'jobs.expiration_date as expiration_date', 'salaries.name as salary', 'companies.logo', 'companies.name as companyname', 'cities.name as city', 'districts.name as district')
-                        ->take(5)
-                        ->get();
-                        
-                    // get cv of vip
-                    $companies = \DB::table('companies')
-                        ->select('id', 'name', 'logo', 'sologan')
-                        ->orderBy('companies.created_at', 'desc')
-                        ->take(20)
-                        ->get();
-
-                    return view('showJob', compact('districts', 'city', 'checkJobVip', 'cvs', 'jobs', 'jobsvip', 'companies', 'company_id', 'cv_id'));
+                    return view('showJob', compact('districts', 'city', 'checkJobVip', 'cvs', 'jobs', 'jobsvip', 'companies', 'company_id', 'cv_id', 'news', 'jobcount'));
                 }else if($job_type > 0){
-                    // get job of vip
-                    $jobs = \DB::table('jobs')
-                        ->join('companies', 'companies.id', '=', 'jobs.company')
-                        ->join('salaries', 'salaries.id', '=', 'jobs.salary')
-                        ->join('cities', 'cities.id', '=', 'companies.city')
-                        ->join('districts', 'districts.id', '=', 'companies.district')
-                        ->where('jobs.job_type', '=', $job_type)
-                        ->select('jobs.id as id', 'jobs.name as name', 'jobs.number as number', 'jobs.expiration_date as expiration_date', 'salaries.name as salary', 'companies.logo', 'companies.name as companyname', 'cities.name as city', 'districts.name as district')
-                        ->paginate($perPage);
+                    $jobs = $jobGetObj->getJob($district, $city, $field, $job_type, $company, $cv, 0, $from, $number_get);
+                    $jobcount = $jobGetObj->getJobNumber($district, $city, $field, $job_type, $company, $cv, 0, $from, $number_get);
+                    $jobsvip = $jobGetObj->getJob($district, $city, $field, $job_type, $company, $cv, 1, $from, 5);
+                    $companies = $companyGetObj->getCompany($district, $city, $field, $from, 20);
 
-                    $jobsvip = \DB::table('jobs')
-                        ->join('companies', 'companies.id', '=', 'jobs.company')
-                        ->join('salaries', 'salaries.id', '=', 'jobs.salary')
-                        ->join('cities', 'cities.id', '=', 'companies.city')
-                        ->join('districts', 'districts.id', '=', 'companies.district')
-                        ->where('jobs.vip', '=', 1)
-                        ->where('jobs.job_type', '=', $job_type)
-                        ->select('jobs.id as id', 'jobs.name as name', 'jobs.number as number', 'jobs.expiration_date as expiration_date', 'salaries.name as salary', 'companies.logo', 'companies.name as companyname', 'cities.name as city', 'districts.name as district')
-                        ->take(5)
-                        ->get();
-                        
-                    // get cv of vip
-                    $companies = \DB::table('companies')
-                        ->select('id', 'name', 'logo', 'sologan')
-                        ->orderBy('companies.created_at', 'desc')
-                        ->take(20)
-                        ->get();
-
-                    return view('showJob', compact('districts', 'city', 'checkJobVip', 'cvs', 'jobs', 'jobsvip', 'companies', 'company_id', 'cv_id'));
+                    return view('showJob', compact('districts', 'city', 'checkJobVip', 'cvs', 'jobs', 'jobsvip', 'companies', 'company_id', 'cv_id', 'news', 'jobcount'));
                 }else if($company == "new"){
                     // get job of vip
                     $jobsvip1 = [];
@@ -1420,13 +976,9 @@ class HomeController extends Controller
                     // get cv of vip
                     $cvs = [];
                     // get cv of vip
-                    $companies = \DB::table('companies')
-                        ->select('id', 'name', 'logo', 'sologan')
-                        ->orderBy('companies.created_at', 'desc')
-                        ->take($perPage)
-                        ->get();
+                    $companies = $companyGetObj->getCompany($district, $city, $field, $from, 1000);
 
-                    return view('showCompanyCV', compact('districts', 'city', 'cvs', 'jobs', 'jobsvip1', 'jobsvip2', 'companies', 'company_id', 'cv_id'));
+                    return view('showCompanyCV', compact('districts', 'city', 'cvs', 'jobs', 'jobsvip1', 'jobsvip2', 'companies', 'company_id', 'cv_id', 'news'));
                 }
             }
             
@@ -1451,30 +1003,11 @@ class HomeController extends Controller
         $company_id = -1;
         $cv_id = -1;
         if (\Auth::check()) {
-            $current_id = \Auth::user()->id;
-            
-            //get company 
-            $company = \DB::table('companies')
-                    ->where('companies.user', $current_id)
-                    ->select(
-                        'id'
-                    )
-                    ->first();
-            if($company){
-                $company_id = $company->id;
-            }
-            
-            //get CV 
-            $cv_user = \DB::table('curriculum_vitaes')
-                    ->where('curriculum_vitaes.user', $current_id)
-                    ->select(
-                        'id'
-                    )
-                    ->first();
-            if($cv_user != null){
-                $cv_id = $cv_user->id;
-            }
+            $user_info = \Auth::user()->getUserInfo();
+            $company_id = $user_info['company_id'];
+            $cv_id = $user_info['cv_id'];
         }
+
         $job_types = \DB::table('job_types')
                         ->select('id', 'name')
                         ->get();
@@ -1487,6 +1020,7 @@ class HomeController extends Controller
         // get job of vip
         $companies = \DB::table('companies')
                 ->select('id', 'name', 'logo', 'banner')
+                ->where('show_master', '=', 1)
                 ->orderBy('companies.created_at', 'desc')
                 ->take(6)
                 ->get();
@@ -1494,65 +1028,29 @@ class HomeController extends Controller
     }
     
     public function action(){
-        $jobs = \DB::table('jobs')
-                        ->get();
-        foreach($jobs as $job){
-            $job->job_type=rtrim($job->job_type,";");
-            $job_types = explode(";",$job->job_type);
-            foreach($job_types as $job_type){
-                if($job_type == 'Làm bán thời gian'){
-                    $cct = CompanyCompanyType::where('company', $company->id)->where('company_type', 1)->first();
-                    if($cct == null){
-                        echo $company->id .' - '. $job . ';';
-                        $companyCompanyType = new CompanyCompanyType;
-                        $companyCompanyType->company = $company->id;
-                        $companyCompanyType->company_type = 1;
-                        $companyCompanyType->save();
-                        echo 'Success <br />';
-                    }
-                }else if($job == 'Nhà Hàng'){
-                    $cct = CompanyCompanyType::where('company', $company->id)->where('company_type', 2)->first();
-                    if($cct == null){
-                        echo $company->id .' - '. $job . ';';
-                        $companyCompanyType = new CompanyCompanyType;
-                        $companyCompanyType->company = $company->id;
-                        $companyCompanyType->company_type = 2;
-                        $companyCompanyType->save();
-                        echo 'Success <br />';
-                    }
-                }else if($job == 'Cửa hàng'){
-                    $cct = CompanyCompanyType::where('company', $company->id)->where('company_type', 3)->first();
-                    if($cct == null){
-                        echo $company->id .' - '. $job . ';';
-                        $companyCompanyType = new CompanyCompanyType;
-                        $companyCompanyType->company = $company->id;
-                        $companyCompanyType->company_type = 3;
-                        $companyCompanyType->save();
-                        echo 'Success <br />';
-                    }
-                }else if($job == 'Doanh nghiệp'){
-                    $cct = CompanyCompanyType::where('company', $company->id)->where('company_type', 4)->first();
-                    if($cct == null){
-                        echo $company->id .' - '. $job . ';';
-                        $companyCompanyType = new CompanyCompanyType;
-                        $companyCompanyType->company = $company->id;
-                        $companyCompanyType->company_type = 4;
-                        $companyCompanyType->save();
-                        echo 'Success <br />';
-                    }
-                }else if($job == 'Spa'){
-                    $cct = CompanyCompanyType::where('company', $company->id)->where('company_type', 5)->first();
-                    if($cct == null){
-                        echo $company->id .' - '. $job . ';';
-                        $companyCompanyType = new CompanyCompanyType;
-                        $companyCompanyType->company = $company->id;
-                        $companyCompanyType->company_type = 5;
-                        $companyCompanyType->save();
-                        echo 'Success <br />';
-                    }
-                }
-                echo '<br />';
-            }
+        $user = User::findOrFail(1);
+        \Mail::send('emails.reminder', ['user' => $user], function ($m) use ($user) {
+            $m->from('tuantt6393@gmail.com', 'Your Application');
+
+            $m->to($user->email, $user->name)->subject('Your Reminder!');
+        });
+    }
+
+    public function support(){
+        return view('home.support01');
+    }
+
+    public function ajaxpro(Request $request){
+        if(isset($_POST["image"])){
+            $data = $_POST["image"];
+            list($type, $data) = explode(';', $data);
+            list(, $data)      = explode(',', $data);
+            $data = base64_decode($data);
+            $imageName = time().'.png';
+            $destinationPath = base_path('../../images');
+            file_put_contents($destinationPath.'/'.$imageName, $data);
+            return \Response::json(array('code' => '200', 'message' => 'success', 'image_url' => $imageName));
         }
+        return \Response::json(array('code' => '404', 'message' => 'unsuccess', 'image_url' => ""));
     }
 }

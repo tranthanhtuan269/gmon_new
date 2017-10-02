@@ -119,6 +119,7 @@ i.muiten{background-position: -265px -210px!important;width: 12px!important;heig
 .contents-job .info-company .info p.time-new-roman{margin-left: 30px;position: relative;}
 .contents-job .info-company .link{text-align: center;margin-top: 20px;}
 .contents-job .info-company .link a{color:#2a70b8;}
+.contents-job .info-company .info p.time-new-roman i.icon-plus{ color: #999; background-position: -286px -210px; top: 2px;}
 
 .info-job p i{display: inline-block;width: 20px;height: 20px;position: absolute;left:-30px;top:-2px}
 .info-job p.time-new-roman{margin-left: 30px;position: relative;}

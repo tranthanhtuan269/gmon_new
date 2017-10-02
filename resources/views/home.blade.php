@@ -12,6 +12,7 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="https://fonts.googleapis.com/css?family=Noto+Sans" rel="stylesheet"> 
+    <link rel="icon" href="http://test.gmon.com.vn/?image=favicon.png" type="image/x-icon">
 </head>
 <body>
     <header>
@@ -210,7 +211,7 @@
                             <div class="col-md-3 clearfix">
                                 <div class="contact row">
                                     <p><i></i>0243.212.1515</p>
-                                    <p><i></i>vieclamhn@gmon.vn</p>
+                                    <p><i></i>support@gmon.vn</p>
                                 </div>
                             </div>
                         </div>
@@ -326,7 +327,7 @@
             <div class="col-md-3 col-xs-12">
                 <div class="ads-top"><a target="_self" href=""><img src="{{ url('/') }}/public/images/ads.png" alt=""></a></div>
                 <div class="ads-bot">
-                    <a target="_self" href=""><img src="{{ url('/') }}/public/images/zalo.png" alt=""></a>
+                    <a target="_self" href="http://gmon.vn/company/27/info"><img src="http://test.gmon.com.vn/?image=Banner-Web-Gmon-13.gif" alt=""></a>
                 </div>
             </div>
         </div>
@@ -1358,7 +1359,7 @@
             <div class="footer-top row">
                 <div class="col-md-4 col-xs-6 footer-col">
                     <p class="title">về gmon</p>
-                    <p><a target="_self" href="">Giới thiệu</a></p>
+                    <p><a target="_self" href="http://news.gmon.vn/post/10/lich-su-phat-trien-gmon">Giới thiệu</a></p>
                     <p><a target="_self" href="">Việc làm</a></p>
                     <p><a target="_self" href="">Nhà tuyển dụng</a></p>
                     <p><a target="_self" href="">Hồ sơ ứng viên</a></p>
@@ -1383,11 +1384,12 @@
             </div>
             <div class="footer-bot row">
                 <div class="col-md-8">
-                    <p>Công ty cổ phần Giải pháp và công nghệ GMon</p>
-                    <p>Địa chỉ: Tầng 8 - Tòa nhà Trần Phú - số 17 tổ 24 đường Dương Đình Nghệ - P.Yên Hòa - Q.Cầu Giấy - Hà Nội</p>
-                    <p>Điện thoại: 0243.212.1515</p>
-                    <p>Email nhà tuyển dụng: vieclamhn@gmon.vnEmail nhà tuyển dụng</p>
-                    <p>Email ứng viên: tuyendunghn@gmon.vn</p>
+                    <p><b>Công ty cổ phần giải pháp và công nghệ Gmon</b></p>
+                    <p><b>Trụ sở chính:</b> Tầng 8, Tòa nhà Trần Phú, Dương Đình Nghệ, Cầu Giấy, Hà Nội</p>
+                    <p><b>Điện thoại:</b> 0243.212.1515</p>
+                    <p><b>VPĐD:</b> Số 31, Trần Phú, Hải Châu I, Hải Châu, Đà Nẵng</p>
+                    <p><b>Điện thoại:</b> 0961 545 115</p>
+                    <p><b>Email:</b> support@gmon.vn</p>
                 </div>
                 <div class="col-md-4">
                     <p style="margin-top: 15px">&#64; 2016-2017 Gmon.vn,inc. All rights reserved</p>

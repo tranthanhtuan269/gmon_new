@@ -36,6 +36,10 @@
                                         <th>Views</th>
                                         <th>Likes</th>
                                         <th>Category</th>
+                                        <th>Keyword</th>
+                                        @if(Auth::check() && (Auth::user()->id == 558))
+                                        <th>Active</th>
+                                        @endif
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
@@ -43,11 +47,22 @@
                                 @foreach($post as $item)
                                     <tr>
                                         <td>{{ $item->id }}</td>
-                                        <td>{{ $item->title }}</td>
+                                        <td><a href="http://news.gmon.vn/?post={{ $item->id }}"> {{ $item->title }}</a></td>
                                         <td><img src="http://test.gmon.com.vn/?image={{ $item->image }}" height="300" width="100%"></td>
                                         <td>{{ $item->views }}</td>
                                         <td>{{ $item->likes }}</td>
                                         <td>{{ $item->categoryName }}</td>
+                                        <td>{{ $item->keyword }}</td>
+                                        @if(Auth::check() && (Auth::user()->id == 558))
+                                        <td>
+                                            <div class="btn btn-default btn-xs active-post @if($item->active==1) hidden-object @else show-object @endif" data-id="{{ $item->id }}">
+                                            Unactive
+                                            </div>
+                                            <div class="btn btn-success btn-xs unactive-post @if($item->active==0) hidden-object @else show-object @endif" data-id="{{ $item->id }}">
+                                            Active
+                                            </div>
+                                        </td>
+                                        @endif
                                         <td>
                                             <!-- <a href="{{ url('/post/' . $item->id) }}" title="View Post"><button class="btn btn-info btn-xs"><i class="fa fa-eye" aria-hidden="true"></i> View</button></a> -->
                                             <a href="{{ url('/post/' . $item->id . '/edit') }}" title="Edit Post"><button class="btn btn-primary btn-xs"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></a>

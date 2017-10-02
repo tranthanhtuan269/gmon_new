@@ -1,6 +1,38 @@
 @extends('layouts.layout')
 
 @section('content')
+<?php $jobstype = \App\JobType::select('id', 'name')->get(); ?>
+
+
+    <style type="text/css">
+        .mass-content{
+            width: 100%;
+            height: 100%;
+            position: fixed;
+            background-color:rgba(0, 0, 0, 0.5);
+            z-index: 1;
+            display: none;
+        }
+        .loader {
+            z-index: 10000;
+            border: 16px solid #f3f3f3; /* Light grey */
+            border-top: 16px solid #3498db; /* Blue */
+            border-bottom: 16px solid #3498db; /* Blue */
+            border-radius: 50%;
+            width: 120px;
+            height: 120px;
+            animation: spin 1s linear infinite;
+            position: absolute;
+            top: 50%;
+            left: 45%;
+            display: none;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
     <header>
         <div class="header-mid">
             <div class="container" >
@@ -14,40 +46,9 @@
                                 <form class="search">
                                     <select class="col-md-4" id="job-select">
                                         <option value="0">Chọn ngành nghề</option>
-                                        <option value="1">Làm bán thời gian</option>
-                                        <option value="2">Bán hàng</option>
-                                        <option value="3">Marketing-PR</option>
-                                        <option value="4">Bảo vệ</option>
-                                        <option value="5">Du lịch</option>
-                                        <option value="6">Sale/Marketing online</option>
-                                        <option value="7">Promotion Girl(PG)</option>
-                                        <option value="8">Thực tập</option>
-                                        <option value="9">Phụ bếp</option>
-                                        <option value="10">Người giúp việc</option>
-                                        <option value="11">Bếp chính</option>
-                                        <option value="12">Nhân viên spa</option>
-                                        <option value="13">Pha chế</option>
-                                        <option value="14">Bell man</option>
-                                        <option value="15">Chăm sóc khách hàng</option>
-                                        <option value="16">Giao nhận, ship</option>
-                                        <option value="17">Kinh doanh</option>
-                                        <option value="18">Hành chính nhân sự</option>
-                                        <option value="19">Phiên dịch</option>
-                                        <option value="20">Gia sư</option>
-                                        <option value="21">Hướng dẫn viên</option>
-                                        <option value="22">Giám sát, quản lý</option>
-                                        <option value="23">Phục vụ, bồi bàn</option>
-                                        <option value="24">Telesale</option>
-                                        <option value="25">Cộng tác viên</option>
-                                        <option value="26">Phụ bếp</option>
-                                        <option value="27">Lễ tân</option>
-                                        <option value="28">Thu ngân</option>
-                                        <option value="29">Marketing online</option>
-                                        <option value="30">Phát tờ rơi</option>
-                                        <option value="31">Buồng phòng</option>
-                                        <option value="32">Pha chế</option>
-                                        <option value="33">Shipper</option>
-                                        <option value="34">Kế toán</option>
+                                        @foreach($jobstype as $jobtype)
+                                        <option value="{{ $jobtype->id }}">{{ $jobtype->name }}</option>
+                                        @endforeach
                                     </select>
                                     <select id="tinh-select" class="col-md-3">
                                         <option value="0">Thành phố</option>
@@ -73,7 +74,7 @@
                             <div class="col-md-3 clearfix">
                                 <div class="contact row">
                                     <p><i></i>0243.212.1515</p>
-                                    <p><i></i>vieclamhn@gmon.vn</p>
+                                    <p><i></i>support@gmon.vn</p>
                                 </div>
                             </div>
                         </div>
@@ -114,17 +115,16 @@
             </div>
         </div>
     </header>
-
     <div class="container ads showmore-page">
         <div class="row">
             <div class="col-md-9 col-xs-12">
                 <div class="my_row wp_breadcum">
                     <div class="breadcum f-left">
-                        <a href="#"><i class="fa fa-home color-breadcum"></i></a>
-                        <a href="#" class="color-breadcum">/&nbsp;Việc làm mới</a>
+                        <a href="{{ url('/') }}"><i class="fa fa-home color-breadcum"></i></a>
+                        <a href="{{ url('/') }}/showmore?job=new" class="color-breadcum">/&nbsp;Việc làm mới</a>
                     </div>
                     <div class="f-right">
-                        <span class="red-color">{{ count($jobs) }}</span><span>&nbsp;việc làm</span>
+                        <span class="red-color">{{ $jobcount[0]->number_job }}</span><span>&nbsp;việc làm</span>
                     </div>
                 </div>
                     <ul class="ul-content">
@@ -159,8 +159,8 @@
                             </p>
                         </div>
                         <div class="last-item">
-                            <span class="profile_num grey1-color">Lượt xem: <i class="fa fa-eye"></i><span class="grey-color">1042</span></span>
-                            <span class="grey1-color">Hồ sơ ứng tuyển: <span class="grey-color">302</span></span>
+                            <span class="profile_num grey1-color">Lượt xem: <i class="fa fa-eye"></i><span class="grey-color">{{ $job->views }}</span></span>
+                            <span class="grey1-color">Hồ sơ ứng tuyển: <span class="grey-color">{{ $job->applied }}</span></span>
                         </div>
                         <div class="new-bg">
                                 Mới
@@ -188,52 +188,22 @@
                 <div class="ads">
                     <div class="ads-top"><a href=""><img src="{{ url('/') }}/public/images/ads.png" alt=""></a></div>
                     <div class="ads-bot">
-                        <a href=""><img src="{{ url('/') }}/public/images/zalo.png" alt=""></a>
+                        <a href="http://gmon.vn/company/27/info"><img src="http://test.gmon.com.vn/?image=Banner-Web-Gmon-13.gif" alt=""></a>
                     </div>
                 </div>
                 <div class="content_hot info">
                     <h4>Bạn nên biết!?</h4>
                     <ul>
+                        @foreach($news as $new)
                         <li>
-                            <a href="#">
+                            <a href="http://news.gmon.vn/?post={{ $new->id }}">
                             <span class="wp-avatar-mini">
-                                    <img src="{{ url('/') }}/public/images/khanhlinh.png" alt="">
+                                    <img src="http://test.gmon.com.vn/?image={{ $new->image }}" alt="">
                             </span>
-                            <p class="title-content-right">Biết cảm ơn những thất bại</p>
+                            <p class="title-content-right">{{ $new->title }}</p>
                             </a>
                         </li>
-                        <li>
-                            <a href="#">
-                            <span class="wp-avatar-mini">
-                                    <img src="{{ url('/') }}/public/images/khanhlinh.png" alt="">
-                            </span>
-                            <p class="title-content-right">Biết cảm ơn những thất bại</p>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                            <span class="wp-avatar-mini">
-                                    <img src="{{ url('/') }}/public/images/khanhlinh.png" alt="">
-                            </span>
-                            <p class="title-content-right">Biết cảm ơn những thất bại</p>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                            <span class="wp-avatar-mini">
-                                    <img src="{{ url('/') }}/public/images/khanhlinh.png" alt="">
-                            </span>
-                            <p class="title-content-right">Biết cảm ơn những thất bại</p>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                            <span class="wp-avatar-mini">
-                                    <img src="{{ url('/') }}/public/images/khanhlinh.png" alt="">
-                            </span>
-                            <p class="title-content-right">Biết cảm ơn những thất bại</p>
-                            </a>
-                        </li>
+                        @endforeach
                     </ul>
                 </div>
             </div>
@@ -246,42 +216,170 @@
             <div class="wrapper row" id="wrapper-logo">
                 <div class="contents clearfix" id="contents-logo">
                     <ul>
-                        <li class="item-logo"><a href=""><img src="{{ url('/') }}/public/images/logoHome.png" alt=""></a></li>
-                        <li><a href=""><img src="{{ url('/') }}/public/images/logoHome1.png" alt=""></a></li>
-                        <li><a href=""><img src="{{ url('/') }}/public/images/logoHome2.png" alt=""></a></li>
-                        <li><a href=""><img src="{{ url('/') }}/public/images/logoHome3.png" alt=""></a></li>
-                        <li><a href=""><img src="{{ url('/') }}/public/images/logoHome4.png" alt=""></a></li>
-                        <li><a href=""><img src="{{ url('/') }}/public/images/logoHome5.png" alt=""></a></li>
-                        <li><a href=""><img src="{{ url('/') }}/public/images/logoHome6.png" alt=""></a></li>
-                        <li><a href=""><img src="{{ url('/') }}/public/images/logoHome7.png" alt=""></a></li>
-                        <li><a href=""><img src="{{ url('/') }}/public/images/logoHome8.png" alt=""></a></li>
-                        <li><a href=""><img src="{{ url('/') }}/public/images/logoHome3.png" alt=""></a></li>
-                        <li><a href=""><img src="{{ url('/') }}/public/images/logoHome10.png" alt=""></a></li>
-                        <li><a href=""><img src="{{ url('/') }}/public/images/logoHome11.png" alt=""></a></li>
-                        <li><a href=""><img src="{{ url('/') }}/public/images/logoHome12.png" alt=""></a></li>
-                        <li><a href=""><img src="{{ url('/') }}/public/images/logoHome.png" alt=""></a></li>
-                        <li><a href=""><img src="{{ url('/') }}/public/images/logoHome2.png" alt=""></a></li>
-                        <li><a href=""><img src="{{ url('/') }}/public/images/logoHome3.png" alt=""></a></li>
-                        <li><a href=""><img src="{{ url('/') }}/public/images/logoHome5.png" alt=""></a></li>
-                        <li><a href=""><img src="{{ url('/') }}/public/images/logoHome.png" alt=""></a></li>
+                    <?php 
+                        $count = 0; 
+                        foreach($companies as $company){
+                            if($count == 0){
+                            ?>
+                        <li class="item-logo"><a href=""><img src="http://test.gmon.com.vn/?image={{ $company->logo }}" alt=""></a></li>
+                        <?php
+                            }else{
+                            ?>
+                        <li><a href="{{ url('/') }}/company/{{ $company->id }}/info"><img src="http://test.gmon.com.vn/?image={{ $company->logo }}" alt=""></a></li>
+                        <?php 
+                            }
+                            $count++;
+                        }
+                        ?>
                     </ul>
                 </div>
             </div>
         </div>
     </div>
 
+    <?php
+        parse_url(url('/') . $_SERVER['REQUEST_URI'], PHP_URL_QUERY);
+    ?>
+
     <script type="text/javascript">
-        var $i = 0;
-        $(window).scroll(function() {
-            if($(window).scrollTop() == $(document).height() - $(window).height()) {
-                   $i++;
-                   $('.job-list-' + $i).show();
+        var site_url = $('base').attr('href');
+        var $currentJob = 15;
+        var $currentPossion = 0;
+        var $newPossion = 0;
+        $(window).scroll(function (event) {
+            var scroll = $(window).scrollTop();
+            $newPossion = scroll;
+            if($newPossion - $currentPossion > 680){
+                $currentPossion = $newPossion;
+                $('.mass-content').show();
+                $('.loader').show();
+                var request = $.ajax({
+                    url: "{{ URL::to('/') }}/getJob/?start=" + $currentJob + "&<?php echo parse_url(url('/') . $_SERVER['REQUEST_URI'], PHP_URL_QUERY); ?>",
+                    method: "GET",
+                    dataType: "json"
+                });
+
+                request.done(function (msg) {
+                    $('.mass-content').hide();
+                    $('.loader').hide();
+                    if(msg['code'] == 200){
+                        var $html = '';
+                        $(msg['jobs']).each(function( index ) {
+                            $html += '<li class="list-item">';
+                                $html += '<div class="img-item">';
+                                    $html += '<a href="' + site_url + '/job/view/'+ $(this)[0].id +'">';
+                                        $html += '<span class="wp-avatar">';
+                                                $html += '<img src="http://test.gmon.com.vn/?image='+ $(this)[0].logo +'" alt="">';
+                                        $html += '</span>';
+                                   $html += '</a>';
+                                $html += '</div>';
+
+                                $html += '<div class="content-item">';
+                                    $html += '<a href="' + site_url + '/job/view/'+ $(this)[0].id +'"><h4>'+ $(this)[0].name +'</h4></a>';
+                                    $html += '<p>';
+                                        $html += '<span>Mức lương: </span><span class="grey-color">'+ $(this)[0].salary +'</span>';
+                                    $html += '</p>';
+                                    $html += '<p>';
+                                        $html += '</p><div class="title-list">';
+                                            $html += '<span>Số lượng: </span><span class="grey-color">'+ $(this)[0].number +'</span>';
+                                        $html += '</div>';
+                                        $html += '<a href="#"><i class="fa fa-map-marker" aria-hidden="true"></i><span class="grey-color">'+ $(this)[0].district +', '+ $(this)[0].city +'</span></a>';
+                                    $html += '<p></p>';
+                                    $html += '<p>';
+                                        $html += '</p><div class="title-list">';
+                                            $html += '<span>Nhận hồ sơ đến hết:</span>';
+                                        $html += '</div>';
+                                        $html += '<a href="#"><i class="fa fa-clock-o"></i><span class="grey-color">'+ $(this)[0].expiration_date +'</span></a>';
+                                    $html += '<p></p>';
+                                $html += '</div>';
+                                $html += '<div class="last-item">';
+                                    $html += '<span class="profile_num grey1-color">Lượt xem: <i class="fa fa-eye"></i><span class="grey-color">'+ $(this)[0].views +'</span></span>';
+                                    $html += '<span class="grey1-color">Hồ sơ ứng tuyển: <span class="grey-color">'+ $(this)[0].applied +'</span></span>';
+                                $html += '</div>';
+                                $html += '<div class="new-bg">';
+                                        $html += 'Mới';
+                                $html += '</div>';
+                            $html += '</li>';
+                        });
+                        $currentJob += 5;
+                        $('.ul-content').append($html);
+                    }
+                });
+
+                request.fail(function (jqXHR, textStatus) {
+                    alert("Request failed: " + textStatus);
+                });
             }
         });
+        window.onresize = function(event){
+            resetSlide();
+        }
+        window.onload =function(){resetSlide();}
+        function resetSlide()
+        {
+            clearTimeout(listLogo.action);
+            $( "#"+listLogo.contents ).css("margin-left","0");
+            var w=screen.width;
+
+            w2=$("#wrapper-logo").outerWidth();
+            if(w>1000){
+                w3=w2/13;
+            }else if(w>800){
+                w3=w2/10;
+            }else if(w>600){
+                w3=w2/8;
+            }else if(w>400){
+                w3=w2/5;
+            }else{
+                w3=w2/4;
+            }
+            $("#wrapper-logo li").css("width",w3+"px");
+            $("#wrapper-logo li").css("height",w3+"px");
+            $("#contents-logo").css("width",w3*($( "#wrapper-logo li" ).length)+"px");
+            $("#wrapper-logo").parent().children("span").css("top",w3/2+"px");
+
+            setTimeout(function(){onNext(true,listLogo)},2000);
+        };
+        var listLogo={
+            isRun:false,
+            wrapper:"wrapper-logo",
+            contents:"contents-logo",
+            item:"item-logo",
+            action:""
+        }
+        $("#btPrev").click(function(){onPrev(true,listLogo);});
+        $("#btNext").click(function(){onNext(true,listLogo);});
+        function onNext(b,ob){
+            if(ob.isRun) return;
+            if(b)clearTimeout(ob.action);
+            ob.isRun=true;
+            var w=$("#"+ob.contents +" ."+ob.item).outerWidth();
+             var n=parseFloat($( "#"+ob.contents ).css("margin-left"));
+             var w2=$( "#"+ob.contents ).outerWidth();
+             var w3=$( "#"+ob.wrapper ).outerWidth();
+             var n2=n-w;
+             if(n2+w2-w3>=0){
+                $( "#"+ob.contents ).animate({marginLeft: n2+'px'},{duration: 300,complete:function(){ob.isRun=false;}});
+                ob.action=setTimeout(function(){onNext(false,ob);},2000);
+             }
+             else{ob.isRun=false;ob.action=setTimeout(function(){onPrev(false,ob);},2000);}
+        }
+        function onPrev(b,ob){
+            if(ob.isRun) return;
+            if(b)clearTimeout(ob.action);
+            ob.isRun=true;
+             var w=$("#"+ob.contents +" ."+ob.item).outerWidth();
+             var n=parseFloat($( "#"+ob.contents ).css("margin-left"));
+             var n2=n+w;
+             if(n2<=0){
+                $( "#"+ob.contents ).animate({marginLeft: n2+'px'},{duration: 300,complete:function(){ob.isRun=false;}});
+                ob.action=setTimeout(function(){onPrev(false,ob);},2000);
+             }
+             else{ob.isRun=false;ob.action=setTimeout(function(){onNext(b,ob);},2000);}
+        }
         $(document).ready(function(){
             $('.item-job').show();
             $('.job-list-0').show();
-            var site_url = $('base').attr('href');
             $('.search-btn').click(function(){
                 var new_link = site_url + '/showmore?';
                 var job_selected = $('#job-select').val();

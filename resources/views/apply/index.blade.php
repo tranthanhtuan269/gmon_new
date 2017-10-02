@@ -30,14 +30,22 @@
                             <table class="table table-borderless">
                                 <thead>
                                     <tr>
-                                        <th>ID</th><th>User</th><th>Job</th><th>Actions</th>
+                                        <th>ID</th>
+                                        <th>User</th>
+                                        <th>Job</th>
+                                        <th>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                 @foreach($apply as $item)
                                     <tr>
                                         <td>{{ $item->id }}</td>
-                                        <td>{{ $item->user }}</td><td>{{ $item->job }}</td>
+                                        <td>
+                                            <div>{{ $item->user }}</div>
+                                            <div>{{ $item->email }}</div>
+                                            <div>{{ $item->phone }}</div>
+                                        </td>
+                                        <td>{{ $item->job }}</td>
                                         <td>
                                             <a target="_self" href="{{ url('/apply/' . $item->id) }}" title="View Apply"><button class="btn btn-info btn-xs"><i class="fa fa-eye" aria-hidden="true"></i> View</button></a>
                                             <a target="_self" href="{{ url('/apply/' . $item->id . '/edit') }}" title="Edit Apply"><button class="btn btn-primary btn-xs"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></a>

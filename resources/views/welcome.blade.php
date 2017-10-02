@@ -1,6 +1,7 @@
 @extends('layouts.layout')
 
 @section('content')
+<?php $jobstype = \App\JobType::select('id', 'name')->get(); ?>
     <header>
         <div class="header-mid">
             <div class="container" >
@@ -14,40 +15,9 @@
                                 <form class="search">
                                     <select class="col-md-4" id="job-select">
                                         <option value="0">Chọn ngành nghề</option>
-                                        <option value="1">Làm bán thời gian</option>
-                                        <option value="2">Bán hàng</option>
-                                        <option value="3">Marketing-PR</option>
-                                        <option value="4">Bảo vệ</option>
-                                        <option value="5">Du lịch</option>
-                                        <option value="6">Sale/Marketing online</option>
-                                        <option value="7">Promotion Girl(PG)</option>
-                                        <option value="8">Thực tập</option>
-                                        <option value="9">Phụ bếp</option>
-                                        <option value="10">Người giúp việc</option>
-                                        <option value="11">Bếp chính</option>
-                                        <option value="12">Nhân viên spa</option>
-                                        <option value="13">Pha chế</option>
-                                        <option value="14">Bell man</option>
-                                        <option value="15">Chăm sóc khách hàng</option>
-                                        <option value="16">Giao nhận, ship</option>
-                                        <option value="17">Kinh doanh</option>
-                                        <option value="18">Hành chính nhân sự</option>
-                                        <option value="19">Phiên dịch</option>
-                                        <option value="20">Gia sư</option>
-                                        <option value="21">Hướng dẫn viên</option>
-                                        <option value="22">Giám sát, quản lý</option>
-                                        <option value="23">Phục vụ, bồi bàn</option>
-                                        <option value="24">Telesale</option>
-                                        <option value="25">Cộng tác viên</option>
-                                        <option value="26">Phụ bếp</option>
-                                        <option value="27">Lễ tân</option>
-                                        <option value="28">Thu ngân</option>
-                                        <option value="29">Marketing online</option>
-                                        <option value="30">Phát tờ rơi</option>
-                                        <option value="31">Buồng phòng</option>
-                                        <option value="32">Pha chế</option>
-                                        <option value="33">Shipper</option>
-                                        <option value="34">Kế toán</option>
+                                        @foreach($jobstype as $jobtype)
+                                        <option value="{{ $jobtype->id }}">{{ $jobtype->name }}</option>
+                                        @endforeach
                                     </select>
                                     <select id="tinh-select" class="col-md-3">
                                         <option value="0">Thành phố</option>
@@ -73,7 +43,7 @@
                             <div class="col-md-3 clearfix">
                                 <div class="contact row">
                                     <p><i></i>0243.212.1515</p>
-                                    <p><i></i>vieclamhn@gmon.vn</p>
+                                    <p><i></i>support@gmon.vn</p>
                                 </div>
                             </div>
                         </div>
@@ -118,7 +88,7 @@
         <div class="row">
             <div class="col-md-9 col-xs-12">
                 <div class="banner row">
-                    <a target="_self" href=""><img src="http://test.gmon.com.vn/?image=slide.png" alt="" width="100%" ;></a>
+                    <a width="50%" target="_self" href="http://gmon.vn/company/323/info"><img src="http://test.gmon.com.vn/?image=Banner-Web-Gmon-11.jpg" alt=""></a><a width="50%" target="_self" href="http://gmon.vn/company/278/info"><img src="http://test.gmon.com.vn/?image=Banner-Web-Gmon-12.jpg" alt=""></a>
                 </div>
                 <div class="row news">
                     <div class="col-md-6" style="margin-right: -1px">
@@ -201,7 +171,7 @@
             <div class="col-md-3 col-xs-12">
                 <div class="ads-top"><a target="_self" href=""><img src="http://test.gmon.com.vn/?image=ads.png" alt=""></a></div>
                 <div class="ads-bot">
-                    <a target="_self" href=""><img src="http://test.gmon.com.vn/?image=zalo.png" alt=""></a>
+                    <a target="_self" href="http://gmon.vn/company/27/info"><img src="http://test.gmon.com.vn/?image=Banner-Web-Gmon-13.gif" alt=""></a>
                 </div>
             </div>
         </div>
@@ -321,11 +291,6 @@
                     </div>
                 </div>
             </div>
-<!--            <div id="col-ads">
-                <a target="_self" href="">
-                    <img src="http://test.gmon.com.vn/?image=ads2.png" alt="">
-                </a>
-            </div>-->
         </div>
         @endif
         @if(count($jobs) > 0)

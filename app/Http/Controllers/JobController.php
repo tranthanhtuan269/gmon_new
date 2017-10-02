@@ -165,16 +165,19 @@ class JobController extends Controller
      * @return \Illuminate\View\View
      */
     public function createJob() {
-        // $jobTypes = 
-        // companysizes = 
-        // cities = 
+        $company_id = -1;
+        $cv_id = -1;
         if (\Auth::check()) {
-            $current_id = \Auth::user()->id;
+            $user_info = \Auth::user()->getUserInfo();
+            $company_id = $user_info['company_id'];
+            $cv_id = $user_info['cv_id'];
+            $current_id = $user_info['user_id'];
             
             //get company 
             $company = \DB::table('companies')
                     ->where('companies.user', $current_id)
                     ->first();
+            $jobstype = \App\JobType::pluck('name', 'id');
             $salaries = \App\Salary::pluck('name', 'id');
             if($company){
                 $branches = \DB::table('branches')
@@ -189,7 +192,7 @@ class JobController extends Controller
                         'districts.name as district'
                         )
                     ->get();
-                return view('job.create_job', compact('branches', 'salaries'));
+                return view('job.create_job', compact('branches', 'salaries', 'jobstype', 'company', 'cv_id', 'company_id'));
             }else{
                 return redirect('company/create');
             }
@@ -199,16 +202,6 @@ class JobController extends Controller
     }
 
     public function storeJob(Request $request) {
-        // $validator = Validator::make($request->all(), [
-        //     'tieu_de' => 'required|max:255',
-        // ]);
-        // if ($validator->fails()) {
-        //     return redirect('tinbds/create')
-        //             ->withErrors($validator)
-        //             ->withInput();
-        // }
-//         dd($request->all());
-
         $input = $request->all();
         if ($input['description'] == null) {
             $input['description'] = '';
@@ -225,8 +218,8 @@ class JobController extends Controller
         if ($input['expiration_date'] == null) {
             $input['expiration_date'] = date("Y-m-d H:i:s");
         }
-        if (isset($input['job_type']) || $input['job_type'] == null) {
-            $input['job_type'] = 'Làm bán thời gian;';
+        if (!isset($input['job_type']) || $input['job_type'] == null) {
+            $input['job_type'] = 1;
         }
         if (isset($input['work_type']) || $input['work_type'] == null) {
             $input['work_type'] = 0;
@@ -234,6 +227,7 @@ class JobController extends Controller
         $input['work_time'] = date("Y-m-d H:i:s");
         $input['created_at'] = date("Y-m-d H:i:s");
         $input['updated_at'] = date("Y-m-d H:i:s");
+        $input['public'] = 1;
         $current_id = \Auth::user()->id;
 
         // check followed
@@ -256,33 +250,19 @@ class JobController extends Controller
     }
 
     public function info($id){
+
+        $job_selected = Job::find($id);
+        $job_selected->views = $job_selected->views + 1;
+        $job_selected->save();
+
         $company_id = -1;
         $cv_id = -1;
         $applied = 0;
         if (\Auth::check()) {
-            $current_id = \Auth::user()->id;
-            
-            //get company 
-            $my_company = \DB::table('companies')
-                    ->where('companies.user', $current_id)
-                    ->select(
-                        'id'
-                    )
-                    ->first();
-            if($my_company){
-                $company_id = $my_company->id;
-            }
-            
-            //get CV 
-            $cv_user = \DB::table('curriculum_vitaes')
-                    ->where('curriculum_vitaes.user', $current_id)
-                    ->select(
-                        'id'
-                    )
-                    ->first();
-            if($cv_user){
-                $cv_id = $cv_user->id;
-            }
+            $user_info = \Auth::user()->getUserInfo();
+            $company_id = $user_info['company_id'];
+            $cv_id = $user_info['cv_id'];
+            $current_id = $user_info['user_id'];
             
             $apply_check = \DB::table('applies')
                     ->where('applies.user', $current_id)
@@ -334,6 +314,7 @@ class JobController extends Controller
                         'company_sizes.size as size', 
                         'companies.sologan', 
                         'companies.description',
+                        'companies.site_url',
                         'companies.images'
                 )
                 ->where('companies.id', $job->company)
@@ -369,7 +350,7 @@ class JobController extends Controller
     public function join(Request $request){
         if (\Auth::check()) {
             $current_id = \Auth::user()->id;
-            
+
             // check exist CV
             $cv_user = \DB::table('curriculum_vitaes')
                     ->where('curriculum_vitaes.user', $current_id)
@@ -390,6 +371,9 @@ class JobController extends Controller
                     $apply->job = $request->job;
 
                     if($apply->save()){
+                        $job_selected = Job::find($request->job);
+                        $job_selected->applied = $job_selected->applied + 1;
+                        $job_selected->save();
                         return \Response::json(array('code' => '200', 'message' => 'Created success!'));
                     }
                 }
@@ -436,5 +420,42 @@ class JobController extends Controller
             }
         }
         return \Response::json(array('code' => '404', 'message' => 'Update unsuccess!'));
+    }
+
+    public function getJob(){
+        $jobGetObj = new Job;
+        $district = $city = $field = $job_type = $company = $cv = $vip = $from = $number_get = null;
+        $number_get = 5;
+        if(isset($_GET)){
+
+            if(isset($_GET['start']) && $_GET['start'] > 0){
+                $from = $_GET['start'];
+            }
+            
+            if(isset($_GET['job_type']) && $_GET['job_type'] > 0){
+                $job_type = $_GET['job_type'];
+            }
+
+            if(isset($_GET['city']) && $_GET['city'] > 0){
+                $city = $_GET['city'];
+            }
+
+            if(isset($_GET['district']) && $_GET['district'] > 0){
+                $district = $_GET['district'];
+            }
+
+            if(isset($_GET['job'])){
+                if($_GET['job'] == 'vip1'){
+                    $vip = 1;
+                }else if($_GET['job'] == 'vip2'){
+                    $vip = 2;
+                }else if($_GET['job'] == 'new'){
+                    $vip = 0;
+                }
+            }
+
+            $jobs = $jobGetObj->getJob($district, $city, $field, $job_type, $company, $cv, $vip, $from, $number_get);
+            return \Response::json(array('code' => '200', 'message' => 'Success!', 'jobs' => $jobs));
+        }
     }
 }

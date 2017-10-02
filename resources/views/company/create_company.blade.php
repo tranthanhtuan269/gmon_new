@@ -208,6 +208,12 @@
                         </script>
                         </div>
                     </div>
+                    <div class="form-group {{ $errors->has('site_url') ? 'has-error' : ''}}">
+                        <div class="col-md-12">
+                            {!! Form::text('site_url', null, ['class' => 'form-control', 'id' => 'site_url', 'placeholder' => 'Thêm link website']) !!}
+                            {!! $errors->first('site_url', '<p class="help-block">:message</p>') !!}
+                        </div>
+                    </div>
                     <div class="form-group {{ $errors->has('youtube_link') ? 'has-error' : ''}}">
                         <div class="col-md-12">
                             {!! Form::text('youtube_link', null, ['class' => 'form-control', 'id' => 'youtube_link', 'placeholder' => 'Thêm video']) !!}
