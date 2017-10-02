@@ -135,25 +135,11 @@ class CurriculumVitaeController extends Controller
     {        
         $input = $request->all();
 
-        $picture = '';
-        $allPic = '';
-        if ($request->hasFile('images-img')) {
-            $files = $request->file('images-img');
-            foreach ($files as $file) {
-                $filename = $file->getClientOriginalName();
-                $extension = $file->getClientOriginalExtension();
-                $picture = date('His') . $filename;
-                $allPic .= $picture . ';';
-                $destinationPath = base_path('../../images');
-                $file->move($destinationPath, $picture);
-            }
-            $input['images'] = $allPic;
-        }
-
         unset($input['images-img']);
         unset($input['bang_cap_0']);
         unset($input['student_process_0']);
 
+        $input['images'] = $request['images-plus-field'];
         $input['time_can_work'] = $request['time_can_work'];
         $input['jobs'] = $request['jobs'];
         $input['salary_want'] = $request['salary_want'];
@@ -412,27 +398,13 @@ class CurriculumVitaeController extends Controller
     }
     
     public function storeCurriculumVitae(Request $request) {
-        $picture = '';
-        $allPic = '';
-        if ($request->hasFile('images-img')) {
-            $files = $request->file('images-img');
-            foreach ($files as $file) {
-                $filename = $file->getClientOriginalName();
-                $extension = $file->getClientOriginalExtension();
-                $picture = date('His') . $filename;
-                $allPic .= $picture . ';';
-                $destinationPath = base_path('../../images');
-                $file->move($destinationPath, $picture);
-            }
-        }
-
         $input = $request->all();
 
         unset($input['images-img']);
         unset($input['bang_cap_0']);
         unset($input['student_process_0']);
 
-        $input['images'] = $allPic;
+        $input['images'] = $request['images-plus-field'];
         $input['time_can_work'] = $request['time_can_work'];
         $input['jobs'] = $request['jobs'];
         $input['salary_want'] = $request['salary'];

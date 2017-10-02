@@ -389,6 +389,7 @@
                         <div class="panel-heading">Thêm ảnh ngoại khóa</div>
                         <div class="panel-body">
                             <div class="form-group {{ $errors->has('images') ? 'has-error' : ''}}">
+                                <input type="hidden" name="images-plus-field" id="images-plus-field" value="">
                                 <div class="col-md-12">
                                     <label class="control-label">Thêm ảnh</label>
                                 </div>

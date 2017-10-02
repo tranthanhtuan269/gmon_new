@@ -60,6 +60,11 @@ $(document).ready(function () {
         $('#ten_ngoai_ngu').val('');
         $('#trinh_do_ngoai_ngu').val('');
     });
+
+    $('.remove-image-class').on('click', function(){
+        $(this).parent().addClass('removed').hide();
+    });
+    
     function validate_kinh_nghiem_cu(id) {
         if ($('#ten_cong_ty_' + id).val().length <= 0) {
             swal("Tên công ty không được để trống!", "Xin hãy điền Tên công ty!");
@@ -762,17 +767,41 @@ $(document).ready(function () {
     });
     $('#images-img').on('change', function (e) {
         var fileInput = this;
-        var i = 0;
-        $(fileInput.files).each(function (index) {
-            var reader = new FileReader();
-            reader.onload = function (e) {
-                var html = '<img src="' + e.target.result + '" class="img">';
-                $('#images-plus').append(html);
+
+        if (fileInput.files[0]) {
+            var data = new FormData();
+            for(var i = 0; i < $(fileInput.files).length; i++){
+                data.append('input_file_name_' + i, fileInput.files[i]);
             }
-            
-            reader.readAsDataURL(fileInput.files[i]);
-            i++;
-        });
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                type: 'POST',
+                processData: false, // important
+                contentType: false, // important
+                data: data,
+                url: url_site + "/postImages",
+                dataType: 'json',
+                success: function (jsonData) {
+                    if (jsonData.code == 200) {
+                        var res = jsonData.images_url.split(";");
+                        var html = '';
+                        for(var i = 0; i < res.length - 1; i++){
+                            html += '<div class="image-holder">';
+                            html += '<img src="http://test.gmon.com.vn/?image=' + res[i] + '" class="img" height="150">';
+                            html += '<span class="remove-image-class"></span>';
+                            html += '</div>';
+                        }
+                        $('#images-plus').append(html);
+                        $('.remove-image-class').off('click');
+                        $('.remove-image-class').on('click', function(){
+                            $(this).parent().addClass('removed').hide();
+                        });        
+                    }
+                }
+            });
+        }
     });
     
     $("#city").change(function () {
@@ -886,6 +915,15 @@ $(document).ready(function () {
         $('#time_can_work').val(listTimes);
 
         $('#salary').val($('#salary_select').val());
+
+        var listImages = '';
+        $('#images-plus .image-holder').each(function(index){
+            if(!$(this).hasClass('removed')){
+                var image_info = $($(this).find('img')).attr('src');
+                listImages += image_info.substr(31, image_info.length) + ';';
+            }
+        });
+        $('#images-plus-field').val(listImages);
         
         if (!validateForm()) {
             return false;
