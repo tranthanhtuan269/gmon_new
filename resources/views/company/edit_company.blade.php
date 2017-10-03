@@ -289,13 +289,6 @@
                             <div id="upload-banner-demo" style="width:100%"></div>
                             <input type="file" id="upload-banner" style="display: none;">
                         </div>
-                        <!-- <div class="col-md-3" style="padding-top:30px;">
-                            <button class="btn btn-default select-banner" style="margin: 10px 0;">Chọn Banner</button>
-                            <button class="btn btn-success upload-banner-result">Cắt Banner</button>
-                        </div>
-                        <div class="col-md-4" style="">
-                            <div id="upload-banner-i" style="background:#e1e1e1;width:200px;height:200px;margin-top: 30px;"></div>
-                        </div> -->
                     </div>
                   </div>
                 </div>
@@ -384,7 +377,6 @@
             }).then(function(){
                 console.log('jQuery bind complete');
             });
-            
         }
         reader.readAsDataURL(this.files[0]);
     });
