@@ -21,6 +21,7 @@
                     <div class="form-group {{ $errors->has('banner') ? 'has-error' : ''}}">
 
                         <div class="col-md-12">
+                            <input type="hidden" id="banner" name="banner" value="">
                             <img src="" id="banner-image" class="img" style="height: 160px; width: 100%; background-color: #fff; border: 2px solid gray; border-radius: 5px;">
                             <input type="file" name="banner-img" id="banner-img" style="display: none;">
                             {!! $errors->first('banner', '<p class="help-block">:message</p>') !!}
@@ -30,6 +31,7 @@
                         <div class="col-md-2">
                             <div class="form-group {{ $errors->has('logo') ? 'has-error' : ''}}">
                                 <div class="col-md-12">
+                                    <input type="hidden" id="logo" name="logo" value="">
                                     <img src="" id="logo-image" class="img" style="height: 150px; width: 150px; background-color: #fff; border: 2px solid gray; border-radius: 5px;">
                                     <input type="file" name="logo-img" id="logo-img" style="display: none;">
                                     {!! $errors->first('logo', '<p class="help-block">:message</p>') !!}
@@ -374,6 +376,7 @@
                 success: function (data) {
                     if(data.code == 200){
                         $('#logo-image').val(data.image_url);
+                        $('#logo').val(data.image_url);
                         src_logo = resp;
                         html = '<img src="' + resp + '" />';
                         $("#upload-logo-i").html(html);
@@ -439,6 +442,7 @@
                 success: function (data) {
                     if(data.code == 200){
                         $('#banner-image').val(data.image_url);
+                        $('#banner').val(data.image_url);
                         src_banner = resp;
                         $('#banner-image').attr('src',resp);
                         $('.modal-show-banner').modal('toggle');
