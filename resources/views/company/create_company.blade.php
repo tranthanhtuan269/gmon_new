@@ -1,7 +1,8 @@
 @extends('layouts.layout')
 
 @section('content')
-    <div class="container" style="margin-top: 15px;">
+<link rel="stylesheet" href="{{ url('/') }}/public/css/croppie.css">
+<div class="container" style="margin-top: 15px;">
     <div class="row">
         <div class="col-md-12">
             <div class="panel panel-default">
@@ -244,39 +245,216 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade modal-show-banner" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="panel panel-default">
+                  <div class="panel-heading">Upload Banner</div>
+                  <div class="panel-body">
+
+                    <div class="row">
+                        <div class="col-md-12 text-center">
+                            <div id="upload-banner-demo" style="width:100%"></div>
+                            <input type="file" id="upload-banner" style="display: none;">
+                        </div>
+                        <!-- <div class="col-md-3" style="padding-top:30px;">
+                            <button class="btn btn-default select-banner" style="margin: 10px 0;">Chọn Banner</button>
+                            <button class="btn btn-success upload-banner-result">Cắt Banner</button>
+                        </div>
+                        <div class="col-md-4" style="">
+                            <div id="upload-banner-i" style="background:#e1e1e1;width:200px;height:200px;margin-top: 30px;"></div>
+                        </div> -->
+                    </div>
+                  </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-default select-banner" style="margin: 10px 0;">Chọn Banner</button>
+                <button type="button" class="btn btn-primary upload-banner-result">Lựa chọn</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy bỏ</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style type="text/css">
+    .croppie-container .cr-boundary{
+        margin: 0;
+        width: 100%;
+    }
+    .croppie-container .cr-slider-wrap{
+        margin: 0;
+        width: 100%;
+    }
+</style>
+
+<div class="modal fade modal-show-logo" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="panel panel-default">
+                  <div class="panel-heading">Upload Logo</div>
+                  <div class="panel-body">
+
+                    <div class="row">
+                        <div class="col-md-5 text-center">
+                            <div id="upload-logo-demo" style="width:350px"></div>
+                        </div>
+                        <div class="col-md-3" style="padding-top:30px;">
+                            <input type="file" id="upload-logo" style="display: none;">
+                            <button class="btn btn-default select-logo" style="margin: 10px 0;">Chọn Logo</button>
+                            <button class="btn btn-success upload-logo-result">Cắt Logo</button>
+                        </div>
+                        <div class="col-md-4" style="">
+                            <div id="upload-logo-i" style="background:#e1e1e1;width:200px;height:200px;margin-top: 30px;"></div>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary ok-logo-select">Lựa chọn</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy bỏ</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="{{ url('/') }}/public/js/croppie.js"></script>
+<script type="text/javascript">
+    var src_logo = '';
+    var src_banner = '';
+    $('#logo-image').on('click', function (e) {
+        $('.modal-show-logo').modal('show');
+    });
+    $uploadLogoCrop = $('#upload-logo-demo').croppie({
+        enableExif: true,
+        viewport: {
+            width: 200,
+            height: 200,
+            type: 'circle'
+        },
+        boundary: {
+            width: 300,
+            height: 300
+        }
+    });
+
+    $('.select-logo').click(function(){
+        $("#upload-logo").click();
+    });
+
+    $('#upload-logo').on('change', function () { 
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            $uploadLogoCrop.croppie('bind', {
+                url: e.target.result
+            }).then(function(){
+                console.log('jQuery bind complete');
+            });
+            
+        }
+        reader.readAsDataURL(this.files[0]);
+    });
+
+    $('.upload-logo-result').on('click', function (ev) {
+        $uploadLogoCrop.croppie('result', {
+            type: 'canvas',
+            size: 'viewport'
+        }).then(function (resp) {
+
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                url: "{{ url('/') }}/ajaxpro",
+                type: "POST",
+                data: {"image":resp},
+                success: function (data) {
+                    if(data.code == 200){
+                        $('#logo-image').val(data.image_url);
+                        src_logo = resp;
+                        html = '<img src="' + resp + '" />';
+                        $("#upload-logo-i").html(html);
+                    }
+                }
+            });
+        });
+    });
+
+    $('.ok-logo-select').click(function(){
+        $('#logo-image').attr('src',src_logo);
+        $('.modal-show-logo').modal('toggle');
+    });
+
+    $('#banner-image').on('click', function (e) {
+        $('.modal-show-banner').modal('show');
+    });
+    
+    $uploadBannerCrop = $('#upload-banner-demo').croppie({
+        enableExif: true,
+        viewport: {
+            width: 699,
+            height: 245,
+            type: 'square'
+        },
+        boundary: {
+            width: 835,
+            height: 350
+        },
+        showZoomer: true
+    });
+
+    $('.select-banner').click(function(){
+        $("#upload-banner").click();
+    });
+
+    $('#upload-banner').on('change', function () { 
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            $uploadBannerCrop.croppie('bind', {
+                url: e.target.result
+            }).then(function(){
+                console.log('jQuery bind complete');
+            });
+            
+        }
+        reader.readAsDataURL(this.files[0]);
+    });
+
+    $('.upload-banner-result').on('click', function (ev) {
+        $uploadBannerCrop.croppie('result', {
+            type: 'canvas',
+            size: 'viewport'
+        }).then(function (resp) {
+
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                url: "{{ url('/') }}/ajaxpro",
+                type: "POST",
+                data: {"image":resp},
+                success: function (data) {
+                    if(data.code == 200){
+                        $('#banner-image').val(data.image_url);
+                        src_banner = resp;
+                        $('#banner-image').attr('src',resp);
+                        $('.modal-show-banner').modal('toggle');
+                    }
+                }
+            });
+        });
+
+    });
+</script>
 <script src="https://cdn.ckeditor.com/4.7.1/standard/ckeditor.js"></script>
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.3/css/bootstrap-select.min.css">
 <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.3/js/bootstrap-select.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function () {
     CKEDITOR.replace('description');
-    $('#logo-image').on('click', function (e) {
-        $('#logo-img').click();
-    });
-    $('#logo-img').on('change', function (e) {
-        var fileInput = this;
-        if (fileInput.files[0]) {
-            var reader = new FileReader();
-            reader.onload = function (e) {
-                $('#logo-image').attr('src', e.target.result);
-            }
-            reader.readAsDataURL(fileInput.files[0]);
-        }
-    });
-
-    $('#banner-image').on('click', function (e) {
-        $('#banner-img').click();
-    });
-    $('#banner-img').on('change', function (e) {
-        var fileInput = this;
-        if (fileInput.files[0]) {
-            var reader = new FileReader();
-            reader.onload = function (e) {
-                $('#banner-image').attr('src', e.target.result);
-            }
-            reader.readAsDataURL(fileInput.files[0]);
-        }
-    });
 
     $('#images').on('click', function (e) {
         $('#images-img').click();
