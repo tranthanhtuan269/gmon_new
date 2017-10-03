@@ -431,6 +431,10 @@ class JobController extends Controller
             if(isset($_GET['start']) && $_GET['start'] > 0){
                 $from = $_GET['start'];
             }
+
+            if(isset($_GET['number']) && $_GET['number'] > 0){
+                $number_get = $_GET['number'];
+            }
             
             if(isset($_GET['job_type']) && $_GET['job_type'] > 0){
                 $job_type = $_GET['job_type'];

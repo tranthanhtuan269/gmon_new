@@ -2,37 +2,6 @@
 
 @section('content')
 <?php $jobstype = \App\JobType::select('id', 'name')->get(); ?>
-
-
-    <style type="text/css">
-        .mass-content{
-            width: 100%;
-            height: 100%;
-            position: fixed;
-            background-color:rgba(0, 0, 0, 0.5);
-            z-index: 1;
-            display: none;
-        }
-        .loader {
-            z-index: 10000;
-            border: 16px solid #f3f3f3; /* Light grey */
-            border-top: 16px solid #3498db; /* Blue */
-            border-bottom: 16px solid #3498db; /* Blue */
-            border-radius: 50%;
-            width: 120px;
-            height: 120px;
-            animation: spin 1s linear infinite;
-            position: absolute;
-            top: 50%;
-            left: 45%;
-            display: none;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-    </style>
     <header>
         <div class="header-mid">
             <div class="container" >
@@ -244,6 +213,7 @@
     <script type="text/javascript">
         var site_url = $('base').attr('href');
         var $currentJob = 15;
+        var $numberGet = 5;
         var $currentPossion = 0;
         var $newPossion = 0;
         $(window).scroll(function (event) {
@@ -254,7 +224,7 @@
                 $('.mass-content').show();
                 $('.loader').show();
                 var request = $.ajax({
-                    url: "{{ URL::to('/') }}/getJob/?start=" + $currentJob + "&<?php echo parse_url(url('/') . $_SERVER['REQUEST_URI'], PHP_URL_QUERY); ?>",
+                    url: "{{ URL::to('/') }}/getJob/?start=" + $currentJob  + "&number=" + $numberGet + "&<?php echo parse_url(url('/') . $_SERVER['REQUEST_URI'], PHP_URL_QUERY); ?>",
                     method: "GET",
                     dataType: "json"
                 });
@@ -301,7 +271,7 @@
                                 $html += '</div>';
                             $html += '</li>';
                         });
-                        $currentJob += 5;
+                        $currentJob += $numberGet;
                         $('.ul-content').append($html);
                     }
                 });

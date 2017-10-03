@@ -652,7 +652,7 @@ class HomeController extends Controller
         $jobGetObj = new Job;
         $companyGetObj = new Company;
 
-        $perPage = 1000;
+        $perPage = 25;
         $checkJobVip = 0;
         $district = $city = $field = $job_type = $company = $cv = $vip = $from = $number_get = null;
 
@@ -721,12 +721,13 @@ class HomeController extends Controller
                         ->join('users', 'users.id', '=', 'curriculum_vitaes.user')
                         ->select('curriculum_vitaes.id as id', 'users.name as username', 'curriculum_vitaes.birthday', 'curriculum_vitaes.avatar', 'curriculum_vitaes.school')
                         ->where('curriculum_vitaes.district', '=', $district)
-                        ->paginate($perPage);
+                        ->orderBy('curriculum_vitaes.id', 'desc')
+                        ->take($perPage)->get();
                         
                     // get cv of vip
                     $companies = [];
 
-                    return view('showCompanyCV', compact('districts', 'city', 'cvs', 'jobs', 'jobsvip1', 'jobsvip2', 'companies', 'company_id', 'cv_id', 'news'));
+                    return view('showCV', compact('districts', 'city', 'cvs', 'jobs', 'jobsvip1', 'jobsvip2', 'companies', 'company_id', 'cv_id', 'news'));
                 }else if($job == "vip1"){
                     $checkJobVip = 1;
 
@@ -780,9 +781,9 @@ class HomeController extends Controller
                     // get cv of vip
                     $cvs = [];
                     // get cv of vip
-                    $companies = $companyGetObj->getCompany($district, $city, $field, $from, 1000);
+                    $companies = $companyGetObj->getCompany($district, $city, $field, $from, $perPage);
 
-                    return view('showCompanyCV', compact('districts', 'city', 'cvs', 'jobs', 'jobsvip1', 'jobsvip2', 'companies', 'company_id', 'cv_id', 'news'));
+                    return view('showCompany', compact('districts', 'city', 'cvs', 'jobs', 'jobsvip1', 'jobsvip2', 'companies', 'company_id', 'cv_id', 'news'));
                 }else{
                     $jobs = $jobGetObj->getJob($district, $city, $field, $job_type, $company, $cv, 0, $from, $number_get);
                     $jobcount = $jobGetObj->getJobNumber($district, $city, $field, $job_type, $company, $cv, 0, $from, $number_get);
@@ -837,12 +838,13 @@ class HomeController extends Controller
                         ->join('users', 'users.id', '=', 'curriculum_vitaes.user')
                         ->select('curriculum_vitaes.id as id', 'users.name as username', 'curriculum_vitaes.birthday', 'curriculum_vitaes.avatar', 'curriculum_vitaes.school')
                         ->where('curriculum_vitaes.city', '=', $city)
-                        ->paginate($perPage);
+                        ->orderBy('curriculum_vitaes.id', 'desc')
+                        ->take($perPage)->get();
 
                     // get cv of vip
                     $companies = [];
 
-                    return view('showCompanyCV', compact('districts', 'city', 'cvs', 'jobs', 'jobsvip1', 'jobsvip2', 'companies', 'company_id', 'cv_id', 'news'));
+                    return view('showCV', compact('districts', 'city', 'cvs', 'jobs', 'jobsvip1', 'jobsvip2', 'companies', 'company_id', 'cv_id', 'news'));
                 }else if($job == "vip1"){
                     $checkJobVip = 1;
 
@@ -894,9 +896,9 @@ class HomeController extends Controller
                     // get cv of vip
                     $cvs = [];
                     // get cv of vip
-                    $companies = $companyGetObj->getCompany($district, $city, $field, $from, 1000);
+                    $companies = $companyGetObj->getCompany($district, $city, $field, $from, $perPage);
 
-                    return view('showCompanyCV', compact('districts', 'city', 'cvs', 'jobs', 'jobsvip1', 'jobsvip2', 'companies', 'company_id', 'cv_id', 'news'));
+                    return view('showCompany', compact('districts', 'city', 'cvs', 'jobs', 'jobsvip1', 'jobsvip2', 'companies', 'company_id', 'cv_id', 'news'));
                 }else{
                     $jobs = $jobGetObj->getJob($district, $city, $field, $job_type, $company, $cv, 0, $from, $number_get);
                     $jobcount = $jobGetObj->getJobNumber($district, $city, $field, $job_type, $company, $cv, 0, $from, $number_get);
@@ -920,12 +922,13 @@ class HomeController extends Controller
                     $cvs = \DB::table('curriculum_vitaes')
                         ->join('users', 'users.id', '=', 'curriculum_vitaes.user')
                         ->select('curriculum_vitaes.id as id', 'users.name as username', 'curriculum_vitaes.birthday', 'curriculum_vitaes.avatar', 'curriculum_vitaes.school')
-                        ->paginate($perPage);
+                        ->orderBy('curriculum_vitaes.id', 'desc')
+                        ->take($perPage)->get();
 
                     // get cv of vip
                     $companies = [];
 
-                    return view('showCompanyCV', compact('districts', 'city', 'cvs', 'jobs', 'jobsvip1', 'jobsvip2', 'companies', 'company_id', 'cv_id', 'news'));
+                    return view('showCV', compact('districts', 'city', 'cvs', 'jobs', 'jobsvip1', 'jobsvip2', 'companies', 'company_id', 'cv_id', 'news'));
                 }else if($job == "vip1"){
                     $checkJobVip = 1;
                     $jobs = $jobGetObj->getJob($district, $city, $field, $job_type, $company, $cv, 1, $from, $number_get);
@@ -976,9 +979,9 @@ class HomeController extends Controller
                     // get cv of vip
                     $cvs = [];
                     // get cv of vip
-                    $companies = $companyGetObj->getCompany($district, $city, $field, $from, 1000);
+                    $companies = $companyGetObj->getCompany($district, $city, $field, $from, $perPage);
 
-                    return view('showCompanyCV', compact('districts', 'city', 'cvs', 'jobs', 'jobsvip1', 'jobsvip2', 'companies', 'company_id', 'cv_id', 'news'));
+                    return view('showCompany', compact('districts', 'city', 'cvs', 'jobs', 'jobsvip1', 'jobsvip2', 'companies', 'company_id', 'cv_id', 'news'));
                 }
             }
             
@@ -996,7 +999,7 @@ class HomeController extends Controller
                         ->where('active', '=', 1)
                         ->select('id', 'name')
                         ->get();
-        return view('showCompanyCV', compact('job_types', 'cities'));
+        return view('showCompany', compact('job_types', 'cities'));
     }
 
     public function homenew2(){

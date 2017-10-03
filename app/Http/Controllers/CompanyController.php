@@ -759,4 +759,30 @@ class CompanyController extends Controller {
         return \Response::json(array('code' => '404', 'message' => 'Update unsuccess!'));
     }
 
+    public function getCompany(){
+        $companyGetObj = new Company;
+        $district = $city = $field = $job_type = $company = $cv = $vip = $from = $number_get = null;
+        $number_get = 20;
+        if(isset($_GET)){
+
+            if(isset($_GET['start']) && $_GET['start'] > 0){
+                $from = $_GET['start'];
+            }
+
+            if(isset($_GET['number']) && $_GET['number'] > 0){
+                $number_get = $_GET['number'];
+            }
+
+            if(isset($_GET['city']) && $_GET['city'] > 0){
+                $city = $_GET['city'];
+            }
+
+            if(isset($_GET['district']) && $_GET['district'] > 0){
+                $district = $_GET['district'];
+            }
+
+            $companies = $companyGetObj->getCompany($district, $city, $field, $from, $number_get);
+            return \Response::json(array('code' => '200', 'message' => 'Success!', 'companies' => $companies));
+        }
+    }
 }

@@ -32,6 +32,8 @@ Route::get('curriculumvitae', 'CurriculumVitaeController@indexCurriculumVitae');
 Route::get('curriculumvitae/view/{id}', 'CurriculumVitaeController@showCurriculumVitae');
 Route::get('/job/view/{id}', 'JobController@info');
 Route::get('/getJob/', 'JobController@getJob');
+Route::get('/getCompany/', 'CompanyController@getCompany');
+Route::get('/getCV/', 'CurriculumVitaeController@getCV');
 
 Route::post('/job/join', 'JobController@join');
 Route::get('company/{id}/info', 'CompanyController@info');
