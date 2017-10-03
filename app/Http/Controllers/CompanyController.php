@@ -219,46 +219,11 @@ class CompanyController extends Controller {
     }
 
     public function storeCompany(Request $request) {
-        // $img_banner = '';
-        // if ($request->hasFile('banner-img')) {
-        //     $file_banner = $request->file('banner-img');
-        //     $filename = $file_banner->getClientOriginalName();
-        //     $extension = $file_banner->getClientOriginalExtension();
-        //     $img_banner = date('His') . $filename;
-        //     $destinationPath = base_path('../../images');
-        //     $file_banner->move($destinationPath, $img_banner);
-        // }
-
-        // $img_logo = '';
-        // if ($request->hasFile('logo-img')) {
-        //     $file_logo = $request->file('logo-img');
-        //     $filename = $file_logo->getClientOriginalName();
-        //     $extension = $file_logo->getClientOriginalExtension();
-        //     $img_logo = date('His') . $filename;
-        //     $destinationPath = base_path('../../images');
-        //     $file_logo->move($destinationPath, $img_logo);
-        // }
-
-        $picture = '';
-        $allPic = '';
-        if ($request->hasFile('images-img')) {
-            $files = $request->file('images-img');
-            foreach ($files as $file) {
-                $filename = $file->getClientOriginalName();
-                $extension = $file->getClientOriginalExtension();
-                $picture = date('His') . $filename;
-                $allPic .= $picture . ';';
-                $destinationPath = base_path('../../images');
-                $file->move($destinationPath, $picture);
-            }
-        }
-
         $input = $request->all();
-        // dd($input);
         if ($input['description'] == null)
             $input['description'] = '';
         unset($input['images-img']);
-        $input['images'] = $allPic;
+        $input['images'] = $request['images-plus-field'];
         $input['user'] = \Auth::user()->id;
         $input['email'] = \Auth::user()->email;
         $input['phone'] = \Auth::user()->phone;

@@ -228,6 +228,7 @@
                             <label class="control-label">Thêm ảnh</label>
                         </div>
                         <div class="col-md-12">
+                            <input type="hidden" name="images-plus-field" id="images-plus-field" value="">
                             <div id="images-plus"></div>
                             <img src="{{ url('/') }}/public/images/icons8-Add-Image-50.png" id="images" class="img" style="height: 50px; width: 50px;">
                             <input type="file" name="images-img[]" id="images-img" style="display: none;" multiple>
@@ -465,16 +466,41 @@ $(document).ready(function () {
     });
     $('#images-img').on('change', function (e) {
         var fileInput = this;
-        var i = 0;
-        $(fileInput.files).each(function (index) {
-            var reader = new FileReader();
-            reader.onload = function (e) {
-                var html = '<img src="' + e.target.result + '" id="images" class="img" style="width: 150px;">';
-                $('#images-plus').append(html);
+
+        if (fileInput.files[0]) {
+            var data = new FormData();
+            for(var i = 0; i < $(fileInput.files).length; i++){
+                data.append('input_file_name_' + i, fileInput.files[i]);
             }
-            reader.readAsDataURL(fileInput.files[i]);
-            i++;
-        });
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                type: 'POST',
+                processData: false, // important
+                contentType: false, // important
+                data: data,
+                url: "{{ URL::to('/') }}/postImages",
+                dataType: 'json',
+                success: function (jsonData) {
+                    if (jsonData.code == 200) {
+                        var res = jsonData.images_url.split(";");
+                        var html = '';
+                        for(var i = 0; i < res.length - 1; i++){
+                            html += '<div class="image-holder">';
+                            html += '<img src="http://test.gmon.com.vn/?image=' + res[i] + '" class="img" height="150">';
+                            html += '<span class="remove-image-class"></span>';
+                            html += '</div>';
+                        }
+                        $('#images-plus').append(html);
+                        $('.remove-image-class').off('click');
+                        $('.remove-image-class').on('click', function(){
+                            $(this).parent().addClass('removed').hide();
+                        });         
+                    }
+                }
+            });
+        }
     });
 
     $("#city").change(function () {
@@ -625,6 +651,15 @@ $(document).ready(function () {
         $('.dropdown-menu.inner>li.selected').each(function (index) {
             listJobs += $(this).text() + ';';
         });
+
+        var listImages = '';
+        $('#images-plus .image-holder').each(function(index){
+            if(!$(this).hasClass('removed')){
+                var image_info = $($(this).find('img')).attr('src');
+                listImages += image_info.substr(31, image_info.length) + ';';
+            }
+        });
+        $('#images-plus-field').val(listImages);
         
         var listBranchs = '';
         var branchs = $('#branch').val();
