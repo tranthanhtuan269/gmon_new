@@ -572,18 +572,24 @@
                         <div class="panel-heading">Thêm ảnh ngoại khóa</div>
                         <div class="panel-body">
                             <div class="form-group {{ $errors->has('images') ? 'has-error' : ''}}">
+                                <input type="hidden" name="images-plus-field" id="images-plus-field" value="">
                                 <div class="col-md-12">
                                     <label class="control-label">Thêm ảnh</label>
                                 </div>
                                 <div class="col-md-12">
                                     <div id="images-plus">
                                         <?php 
+                                            if(strlen($cv_user->images) > 0){
                                             $cv_user->images=rtrim($cv_user->images,";");
                                             $images = explode(";",$cv_user->images);
                                             for($i = 0; $i < count($images); $i++){
                                         ?>
+                                        <div class="image-holder">
                                             <img src="http://test.gmon.com.vn/?image={{ $images[$i] }}" class="img">
+                                            <span class="remove-image-class"></span>
+                                        </div>
                                         <?php
+                                            }
                                             }
                                         ?>
                                     </div>

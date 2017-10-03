@@ -148,6 +148,7 @@ img.no-vote{
     position: relative;
     top: 2px;
     left: -20px;
+    z-index: 500;
 }
 
 .branch-class label{

@@ -219,49 +219,11 @@ class CompanyController extends Controller {
     }
 
     public function storeCompany(Request $request) {
-        $img_banner = '';
-        if ($request->hasFile('banner-img')) {
-            $file_banner = $request->file('banner-img');
-            $filename = $file_banner->getClientOriginalName();
-            $extension = $file_banner->getClientOriginalExtension();
-            $img_banner = date('His') . $filename;
-            $destinationPath = base_path('../../images');
-            $file_banner->move($destinationPath, $img_banner);
-        }
-
-        $img_logo = '';
-        if ($request->hasFile('logo-img')) {
-            $file_logo = $request->file('logo-img');
-            $filename = $file_logo->getClientOriginalName();
-            $extension = $file_logo->getClientOriginalExtension();
-            $img_logo = date('His') . $filename;
-            $destinationPath = base_path('../../images');
-            $file_logo->move($destinationPath, $img_logo);
-        }
-
-        $picture = '';
-        $allPic = '';
-        if ($request->hasFile('images-img')) {
-            $files = $request->file('images-img');
-            foreach ($files as $file) {
-                $filename = $file->getClientOriginalName();
-                $extension = $file->getClientOriginalExtension();
-                $picture = date('His') . $filename;
-                $allPic .= $picture . ';';
-                $destinationPath = base_path('../../images');
-                $file->move($destinationPath, $picture);
-            }
-        }
-
         $input = $request->all();
         if ($input['description'] == null)
             $input['description'] = '';
-        unset($input['banner-img']);
-        unset($input['logo-img']);
         unset($input['images-img']);
-        $input['logo'] = $img_logo;
-        $input['banner'] = $img_banner;
-        $input['images'] = $allPic;
+        $input['images'] = $request['images-plus-field'];
         $input['user'] = \Auth::user()->id;
         $input['email'] = \Auth::user()->email;
         $input['phone'] = \Auth::user()->phone;
@@ -759,4 +721,30 @@ class CompanyController extends Controller {
         return \Response::json(array('code' => '404', 'message' => 'Update unsuccess!'));
     }
 
+    public function getCompany(){
+        $companyGetObj = new Company;
+        $district = $city = $field = $job_type = $company = $cv = $vip = $from = $number_get = null;
+        $number_get = 20;
+        if(isset($_GET)){
+
+            if(isset($_GET['start']) && $_GET['start'] > 0){
+                $from = $_GET['start'];
+            }
+
+            if(isset($_GET['number']) && $_GET['number'] > 0){
+                $number_get = $_GET['number'];
+            }
+
+            if(isset($_GET['city']) && $_GET['city'] > 0){
+                $city = $_GET['city'];
+            }
+
+            if(isset($_GET['district']) && $_GET['district'] > 0){
+                $district = $_GET['district'];
+            }
+
+            $companies = $companyGetObj->getCompany($district, $city, $field, $from, $number_get);
+            return \Response::json(array('code' => '200', 'message' => 'Success!', 'companies' => $companies));
+        }
+    }
 }

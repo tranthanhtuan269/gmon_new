@@ -396,7 +396,7 @@
       </div>
     </div>
     <!-- The Modal -->
-    <div id="myModal" class="modal">
+    <div id="myModal" class="modal show-image-slider">
 
       <!-- The Close Button -->
       <span class="previous_btn">&lt;</span>
@@ -409,7 +409,7 @@
     <style type="text/css">
 
         /* The Modal (background) */
-        #myModal.modal {
+        .show-image-slider {
             display: none; /* Hidden by default */
             position: fixed; /* Stay in place */
             z-index: 1; /* Sit on top */

@@ -800,17 +800,41 @@ $(document).ready(function () {
     });
     $('#images-img').on('change', function (e) {
         var fileInput = this;
-        var i = 0;
-        $(fileInput.files).each(function (index) {
-            var reader = new FileReader();
-            reader.onload = function (e) {
-                var html = '<img src="' + e.target.result + '" class="img">';
-                $('#images-plus').append(html);
+
+        if (fileInput.files[0]) {
+            var data = new FormData();
+            for(var i = 0; i < $(fileInput.files).length; i++){
+                data.append('input_file_name_' + i, fileInput.files[i]);
             }
-            
-            reader.readAsDataURL(fileInput.files[i]);
-            i++;
-        });
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                type: 'POST',
+                processData: false, // important
+                contentType: false, // important
+                data: data,
+                url: url_site + "/postImages",
+                dataType: 'json',
+                success: function (jsonData) {
+                    if (jsonData.code == 200) {
+                        var res = jsonData.images_url.split(";");
+                        var html = '';
+                        for(var i = 0; i < res.length - 1; i++){
+                            html += '<div class="image-holder">';
+                            html += '<img src="http://test.gmon.com.vn/?image=' + res[i] + '" class="img" height="150">';
+                            html += '<span class="remove-image-class"></span>';
+                            html += '</div>';
+                        }
+                        $('#images-plus').append(html);
+                        $('.remove-image-class').off('click');
+                        $('.remove-image-class').on('click', function(){
+                            $(this).parent().addClass('removed').hide();
+                        });        
+                    }
+                }
+            });
+        }
     });
     
     $("#city").change(function () {
@@ -911,27 +935,18 @@ $(document).ready(function () {
 
         $('#salary').val($('#salary_select').val());
 
+        var listImages = '';
+        $('#images-plus .image-holder').each(function(index){
+            if(!$(this).hasClass('removed')){
+                var image_info = $($(this).find('img')).attr('src');
+                listImages += image_info.substr(31, image_info.length) + ';';
+            }
+        });
+        $('#images-plus-field').val(listImages);
+
         if (!validateForm()) {
             return false;
         }
-
-        if ($('.truong_hoc_' + count_hoc_tap).val().length > 0) {
-            $('#success_' + count_hoc_tap).click();
-        }
-
-        if ($('.ten_cong_ty_' + count_kinh_nghiem).val().length > 0) {
-            $('#success_kinh_nghiem_' + count_kinh_nghiem).click();
-        }
-
-        if ($('#ten_ngoai_ngu').val().length > 0) {
-            $('#add-language').click();
-        }
-
-        if ($('#ten_ky_nang').val().length > 0) {
-            $('#add-qualification').click();
-        }
-
-        return false;
 
         $("#create-curriculum-vitae").submit();
     });

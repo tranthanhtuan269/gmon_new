@@ -135,25 +135,11 @@ class CurriculumVitaeController extends Controller
     {        
         $input = $request->all();
 
-        $picture = '';
-        $allPic = '';
-        if ($request->hasFile('images-img')) {
-            $files = $request->file('images-img');
-            foreach ($files as $file) {
-                $filename = $file->getClientOriginalName();
-                $extension = $file->getClientOriginalExtension();
-                $picture = date('His') . $filename;
-                $allPic .= $picture . ';';
-                $destinationPath = base_path('../../images');
-                $file->move($destinationPath, $picture);
-            }
-            $input['images'] = $allPic;
-        }
-
         unset($input['images-img']);
         unset($input['bang_cap_0']);
         unset($input['student_process_0']);
 
+        $input['images'] = $request['images-plus-field'];
         $input['time_can_work'] = $request['time_can_work'];
         $input['jobs'] = $request['jobs'];
         $input['salary_want'] = $request['salary_want'];
@@ -412,27 +398,13 @@ class CurriculumVitaeController extends Controller
     }
     
     public function storeCurriculumVitae(Request $request) {
-        $picture = '';
-        $allPic = '';
-        if ($request->hasFile('images-img')) {
-            $files = $request->file('images-img');
-            foreach ($files as $file) {
-                $filename = $file->getClientOriginalName();
-                $extension = $file->getClientOriginalExtension();
-                $picture = date('His') . $filename;
-                $allPic .= $picture . ';';
-                $destinationPath = base_path('../../images');
-                $file->move($destinationPath, $picture);
-            }
-        }
-
         $input = $request->all();
 
         unset($input['images-img']);
         unset($input['bang_cap_0']);
         unset($input['student_process_0']);
 
-        $input['images'] = $allPic;
+        $input['images'] = $request['images-plus-field'];
         $input['time_can_work'] = $request['time_can_work'];
         $input['jobs'] = $request['jobs'];
         $input['salary_want'] = $request['salary'];
@@ -502,5 +474,32 @@ class CurriculumVitaeController extends Controller
             }
         }
         return \Response::json(array('code' => '404', 'message' => 'Update unsuccess!'));
+    }
+
+    public function getCV(){
+        $cvGetObj = new CurriculumVitae;
+        $district = $city = $field = $job_type = $company = $cv = $vip = $from = $number_get = null;
+        $number_get = 20;
+        if(isset($_GET)){
+
+            if(isset($_GET['start']) && $_GET['start'] > 0){
+                $from = $_GET['start'];
+            }
+
+            if(isset($_GET['number']) && $_GET['number'] > 0){
+                $number_get = $_GET['number'];
+            }
+
+            if(isset($_GET['city']) && $_GET['city'] > 0){
+                $city = $_GET['city'];
+            }
+
+            if(isset($_GET['district']) && $_GET['district'] > 0){
+                $district = $_GET['district'];
+            }
+
+            $cvs = $cvGetObj->getCV($district, $city, $from, $number_get);
+            return \Response::json(array('code' => '200', 'message' => 'Success!', 'cvs' => $cvs));
+        }
     }
 }
