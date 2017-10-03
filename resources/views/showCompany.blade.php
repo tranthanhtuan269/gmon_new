@@ -86,125 +86,6 @@
     </header>
 
     <div class="container list-info">
-        @if(count($cvs) > 0)
-        <div class="vip-candidates row">
-            <div class="title clearfix"><span>Ứng viên VIP <i class="hot"></i></span></div>
-            <div class="clearfix wrapper" id="wrapper-candidates">
-                @foreach($cvs as $cv)
-                <div class="item-u" >
-                    <a target="_self" href="{{ url('/') }}/curriculumvitae/view/{{ $cv->id }}" onmouseenter="onFocusCandidates(event)" onmouseleave ="onDisFocusCandidates(event)">
-                        @if(strlen($cv->avatar) > 0)
-                        <div class="img"><img src="http://test.gmon.com.vn/?image={{ $cv->avatar }}" alt=""></div>
-                        @else
-                        <div class="img"><img src="http://test.gmon.com.vn/?image=avatar.png" alt=""></div>
-                        @endif
-                        <p class="name text-center">{{ $cv->username }}</p>
-                        <p class="university text-center">{{ $cv->school }}</p>
-                        <div class="view">
-                            <div class="info">
-                                <div class="sub-img"><div class="border">
-                                        @if(strlen($cv->avatar) > 0)
-                                        <img src="http://test.gmon.com.vn/?image={{ $cv->avatar }}" alt="">
-                                        @else
-                                        <img src="http://test.gmon.com.vn/?image=avatar.png" alt="">
-                                        @endif
-                                    </div></div>
-                                <p>{{ $cv->username }}</p>
-                                <p>{{ $cv->birthday }}</p>
-                                <!-- <p>CLB AIESEC Hà Nội</p> -->
-                            </div>
-                            <div class="link">
-                                Xem hồ sơ của tôi &rsaquo;
-                            </div>
-                        </div>
-                    </a>
-                </div>  
-                @endforeach
-            </div>
-        </div>
-        @endif
-        @if(count($jobsvip1) > 0)
-        <div class="new-jobs row">
-            <div class="title clearfix"><span>Việc làm HOT <i class="hot"></i></span></div>
-            <div class="wrapper" id="wrapper3">
-                <div style="width: 100%;overflow: visible;display: inline-block;position: relative;">
-                    @foreach($jobsvip1 as $job)
-                    <div class="row item-job">
-                        <div class="job-image">
-                            <div style="padding: 10%;"><img src="http://test.gmon.com.vn/?image={{ $job->logo }}" alt=""></div>
-                        </div>
-                        <div class="job-content">
-                            <div class="job-name"><a target="_self" href="{{ url('/') }}/job/view/{{ $job->id }}"> {{ $job->name }} </a></div>
-                            <div class="job-info">
-                                <span><i></i>Số lượng: {{ $job->number }}</span>
-                                <span><i></i>{{ $job->district }}, {{ $job->city }}</span>
-                                <span class="active"><i></i>Hạn nộp: {{ $job->expiration_date }}</span>
-                            </div>
-                            <span class="job-hot">HOT</span>
-                            <a target="_self" href="{{ url('/') }}/job/view/{{ $job->id }}" class="job-view">Chi tiết </a>
-                        </div>
-                    </div>
-                    @endforeach 
-                </div>
-            </div>
-        </div>
-        @endif
-        @if(count($jobsvip2) > 0)
-        <div class="new-jobs row">
-            <div class="title clearfix"><span>Đang tuyển GẤP <i class="hot"></i></span></div>
-            <div class="wrapper" id="wrapper3">
-                <div style="width: 100%;overflow: visible;display: inline-block;position: relative;">
-                    @foreach($jobsvip2 as $job)
-                    <div class="row item-job">
-                        <div class="job-image">
-                            <div style="padding: 10%;"><img src="http://test.gmon.com.vn/?image={{ $job->logo }}" alt=""></div>
-                        </div>
-                        <div class="job-content">
-                            <div class="job-name"><a target="_self" href="{{ url('/') }}/job/view/{{ $job->id }}"> {{ $job->name }} </a></div>
-                            <div class="job-info">
-                                <span><i></i>Số lượng: {{ $job->number }}</span>
-                                <span><i></i>{{ $job->district }}, {{ $job->city }}</span>
-                                <span class="active"><i></i>Hạn nộp: {{ $job->expiration_date }}</span>
-                            </div>
-                            <span class="job-hot">HOT</span>
-                            <a target="_self" href="{{ url('/') }}/job/view/{{ $job->id }}" class="job-view">Chi tiết </a>
-                        </div>
-                    </div>
-                    @endforeach 
-                </div>
-            </div>
-        </div>
-        @endif
-        @if(count($jobs) > 0)
-        <div class="new-jobs row">
-            <div class="title clearfix"><span>Việc làm mới </span><i class="new"></i></div>
-            <div class="wrapper" id="wrapper3">
-                <div style="width: 100%;overflow: visible;display: inline-block;position: relative;">
-                    <?php $count = 0; ?>
-                    @foreach($jobs as $job)
-                    <?php 
-                        $count++;
-                    ?>
-                    <div class="row item-job job-list-<?php echo intval($count / 10); ?>">
-                        <div class="job-image">
-                            <div style="padding: 10%;"><img src="http://test.gmon.com.vn/?image={{ $job->logo }}" alt=""></div>
-                        </div>
-                        <div class="job-content">
-                            <div class="job-name"><a target="_self" href="{{ url('/') }}/job/view/{{ $job->id }}"> {{ $job->name }} </a></div>
-                            <div class="job-info">
-                                <span><i></i>Số lượng: {{ $job->number }}</span>
-                                <span><i></i>{{ $job->district }}, {{ $job->city }}</span>
-                                <span class="active"><i></i>Hạn nộp: {{ $job->expiration_date }}</span>
-                            </div>
-                            <span class="job-hot">HOT</span>
-                            <a target="_self" href="{{ url('/') }}/job/view/{{ $job->id }}" class="job-view">Chi tiết </a>
-                        </div>
-                    </div>
-                    @endforeach 
-                </div>
-            </div>
-        </div>
-        @endif
         @if(count($companies) > 0)
         <div class="new-employer row">
             <div class="title clearfix"><span>Nhà tuyển dụng mới</span> <i class="new"></i></div>
@@ -284,12 +165,60 @@
 
     <script type="text/javascript">
         var $i = 0;
-        $(window).scroll(function() {
-            if($(window).scrollTop() == $(document).height() - $(window).height()) {
-                   $i++;
-                   $('.job-list-' + $i).show();
+        var site_url = $('base').attr('href');
+        var $currentObj = 20;
+        var $numberGet = 20;
+        var $currentPossion = 0;
+        var $newPossion = 0;
+        var $loading = false;
+        $(window).scroll(function (event) {
+            var scroll = $(window).scrollTop();
+            $newPossion = scroll;
+            console.log($newPossion);
+            if($newPossion - $currentPossion > 880){
+                $currentPossion = $newPossion;
+                $('.mass-content').show();
+                $('.loader').show();
+                $currentPossion = $newPossion;
+                var request = $.ajax({
+                    url: "{{ URL::to('/') }}/getCompany/?start=" + $currentObj + "&number=" + $numberGet + "&<?php echo parse_url(url('/') . $_SERVER['REQUEST_URI'], PHP_URL_QUERY); ?>",
+                    method: "GET",
+                    dataType: "json"
+                });
+
+                request.done(function (msg) {
+                    $('.mass-content').hide();
+                    $('.loader').hide();
+                    if(msg['code'] == 200){
+                        var $html = '';
+                        $(msg['companies']).each(function( index ) {
+                            $html += '<div class="item-work" >';
+                                $html += '<div class="border-item">';
+                                    $html += '<a target="_self" href="' + site_url + '/company/'+ $(this)[0].id +'/info">';
+                                        $html += '<span class="icon-new"><img src="http://test.gmon.com.vn/?image=icon-new.png" alt=""></span>';
+                                        $html += '<p class="work-img"><img  src="http://test.gmon.com.vn/?image='+ $(this)[0].logo +'" alt="'+ $(this)[0].name +'"></p>';
+                                        $html += '<div class="details">';
+                                            $html += '<div class="single"><p>'+ $(this)[0].name +'</p></div>';
+                                            $html += '<div class="work-view">';
+                                                $html += '<p>Xem thêm &rsaquo;&rsaquo;</p>';
+                                            $html += '</div>';
+                                        $html += '</div>';
+                                    $html += '</a>';
+                                $html += '</div>';
+                            $html += '</div>';
+                        });
+                        $currentObj += $numberGet;
+                        $('#contents-employer').append($html);
+                        $loading = false;
+                    }
+                });
+
+                request.fail(function (jqXHR, textStatus) {
+                    alert("Request failed: " + textStatus);
+                });
             }
         });
+
         $(document).ready(function(){
             $('.item-job').show();
             $('.job-list-0').show();
