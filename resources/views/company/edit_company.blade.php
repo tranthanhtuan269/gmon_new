@@ -384,7 +384,10 @@
     $('.upload-logo-result').on('click', function (ev) {
         $uploadLogoCrop.croppie('result', {
             type: 'canvas',
-            size: 'viewport'
+            size: {
+                    width: 995,
+                    height: 350
+                }
         }).then(function (resp) {
 
             $.ajax({
