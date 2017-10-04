@@ -53,6 +53,7 @@ Route::group(['middleware' => 'auth'], function(){
     Route::post('curriculumvitae/update/{id}', 'CurriculumVitaeController@updateCurriculumVitae');
     Route::post('curriculumvitae/store', 'CurriculumVitaeController@storeCurriculumVitae');
     Route::post('/postImage', 'HomeController@postImage');
+    Route::post('/postImages', 'HomeController@postImages');
     Route::post('/curriculumvitae/send-comment', 'CurriculumVitaeController@sendcomment');
 });
 
@@ -62,6 +63,8 @@ Route::group(['middleware' => ['auth', 'roles'], 'roles' => 'poster'], function 
     Route::post('company/store', 'CompanyController@storeCompany');
     Route::get('company/create_v2', 'CompanyController@createCompany_v2');
     Route::post('company/store_v2', 'CompanyController@storeCompany_v2');
+    Route::get('company/editCompany', 'CompanyController@editCompany');
+    Route::post('company/update', 'CompanyController@updateCompany');
     Route::get('job/create', 'JobController@createJob');
     Route::post('job/store', 'JobController@storeJob');
     Route::post('/curriculumvitae/send-comment', 'CurriculumVitaeController@sendcomment');

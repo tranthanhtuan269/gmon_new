@@ -244,6 +244,24 @@ class HomeController extends Controller
         return \Response::json(array('code' => '404', 'message' => 'unsuccess', 'image_url' => ""));
     }
 
+    public function postImages(Request $request){
+        $picture = '';
+        $allPic = '';
+        if (count($request->files) > 0) {
+            $files = $request->files;
+            foreach ($files as $file) {
+                $filename = $file->getClientOriginalName();
+                $extension = $file->getClientOriginalExtension();
+                $picture = date('His') . $filename;
+                $allPic .= $picture . ';';
+                $destinationPath = base_path('../../images');
+                $file->move($destinationPath, $picture);
+            }
+            return \Response::json(array('code' => '200', 'message' => 'success', 'images_url' => $allPic));
+        }
+        return \Response::json(array('code' => '404', 'message' => 'unsuccess', 'images_url' => ""));
+    }
+
     public function showmore()
     {
         $company_id = -1;
