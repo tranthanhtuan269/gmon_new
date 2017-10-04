@@ -384,10 +384,7 @@
     $('.upload-logo-result').on('click', function (ev) {
         $uploadLogoCrop.croppie('result', {
             type: 'canvas',
-            size: {
-                    width: 995,
-                    height: 350
-                }
+            size: 'viewport'
         }).then(function (resp) {
 
             $.ajax({
@@ -453,7 +450,10 @@
     $('.upload-banner-result').on('click', function (ev) {
         $uploadBannerCrop.croppie('result', {
             type: 'canvas',
-            size: 'viewport'
+            size: {
+                    width: 995,
+                    height: 350
+                }
         }).then(function (resp) {
 
             $.ajax({
