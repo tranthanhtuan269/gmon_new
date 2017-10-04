@@ -450,10 +450,7 @@
     $('.upload-banner-result').on('click', function (ev) {
         $uploadBannerCrop.croppie('result', {
             type: 'canvas',
-            size: {
-                    width: 995,
-                    height: 350
-                }
+            size: 'viewport'
         }).then(function (resp) {
 
             $.ajax({
