@@ -123,15 +123,16 @@ class CompanyController extends Controller {
             $user_info = \Auth::user()->getUserInfo();
             $company_id = $user_info['company_id'];
             if($company_id > 0){
+                $company = Company::findOrFail($company_id);
                 $input = $request->all();
                 if ($input['description'] == null)
                     $input['description'] = '';
 
-                if($request['logo-image-field'] != ''){
-                    $input['logo'] = $request['logo-image-field'];
+                if(!isset($request['logo']) || $request['logo'] == ''){
+                    $input['logo'] = $company->logo;
                 }
-                if($request['banner-image-field'] != ''){
-                    $input['banner'] = $request['banner-image-field'];
+                if(!isset($request['banner']) || $request['banner'] == ''){
+                    $input['banner'] = $company->banner;
                 }
                 $input['images'] = $request['images-plus-field'];
                 $input['user'] = \Auth::user()->id;
@@ -140,7 +141,6 @@ class CompanyController extends Controller {
                 $input['phone'] = \Auth::user()->phone;
                 
                 // $company = Company::create($input);
-                $company = Company::findOrFail($company_id);
                 $company->update($input);
 
                 // remove all branches
