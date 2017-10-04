@@ -137,6 +137,20 @@ img.no-vote{
     left: 10px;
 }
 
+.remove-image-class{
+    display: block;
+    background: url(../images/remove.png);
+    background-size: 20px 20px;
+    background-repeat: no-repeat;
+    width: 20px;
+    height: 20px;
+    float: left;
+    position: relative;
+    top: 2px;
+    left: -20px;
+    z-index: 500;
+}
+
 .branch-class label{
     float: left;
 }
