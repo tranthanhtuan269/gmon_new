@@ -34,7 +34,7 @@
                 <div class="logo-company">
                     @if(isset($company->logo) && strlen($company->logo) > 0)
                     <a class="col-md-12 col-xs-12" target="_self" href="{{ url('/') }}/company/{{ $company->id }}/info">
-                        <img src="http://test.gmon.com.vn/?image={{ $company->logo }}" class="img-responsive" alt="http://test.gmon.com.vn/?image={{ $company->logo }}" style="width: 100%;height: 100%;margin-left: -20px;">
+                        <img src="http://test.gmon.com.vn/?image={{ $company->logo }}" class="img-responsive" alt="http://test.gmon.com.vn/?image={{ $company->logo }}">
                     </a>
                     @endif
                 </div>
