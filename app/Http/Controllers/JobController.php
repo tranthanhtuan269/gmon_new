@@ -18,6 +18,37 @@ class JobController extends Controller
      *
      * @return \Illuminate\View\View
      */
+
+    public $exp = array(
+            '0' => 'Không yêu cầu kinh nghiệm', 
+            '1' => '1 năm', 
+            '2' => '2 năm', 
+            '3' => '3 năm', 
+            '4' => '4 năm', 
+            '5' => '5 năm', 
+            '6' => 'Trên 5 năm', 
+        );
+
+    public $edu = array(
+            '0' => 'Không yêu cầu bằng cấp', 
+            '1' => 'Cử nhân', 
+            '2' => 'Kỹ sư', 
+            '3' => 'MBA', 
+            '4' => 'Thạc sĩ', 
+            '5' => 'Tiến sĩ', 
+            '6' => 'Chứng chỉ nghề', 
+        );
+
+    public $posi = array(
+            '0' => '--Chức vụ--', 
+            '1' => 'Nhân viên thời vụ', 
+            '2' => 'Nhân viên', 
+            '3' => 'Trưởng nhóm', 
+            '4' => 'Trưởng phòng', 
+            '5' => 'Phó giám đốc', 
+            '6' => 'Giám đốc', 
+        );
+
     public function index(Request $request)
     {
         $keyword = $request->get('search');
@@ -117,6 +148,44 @@ class JobController extends Controller
         $job = Job::findOrFail($id);
 
         return view('job.edit', compact('job'));
+    }
+
+    public function editJob($id)
+    {
+        $company_id = -1;
+        $cv_id = -1;
+        if (\Auth::check()) {
+            $user_info = \Auth::user()->getUserInfo();
+            $company_id = $user_info['company_id'];
+            $cv_id = $user_info['cv_id'];
+            $company_types = \DB::table('company_types')->get();
+
+            if($company_id > 0){
+                //load company info
+                $company = Company::find($company_id);
+                $job = Job::where('id', '=', $id)->where('company', '=', $company_id)->first();
+                if(isset($job)){
+                    $cities = \App\City::pluck('name', 'id');
+                    $districts = \App\District::where('city', '=', $company->city)->pluck('name', 'id');
+                    $towns = \App\Town::where('district', '=', $company->district)->pluck('name', 'id');
+                    $branches = \DB::table('branches')
+                                ->join('cities', 'cities.id', '=', 'branches.city')
+                                ->join('districts', 'districts.id', '=', 'branches.district')
+                                ->where('company', '=', $company_id)
+                                ->select('branches.id', 'branches.name as name_branch', 'branches.address as address_branch', 'cities.id as city_branch_id', 'cities.name as city_branch_name', 'districts.id as district_branch_id', 'districts.name as district_branch_name')
+                                ->get();
+
+                    $experience = $this->exp;
+                    $education = $this->edu;
+                    $position = $this->posi;
+                    $jobstype = \App\JobType::pluck('name', 'id');
+                    $salaries = \App\Salary::pluck('name', 'id');
+                    return view('job.edit_job', compact('company_id', 'cv_id', 'position', 'experience', 'education', 'jobstype', 'salaries', 'company', 'job', 'cities', 'districts', 'towns', 'branches'));
+                }
+            }
+        }
+
+        return view('errors.404');
     }
 
     /**

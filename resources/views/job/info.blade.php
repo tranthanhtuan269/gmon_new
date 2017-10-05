@@ -202,6 +202,12 @@
                         <a id="join-btn" target="_self" href="javascript:void(0)" class="btn btn-primary bt-join" data-id="{{ $job->id }}" @if($applied == 0)style="display:inline-block;" @else style="display:none;"@endif>Ứng tuyển ngay</a><a id="joined-btn" target="_self" href="javascript:void(0)" class="btn btn-danger bt-joined" data-id="{{ $job->id }}" @if($applied == 0)style="display:none;" @else style="display:inline-block;"@endif>Đã ứng tuyển</a>
                     </div>
                 </div>
+                @elseif($company->id == $company_id)
+                <div class="row" id="join-now">
+                    <div class="col-md-12 col-xs-12">
+                        <a href="{{ url('/') }}/job/{{ $job->id }}/editJob" class="btn btn-primary bt-join">Sửa Việc</a>
+                    </div>
+                </div>
                 @else
                 @endif
             </div>
