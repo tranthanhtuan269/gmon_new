@@ -485,7 +485,7 @@ class CompanyController extends Controller {
         return view('errors.404');
     }
 
-    public function showslug($id, $slug) {
+    public function showslug($id, $slug = null) {
         $company_id = -1;
         $cv_id = -1;
         if (\Auth::check()) {
