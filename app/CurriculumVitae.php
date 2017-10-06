@@ -41,4 +41,31 @@ class CurriculumVitae extends \Eloquent
     public function User() {
         return $this->belongsTo(\App\User::class);
     }
+
+    public function getCV($district, $city, $from, $number_get){
+        $sql = "SELECT 
+                    curriculum_vitaes.id, 
+                    users.name,
+                    curriculum_vitaes.birthday, 
+                    curriculum_vitaes.avatar, 
+                    curriculum_vitaes.school
+                FROM 
+                    curriculum_vitaes ";
+        $sql .= "JOIN 
+                    users ON users.id = curriculum_vitaes.user ";
+        $sql .= "WHERE 
+                    1 = 1 ";
+        if($city > 0 && $city != 1000){
+            if($district > 0){
+                $sql .= " AND curriculum_vitaes.district = $district";
+            }else{
+                $sql .= " AND curriculum_vitaes.city = $city";
+            }
+        }else if($city == 1000){
+            $sql .= " AND curriculum_vitaes.city NOT IN (1, 2, 3)";
+        }
+        $sql .= " ORDER BY curriculum_vitaes.id DESC";
+        $sql .= " LIMIT $from, $number_get";
+        return \DB::select($sql);
+    }
 }

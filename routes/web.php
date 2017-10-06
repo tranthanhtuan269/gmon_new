@@ -25,6 +25,7 @@ Route::post('auth/register', 'SiteController@registerApi');
 Route::get('curriculumvitae', 'CurriculumVitaeController@indexCurriculumVitae');
 Route::get('curriculumvitae/view/{id}', 'CurriculumVitaeController@showCurriculumVitae');
 Route::get('/job/view/{id}', 'JobController@info');
+
 Route::post('/job/join', 'JobController@join');
 Route::get('company/{id}/info', 'CompanyController@info');
 Route::get('company/{id}', 'CompanyController@showslug');
@@ -40,6 +41,10 @@ Route::get('/city/{id}/{slug}', 'CityController@getAllSlug');
 Route::get('/district/{id}', 'DistrictController@getAll');
 Route::get('/district/{id}/{slug}', 'DistrictController@getAllSlug');
 Route::post('ajaxpro', 'HomeController@ajaxpro');
+
+Route::get('/getJob/', 'JobController@getJob');
+Route::get('/getCompany/', 'CompanyController@getCompany');
+Route::get('/getCV/', 'CurriculumVitaeController@getCV');
 
 Route::group(['middleware' => 'auth'], function(){
 
