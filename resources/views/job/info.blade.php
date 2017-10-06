@@ -205,7 +205,7 @@
                 @elseif($company->id == $company_id)
                 <div class="row" id="join-now">
                     <div class="col-md-12 col-xs-12">
-                        <a href="{{ url('/') }}/job/{{ $job->id }}/editJob" class="btn btn-primary bt-join">Sửa Việc</a>
+                        <a href="{{ url('/') }}/job/{{ $job->id }}/editJob" class="btn btn-primary">Sửa Việc</a>
                     </div>
                 </div>
                 @else

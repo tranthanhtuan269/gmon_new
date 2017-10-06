@@ -196,20 +196,51 @@ class JobController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function update($id, Request $request)
+    public function updateJob($id, Request $request)
     {
-        $this->validate($request, [
-			'name' => 'required',
-			'company' => 'required'
-		]);
-        $requestData = $request->all();
-        
-        $job = Job::findOrFail($id);
-        $job->update($requestData);
+        $company_id = -1;
+        if (\Auth::check()) {
+            $user_info = \Auth::user()->getUserInfo();
+            $company_id = $user_info['company_id'];
+            if($company_id > 0){
+                $job = Job::findOrFail($id);
+                $input = $request->all();
+                if ($input['description'] == null) {
+                    $input['description'] = $job->description;
+                }
+                if ($input['requirement'] == null) {
+                    $input['requirement'] = $job->requirement;
+                }
+                if ($input['benefit'] == null) {
+                    $input['benefit'] = $job->benefit;
+                }
+                if ($input['number'] == null) {
+                    $input['number'] = $job->number;
+                }
+                if ($input['expiration_date'] == null) {
+                    $input['expiration_date'] = date("Y-m-d H:i:s");
+                }
+                if (!isset($input['job_type']) || $input['job_type'] == null) {
+                    $input['job_type'] = 1;
+                }
+                if (isset($input['work_type']) || $input['work_type'] == null) {
+                    $input['work_type'] = 0;
+                }
+                $input['work_time'] = date("Y-m-d H:i:s");
+                $input['created_at'] = date("Y-m-d H:i:s");
+                $input['updated_at'] = date("Y-m-d H:i:s");
+                $input['public'] = 1;
+                $current_id = \Auth::user()->id;
 
-        Session::flash('flash_message', 'Job updated!');
+                if ($job->update($input)) {
+                    return redirect()->action(
+                            'JobController@info', ['id' => $job->id]
+                        );
+                }
+            }
+        }
 
-        return redirect('admin/job');
+        return redirect()->back();
     }
 
     /**
