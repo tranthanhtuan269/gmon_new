@@ -347,3 +347,8 @@ img.no-vote{
 .show-curriculum-vitae-page .panel-body li{
     margin: 0 0 0 15px;
 }
+
+.panel-heading h1{
+    font-size: 20px;
+    margin: 0;
+}

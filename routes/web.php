@@ -71,6 +71,8 @@ Route::group(['middleware' => ['auth', 'roles'], 'roles' => 'poster'], function 
     Route::post('company/store_v2', 'CompanyController@storeCompany_v2');
     Route::get('job/create', 'JobController@createJob');
     Route::post('job/store', 'JobController@storeJob');
+    Route::get('job/{id}/editJob', 'JobController@editJob');
+    Route::post('job/{id}/update', 'JobController@updateJob');
     Route::post('/curriculumvitae/send-comment', 'CurriculumVitaeController@sendcomment');
     Route::get('company/{id}/view01', 'CompanyController@view01');
     Route::get('company/{id}/view02', 'CompanyController@view02');

@@ -6,7 +6,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="panel panel-default">
-                <div class="panel-heading">Sửa trang công ty</div>
+                <div class="panel-heading"><h1>Sửa trang công ty</h1></div>
                 <div class="panel-body">
                     @if ($errors->any())
                     <ul class="alert alert-danger">
