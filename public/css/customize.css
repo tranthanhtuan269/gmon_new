@@ -368,3 +368,8 @@ h1.obj-name{
 .modal{
     z-index: 10000;
 }
+
+.panel-heading h1{
+    font-size: 20px;
+    margin: 0;
+}

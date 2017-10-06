@@ -25,7 +25,7 @@ Route::post('auth/register', 'SiteController@registerApi');
 Route::get('curriculumvitae', 'CurriculumVitaeController@indexCurriculumVitae');
 Route::get('curriculumvitae/view/{id}', 'CurriculumVitaeController@showCurriculumVitae');
 Route::get('/job/view/{id}', 'JobController@info');
-Route::get('/job/{id}', 'JobController@showslug');
+// Route::get('/job/{id}', 'JobController@showslug');
 Route::get('/job/{id}/{slug}', 'JobController@showslug');
 Route::post('/job/join', 'JobController@join');
 Route::get('company/{id}/info', 'CompanyController@info');
@@ -61,14 +61,16 @@ Route::group(['middleware' => 'auth'], function(){
 
 // Check role in route middleware
 Route::group(['middleware' => ['auth', 'roles'], 'roles' => 'poster'], function () {
+    Route::get('job/create', 'JobController@createJob');
+    Route::post('job/store', 'JobController@storeJob');
     Route::get('company/create', 'CompanyController@createCompany');
     Route::post('company/store', 'CompanyController@storeCompany');
     Route::get('company/create_v2', 'CompanyController@createCompany_v2');
     Route::post('company/store_v2', 'CompanyController@storeCompany_v2');
     Route::get('company/editCompany', 'CompanyController@editCompany');
     Route::post('company/update', 'CompanyController@updateCompany');
-    Route::get('job/create', 'JobController@createJob');
-    Route::post('job/store', 'JobController@storeJob');
+    Route::get('job/{id}/editJob', 'JobController@editJob');
+    Route::post('job/{id}/update', 'JobController@updateJob');
     Route::post('/curriculumvitae/send-comment', 'CurriculumVitaeController@sendcomment');
     Route::get('company/{id}/view01', 'CompanyController@view01');
     Route::get('company/{id}/view02', 'CompanyController@view02');
