@@ -8,7 +8,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="panel panel-default">
-                <div class="panel-heading"><h1>Đăng tin tuyển dụng</h1></div>
+                <div class="panel-heading"><h1>Sửa tin tuyển dụng</h1></div>
                 <div class="panel-body">
                     @if ($errors->any())
                     <ul class="alert alert-danger">
