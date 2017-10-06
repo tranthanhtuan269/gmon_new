@@ -47,6 +47,8 @@ Route::post('unfollow-company', 'CompanyController@unfollow');
 Route::get('support', 'HomeController@support');
 Route::post('ajaxpro', 'HomeController@ajaxpro');
 
+Route::get('sendemail', 'HomeController@sendemail');
+
 Route::group(['middleware' => 'auth'], function(){
 
     Route::post('send-comment', 'CompanyController@sendcomment');
