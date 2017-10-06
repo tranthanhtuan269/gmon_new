@@ -347,7 +347,7 @@ class JobController extends Controller
         return view('errors.404');
     }
 
-    public function showslug($id, $slug){
+    public function showslug($id, $slug = null){
 
         $job_selected = Job::find($id);
         $job_selected->views = $job_selected->views + 1;
