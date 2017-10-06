@@ -1070,4 +1070,31 @@ class HomeController extends Controller
         }
         return \Response::json(array('code' => '404', 'message' => 'unsuccess', 'image_url' => ""));
     }
+
+    public function updateSlug(){
+        $companies = \App\Company::select('id')->get();
+        foreach($companies as $c){
+            $company = \App\Company::find($c->id);
+            $company->slug = null;
+            $company->save();
+        }
+        $jobs = \App\Job::select('id')->get();
+        foreach($jobs as $j){
+            $job = \App\Job::find($j->id);
+            $job->slug = null;
+            $job->save();
+        }
+        $cities = \App\City::select('id')->get();
+        foreach($cities as $ci){
+            $city = \App\City::find($ci->id);
+            $city->slug = null;
+            $city->save();
+        }
+        $districts = \App\District::select('id')->get();
+        foreach($districts as $di){
+            $district = \App\District::find($di->id);
+            $district->slug = null;
+            $district->save();
+        }
+    }
 }

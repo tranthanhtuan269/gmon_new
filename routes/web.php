@@ -49,6 +49,8 @@ Route::post('ajaxpro', 'HomeController@ajaxpro');
 
 Route::get('sendemail', 'HomeController@sendemail');
 
+Route::get('/updateSlug', 'HomeController@updateSlug');
+
 Route::group(['middleware' => 'auth'], function(){
 
     Route::post('send-comment', 'CompanyController@sendcomment');
