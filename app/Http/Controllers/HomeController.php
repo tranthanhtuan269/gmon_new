@@ -747,7 +747,7 @@ class HomeController extends Controller
         }
         $companyTypes = \App\CompanyType::select('id')->get();
         foreach($companyTypes as $ct){
-            $companyType = \App\CompanyType::find($jt->id);
+            $companyType = \App\CompanyType::find($ct->id);
             $companyType->slug = null;
             $companyType->save();
         }
