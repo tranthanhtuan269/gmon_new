@@ -285,7 +285,7 @@
                             <img src="http://test.gmon.com.vn/?image={{ $company->banner }}" alt=""  width="350" height="180"  />
                         </div>
                         <div class="title">
-                            <a href="{{ url('/') }}/company/{{ $company->id }}/info">{{ $company->name }}</a>
+                            <a href="{{ url('/') }}/company/{{ $company->id }}/{{ $company->slug }}">{{ $company->name }}</a>
                         </div>
                     </div>
                     @endforeach
@@ -472,35 +472,35 @@
                 <h3>Xem các công việc quanh bạn, tìm kiếm công việc gần nhà</h3>
                 <div class="list-job-3 row">
                     <div class="item col-md-3">
-                        <div class="image"><a href="{{ url('/') }}/home?city=1">
+                        <div class="image"><a href="{{ url('/') }}/city/1/ha-noi">
                             <img src="http://test.gmon.com.vn/?image=khu_vuc1.jpg" alt="" /></a>
                         </div>
                         <div class="title">
-                            <a href="{{ url('/') }}/home?city=1">Hà Nội</a>
+                            <a href="{{ url('/') }}/city/1/ha-noi">Hà Nội</a>
                         </div>
                     </div>
                     <div class="item col-md-3">
-                        <div class="image"><a href="{{ url('/') }}/home?city=3">
+                        <div class="image"><a href="{{ url('/') }}/city/3/da-nang">
                             <img src="http://test.gmon.com.vn/?image=khu_vuc2.jpg" alt="" /></a>
                         </div>
                         <div class="title">
-                            <a href="{{ url('/') }}/home?city=3">Đà Nẵng</a>
+                            <a href="{{ url('/') }}/city/3/da-nang">Đà Nẵng</a>
                         </div>
                     </div>
                     <div class="item col-md-3">
-                        <div class="image"><a href="{{ url('/') }}/home?city=2">
+                        <div class="image"><a href="{{ url('/') }}/city/2/ho-chi-minh">
                             <img src="http://test.gmon.com.vn/?image=khu_vuc3.jpg" alt="" /></a>
                         </div>
                         <div class="title">
-                            <a href="{{ url('/') }}/home?city=2">Hồ Chí Minh</a>
+                            <a href="{{ url('/') }}/city/2/ho-chi-minh">Hồ Chí Minh</a>
                         </div>
                     </div>
                     <div class="item col-md-3">
                         <div class="image">
-                            <a href="{{ url('/') }}/home?city=other"><img src="http://test.gmon.com.vn/?image=khu_vuc4.jpg" alt="" /></a>
+                            <a href="{{ url('/') }}/city/1000/other"><img src="http://test.gmon.com.vn/?image=khu_vuc4.jpg" alt="" /></a>
                         </div>
                         <div class="title">
-                            <a href="{{ url('/') }}/home?city=other">Khu vực khác</a>
+                            <a href="{{ url('/') }}/city/1000/other">Khu vực khác</a>
                         </div>
                     </div>
                 </div>

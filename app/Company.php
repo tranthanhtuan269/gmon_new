@@ -56,6 +56,7 @@ class Company extends Model
                     companies.id, 
                     companies.name, 
                     companies.logo, 
+                    companies.slug, 
                     companies.sologan
                 FROM 
                     companies ";

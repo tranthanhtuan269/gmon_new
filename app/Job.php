@@ -38,7 +38,8 @@ class Job extends Model
     {
         return [
             'slug' => [
-                'source' => 'name'
+                'source' => ['name', 'id'],
+                'separator' => '_'
             ]
         ];
     }
@@ -53,6 +54,7 @@ class Job extends Model
                     jobs.views as views, 
                     jobs.applied AS applied, 
                     jobs.expiration_date AS expiration_date, 
+                    jobs.slug, 
                     salaries.name AS salary, companies.logo, 
                     companies.name AS companyname, 
                     cities.name AS city, 

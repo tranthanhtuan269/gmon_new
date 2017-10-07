@@ -199,14 +199,14 @@
                             <div style="padding: 10%;"><img src="http://test.gmon.com.vn/?image={{ $company->logo }}" alt=""></div>
                         </div>
                         <div class="job-content">
-                            <div class="job-name"><a target="_self" href="{{ url('/') }}/job/view/{{ $job->id }}"> {{ $job->name }} </a></div>
+                            <div class="job-name"><a target="_self" href="{{ url('/') }}/job/{{ $job->id }}/{{ $job->slug }}"> {{ $job->name }} </a></div>
                             <div class="job-info">
                                 <span><i></i>Số lượng: {{ $job->number }}</span>
                                 <span><i></i>Cầu Giấy, Ba Đình</span>
                                 <span class="active"><i></i>Hạn nộp: {{ $job->expiration_date }}</span>
                             </div>
                             <span class="job-hot">HOT</span>
-                            <a target="_self" href="{{ url('/') }}/job/view/{{ $job->id }}" class="job-view">Chi tiết </a>
+                            <a target="_self" href="{{ url('/') }}/job/{{ $job->id }}/{{ $job->slug }}" class="job-view">Chi tiết </a>
                         </div>
                     </div>
                     @endforeach

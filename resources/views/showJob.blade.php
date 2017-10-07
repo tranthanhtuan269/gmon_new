@@ -33,11 +33,11 @@
                                     <button class="submit visible-xs search-btn" style="width: auto;border:1px solid #EBEAEA;padding:5px 7px;height: auto;margin:auto;margin-top: 10px;background-color: #F5F5F5;color:#A8A8A8;border-radius: 4px">Tìm kiếm</button>
                                 </form>
                                 <div class="city">
-                                    <a target="_self" href="{{ url('/') }}/home?city=1">Hà Nội</a>
-                                    <a target="_self" href="{{ url('/') }}/home?city=2">TP HCM</a>
-                                    <a target="_self" href="{{ url('/') }}/home?city=3">Đà Nẵng</a>
-                                    <a target="_self" href="{{ url('/') }}/home?city=4">Hải Phòng</a>
-                                    <a target="_self" href="{{ url('/') }}/home?city=14">Bình Dương</a>
+                                    <a target="_self" href="{{ url('/') }}/city/1/ha-noi">Hà Nội</a>
+                                    <a target="_self" href="{{ url('/') }}/city/2/ho-chi-minh">TP HCM</a>
+                                    <a target="_self" href="{{ url('/') }}/city/3/da-nang">Đà Nẵng</a>
+                                    <a target="_self" href="{{ url('/') }}/city/4/hai-phong">Hải Phòng</a>
+                                    <a target="_self" href="{{ url('/') }}/city/14/binh-duong">Bình Dương</a>
                                 </div>
                             </div>
                             <div class="col-md-3 clearfix">
@@ -100,7 +100,7 @@
                     @foreach($jobs as $job)
                     <li class="list-item">
                         <div class="img-item">
-                            <a href="{{ url('/') }}/job/view/{{ $job->id }}">
+                            <a href="{{ url('/') }}/job/{{ $job->id }}/{{ $job->slug }}">
                                 <span class="wp-avatar">
                                     
                                         <img src="http://test.gmon.com.vn/?image={{ $job->logo }}" alt="">
@@ -110,7 +110,7 @@
                         </div>
 
                         <div class="content-item">
-                            <a href="{{ url('/') }}/job/view/{{ $job->id }}"><h4>{{ $job->name }}</h4></a>
+                            <a href="{{ url('/') }}/job/{{ $job->id }}/{{ $job->slug }}"><h4>{{ $job->name }}</h4></a>
                             <p>
                                 <span>Mức lương: </span><span class="grey-color">{{ $job->salary }}</span>
                             </p>
@@ -144,7 +144,7 @@
                     <ul>
                         @foreach($jobsvip as $jobvip)
                         <li>
-                            <a href="{{ url('/') }}/job/view/{{ $job->id }}">
+                            <a href="{{ url('/') }}/job/{{ $job->id }}/{{ $job->slug }}">
                             <span class="wp-avatar-mini">
                                 <img src="http://test.gmon.com.vn/?image={{ $jobvip->logo }}" alt="">
                             </span>
@@ -190,11 +190,11 @@
                         foreach($companies as $company){
                             if($count == 0){
                             ?>
-                        <li class="item-logo"><a href=""><img src="http://test.gmon.com.vn/?image={{ $company->logo }}" alt=""></a></li>
+                        <li class="item-logo"><a href="{{ url('/') }}/company/{{ $company->id }}/{{ $company->slug }}"><img src="http://test.gmon.com.vn/?image={{ $company->logo }}" alt="http://test.gmon.com.vn/?image={{ $company->logo }}"></a></li>
                         <?php
                             }else{
                             ?>
-                        <li><a href="{{ url('/') }}/company/{{ $company->id }}/info"><img src="http://test.gmon.com.vn/?image={{ $company->logo }}" alt=""></a></li>
+                        <li><a href="{{ url('/') }}/company/{{ $company->id }}/{{ $company->slug }}"><img src="http://test.gmon.com.vn/?image={{ $company->logo }}" alt="http://test.gmon.com.vn/?image={{ $company->logo }}"></a></li>
                         <?php 
                             }
                             $count++;
@@ -237,7 +237,7 @@
                         $(msg['jobs']).each(function( index ) {
                             $html += '<li class="list-item">';
                                 $html += '<div class="img-item">';
-                                    $html += '<a href="' + site_url + '/job/view/'+ $(this)[0].id +'">';
+                                    $html += '<a href="' + site_url + '/job/'+ $(this)[0].id +'/'+ $(this)[0].slug +'">';
                                         $html += '<span class="wp-avatar">';
                                                 $html += '<img src="http://test.gmon.com.vn/?image='+ $(this)[0].logo +'" alt="">';
                                         $html += '</span>';
@@ -245,7 +245,7 @@
                                 $html += '</div>';
 
                                 $html += '<div class="content-item">';
-                                    $html += '<a href="' + site_url + '/job/view/'+ $(this)[0].id +'"><h4>'+ $(this)[0].name +'</h4></a>';
+                                    $html += '<a href="' + site_url + '/job/'+ $(this)[0].id +'/'+ $(this)[0].slug +'"><h4>'+ $(this)[0].name +'</h4></a>';
                                     $html += '<p>';
                                         $html += '<span>Mức lương: </span><span class="grey-color">'+ $(this)[0].salary +'</span>';
                                     $html += '</p>';

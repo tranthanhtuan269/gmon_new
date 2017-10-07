@@ -447,6 +447,104 @@ class JobController extends Controller
         return view('errors.404');
     }
 
+    public function getSlug($id, $slug = ''){
+
+        $job_selected = Job::find($id);
+        $job_selected->views = $job_selected->views + 1;
+        $job_selected->save();
+
+        $company_id = -1;
+        $cv_id = -1;
+        $applied = 0;
+        if (\Auth::check()) {
+            $user_info = \Auth::user()->getUserInfo();
+            $company_id = $user_info['company_id'];
+            $cv_id = $user_info['cv_id'];
+            $current_id = $user_info['user_id'];
+            
+            $apply_check = \DB::table('applies')
+                    ->where('applies.user', $current_id)
+                    ->where('applies.job', $id)
+                    ->select(
+                        'id'
+                    )
+                    ->first();
+            
+            if($apply_check){
+                $applied = 1;
+            }
+        }
+        
+        $job = \DB::table('jobs')
+                ->join('salaries', 'salaries.id', '=', 'jobs.salary')
+                ->select(
+                        'jobs.id',
+                        'jobs.name',
+                        'jobs.description',
+                        'jobs.required',
+                        'jobs.requirement',
+                        'jobs.benefit',
+                        'jobs.number',
+                        'jobs.company',
+                        'jobs.expiration_date',
+                        'jobs.job_type',
+                        'jobs.gender',
+                        'jobs.branches',
+                        'salaries.name as salary'
+                )
+                ->where('jobs.id', $id)
+                ->first();
+        if($job && $job->company){
+            $company = \DB::table('companies')
+                ->join('cities', 'cities.id', '=', 'companies.city')
+                ->join('districts', 'districts.id', '=', 'companies.district')
+                ->join('towns', 'towns.id', '=', 'companies.town')
+                ->join('company_sizes', 'company_sizes.id', '=', 'companies.size')
+                ->select(
+                        'companies.id', 
+                        'companies.name', 
+                        'companies.logo', 
+                        'companies.address', 
+                        'cities.name as city', 
+                        'districts.name as district', 
+                        'towns.name as town', 
+                        'companies.jobs', 
+                        'company_sizes.size as size', 
+                        'companies.sologan', 
+                        'companies.description',
+                        'companies.site_url',
+                        'companies.images'
+                )
+                ->where('companies.id', $job->company)
+                ->first();
+            $branches = [];
+            if($company){
+                $branches = \DB::table('branches')
+                            ->join('cities', 'cities.id', '=', 'branches.city')
+                            ->where('company', $company->id)
+                            ->select(
+                                'branches.city', 
+                                'cities.name as city'
+                            )
+                            ->distinct()
+                            ->get();
+            }
+
+            $job_relatives = \DB::table('jobs')
+                                ->join('companies', 'companies.id', '=', 'jobs.company')
+                                ->join('salaries', 'salaries.id', '=', 'jobs.salary')
+                                ->join('cities', 'cities.id', '=', 'companies.city')
+                                ->join('districts', 'districts.id', '=', 'companies.district')
+                                ->where('jobs.job_type', '=', $job->job_type)
+                                ->select('jobs.id as id', 'jobs.name as name', 'salaries.name as salary', 'companies.logo', 'companies.name as companyname', 'cities.name as city', 'districts.name as district')
+                                ->orderBy('jobs.created_at', 'desc')
+                                ->take(12)
+                                ->get();
+            return view('job.info', compact('job', 'company', 'company_id', 'cv_id', 'applied', 'branches', 'job_relatives'));
+        }
+        return view('errors.404');
+    }
+
     public function join(Request $request){
         if (\Auth::check()) {
             $current_id = \Auth::user()->id;

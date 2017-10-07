@@ -33,11 +33,11 @@
                                     <button class="submit visible-xs search-btn" style="width: auto;border:1px solid #EBEAEA;padding:5px 7px;height: auto;margin:auto;margin-top: 10px;background-color: #F5F5F5;color:#A8A8A8;border-radius: 4px">Tìm kiếm</button>
                                 </form>
                                 <div class="city">
-                                    <a target="_self" href="{{ url('/') }}/home?city=1">Hà Nội</a>
-                                    <a target="_self" href="{{ url('/') }}/home?city=2">TP HCM</a>
-                                    <a target="_self" href="{{ url('/') }}/home?city=3">Đà Nẵng</a>
-                                    <a target="_self" href="{{ url('/') }}/home?city=4">Hải Phòng</a>
-                                    <a target="_self" href="{{ url('/') }}/home?city=14">Bình Dương</a>
+                                    <a target="_self" href="{{ url('/') }}/city/1/ha-noi">Hà Nội</a>
+                                    <a target="_self" href="{{ url('/') }}/city/2/ho-chi-minh">TP HCM</a>
+                                    <a target="_self" href="{{ url('/') }}/city/3/da-nang">Đà Nẵng</a>
+                                    <a target="_self" href="{{ url('/') }}/city/4/hai-phong">Hải Phòng</a>
+                                    <a target="_self" href="{{ url('/') }}/city/14/binh-duong">Bình Dương</a>
                                 </div>
                             </div>
                             <div class="col-md-3 clearfix">
@@ -95,7 +95,7 @@
                         @foreach($companies as $company)
                         <div class="item-work" >
                             <div class="border-item">
-                                <a target="_self" href="{{ url('/') }}/company/{{ $company->id }}/info">
+                                <a target="_self" href="{{ url('/') }}/company/{{ $company->id }}/{{ $company->slug }}">
                                     <span class="icon-new"><img src="http://test.gmon.com.vn/?image=icon-new.png" alt=""></span>
                                     <p class="work-img"><img  src="http://test.gmon.com.vn/?image={{ $company->logo }}" alt=""></p>
                                     <div class="details">
@@ -194,7 +194,7 @@
                         $(msg['companies']).each(function( index ) {
                             $html += '<div class="item-work" >';
                                 $html += '<div class="border-item">';
-                                    $html += '<a target="_self" href="' + site_url + '/company/'+ $(this)[0].id +'/info">';
+                                    $html += '<a target="_self" href="' + site_url + '/company/'+ $(this)[0].id +'/'+ $(this)[0].slug +'">';
                                         $html += '<span class="icon-new"><img src="http://test.gmon.com.vn/?image=icon-new.png" alt=""></span>';
                                         $html += '<p class="work-img"><img  src="http://test.gmon.com.vn/?image='+ $(this)[0].logo +'" alt="'+ $(this)[0].name +'"></p>';
                                         $html += '<div class="details">';
