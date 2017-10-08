@@ -45,7 +45,7 @@ class CurriculumVitae extends \Eloquent
     public function getCV($district, $city, $from, $number_get){
         $sql = "SELECT 
                     curriculum_vitaes.id, 
-                    users.name,
+                    users.name as username,
                     curriculum_vitaes.birthday, 
                     curriculum_vitaes.avatar, 
                     curriculum_vitaes.school
