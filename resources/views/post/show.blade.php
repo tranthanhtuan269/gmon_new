@@ -17,6 +17,9 @@
             <p>
             <div class="description">
                 <?php echo str_replace("/public/templateEditor/kcfinder/upload/images/","http://gmon.vn/public/templateEditor/kcfinder/upload/images/",$post->description); ?>
+                @if(isset($post->youtube_link) && strlen($post->youtube_link) > 1)
+                    <iframe width="560" height="315" src="{{ str_replace('watch?v=','embed/',$post->youtube_link) }}" frameborder="0" allowfullscreen></iframe>
+                @endif
             </div>
         </div>
         <div class="bottom-content row" style="display: none">

@@ -25,9 +25,6 @@
             <div class="sub-description">
                 <?php echo $post->sub_description; ?><a href="{{ url('/') }}/post/{{ $post->id }}/{{ $post->slug }}">Xem thêm</a>
             </div>
-            <div class="description" style="display: none;">
-                <?php echo str_replace("/public/templateEditor/kcfinder/upload/images/","http://gmon.vn/public/templateEditor/kcfinder/upload/images/",$post->description); ?>
-            </div>
             </p>
             <div class="images">
                 <img src="http://test.gmon.com.vn/?image={{ $post->image }}" alt="" />
