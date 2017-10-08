@@ -96,7 +96,11 @@
                 <div class="item-u" >
                     <a target="_self" href="{{ url('/') }}/curriculumvitae/view/{{ $cv->id }}" onmouseenter="onFocusCandidates(event)" onmouseleave ="onDisFocusCandidates(event)">
                         @if(strlen($cv->avatar) > 0)
-                        <div class="img"><img src="http://test.gmon.com.vn/?image={{ $cv->avatar }}" alt=""></div>
+                            @if (strpos($curriculumvitae->avatar, 'https') !== false)
+                                <img src="{{ $cv->avatar }}" alt="{{ $cv->avatar }}">
+                            @else
+                                <img src="http://test.gmon.com.vn/?image={{ $cv->avatar }}" alt="{{ $cv->avatar }}">
+                            @endif
                         @else
                         <div class="img"><img src="http://test.gmon.com.vn/?image=avatar.png" alt=""></div>
                         @endif
@@ -106,7 +110,11 @@
                             <div class="info">
                                 <div class="sub-img"><div class="border">
                                         @if(strlen($cv->avatar) > 0)
-                                        <img src="http://test.gmon.com.vn/?image={{ $cv->avatar }}" alt="">
+                                            @if (strpos($curriculumvitae->avatar, 'https') !== false)
+                                                <img src="{{ $cv->avatar }}" alt="{{ $cv->avatar }}">
+                                            @else
+                                                <img src="http://test.gmon.com.vn/?image={{ $cv->avatar }}" alt="{{ $cv->avatar }}">
+                                            @endif
                                         @else
                                         <img src="http://test.gmon.com.vn/?image=avatar.png" alt="">
                                         @endif
@@ -207,7 +215,7 @@
                         $(msg['cvs']).each(function( index ) {
                             $html += '<div class="item-u" >';
                                 $html += '<a target="_self" href="' + site_url + '/curriculumvitae/view/{{ $cv->id }}" onmouseenter="onFocusCandidates(event)" onmouseleave ="onDisFocusCandidates(event)">';
-                                    if($(this)[0].avatar.length > 0){
+                                    if(isset($(this)[0].avatar) && $(this)[0].avatar.length > 0){
                                     $html += '<div class="img"><img src="http://test.gmon.com.vn/?image='+ $(this)[0].avatar + '" alt=""></div>';
                                     }else{
                                     $html += '<div class="img"><img src="http://test.gmon.com.vn/?image=avatar.png" alt=""></div>';
@@ -221,7 +229,7 @@
                                     $html += '<div class="view">';
                                         $html += '<div class="info">';
                                             $html += '<div class="sub-img"><div class="border">';
-                                                    if($(this)[0].avatar.length > 0){
+                                                    if(isset($(this)[0].avatar) && $(this)[0].avatar.length > 0){
                                                     $html += '<img src="http://test.gmon.com.vn/?image='+ $(this)[0].avatar +'" alt="'+ $(this)[0].name +'">';
                                                     }else{
                                                     $html += '<img src="http://test.gmon.com.vn/?image=avatar.png" alt="'+ $(this)[0].username +'">';
