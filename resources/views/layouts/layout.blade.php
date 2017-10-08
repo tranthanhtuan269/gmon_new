@@ -31,7 +31,37 @@
 
           gtag('config', 'UA-106844998-1');
         </script>
-
+        <div class="mass-content">
+            <div class="loader"></div>
+        </div>
+        <style type="text/css">
+            .mass-content{
+                width: 100%;
+                height: 100%;
+                position: fixed;
+                background-color:rgba(0, 0, 0, 0.5);
+                z-index: 1;
+                display: none;
+            }
+            .loader {
+                z-index: 10000;
+                border: 16px solid #f3f3f3; /* Light grey */
+                border-top: 16px solid #3498db; /* Blue */
+                border-bottom: 16px solid #3498db; /* Blue */
+                border-radius: 50%;
+                width: 120px;
+                height: 120px;
+                animation: spin 1s linear infinite;
+                position: absolute;
+                top: 50%;
+                left: 45%;
+                display: none;
+            }
+            @keyframes spin {
+                0% { transform: rotate(0deg); }
+                100% { transform: rotate(360deg); }
+            }
+        </style>
         <header>
             <div class="header-top clearfix">
                 <nav class="navbar navbar-default">
