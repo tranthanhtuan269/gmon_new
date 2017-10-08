@@ -215,6 +215,7 @@
                     if(msg['code'] == 200){
                         var $html = '';
                         $(msg['cvs']).each(function( index ) {
+                            console.log($(this)[0].avatar);
                             $html += '<div class="item-u" >';
                                 $html += '<a target="_self" href="' + site_url + '/curriculumvitae/view/{{ $cv->id }}" onmouseenter="onFocusCandidates(event)" onmouseleave ="onDisFocusCandidates(event)">';
                                     if(typeof $(this)[0].avatar != 'undefined' && $(this)[0].avatar.length > 0){
