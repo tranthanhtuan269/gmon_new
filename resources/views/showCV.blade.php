@@ -1,7 +1,9 @@
 @extends('layouts.layout')
 
 @section('content')
-<?php $jobstype = \App\JobType::select('id', 'name')->get(); ?>
+<?php 
+    $jobstype = \App\JobType::select('id', 'name')->get(); 
+?>
     <header>
         <div class="header-mid">
             <div class="container" >
@@ -33,11 +35,11 @@
                                     <button class="submit visible-xs search-btn" style="width: auto;border:1px solid #EBEAEA;padding:5px 7px;height: auto;margin:auto;margin-top: 10px;background-color: #F5F5F5;color:#A8A8A8;border-radius: 4px">Tìm kiếm</button>
                                 </form>
                                 <div class="city">
-                                    <a target="_self" href="{{ url('/') }}/home?city=1">Hà Nội</a>
-                                    <a target="_self" href="{{ url('/') }}/home?city=2">TP HCM</a>
-                                    <a target="_self" href="{{ url('/') }}/home?city=3">Đà Nẵng</a>
-                                    <a target="_self" href="{{ url('/') }}/home?city=4">Hải Phòng</a>
-                                    <a target="_self" href="{{ url('/') }}/home?city=14">Bình Dương</a>
+                                    <a target="_self" href="{{ url('/') }}/city/1/ha-noi">Hà Nội</a>
+                                    <a target="_self" href="{{ url('/') }}/city/2/ho-chi-minh">TP HCM</a>
+                                    <a target="_self" href="{{ url('/') }}/city/3/da-nang">Đà Nẵng</a>
+                                    <a target="_self" href="{{ url('/') }}/city/4/hai-phong">Hải Phòng</a>
+                                    <a target="_self" href="{{ url('/') }}/city/14/binh-duong">Bình Dương</a>
                                 </div>
                             </div>
                             <div class="col-md-3 clearfix">
@@ -94,7 +96,11 @@
                 <div class="item-u" >
                     <a target="_self" href="{{ url('/') }}/curriculumvitae/view/{{ $cv->id }}" onmouseenter="onFocusCandidates(event)" onmouseleave ="onDisFocusCandidates(event)">
                         @if(strlen($cv->avatar) > 0)
-                        <div class="img"><img src="http://test.gmon.com.vn/?image={{ $cv->avatar }}" alt=""></div>
+                            @if (strpos($cv->avatar, 'https') !== false)
+                                <div class="img"><img src="{{ $cv->avatar }}" alt="{{ $cv->avatar }}"></div>
+                            @else
+                                <div class="img"><img src="http://test.gmon.com.vn/?image={{ $cv->avatar }}" alt="{{ $cv->avatar }}"></div>
+                            @endif
                         @else
                         <div class="img"><img src="http://test.gmon.com.vn/?image=avatar.png" alt=""></div>
                         @endif
@@ -102,13 +108,19 @@
                         <p class="university text-center">{{ $cv->school }}</p>
                         <div class="view">
                             <div class="info">
-                                <div class="sub-img"><div class="border">
+                                <div class="sub-img">
+                                    <div class="border">
                                         @if(strlen($cv->avatar) > 0)
-                                        <img src="http://test.gmon.com.vn/?image={{ $cv->avatar }}" alt="">
+                                            @if (strpos($cv->avatar, 'https') !== false)
+                                                <img src="{{ $cv->avatar }}" alt="{{ $cv->avatar }}">
+                                            @else
+                                                <img src="http://test.gmon.com.vn/?image={{ $cv->avatar }}" alt="{{ $cv->avatar }}">
+                                            @endif
                                         @else
                                         <img src="http://test.gmon.com.vn/?image=avatar.png" alt="">
                                         @endif
-                                    </div></div>
+                                    </div>
+                                </div>
                                 <p>{{ $cv->username }}</p>
                                 <p>{{ $cv->birthday }}</p>
                                 <!-- <p>CLB AIESEC Hà Nội</p> -->
@@ -184,31 +196,34 @@
         $(window).scroll(function (event) {
             var scroll = $(window).scrollTop();
             $newPossion = scroll;
-            if($newPossion - $currentPossion > 880){
+            if($newPossion - $currentPossion > 650){
+                if($loading) return;
                 $currentPossion = $newPossion;
                 $('.mass-content').show();
                 $('.loader').show();
+                $loading = true;
                 $currentPossion = $newPossion;
                 var request = $.ajax({
                     url: "{{ URL::to('/') }}/getCV/?start=" + $currentObj + "&number=" + $numberGet + "&<?php echo parse_url(url('/') . $_SERVER['REQUEST_URI'], PHP_URL_QUERY); ?>",
                     method: "GET",
                     dataType: "json"
                 });
+
                 request.done(function (msg) {
-                    console.log(msg);
                     $('.mass-content').hide();
                     $('.loader').hide();
                     if(msg['code'] == 200){
                         var $html = '';
                         $(msg['cvs']).each(function( index ) {
+                            console.log($(this)[0].avatar);
                             $html += '<div class="item-u" >';
                                 $html += '<a target="_self" href="' + site_url + '/curriculumvitae/view/{{ $cv->id }}" onmouseenter="onFocusCandidates(event)" onmouseleave ="onDisFocusCandidates(event)">';
-                                    if($(this)[0].avatar.length > 0){
+                                    if($(this)[0].avatar != null && $(this)[0].avatar.length > 0){
                                     $html += '<div class="img"><img src="http://test.gmon.com.vn/?image='+ $(this)[0].avatar + '" alt=""></div>';
                                     }else{
                                     $html += '<div class="img"><img src="http://test.gmon.com.vn/?image=avatar.png" alt=""></div>';
                                     }
-                                    $html += '<p class="name text-center">'+ $(this)[0].name +'</p>';
+                                    $html += '<p class="name text-center">'+ $(this)[0].username +'</p>';
                                     $html += '<p class="university text-center">';
                                     if($(this)[0].school != null){
                                         $html += $(this)[0].school;
@@ -217,13 +232,13 @@
                                     $html += '<div class="view">';
                                         $html += '<div class="info">';
                                             $html += '<div class="sub-img"><div class="border">';
-                                                    if($(this)[0].avatar.length > 0){
+                                                    if($(this)[0].avatar != null && $(this)[0].avatar.length > 0){
                                                     $html += '<img src="http://test.gmon.com.vn/?image='+ $(this)[0].avatar +'" alt="'+ $(this)[0].name +'">';
                                                     }else{
-                                                    $html += '<img src="http://test.gmon.com.vn/?image=avatar.png" alt="'+ $(this)[0].name +'">';
+                                                    $html += '<img src="http://test.gmon.com.vn/?image=avatar.png" alt="'+ $(this)[0].username +'">';
                                                     }
                                                 $html += '</div></div>';
-                                            $html += '<p>'+ $(this)[0].name +'</p>';
+                                            $html += '<p>'+ $(this)[0].username +'</p>';
                                             $html += '<p>'+ $(this)[0].birthday +'</p>';
                                         $html += '</div>';
                                         $html += '<div class="link">';
@@ -236,6 +251,7 @@
                         $currentObj += $numberGet;
                         $('#wrapper-candidates').append($html);
                         $loading = false;
+
                         function onFocusCandidates(event) {
                             $(event.target).find(".view").animate({top: 0 + 'px'}, 300);
                         }
@@ -244,11 +260,13 @@
                         }
                     }
                 });
+
                 request.fail(function (jqXHR, textStatus) {
                     alert("Request failed: " + textStatus);
                 });
             }
         });
+
         $(document).ready(function(){
             $('.item-job').show();
             $('.job-list-0').show();
@@ -279,6 +297,7 @@
                 window.location.replace(new_link);
                 return false;
             });
+
             $("#tinh-select").change(function () {
                 var citId = $("#tinh-select").val();
                 var request = $.ajax({
@@ -286,14 +305,17 @@
                     method: "GET",
                     dataType: "html"
                 });
+
                 request.done(function (msg) {
                     $("#quanhuyen-select").html(msg);
                 });
+
                 request.fail(function (jqXHR, textStatus) {
                     alert("Request failed: " + textStatus);
                 });
             });
         });
+
         function onFocusCandidates(event) {
             $(event.target).find(".view").animate({top: 0 + 'px'}, 300);
         }
