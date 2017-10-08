@@ -218,7 +218,7 @@
                             console.log($(this)[0].avatar);
                             $html += '<div class="item-u" >';
                                 $html += '<a target="_self" href="' + site_url + '/curriculumvitae/view/{{ $cv->id }}" onmouseenter="onFocusCandidates(event)" onmouseleave ="onDisFocusCandidates(event)">';
-                                    if(typeof $(this)[0].avatar != 'undefined' && $(this)[0].avatar.length > 0){
+                                    if($(this)[0].avatar != null && $(this)[0].avatar.length > 0){
                                     $html += '<div class="img"><img src="http://test.gmon.com.vn/?image='+ $(this)[0].avatar + '" alt=""></div>';
                                     }else{
                                     $html += '<div class="img"><img src="http://test.gmon.com.vn/?image=avatar.png" alt=""></div>';
@@ -232,7 +232,7 @@
                                     $html += '<div class="view">';
                                         $html += '<div class="info">';
                                             $html += '<div class="sub-img"><div class="border">';
-                                                    if(typeof $(this)[0].avatar != 'undefined' && $(this)[0].avatar.length > 0){
+                                                    if($(this)[0].avatar != null && $(this)[0].avatar.length > 0){
                                                     $html += '<img src="http://test.gmon.com.vn/?image='+ $(this)[0].avatar +'" alt="'+ $(this)[0].name +'">';
                                                     }else{
                                                     $html += '<img src="http://test.gmon.com.vn/?image=avatar.png" alt="'+ $(this)[0].username +'">';
