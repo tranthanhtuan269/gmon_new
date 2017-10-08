@@ -1044,12 +1044,15 @@ class HomeController extends Controller
         return view('home.support01');
     }
 
-    public function sendemail(){
-        // Mail::to('support@gmon.vn', 'Bui Quang Quan')
-        //     ->from('postmaster@sandboxc5418af4b6574730a6b0848c12652301.mailgun.org', 'Mailgun Sandbox')
-        //     ->subject('Hello Bui Quang Quan')
-        //     ->send('Congratulations Bui Quang Quan, you just sent an email with Mailgun!  You are truly awesome!', '');
+    public function privacypolicy(){
+        return view('home.privacypolicy');
+    }
 
+    public function termsofservice(){
+        return view('home.termsofservice');
+    }
+
+    public function sendemail(){
         $dataEmail = array('email'=>'support@gmon.vn');
         Mail::send('emails.register', [], function($message) use ($dataEmail) {
             $message->from('postmaster@sandboxc5418af4b6574730a6b0848c12652301.mailgun.org', 'Mailgun Sandbox');

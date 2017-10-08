@@ -44,6 +44,8 @@ Route::get('/getTown/{id}', 'HomeController@getTown');
 Route::post('follow-company', 'CompanyController@follow');
 Route::post('unfollow-company', 'CompanyController@unfollow');
 
+Route::get('privacy-policy', 'HomeController@privacypolicy');
+Route::get('terms-of-service', 'HomeController@termsofservice');
 Route::get('support', 'HomeController@support');
 Route::post('ajaxpro', 'HomeController@ajaxpro');
 
