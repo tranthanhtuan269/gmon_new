@@ -96,7 +96,7 @@
                 <div class="item-u" >
                     <a target="_self" href="{{ url('/') }}/curriculumvitae/view/{{ $cv->id }}" onmouseenter="onFocusCandidates(event)" onmouseleave ="onDisFocusCandidates(event)">
                         @if(strlen($cv->avatar) > 0)
-                            @if (strpos($curriculumvitae->avatar, 'https') !== false)
+                            @if (strpos($cv->avatar, 'https') !== false)
                                 <img src="{{ $cv->avatar }}" alt="{{ $cv->avatar }}">
                             @else
                                 <img src="http://test.gmon.com.vn/?image={{ $cv->avatar }}" alt="{{ $cv->avatar }}">
@@ -110,7 +110,7 @@
                             <div class="info">
                                 <div class="sub-img"><div class="border">
                                         @if(strlen($cv->avatar) > 0)
-                                            @if (strpos($curriculumvitae->avatar, 'https') !== false)
+                                            @if (strpos($cv->avatar, 'https') !== false)
                                                 <img src="{{ $cv->avatar }}" alt="{{ $cv->avatar }}">
                                             @else
                                                 <img src="http://test.gmon.com.vn/?image={{ $cv->avatar }}" alt="{{ $cv->avatar }}">
