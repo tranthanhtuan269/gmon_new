@@ -697,7 +697,7 @@ class HomeController extends Controller
 
     public function sendemail(){
         $dataEmail = array('email'=>'support@gmon.vn');
-        Mail::send('emails.register', [], function($message) use ($dataEmail) {
+        Mail::send('emails.registerUV', [], function($message) use ($dataEmail) {
             $message->from('support@gmon.vn', 'gmon.vn');
             $message->to('tran.thanh.tuan269@gmail.com', 'Tran thanh tuan')->subject('Hello Tran Thanh Tuan');
         });
