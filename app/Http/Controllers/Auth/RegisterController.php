@@ -102,7 +102,15 @@ class RegisterController extends Controller
                 'avatar' => $socialUser->getAvatar()
             ]);
 
-            auth()->login($user_login);
+            if($user_login){
+                $user_login->assignRole('user');
+                $dataUser = array('email'=>$socialUser->getEmail(), 'name'=>$socialUser->getName());
+                Mail::send('emails.registerUV', [], function($message) use ($dataUser) {
+                    $message->from('support@gmon.vn', 'gmon.vn');
+                    $message->to($dataUser['email'], $dataUser['name'])->subject('Gmon.vn thông báo đăng ký thành công!');
+                });
+                auth()->login($user_login);
+            }
         }else{
             auth()->login($user);
         }
@@ -142,9 +150,15 @@ class RegisterController extends Controller
                 'email' => $socialUser->getEmail(),
                 'avatar' => $socialUser->getAvatar()
             ]);
-            
-            $user_login->assignRole('user');
-            auth()->login($user_login);
+            if($user_login){
+                $user_login->assignRole('user');
+                $dataUser = array('email'=>$socialUser->getEmail(), 'name'=>$socialUser->getName());
+                Mail::send('emails.registerUV', [], function($message) use ($dataUser) {
+                    $message->from('support@gmon.vn', 'gmon.vn');
+                    $message->to($dataUser['email'], $dataUser['name'])->subject('Gmon.vn thông báo đăng ký thành công!');
+                });
+                auth()->login($user_login);
+            }
         }else{
             auth()->login($user);
         }
