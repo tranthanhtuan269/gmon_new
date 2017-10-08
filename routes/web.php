@@ -18,16 +18,20 @@ Route::get('/', 'HomeController@homenew2')->name('welcome');
 Route::get('/google2fa952a6c07ee729.html', function(){
     echo 'google-site-verification: google2fa952a6c07ee729.html';
 });
+
+Route::resource('branch', 'BranchController');
 Route::get('hello', 'HomeController@homenew2');
 Route::get('welcome', 'HomeController@homenew');
 Route::get('/showmore', 'HomeController@showmore')->name('showmore');
 Route::get('/home', 'HomeController@welcome')->name('home');
+
 Route::get('auth/facebook', 'Auth\RegisterController@redirectToFacebook');
 Route::get('auth/facebook/callback', 'Auth\RegisterController@handleFacebookCallback');
 Route::get('auth/google', 'Auth\RegisterController@redirectToGoogle');
 Route::get('auth/google/callback', 'Auth\RegisterController@handleGoogleCallback');
 Route::post('auth/login', 'SiteController@loginApi');
 Route::post('auth/register', 'SiteController@registerApi');
+
 Route::get('curriculumvitae', 'CurriculumVitaeController@indexCurriculumVitae');
 Route::get('curriculumvitae/view/{id}', 'CurriculumVitaeController@showCurriculumVitae');
 Route::get('/job/view/{id}', 'JobController@info');
@@ -48,7 +52,6 @@ Route::get('privacy-policy', 'HomeController@privacypolicy');
 Route::get('terms-of-service', 'HomeController@termsofservice');
 Route::get('support', 'HomeController@support');
 Route::post('ajaxpro', 'HomeController@ajaxpro');
-
 Route::get('sendemail', 'HomeController@sendemail');
 
 Route::group(['middleware' => 'auth'], function(){
@@ -149,4 +152,13 @@ Route::group(['middleware' => ['auth', 'roles'], 'roles' => 'master'], function 
 Route::group(['middleware' => ['auth', 'roles'], 'roles' => 'creator'], function () {
     Route::resource('post', 'PostController');
 });
-Route::resource('branch', 'BranchController');
+
+Route::get('/updateSlug', 'HomeController@updateSlug');
+Route::get('/city/{id}', 'CityController@getAllSlug');
+Route::get('/city/{id}/{slug}', 'CityController@getAllSlug');
+Route::get('/district/{id}', 'DistrictController@getAllSlug');
+Route::get('/district/{id}/{slug}', 'DistrictController@getAllSlug');
+Route::get('/job/{id}', 'JobController@getSlug');
+Route::get('/job/{id}/{slug}', 'JobController@getSlug');
+Route::get('/company/{id}', 'CompanyController@getSlug');
+Route::get('/company/{id}/{slug}', 'CompanyController@getSlug');

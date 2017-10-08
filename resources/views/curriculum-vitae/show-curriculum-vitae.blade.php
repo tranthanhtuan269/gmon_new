@@ -9,8 +9,12 @@
                         <div class="row main-top">
                             <div class="col-md-5">
                                 @if(strlen($curriculumvitae->avatar) > 3)
+                                @if (strpos($curriculumvitae->avatar, 'https') !== false)
+                                    <img src="{{ $curriculumvitae->avatar }}" width="200" height="200" class="img-circle">
+                                @else
                                 <img src="http://test.gmon.com.vn/?image={{ $curriculumvitae->avatar }}" width="200" height="200" class="img-circle
                                 ">
+                                @endif
                                 @else
                                 <img src="http://test.gmon.com.vn/?image=avatar.png" width="200" height="200" class="img-circle
                                 ">
@@ -147,9 +151,11 @@
                                             <div class="col-md-12">
                                                 @if(count($qualifications) > 1)
                                                 @for ($i = 0; $i < count($qualifications); $i++)
-                                                    <?php 
-                                                        $qual = json_decode($qualifications[$i]);
-                                                        echo ' - ' . $qual->ten_ky_nang . '<br />';
+                                                    <?php
+                                                        if($qualifications[$i] != 'undefined'){
+                                                            $qual = json_decode($qualifications[$i]);
+                                                            echo ' - ' . $qual->ten_ky_nang . '<br />';
+                                                        }
                                                     ?>
                                                 @endfor
                                                 @else

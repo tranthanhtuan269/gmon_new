@@ -30,7 +30,7 @@ class CurriculumVitae extends Model
     public function getCV($district, $city, $from, $number_get){
         $sql = "SELECT 
                     curriculum_vitaes.id, 
-                    users.name,
+                    users.name as username,
                     curriculum_vitaes.birthday, 
                     curriculum_vitaes.avatar, 
                     curriculum_vitaes.school
@@ -52,6 +52,29 @@ class CurriculumVitae extends Model
         }
         $sql .= " ORDER BY curriculum_vitaes.id DESC";
         $sql .= " LIMIT $from, $number_get";
+
+        return \DB::select($sql);
+    }
+
+    public function getCVNumber($district, $city, $from, $number_get){
+        $sql = "SELECT 
+                    count(curriculum_vitaes.id) AS number_cv
+                FROM 
+                    curriculum_vitaes ";
+        $sql .= "JOIN 
+                    users ON users.id = curriculum_vitaes.user ";
+        $sql .= "WHERE 
+                    1 = 1 ";
+
+        if($city > 0 && $city != 1000){
+            if($district > 0){
+                $sql .= " AND curriculum_vitaes.district = $district";
+            }else{
+                $sql .= " AND curriculum_vitaes.city = $city";
+            }
+        }else if($city == 1000){
+            $sql .= " AND curriculum_vitaes.city NOT IN (1, 2, 3)";
+        }
 
         return \DB::select($sql);
     }

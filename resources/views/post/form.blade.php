@@ -43,6 +43,14 @@
     </div>
 </div>
 
+<div class="form-group {{ $errors->has('youtube_link') ? 'has-error' : ''}}">
+    {!! Form::label('youtube_link', 'Youtube Link', ['class' => 'col-md-2 control-label']) !!}
+    <div class="col-md-10">
+        {!! Form::text('youtube_link', null, ['class' => 'form-control']) !!}
+        {!! $errors->first('youtube_link', '<p class="help-block">:message</p>') !!}
+    </div>
+</div>
+
 <div class="form-group">
     <div class="col-md-offset-2 col-md-2">
         {!! Form::submit(isset($submitButtonText) ? $submitButtonText : 'Create', ['class' => 'btn btn-primary']) !!}

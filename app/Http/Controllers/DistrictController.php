@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 
 use App\District;
 use App\City;
+use App\Job;
+use App\Company;
 use Illuminate\Http\Request;
 use Session;
 use DB;
@@ -172,5 +174,64 @@ class DistrictController extends Controller
             }
         }
         return \Response::json(array('code' => '404', 'message' => 'Update unsuccess!'));
+    }
+
+    public function getAllSlug($id, $slug = null)
+    {
+        $company_id = -1;
+        $cv_id = -1;
+        if (\Auth::check()) {
+            $user_info = \Auth::user()->getUserInfo();
+            $company_id = $user_info['company_id'];
+            $cv_id = $user_info['cv_id'];
+        }
+        $jobGetObj = new Job;
+        $companyGetObj = new Company;
+        $perPage = 1000;
+        $checkJobVip = 0;
+        $district = $city = $job_type = $company = $cv = $vip = $from = $number_get = null;
+        $from  = 0;
+        $number_get = 10;
+        $district = $id;
+        $districtObj = \App\District::findOrFail($id);
+        $meta_title = 'Tìm việc tại ' . $districtObj->name;
+        $meta_description = 'Tìm việc tại ' . $districtObj->name;
+        $meta_keyword = 'Tìm việc, ' . $districtObj->name;
+        // get district of city
+        $districts = \DB::table('districts')
+                    ->where('districts.city', '=', $districtObj->city)
+                    ->where('districts.active', '=', 1)
+                    ->get(); 
+        // get job of vip
+        $jobs = $jobGetObj->getJob($district, $city, $field, $job_type, $company, $cv, $vip, $from, $number_get);
+        
+        // get job of vip
+        $jobsvip1 = $jobGetObj->getJob($district, $city, $field, $job_type, $company, $cv, 1, $from, $number_get);
+        // get job of vip
+        $jobsvip2 = $jobGetObj->getJob($district, $city, $field, $job_type, $company, $cv, 2, $from, $number_get);
+        $cvs = \DB::table('curriculum_vitaes')
+            ->join('users', 'users.id', '=', 'curriculum_vitaes.user')
+            ->select('curriculum_vitaes.id as id', 'users.name as username', 'curriculum_vitaes.birthday', 'curriculum_vitaes.avatar', 'curriculum_vitaes.school')
+            ->where('curriculum_vitaes.district', '=', $district)
+            ->orderBy('curriculum_vitaes.created_at', 'desc')
+            ->take(10)
+            ->get();  
+        // get cv of vip
+        $companies = $companyGetObj->getCompany($district, $city, $field, $from, 20);
+        $this_day = date('Y-m-d H:i:s');
+        $cvcount = \DB::table('curriculum_vitaes')->count();
+        $jobcount0 = \DB::table('jobs')
+                ->where('expiration_date', '=', date("d/m/Y"))
+                ->count();
+        $jobcount1 = \DB::table('jobs')
+                ->where('expiration_date', '=', date("d/m/Y", strtotime($this_day . ' +1 day')))
+                ->count();
+        $jobcount2 = \DB::table('jobs')
+                ->where('expiration_date', '=', date("d/m/Y", strtotime($this_day . ' +2 day')))
+                ->count();
+        $jobcount3 = \DB::table('jobs')
+                ->where('expiration_date', '=', date("d/m/Y", strtotime($this_day . ' +3 day')))
+                ->count();
+        return view('welcome', compact('jobcount0', 'jobcount1', 'jobcount2', 'jobcount3', 'cvcount' ,'districts', 'city', 'cvs', 'jobs', 'jobsvip1', 'jobsvip2', 'companies', 'company_id', 'cv_id', 'partners', 'meta_title', 'meta_description', 'meta_keyword'));
     }
 }

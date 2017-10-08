@@ -75,6 +75,19 @@
                                     {!! $errors->first('image', '<p class="help-block">:message</p>') !!}
                                 </div>
                             </div>
+                            <div class="form-group {{ $errors->has('youtube_link') ? 'has-error' : ''}}">
+                                <div class="col-md-2"></div>
+                                <div class="col-md-10">
+                                @if(isset($post->youtube_link) && strlen($post->youtube_link) > 1)
+                                    <iframe width="560" height="315" src="{{ str_replace('watch?v=','embed/',$post->youtube_link) }}" frameborder="0" allowfullscreen></iframe>
+                                @endif
+                                </div>
+                                {!! Form::label('youtube_link', 'Youtube Link', ['class' => 'col-md-2 control-label']) !!}
+                                <div class="col-md-10">
+                                    {!! Form::text('youtube_link', $post->youtube_link, ['class' => 'form-control']) !!}
+                                    {!! $errors->first('youtube_link', '<p class="help-block">:message</p>') !!}
+                                </div>
+                            </div>
 
                             <div class="form-group">
                                 <div class="col-md-offset-2 col-md-2">

@@ -33,11 +33,11 @@
                                     <button class="submit visible-xs search-btn" style="width: auto;border:1px solid #EBEAEA;padding:5px 7px;height: auto;margin:auto;margin-top: 10px;background-color: #F5F5F5;color:#A8A8A8;border-radius: 4px">Tìm kiếm</button>
                                 </form>
                                 <div class="city">
-                                    <a target="_self" href="{{ url('/') }}/home?city=1">Hà Nội</a>
-                                    <a target="_self" href="{{ url('/') }}/home?city=2">TP HCM</a>
-                                    <a target="_self" href="{{ url('/') }}/home?city=3">Đà Nẵng</a>
-                                    <a target="_self" href="{{ url('/') }}/home?city=4">Hải Phòng</a>
-                                    <a target="_self" href="{{ url('/') }}/home?city=14">Bình Dương</a>
+                                    <a target="_self" href="{{ url('/') }}/city/1/ha-noi">Hà Nội</a>
+                                    <a target="_self" href="{{ url('/') }}/city/2/ho-chi-minh">TP HCM</a>
+                                    <a target="_self" href="{{ url('/') }}/city/3/da-nang">Đà Nẵng</a>
+                                    <a target="_self" href="{{ url('/') }}/city/4/hai-phong">Hải Phòng</a>
+                                    <a target="_self" href="{{ url('/') }}/city/14/binh-duong">Bình Dương</a>
                                 </div>
                             </div>
                             <div class="col-md-3 clearfix">
@@ -93,9 +93,9 @@
                 <div class="row news">
                     <div class="col-md-6" style="margin-right: -1px">
                         <div class="top row">
-                            <div class="col-md-4 col-xs-4"><a target="_self" href="{{ url('/') }}/home?city=1" @if($city == 1) class="active" @endif>Hà Nội</a></div>
-                            <div class="col-md-4 col-xs-4"><a target="_self" href="{{ url('/') }}/home?city=3" @if($city == 3) class="active" @endif>Đà Nẵng</a></div>
-                            <div class="col-md-4 col-xs-4"><a target="_self" href="{{ url('/') }}/home?city=2" @if($city == 2) class="active" @endif>TP.HCM</a></div>
+                            <div class="col-md-4 col-xs-4"><a target="_self" href="{{ url('/') }}/city/1/ha-noi" @if($city == 1) class="active" @endif>Hà Nội</a></div>
+                            <div class="col-md-4 col-xs-4"><a target="_self" href="{{ url('/') }}/city/3/da-nang" @if($city == 3) class="active" @endif>Đà Nẵng</a></div>
+                            <div class="col-md-4 col-xs-4"><a target="_self" href="{{ url('/') }}/city/2/ho-chi-minh" @if($city == 2) class="active" @endif>TP.HCM</a></div>
                         </div>
                         <div class="row title">
                             Tìm kiếm việc làm theo các quận
@@ -186,11 +186,11 @@
                         <?php $i = 0;?>
                         @foreach($companies as $company)
                         <?php if($i == 0){?>
-                        <li class="item-logo"><a target="_self" href="{{ url('/') }}/company/{{ $company->id }}/info"><img src="http://test.gmon.com.vn/?image={{ $company->logo }}" alt=""></a></li>
+                        <li class="item-logo"><a target="_self" href="{{ url('/') }}/company/{{ $company->id }}/{{ $company->slug }}"><img src="http://test.gmon.com.vn/?image={{ $company->logo }}" alt=""></a></li>
                         <?php 
                         $i++;
                         }else{ ?>
-                        <li><a target="_self" href="{{ url('/') }}/company/{{ $company->id }}/info"><img src="http://test.gmon.com.vn/?image={{ $company->logo }}" alt=""></a></li>
+                        <li><a target="_self" href="{{ url('/') }}/company/{{ $company->id }}/{{ $company->slug }}"><img src="http://test.gmon.com.vn/?image={{ $company->logo }}" alt=""></a></li>
                         <?php 
                         $i++;
                         } 
@@ -248,7 +248,7 @@
                         @foreach($jobsvip1 as $job)
                         <div class="item-work" >
                             <div class="border-item">
-                                <a target="_self" href="{{ url('/') }}/job/view/{{ $job->id }}">
+                                <a target="_self" href="{{ url('/') }}/job/{{ $job->id }}/{{ $job->slug }}">
                                     <p class="work-img"><img  src="http://test.gmon.com.vn/?image={{ $job->logo }}" alt=""></p>
                                     <div class="details">
                                         <div class="single"><p>{{ $job->name }} tại {{ $job->companyname }}</p></div>
@@ -275,7 +275,7 @@
                     @foreach($jobsvip2 as $job)
                         <div class="item-work" >
                             <div class="border-item">
-                                <a target="_self" href="{{ url('/') }}/job/view/{{ $job->id }}">
+                                <a target="_self" href="{{ url('/') }}/job/{{ $job->id }}/{{ $job->slug }}">
                                     <p class="work-img"><img  src="http://test.gmon.com.vn/?image={{ $job->logo }}" alt=""></p>
                                     <div class="details">
                                         <div class="single"><p>{{ $job->name }} tại {{ $job->companyname }}</p></div>
@@ -304,7 +304,7 @@
                         @foreach($jobs as $job)
                         <div class="item-work" >
                             <div class="border-item">
-                                <a target="_self" href="{{ url('/') }}/job/view/{{ $job->id }}">
+                                <a target="_self" href="{{ url('/') }}/job/{{ $job->id }}/{{ $job->slug }}">
                                     <span class="icon-new"><img src="http://test.gmon.com.vn/?image=icon-new.png" alt=""></span>
                                     <p class="work-img"><img  src="http://test.gmon.com.vn/?image={{ $job->logo }}" alt=""></p>
                                     <div class="details">
@@ -334,7 +334,7 @@
                         @foreach($companies as $company)
                         <div class="item-work" >
                             <div class="border-item">
-                                <a target="_self" href="{{ url('/') }}/company/{{ $company->id }}/info">
+                                <a target="_self" href="{{ url('/') }}/company/{{ $company->id }}/{{ $company->slug }}">
                                     <span class="icon-new"><img src="http://test.gmon.com.vn/?image=icon-new.png" alt=""></span>
                                     <p class="work-img"><img  src="http://test.gmon.com.vn/?image={{ $company->logo }}" alt=""></p>
                                     <div class="details">
