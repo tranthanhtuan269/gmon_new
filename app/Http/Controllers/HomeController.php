@@ -698,8 +698,8 @@ class HomeController extends Controller
     public function sendemail(){
         $dataEmail = array('email'=>'support@gmon.vn');
         Mail::send('emails.register', [], function($message) use ($dataEmail) {
-            $message->from('postmaster@sandboxc5418af4b6574730a6b0848c12652301.mailgun.org', 'Mailgun Sandbox');
-            $message->to('support@gmon.vn', 'Bui Quang Quan')->subject('Hello Bui Quang Quan');
+            $message->from('support@gmon.vn', 'gmon.vn');
+            $message->to('tran.thanh.tuan269@gmail.com', 'Tran thanh tuan')->subject('Hello Tran Thanh Tuan');
         });
     }
 
