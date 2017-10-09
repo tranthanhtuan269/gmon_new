@@ -15,8 +15,8 @@ return [
     */
 
     'mailgun' => [
-        'domain' => env('gmon.vn'),
-        'secret' => env('key-c99a4ea0a18906aec16035a79b6e6784'),
+        'domain' => env('MAILGUN_DOMAIN','gmon.com.vn'),
+        'secret' => env('MAILGUN_SECRET','key-c99a4ea0a18906aec16035a79b6e6784'),
     ],
 
     'ses' => [
