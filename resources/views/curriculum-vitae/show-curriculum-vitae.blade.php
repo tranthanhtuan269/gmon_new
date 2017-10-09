@@ -147,9 +147,11 @@
                                             <div class="col-md-12">
                                                 @if(count($qualifications) > 1)
                                                 @for ($i = 0; $i < count($qualifications); $i++)
-                                                    <?php 
-                                                        $qual = json_decode($qualifications[$i]);
-                                                        echo ' - ' . $qual->ten_ky_nang . '<br />';
+                                                    <?php
+                                                        if($qualifications[$i] != 'undefined'){
+                                                            $qual = json_decode($qualifications[$i]);
+                                                            echo ' - ' . $qual->ten_ky_nang . '<br />';
+                                                        }
                                                     ?>
                                                 @endfor
                                                 @else
@@ -396,7 +398,7 @@
       </div>
     </div>
     <!-- The Modal -->
-    <div id="myModal" class="modal">
+    <div id="myModal" class="modal show-image-slider">
 
       <!-- The Close Button -->
       <span class="previous_btn">&lt;</span>
@@ -407,9 +409,8 @@
       <img class="modal-content" id="img01">
     </div>
     <style type="text/css">
-
         /* The Modal (background) */
-        #myModal.modal {
+        .show-image-slider {
             display: none; /* Hidden by default */
             position: fixed; /* Stay in place */
             z-index: 1; /* Sit on top */
@@ -421,7 +422,6 @@
             background-color: rgb(0,0,0); /* Fallback color */
             background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
         }
-
         /* Modal Content (Image) */
         #myModal .modal-content {
             margin: auto;
@@ -429,7 +429,6 @@
             width: 80%;
             max-width: 700px;
         }
-
         /* Caption of Modal Image (Image Text) - Same Width as the Image */
         #caption {
             margin: auto;
@@ -441,7 +440,6 @@
             padding: 10px 0;
             height: 150px;
         }
-
         /* Add Animation - Zoom in the Modal */
         #myModal .modal-content, #caption { 
             -webkit-animation-name: zoom;
@@ -449,17 +447,14 @@
             animation-name: zoom;
             animation-duration: 0.6s;
         }
-
         @-webkit-keyframes zoom {
             from {-webkit-transform:scale(0)} 
             to {-webkit-transform:scale(1)}
         }
-
         @keyframes zoom {
             from {transform:scale(0)} 
             to {transform:scale(1)}
         }
-
         /* The Close Button */
         .next_btn {
             position: fixed;
@@ -471,14 +466,12 @@
             transition: 0.3s;
             z-index: 56;
         }
-
         .next_btn:hover,
         .next_btn:focus {
             color: #bbb;
             text-decoration: none;
             cursor: pointer;
         }
-
         /* The Close Button */
         .previous_btn {
             position: fixed;
@@ -489,14 +482,12 @@
             font-weight: bold;
             transition: 0.3s;
         }
-
         .previous_btn:hover,
         .previous_btn:focus {
             color: #bbb;
             text-decoration: none;
             cursor: pointer;
         }
-
         /* The Close Button */
         .close {
             position: absolute;
@@ -507,14 +498,12 @@
             font-weight: bold;
             transition: 0.3s;
         }
-
         .close:hover,
         .close:focus {
             color: #bbb;
             text-decoration: none;
             cursor: pointer;
         }
-
         /* 100% Image Width on Smaller Screens */
         @media only screen and (max-width: 700px){
             .modal-content {
@@ -539,17 +528,14 @@
             }
             $('#img01').attr('src', $(this).attr('src'));
         });
-
         // When the user clicks on <span> (x), close the modal
         $('#img01').click(function() { 
           $('#myModal').hide();
         });
-
         // When the user clicks on <span> (x), close the modal
         $('.close').click(function() { 
           $('#myModal').hide();
         });
-
         $('.previous_btn').click(function(){
             $('#myModal').hide();
             $curr_image--;
@@ -562,7 +548,6 @@
             $('#img01').attr('src', $('#image-' + $curr_image).attr('src'));
             $('#myModal').show();
         });
-
         $('.next_btn').click(function(){
             $('#myModal').hide();
             $curr_image++;
@@ -575,14 +560,12 @@
             $('#img01').attr('src', $('#image-' + $curr_image).attr('src'));
             $('#myModal').show();
         });
-
         $(document).ready(function(){
             $('#inputDescription').click(function(){
                 if($('#inputDescription').val() == 'Nói cho mọi người biết điều bạn nghĩ về ứng viên'){
                     $('#inputDescription').val('');
                 }
             });
-
             $('#star-vote img').click(function () {
                 switch ($(this).attr('id')) {
                     case 'star-vote-1':
@@ -624,7 +607,6 @@
                         break;
                 }
             });
-
             $('#send-message').click(function(){
                 var countStar = $('#star-vote>img.vote').length;
                 var description = $('#inputDescription').val();
@@ -642,7 +624,6 @@
                     },
                     dataType: "json"
                 });
-
                 request.done(function (msg) {
                     if (msg.code == 200) {
                         $('#add-comment').modal('toggle');
@@ -652,7 +633,6 @@
                         swal("Cảnh báo", msg.message, "error");
                     }
                 });
-
                 request.fail(function (jqXHR, textStatus) {
                     swal("Cảnh báo", textStatus, "error");
                 });

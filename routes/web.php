@@ -25,7 +25,6 @@ Route::post('auth/register', 'SiteController@registerApi');
 Route::get('curriculumvitae', 'CurriculumVitaeController@indexCurriculumVitae');
 Route::get('curriculumvitae/view/{id}', 'CurriculumVitaeController@showCurriculumVitae');
 Route::get('/job/view/{id}', 'JobController@info');
-
 Route::post('/job/join', 'JobController@join');
 Route::get('/action', 'HomeController@action');
 Route::get('/sitemap', 'HomeController@generatorSitemap');
@@ -109,6 +108,7 @@ Route::group(['middleware' => ['auth', 'roles'], 'roles' => 'master'], function 
 
     Route::get('apply/admin', 'ApplyController@admin');
 });
+
 Route::resource('branch', 'BranchController');
 Route::resource('master/partner', 'PartnerController');
 Route::get('/job/{id}', 'JobController@showslug');
