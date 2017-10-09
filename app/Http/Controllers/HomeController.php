@@ -699,8 +699,15 @@ class HomeController extends Controller
         $dataEmail = array('email'=>'support@gmon.com.vn');
         Mail::send('emails.registerUV', [], function($message) use ($dataEmail) {
             $message->from('support@gmon.com.vn', 'gmon.com.vn');
-            $message->to('tran.thanh.tuan269@gmail.com', 'Tran thanh tuan')->subject('Hello Tran Thanh Tuan');
+            $message->to('tran.thanh.tuan269@gmail.com')->subject('Hello Tran Thanh Tuan');
         });
+
+        $user = User::find(1)->toArray();
+        Mail::send('emails.registerUV', $user, function($message) use ($user) {
+            $message->to($user->email);
+            $message->subject('Mailgun Testing');
+        });
+        dd('Mail Send Successfully');
     }
 
     public function ajaxpro(Request $request){
