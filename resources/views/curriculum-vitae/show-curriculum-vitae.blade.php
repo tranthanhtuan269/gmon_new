@@ -58,7 +58,8 @@
                                             $curriculumvitae->education = ltrim($curriculumvitae->education, ';');
                                             $educations = explode(";",$curriculumvitae->education);
                                             foreach ($educations as $education) {
-                                            $edu = json_decode($education);
+                                                if(strlen($education) <= 3) continue;
+                                                $edu = json_decode($education);
                                         ?>
                                         <div class="row">
                                             <div class="col-md-4">Trường học </div>
