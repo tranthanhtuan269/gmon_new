@@ -27,19 +27,8 @@ Route::get('curriculumvitae/view/{id}', 'CurriculumVitaeController@showCurriculu
 Route::get('/job/view/{id}', 'JobController@info');
 
 Route::post('/job/join', 'JobController@join');
-Route::get('company/{id}/info', 'CompanyController@info');
-Route::get('company/{id}', 'CompanyController@showslug');
-Route::get('company/{id}/listjobs', 'CompanyController@listjobs');
-Route::get('company/{id}/{slug}', 'CompanyController@showslug');
-Route::get('/getDistrict/{id}', 'HomeController@getDistrict');
-Route::get('/getTown/{id}', 'HomeController@getTown');
 Route::get('/action', 'HomeController@action');
 Route::get('/sitemap', 'HomeController@generatorSitemap');
-Route::get('/updateSlug', 'HomeController@updateSlug');
-Route::get('/city/{id}', 'CityController@getAll');
-Route::get('/city/{id}/{slug}', 'CityController@getAllSlug');
-Route::get('/district/{id}', 'DistrictController@getAll');
-Route::get('/district/{id}/{slug}', 'DistrictController@getAllSlug');
 Route::post('ajaxpro', 'HomeController@ajaxpro');
 
 Route::get('/getJob/', 'JobController@getJob');
@@ -124,3 +113,14 @@ Route::resource('branch', 'BranchController');
 Route::resource('master/partner', 'PartnerController');
 Route::get('/job/{id}', 'JobController@showslug');
 Route::get('/job/{id}/{slug}', 'JobController@showslug');
+Route::get('/updateSlug', 'HomeController@updateSlug');
+Route::get('company/{id}/info', 'CompanyController@info');
+Route::get('company/{id}', 'CompanyController@showslug');
+Route::get('company/{id}/listjobs', 'CompanyController@listjobs');
+Route::get('company/{id}/{slug}', 'CompanyController@showslug');
+Route::get('/getDistrict/{id}', 'HomeController@getDistrict');
+Route::get('/getTown/{id}', 'HomeController@getTown');
+Route::get('/city/{id}', 'CityController@getAll');
+Route::get('/city/{id}/{slug}', 'CityController@getAllSlug');
+Route::get('/district/{id}', 'DistrictController@getAll');
+Route::get('/district/{id}/{slug}', 'DistrictController@getAllSlug');
