@@ -9,6 +9,7 @@ use App\City;
 use App\District;
 use App\Job;
 use App\Company;
+use App\CurriculumVitae;
 use Illuminate\Http\Request;
 use Session;
 
@@ -174,12 +175,20 @@ class CityController extends Controller
         }
         $jobGetObj = new Job;
         $companyGetObj = new Company;
-        $perPage = 1000;
+        $cvGetObj = new CurriculumVitae;
         $checkJobVip = 0;
         $district = $city = $field = $job_type = $company = $cv = $vip = $from = $number_get = null;
         $from  = 0;
+        $perPage = 20;
         $number_get = 10;
         $city = $id;
+
+        if(isset($_GET['cv'])){ $cv = $_GET['cv']; }
+        if(isset($_GET['job'])){ $job = $_GET['job']; }else{ $job = null; }
+        if(isset($_GET['field'])){ $field = (int)$_GET['field']; }
+        if(isset($_GET['job_type'])){ $job_type = (int)$_GET['job_type']; }
+        if(isset($_GET['company'])){ $company = $_GET['company']; }
+        
         if($id != 1000){
             $cityObj = \App\City::findOrFail($id);
             $meta_title = 'Tìm việc tại ' . $cityObj->name;
@@ -195,6 +204,61 @@ class CityController extends Controller
                     ->where('districts.city', '=', $city)
                     ->where('districts.active', '=', 1)
                     ->get(); 
+
+        if($cv != null && $cv == 'vip'){
+            // get job of vip
+            $jobs = [];
+
+            // get job of vip
+            $jobsvip1 = [];
+
+            // get job of vip
+            $jobsvip2 = [];
+
+            // get cv of vip
+            $cvs = $cvGetObj->getCV($district, $city, $from, $number_get);
+
+            // get cv of vip
+            $companies = [];
+
+            return view('showCV', compact('districts', 'city', 'cvs', 'jobs', 'jobsvip1', 'jobsvip2', 'companies', 'company_id', 'cv_id', 'news'));
+        }
+        if($job != null && $job == 'vip1'){
+            $checkJobVip = 1;
+            $jobs = $jobGetObj->getJob($district, $city, $field, $job_type, $company, $cv, 1, $from, $number_get);
+            $jobcount = $jobGetObj->getJobNumber($district, $city, $field, $job_type, $company, $cv, 1, $from, $number_get);
+            $jobsvip = $jobGetObj->getJob($district, $city, $field, $job_type, $company, $cv, 2, $from, 5);
+            $companies = $companyGetObj->getCompany($district, $city, $field, $from, 20);
+
+            return view('showJob', compact('districts', 'city', 'checkJobVip', 'cvs', 'jobs', 'jobsvip', 'companies', 'company_id', 'cv_id', 'news', 'jobcount'));
+        }
+        if($job != null && $job == 'vip2'){
+            $checkJobVip = 1;
+            $jobs = $jobGetObj->getJob($district, $city, $field, $job_type, $company, $cv, 2, $from, $number_get);
+            $jobcount = $jobGetObj->getJobNumber($district, $city, $field, $job_type, $company, $cv, 2, $from, $number_get);
+            $jobsvip = $jobGetObj->getJob($district, $city, $field, $job_type, $company, $cv, 1, $from, 5);
+            $companies = $companyGetObj->getCompany($district, $city, $field, $from, 20);
+
+            return view('showJob', compact('districts', 'city', 'checkJobVip', 'cvs', 'jobs', 'jobsvip', 'companies', 'company_id', 'cv_id', 'news', 'jobcount'));
+        }
+        if($job != null && $job == 'new'){
+            $jobs = $jobGetObj->getJob($district, $city, $field, $job_type, $company, $cv, 0, $from, $number_get);
+            $jobcount = $jobGetObj->getJobNumber($district, $city, $field, $job_type, $company, $cv, 0, $from, $number_get);
+            $jobsvip = $jobGetObj->getJob($district, $city, $field, $job_type, $company, $cv, 1, $from, 5);
+            $companies = $companyGetObj->getCompany($district, $city, $field, $from, 20);
+
+            return view('showJob', compact('districts', 'city', 'checkJobVip', 'cvs', 'jobs', 'jobsvip', 'companies', 'company_id', 'cv_id', 'news', 'jobcount'));
+        }
+        if($company != null && $company == 'vip'){
+            $jobsvip1 = [];
+            $jobsvip2 = [];
+            $jobs = [];
+            $cvs = [];
+            $companies = $companyGetObj->getCompany($district, $city, $field, $from, $perPage);
+
+            return view('showCompany', compact('districts', 'city', 'cvs', 'jobs', 'jobsvip1', 'jobsvip2', 'companies', 'company_id', 'cv_id', 'news'));
+        }
+
         // get job of vip
         $jobs = $jobGetObj->getJob($district, $city, $field, $job_type, $company, $cv, $vip, $from, $number_get);
         
@@ -208,7 +272,7 @@ class CityController extends Controller
             ->select('curriculum_vitaes.id as id', 'users.name as username', 'curriculum_vitaes.birthday', 'curriculum_vitaes.avatar', 'curriculum_vitaes.school')
             ->where('curriculum_vitaes.city', '=', $city)
             ->orderBy('curriculum_vitaes.created_at', 'desc')
-            ->take(10)
+            ->take($number_get)
             ->get();  
         // get cv of vip
         $companies = $companyGetObj->getCompany($district, $city, $field, $from, 20);

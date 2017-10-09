@@ -1,7 +1,9 @@
 @extends('layouts.layout')
 
 @section('content')
-<?php $jobstype = \App\JobType::select('id', 'name')->get(); ?>
+<?php 
+    $jobstype = \App\JobType::select('id', 'name')->get(); 
+?>
     <header>
         <div class="header-mid">
             <div class="container" >
@@ -184,10 +186,12 @@
         $(window).scroll(function (event) {
             var scroll = $(window).scrollTop();
             $newPossion = scroll;
-            if($newPossion - $currentPossion > 880){
+            if($newPossion - $currentPossion > 650){
+                if($loading) return;
                 $currentPossion = $newPossion;
                 $('.mass-content').show();
                 $('.loader').show();
+                $loading = true;
                 $currentPossion = $newPossion;
                 var request = $.ajax({
                     url: "{{ URL::to('/') }}/getCV/?start=" + $currentObj + "&number=" + $numberGet + "&<?php echo parse_url(url('/') . $_SERVER['REQUEST_URI'], PHP_URL_QUERY); ?>",
@@ -196,7 +200,6 @@
                 });
 
                 request.done(function (msg) {
-                    console.log(msg);
                     $('.mass-content').hide();
                     $('.loader').hide();
                     if(msg['code'] == 200){
@@ -209,7 +212,7 @@
                                     }else{
                                     $html += '<div class="img"><img src="http://test.gmon.com.vn/?image=avatar.png" alt=""></div>';
                                     }
-                                    $html += '<p class="name text-center">'+ $(this)[0].name +'</p>';
+                                    $html += '<p class="name text-center">'+ $(this)[0].username +'</p>';
                                     $html += '<p class="university text-center">';
                                     if($(this)[0].school != null){
                                         $html += $(this)[0].school;
@@ -221,10 +224,10 @@
                                                     if($(this)[0].avatar.length > 0){
                                                     $html += '<img src="http://test.gmon.com.vn/?image='+ $(this)[0].avatar +'" alt="'+ $(this)[0].name +'">';
                                                     }else{
-                                                    $html += '<img src="http://test.gmon.com.vn/?image=avatar.png" alt="'+ $(this)[0].name +'">';
+                                                    $html += '<img src="http://test.gmon.com.vn/?image=avatar.png" alt="'+ $(this)[0].username +'">';
                                                     }
                                                 $html += '</div></div>';
-                                            $html += '<p>'+ $(this)[0].name +'</p>';
+                                            $html += '<p>'+ $(this)[0].username +'</p>';
                                             $html += '<p>'+ $(this)[0].birthday +'</p>';
                                         $html += '</div>';
                                         $html += '<div class="link">';
