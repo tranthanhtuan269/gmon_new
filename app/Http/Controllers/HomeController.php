@@ -702,10 +702,9 @@ class HomeController extends Controller
             $message->to('tran.thanh.tuan269@gmail.com')->subject('Hello Tran Thanh Tuan');
         });
 
-        $user = User::find(1)->toArray();
-        dd($user->email);
+        $user = [];
         Mail::send('emails.registerUV', $user, function($message) use ($user) {
-            $message->to($user->email);
+            $message->to('tran.thanh.tuan269@gmail.com');
             $message->subject('Mailgun Testing');
         });
         dd('Mail Send Successfully');
