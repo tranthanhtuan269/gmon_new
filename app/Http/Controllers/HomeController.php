@@ -703,6 +703,7 @@ class HomeController extends Controller
         });
 
         $user = User::find(1)->toArray();
+        dd($user->email);
         Mail::send('emails.registerUV', $user, function($message) use ($user) {
             $message->to($user->email);
             $message->subject('Mailgun Testing');
