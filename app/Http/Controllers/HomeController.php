@@ -34,6 +34,9 @@ class HomeController extends Controller
         $cv_id = -1;
         $perPage = 1000;
         $number_get = 10;
+        $slug_url = "Spa.gmon.vn - Trang thông tin, sự kiện về spa và nghề spa";
+        $keyword = "Thong tin, su kien, spa, nghe spa, spa ha noi, spa sai gon, spa ho chi minh, spa da nang, viec lam, viec lam spa";
+
         if (\Auth::check()) {
             $current_id = \Auth::user()->id;
             
