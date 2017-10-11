@@ -128,6 +128,7 @@
                                 $cv_user->education=ltrim($cv_user->education,";");
                                 $educations = explode(";",$cv_user->education);
                                 for($i = 0; $i < count($educations); $i++){
+                                    if(strlen($educations[$i]) <= 3) continue;
                                     $edu = json_decode($educations[$i]);
                             ?>
                             <div class="form-hoc-tap-group first-form" id="hoc_tap_{{ $i }}">
@@ -307,6 +308,7 @@
                                 }
                                 $word_experiences = explode(";",$cv_user->word_experience);
                                 for($i = 0; $i < count($word_experiences); $i++){
+                                    if(strlen($word_experiences[$i]) <= 3) continue;
                                     $words = json_decode($word_experiences[$i]);
                             ?>
                             <div class="form-kinh-nghiem-group first-form" id="kinh_nghiem_lam_viec_{{ $i }}">
@@ -460,6 +462,7 @@
                                     $cv_user->language=ltrim($cv_user->language,";");
                                     $languages = explode(";",$cv_user->language);
                                     for($i = 0; $i < count($languages); $i++){
+                                        if(strlen($languages[$i]) <= 3) continue;
                                         $langs = json_decode($languages[$i]);
                                         ?>
                                         <label for="ten_ngoai_ngu" data-json="{{ $languages[$i] }}" class="col-md-4 language-json" id="language-{{ $i }}"><div class="col-md-12"> - <span class="ngoai-ngu">{{ $langs->ten_ngoai_ngu }}</span> - Trình độ: <span class="trinh-do-ngoai-ngu">{{ $langs->trinh_do_ngoai_ngu }}</span><span class="language-delete" id="language-delete-{{ $i }}">&nbsp;x&nbsp;</span></div></label>
@@ -496,6 +499,7 @@
                                             $cv_user->qualification=ltrim($cv_user->qualification,";");
                                             $qualifications = explode(";",$cv_user->qualification);
                                             for($i = 0; $i < count($qualifications); $i++){
+                                                if(strlen($qualifications[$i]) <= 3) continue;
                                                 $quals = json_decode($qualifications[$i]);
                                                 ?>
                                                 <label for="ten_ky_nang" data-json="{{ $qualifications[$i] }}" class="col-md-4 qualification-holder" id="qualification-{{ $i }}"><div class="col-md-12"> - <span class="ky-nang">{{ $quals->ten_ky_nang }}</span><span class="qualification-delete" id="qualification-delete-{{ $i }}">&nbsp;x&nbsp;</span></div></label>
