@@ -42,8 +42,8 @@ return [
     ],
 
     'google' => [
-        'client_id' => '566442920106-9ev8g1q8d099o043uqodgbmb6mc9lha6.apps.googleusercontent.com',
-        'client_secret' => 'WJOVW2OhlbHvyThAPrkhg8Tb',
+        'client_id' => '417199133117-sing5evaq5342lub46auitbd4utc3u3q.apps.googleusercontent.com',
+        'client_secret' => 'PK2KHvX6JntcZ0G-fsSUgS47',
         'redirect' => 'http://gmon.vn/auth/google/callback',
     ],
 
