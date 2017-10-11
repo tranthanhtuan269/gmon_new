@@ -31,13 +31,15 @@ class SiteController extends Controller
                     $user_register->assignRole('poster');
                     $dataUser = array('email'=>$request->input('email'), 'name'=>$request->input('username'));
                     Mail::send('emails.registerNTD', [], function($message) use ($dataUser) {
-                        $message->to($dataUser['email'], $dataUser['name'])->subject('Gmon.vn thông báo đăng ký thành công!');
+                        $message->from('support@gmon.com.vn', 'gmon.vn');
+                        $message->to($dataUser['email'])->subject('Gmon.vn thông báo đăng ký thành công!');
                     });
                 }else{
                     $user_register->assignRole('user');
                     $dataUser = array('email'=>$request->input('email'), 'name'=>$request->input('username'));
                     Mail::send('emails.registerUV', [], function($message) use ($dataUser) {
-                        $message->to($dataUser['email'], $dataUser['name'])->subject('Gmon.vn thông báo đăng ký thành công!');
+                        $message->from('support@gmon.com.vn', 'gmon.vn');
+                        $message->to($dataUser['email'])->subject('Gmon.vn thông báo đăng ký thành công!');
                     });
                 }
 
