@@ -3,9 +3,12 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Cviebrock\EloquentSluggable\Sluggable;
 
 class Post extends Model
 {
+    use Sluggable;
+
     /**
      * The database table used by the model.
      *
@@ -21,11 +24,25 @@ class Post extends Model
     protected $primaryKey = 'id';
 
     /**
+     * Return the sluggable configuration array for this model.
+     *
+     * @return array
+     */
+    public function sluggable()
+    {
+        return [
+            'slug' => [
+                'source' => 'name'
+            ]
+        ];
+    }
+
+    /**
      * Attributes that should be mass-assignable.
      *
      * @var array
      */
-    protected $fillable = ['title', 'sub_description', 'description', 'category', 'views', 'likes', 'image', 'youtube_link', 'sub_url', 'keyword'];
+    protected $fillable = ['title', 'sub_description', 'description', 'category', 'views', 'likes', 'image', 'youtube_link', 'sub_url', 'keyword', 'slug'];
 
     
 }
