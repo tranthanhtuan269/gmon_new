@@ -412,7 +412,7 @@ class CurriculumVitaeController extends Controller
         unset($input['bang_cap_0']);
         unset($input['student_process_0']);
 
-        $user = Auth::user();
+        $user = \Auth::user();
         $userCheck = User::Where('email', $input['email'])->first();
         if(!$userCheck){
             $user->email = $input['email'];
