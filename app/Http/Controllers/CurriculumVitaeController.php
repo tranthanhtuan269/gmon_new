@@ -139,6 +139,11 @@ class CurriculumVitaeController extends Controller
         unset($input['bang_cap_0']);
         unset($input['student_process_0']);
 
+        $user = \Auth::user();
+        $user->email = $input['email'];
+        $user->phone = $input['phone'];
+        $user->save();
+
         $input['images'] = $request['images-plus-field'];
         $input['time_can_work'] = $request['time_can_work'];
         $input['jobs'] = $request['jobs'];
@@ -403,6 +408,11 @@ class CurriculumVitaeController extends Controller
         unset($input['images-img']);
         unset($input['bang_cap_0']);
         unset($input['student_process_0']);
+
+        $user = Auth::user();
+        $user->email = $input['email'];
+        $user->phone = $input['phone'];
+        $user->save();
 
         $input['images'] = $request['images-plus-field'];
         $input['time_can_work'] = $request['time_can_work'];

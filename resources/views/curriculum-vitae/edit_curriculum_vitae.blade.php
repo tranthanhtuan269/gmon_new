@@ -50,6 +50,13 @@
                                     {!! $errors->first('birthday', '<p class="help-block">:message</p>') !!}
                                 </div>
                             </div>
+                            <div class="form-group {{ $errors->has('phone') ? 'has-error' : ''}}">
+                                {!! Form::label('phone', 'Số điện thoại', ['class' => 'col-md-5 control-label']) !!}
+                                <div class="col-md-7">
+                                    {!! Form::text('phone', \Auth::user()->phone, ['class' => 'form-control', 'placeholder' => 'Số điện thoại']) !!}
+                                    {!! $errors->first('phone', '<p class="help-block">:message</p>') !!}
+                                </div>
+                            </div>
                             <div class="form-group {{ $errors->has('city') ? 'has-error' : ''}}">
                                 {!! Form::label('city', 'Tỉnh / Thành phố', ['class' => 'col-md-5 control-label']) !!}
                                 <div class="col-md-7">
@@ -91,6 +98,13 @@
                                     <label>{!! Form::radio('gender', '1', $cv_user->gender == 1); !!}Nam</label>
                                     <label>{!! Form::radio('gender', '0', $cv_user->gender == 0); !!}Nữ</label>
                                     {!! $errors->first('gender', '<p class="help-block">:message</p>') !!}
+                                </div>
+                            </div>
+                            <div class="form-group {{ $errors->has('email') ? 'has-error' : ''}}">
+                                {!! Form::label('email', 'Email', ['class' => 'col-md-5 control-label']) !!}
+                                <div class="col-md-7">
+                                    {!! Form::text('email', \Auth::user()->email, ['class' => 'form-control', 'placeholder' => 'Thư điện tử']) !!}
+                                    {!! $errors->first('email', '<p class="help-block">:message</p>') !!}
                                 </div>
                             </div>
                             <div class="form-group {{ $errors->has('district') ? 'has-error' : ''}}">
