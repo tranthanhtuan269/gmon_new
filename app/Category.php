@@ -36,13 +36,13 @@ class Category extends Model
             ]
         ];
     }
-    
+
     /**
      * Attributes that should be mass-assignable.
      *
      * @var array
      */
-    protected $fillable = ['name', 'description', 'keyword'];
+    protected $fillable = ['name', 'description', 'keyword', 'slug'];
 
     
 }

@@ -769,11 +769,11 @@ class HomeController extends Controller
             $post->slug = null;
             $post->save();
         }
-        $categories = \App\Category::select('id')->get();
-        foreach($categories as $ca){
-            $category = \App\Category::find($ct->id);
-            $category->slug = null;
-            $category->save();
-        }
+        // $categories = \App\Category::select('id')->get();
+        // foreach($categories as $ca){
+        //     $category = \App\Category::find($ct->id);
+        //     $category->slug = null;
+        //     $category->save();
+        // }
     }
 }
