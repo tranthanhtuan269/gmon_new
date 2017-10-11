@@ -1,16 +1,13 @@
 $(document).ready(function () {
-    $('.panel-heading').click(function(){
-        $(this).parent().find('.panel-body').toggle();
-    });
     CKEDITOR.replace('interests');
     CKEDITOR.replace('references');
     CKEDITOR.replace('career_objective');
     CKEDITOR.replace('active');
     var url_site = $('base').attr('href');
     var count_hoc_tap = $(".form-hoc-tap-group").length - 1;
-    var count_kinh_nghiem = $(".form-kinh-nghiem-group").length-1;
-    var count_language = $('.language-json').length-1;
-    var count_qualification = $('.qualification-holder').length-1;
+    var count_kinh_nghiem = $(".form-kinh-nghiem-group").length;
+    var count_language = $('.language-json').length;
+    var count_qualification = $('.qualification-holder').length;
     $('#add-qualification').click(function () {
         if ($('#ten_ky_nang').val().length <= 1) {
             swal("Tên kỹ năng trống!", "Xin hãy điền tên kỹ năng trước khi thêm mới!");
@@ -20,15 +17,16 @@ $(document).ready(function () {
         renderJsonKyNang();
         count_qualification++;
         var html = "<label for='ten_ky_nang' class='col-md-4 qualification-holder' id='qualification-" + count_qualification + "'><div class='col-md-12'>";
-        html += " - <span class='ngoai-ngu'>" + $('#ten_ky_nang').val() + "</span>";
+        html += " - <span class='ky-nang'>" + $('#ten_ky_nang').val() + "</span>";
         html += "<span class='qualification-delete' id='qualification-delete-" + count_qualification + "'>&nbsp;x&nbsp;</span></div></label>";
         $(html).appendTo('#qualification_content');
-
-        $("#qualification-" + count_qualification).attr('data-json', '{"ten_ky_nang":"'+ $('#ten_ky_nang').val() +'"}');
         $('.qualification-delete').off('click');
         $('.qualification-delete').click(function () {
-            $(this).parent().parent().addClass('removed');
-            $(this).parent().parent().hide();
+            var id_obj = $(this).attr('id');
+            id_obj = id_obj.substring(21, id_obj.length);
+            $('#qualification-' + id_obj).remove();
+            re_render_qualification(id_obj);
+            count_qualification--;
         });
         
         $('#ten_ky_nang').val('');
@@ -49,7 +47,7 @@ $(document).ready(function () {
         renderJsonNgoaiNgu();
 
         count_language++;
-        var html = "<label for='ten_ngoai_ngu' data-json='{\"ten_ngoai_ngu\":\""+ $('#ten_ngoai_ngu').val() + "\", \"trinh_do_ngoai_ngu\":\""+ $('#trinh_do_ngoai_ngu').val() + "\"}' class='col-md-4' id='language-" + count_language + "'><div class='col-md-12'>";
+        var html = "<label for='ten_ngoai_ngu' class='col-md-4' id='language-" + count_language + "'><div class='col-md-12'>";
         html += " - <span class='ngoai-ngu'>" + $('#ten_ngoai_ngu').val() + "</span> - Trình độ: <span class='trinh-do-ngoai-ngu'>" + $('#trinh_do_ngoai_ngu').val() + "</span>";
         html += "<span class='language-delete' id='language-delete-" + count_language + "'>&nbsp;x&nbsp;</span></div></label>";
         $(html).appendTo('#ngoai_ngu_content');
@@ -63,6 +61,10 @@ $(document).ready(function () {
         $('#trinh_do_ngoai_ngu').val('');
     });
 
+    $('.remove-image-class').on('click', function(){
+        $(this).parent().addClass('removed').hide();
+    });
+    
     function validate_kinh_nghiem_cu(id) {
         if ($('#ten_cong_ty_' + id).val().length <= 0) {
             swal("Tên công ty không được để trống!", "Xin hãy điền Tên công ty!");
@@ -110,7 +112,7 @@ $(document).ready(function () {
     }
 
     $('#them_moi_kinh_nghiem').click(function () {
-        if (!validate_kinh_nghiem_cu(count_kinh_nghiem)) {
+        if (!validate_kinh_nghiem_cu(count_kinh_nghiem - 1)) {
             swal("Kinh nghiệm trước chưa được hoàn thành!", "Xin hãy hoàn thành kinh nghiệm trước để có thể thêm mới!");
             return false;
         }
@@ -189,29 +191,10 @@ $(document).ready(function () {
         html += "</select>";
         html += "</div>";
         html += "</div>";
-        // html += "<div class='form-group'>";
-        // html += "<div class='col-md-12'>";
-        // html += "<label for='ten_cong_ty' class='col-md-2 control-label'>Địa chỉ công ty</label>";
-        // html += "<div class='col-md-4'>";
-        // html += "<input type='text' class='form-control' class='dia_chi_cong_ty' id='dia_chi_cong_ty_" + count_kinh_nghiem + "'>";
-        // html += "</div>";
-        // html += "<div class='col-md-3'>";
-        // html += "<select class='form-control thanh_pho' id='thanh_pho_" + count_kinh_nghiem + "'><option value='0'>Chọn Tỉnh / Thành Phố--</option><option value='1'>Hà Nội</option><option value='2'>Hồ Chí Minh</option><option value='3'>Đà Nẵng</option><option value='4'>Hải Phòng</option><option value='5'>Cần Thơ</option><option value='6'>An Giang</option><option value='7'>Bà Rịa Vũng Tàu</option><option value='8'>Bạc Liêu</option><option value='9'>Bắc Cạn</option><option value='10'>Bắc Giang</option><option value='11'>Hải Dương</option><option value='12'>Bắc Ninh</option><option value='13'>Bến Tre</option><option value='14'>Bình Dương</option><option value='15'>Bình Định</option><option value='16'>Bình Phước</option><option value='17'>Bình Thuận</option><option value='18'>Cà Mau</option><option value='19'>Cao Bằng</option><option value='20'>Đắk Lắk</option><option value='21'>Đăk Nông</option><option value='22'>Điện Biên</option><option value='23'>Đồng Nai</option><option value='24'>Đồng Tháp</option><option value='25'>Gia Lai</option><option value='26'>Hà Giang</option><option value='27'>Hà Nam</option><option value='28'>Hà Tĩnh</option><option value='29'>Hậu Giang</option><option value='30'>Hòa Bình</option><option value='31'>Hưng Yên</option><option value='32'>Khánh Hòa</option><option value='33'>Kiên Giang</option><option value='34'>Kon Tum</option><option value='35'>Lai Châu</option><option value='36'>Lâm Đồng</option><option value='37'>Lạng Sơn</option><option value='38'>Lào Cai</option><option value='39'>Long An</option><option value='40'>Nam Định</option><option value='41'>Nghệ An</option><option value='42'>Ninh Bình</option><option value='43'>Ninh Thuận</option><option value='44'>Phú Thọ</option><option value='45'>Phú Yên</option><option value='46'>Quảng Bình</option><option value='47'>Quảng Nam</option><option value='48'>Quảng Ngãi</option><option value='49'>Quảng Ninh</option><option value='50'>Quảng Trị</option><option value='51'>Sóc Trăng</option><option value='52'>Sơn La</option><option value='53'>Tây Ninh</option><option value='54'>Thái Bình</option><option value='55'>Thái Nguyên</option><option value='56'>Thanh Hóa</option><option value='57'>Huế</option><option value='58'>Tiền Giang</option><option value='59'>Trà Vinh</option><option value='60'>Tuyên Quang</option><option value='61'>Vĩnh Long</option><option value='62'>Vĩnh Phúc</option><option value='63'>Yên Bái</option></select>";
-        // html += "</div>";
-        // html += "<div class='col-md-3'>";
-        // html += "<select class='form-control quan_huyen' id='quan_huyen_" + count_kinh_nghiem + "'><option value='0'>Chọn Quận / Huyện --</option></select>";
-        // html += "</div>";
-        // html += "</div>";
-        // html += "</div>";
         html += "<div class='form-group'>";
-        // html += "<div class='col-md-2 col-sm-offset-1 image_company'>";
-        // html += "<img src='" + url_site + "/public/images/anh_cong_ty.jpg' id='company_image_" + count_kinh_nghiem + "' class='img-company' style='height: 92px; width:100%; background-color: #fff; border: 2px solid gray; border-radius: 5px;'>";
-        // html += "<input type='file' class='company-img' id='company-img-" + count_kinh_nghiem + "' style='display: none;'>";
-        // html += "</div>";
-        html += "<label for='ten_cong_ty' class='col-md-2 control-label'>Mô tả công việc</label>";
+        html += "<label for='birthday' class='col-md-2 control-label'>Mô tả công việc</label>";
         html += "<div class='col-md-10'>";
         html += "<textarea rows='4' cols='50' class='form-control' class='mo_ta_" + count_kinh_nghiem + "' id='mo_ta_" + count_kinh_nghiem + "' placeholder='Mô tả ngắn về công việc?'></textarea>";
-        html += "</div>";
         html += "</div>";
         html += "</div>";
         html += "<div class='form-group'>";
@@ -234,6 +217,7 @@ $(document).ready(function () {
         id_obj = id_obj.substring(19, id_obj.length);
         $('#kinh_nghiem_lam_viec_' + id_obj).hide();
         $('#kinh_nghiem_lam_viec_' + id_obj).addClass('removed');
+        count_kinh_nghiem;
     });
     $('.kinh_nghiem_success-btn').click(function () {
         var id_obj = $(this).attr('id');
@@ -280,6 +264,7 @@ $(document).ready(function () {
             id_obj = id_obj.substring(19, id_obj.length);
             $('#kinh_nghiem_lam_viec_' + id_obj).hide();
             $('#kinh_nghiem_lam_viec_' + id_obj).addClass('removed');
+            count_kinh_nghiem;
         });
         $('.kinh_nghiem_success-btn').off('click');
         $('.kinh_nghiem_success-btn').click(function () {
@@ -325,7 +310,6 @@ $(document).ready(function () {
         $('.img-company').off('click');
         $('.img-company').on('click', function (e) {
             var id_obj = $(this).attr('id');
-            console.log(id_obj);
             id_obj = id_obj.substring(14, id_obj.length);
             $('#company-img-' + id_obj).click();
         });
@@ -566,7 +550,7 @@ $(document).ready(function () {
         html += "<label for='birthday' class='col-md-2 control-label'><span  id='loai_tot_nghiep_" + count_hoc_tap + "_label' style='display:none;'>Tốt nghiệp loại</span></label>";
         html += "<div class='col-md-3'>";
         html += "<select class='form-control' class='loai_tot_nghiep' id='loai_tot_nghiep_" + count_hoc_tap + "' style='display:none;'>";
-        html += "<option value='0'>Chọn loại tốt nghiệp</option>";
+        html += "<option value='0'>Chọn loại tốt nghiệp--</option>";
         html += "<option value='1'>Xuất sắc</option>";
         html += "<option value='2'>Giỏi</option>";
         html += "<option value='3'>Khá</option>";
@@ -595,6 +579,7 @@ $(document).ready(function () {
         id_obj = id_obj.substring(7, id_obj.length);
         $('#hoc_tap_' + id_obj).hide();
         $('#hoc_tap_' + id_obj).addClass('removed');
+        count_hoc_tap--;
     });
     $('.student_process').click(function () {
         var id_obj = $(this).attr('name');
@@ -662,6 +647,7 @@ $(document).ready(function () {
             id_obj = id_obj.substring(7, id_obj.length);
             $('#hoc_tap_' + id_obj).hide();
             $('#hoc_tap_' + id_obj).addClass('removed');
+            count_hoc_tap--;
         });
         $('.hoc_tap_success-btn').click(function () {
 
@@ -728,9 +714,7 @@ $(document).ready(function () {
     }
 
     $('#datetimepicker').datetimepicker({
-        format: 'DD/MM/YYYY',
-        maxDate : '2012/01/01',
-        minDate : '1970/01/01'
+        format: 'DD/MM/YYYY'
     });
     $('.img-company').on('click', function (e) {
         var id_obj = $(this).attr('id');
@@ -765,24 +749,59 @@ $(document).ready(function () {
         }
     });
     $('#avatar-image').on('click', function (e) {
+        // $('#avatar-img').click();
         $('.modal-show-avatar').modal('show');
+    });
+    $('#avatar-img').on('change', function (e) {
+        var fileInput = this;
+        if (fileInput.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('#avatar-image').attr('src', e.target.result);
+            }
+            reader.readAsDataURL(fileInput.files[0]);
+        }
     });
     $('#images').on('click', function (e) {
         $('#images-img').click();
     });
     $('#images-img').on('change', function (e) {
         var fileInput = this;
-        var i = 0;
-        $(fileInput.files).each(function (index) {
-            var reader = new FileReader();
-            reader.onload = function (e) {
-                var html = '<img src="' + e.target.result + '" class="img">';
-                $('#images-plus').append(html);
+
+        if (fileInput.files[0]) {
+            var data = new FormData();
+            for(var i = 0; i < $(fileInput.files).length; i++){
+                data.append('input_file_name_' + i, fileInput.files[i]);
             }
-            
-            reader.readAsDataURL(fileInput.files[i]);
-            i++;
-        });
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                type: 'POST',
+                processData: false, // important
+                contentType: false, // important
+                data: data,
+                url: url_site + "/postImages",
+                dataType: 'json',
+                success: function (jsonData) {
+                    if (jsonData.code == 200) {
+                        var res = jsonData.images_url.split(";");
+                        var html = '';
+                        for(var i = 0; i < res.length - 1; i++){
+                            html += '<div class="image-holder">';
+                            html += '<img src="http://test.gmon.com.vn/?image=' + res[i] + '" class="img" height="150">';
+                            html += '<span class="remove-image-class"></span>';
+                            html += '</div>';
+                        }
+                        $('#images-plus').append(html);
+                        $('.remove-image-class').off('click');
+                        $('.remove-image-class').on('click', function(){
+                            $(this).parent().addClass('removed').hide();
+                        });        
+                    }
+                }
+            });
+        }
     });
     
     $("#city").change(function () {
@@ -848,16 +867,14 @@ $(document).ready(function () {
     }
 
     $("#submit-btn").click(function () {
-
         $('#education').val('');
-        $('#word_experience').val('');
         $('#language').val('');
         $('#qualification').val('');
-
+        
         $('#active').val(CKEDITOR.instances['active'].getData());
         $('#references').val(CKEDITOR.instances['references'].getData());
-        $('#career_objective').val(CKEDITOR.instances['career_objective'].getData());
         $('#interests').val(CKEDITOR.instances['interests'].getData());
+        $('#career_objective').val(CKEDITOR.instances['career_objective'].getData());
 
         $.each($(".form-hoc-tap-group"), function(){            
             if(!$(this).hasClass('removed')){
@@ -865,24 +882,26 @@ $(document).ready(function () {
             }
         });
 
+        $('#word_experience').val('');
         $.each($(".form-kinh-nghiem-group"), function(){            
             if(!$(this).hasClass('removed')){
                 $('#word_experience').val($('#word_experience').val() + ';' + $(this).find(".word_experience_json").val());
             }
         });
 
-        $.each($("#ngoai_ngu_content .col-md-4"), function(){
-            if(!$(this).hasClass('removed')){
-                $('#language').val($('#language').val() + ';' + $(this).attr('data-json'));
-            }
+        $.each($(".language-json"), function(){            
+            var ret_arr = {};
+            ret_arr['ten_ngoai_ngu'] = $(this).find(".ngoai-ngu").html();
+            ret_arr['trinh_do_ngoai_ngu'] = $(this).find(".trinh-do-ngoai-ngu").html();
+            $('#language').val($('#language').val() + ';' + JSON.stringify(ret_arr));
         });
 
         $.each($(".qualification-holder"), function(){  
-            if(!$(this).hasClass('removed')){
-                $('#qualification').val($('#qualification').val() + ';' + $(this).attr('data-json'));
-            }
+            var ret_arr = {};
+            ret_arr['ten_ky_nang'] = $(this).find(".ky-nang").html();
+            $('#qualification').val($('#qualification').val() + ';' + JSON.stringify(ret_arr));
         });
-
+        
         var listJobs = '';
         $('#jobs_hold .dropdown-menu.inner li.selected').each(function (index) {
             listJobs += $(this).text() + ';';
@@ -897,6 +916,15 @@ $(document).ready(function () {
 
         $('#salary').val($('#salary_select').val());
 
+        var listImages = '';
+        $('#images-plus .image-holder').each(function(index){
+            if(!$(this).hasClass('removed')){
+                var image_info = $($(this).find('img')).attr('src');
+                listImages += image_info.substr(31, image_info.length) + ';';
+            }
+        });
+        $('#images-plus-field').val(listImages);
+        
         if (!validateForm()) {
             return false;
         }
@@ -970,6 +998,7 @@ $(document).ready(function () {
             id_obj = id_obj.substring(21, id_obj.length);
             $('#qualification-' + id_obj).remove();
             re_render_qualification(id_obj);
+            count_qualification--;
         });
     }
 
@@ -1002,7 +1031,7 @@ $(document).ready(function () {
 
     function ren_ngoai_ngu(id, ten_ngoai_ngu, trinh_do_ngoai_ngu){
         var html_return = "<label for='ten_ngoai_ngu' class='col-md-4' id='language-" + id + "'><div class='col-md-12'>";
-        html_return += " - <span class='ngoai-ngu'>" + ten_ngoai_ngu + "</span> - Trình độ: <span class='ngoai-ngu'>" + trinh_do_ngoai_ngu + "</span>";
+        html_return += " - <span class='ngoai-ngu'>" + ten_ngoai_ngu + "</span> - Trình độ: <span class='trinh-do-ngoai-ngu'>" + trinh_do_ngoai_ngu + "</span>";
         html_return += "<span class='language-delete' id='language-delete-" + id + "'>&nbsp;x&nbsp;</span></div></label>";
         return html_return;
     }

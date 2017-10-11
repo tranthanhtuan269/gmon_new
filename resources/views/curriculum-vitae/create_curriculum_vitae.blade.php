@@ -42,6 +42,13 @@
                                     {!! $errors->first('birthday', '<p class="help-block">:message</p>') !!}
                                 </div>
                             </div>
+                            <div class="form-group {{ $errors->has('phone') ? 'has-error' : ''}}">
+                                {!! Form::label('phone', 'Số điện thoại', ['class' => 'col-md-5 control-label']) !!}
+                                <div class="col-md-7">
+                                    {!! Form::text('phone', \Auth::user()->phone, ['class' => 'form-control', 'placeholder' => 'Số điện thoại']) !!}
+                                    {!! $errors->first('phone', '<p class="help-block">:message</p>') !!}
+                                </div>
+                            </div>
                             <div class="form-group {{ $errors->has('city') ? 'has-error' : ''}}">
                                 {!! Form::label('city', 'Tỉnh / Thành phố', ['class' => 'col-md-5 control-label']) !!}
                                 <div class="col-md-7">
@@ -55,7 +62,7 @@
                                 </div>
                             </div>
                             <div class="form-group {{ $errors->has('salary') ? 'has-error' : ''}}">
-                                {!! Form::label('birthday', 'Mức lương', ['class' => 'col-md-5 control-label']) !!}
+                                {!! Form::label('salary', 'Mức lương', ['class' => 'col-md-5 control-label']) !!}
                                 <div class="col-md-7">
                                     <input type="hidden" id="salary" name="salary" value="1">
                                     <select class="form-control" title="Mức lương" id="salary_select" name="salary_select">
@@ -85,6 +92,13 @@
                                     <label>{!! Form::radio('gender', '1', true); !!}Nam</label>
                                     <label>{!! Form::radio('gender', '0'); !!}Nữ</label>
                                     {!! $errors->first('gender', '<p class="help-block">:message</p>') !!}
+                                </div>
+                            </div>
+                            <div class="form-group {{ $errors->has('email') ? 'has-error' : ''}}">
+                                {!! Form::label('email', 'Email', ['class' => 'col-md-5 control-label']) !!}
+                                <div class="col-md-7">
+                                    {!! Form::text('email', \Auth::user()->email, ['class' => 'form-control', 'placeholder' => 'Thư điện tử']) !!}
+                                    {!! $errors->first('email', '<p class="help-block">:message</p>') !!}
                                 </div>
                             </div>
                             <div class="form-group {{ $errors->has('district') ? 'has-error' : ''}}">
@@ -389,6 +403,7 @@
                         <div class="panel-heading">Thêm ảnh ngoại khóa</div>
                         <div class="panel-body">
                             <div class="form-group {{ $errors->has('images') ? 'has-error' : ''}}">
+                                <input type="hidden" name="images-plus-field" id="images-plus-field" value="">
                                 <div class="col-md-12">
                                     <label class="control-label">Thêm ảnh</label>
                                 </div>

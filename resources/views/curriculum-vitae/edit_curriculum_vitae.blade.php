@@ -21,10 +21,15 @@
                             <div class="form-group {{ $errors->has('avatar') ? 'has-error' : ''}}">
                                 <div class="col-md-12">
                                     <input type="hidden" id="avatar" name="avatar" value="{{ $cv_user->avatar }}">
-                                    @if (strpos($cv_user->avatar, 'https') !== false)
-                                    <img src="{{ $cv_user->avatar }}" id="avatar-image" class="img" style="height: 150px; width: 150px; background-color: #fff; border: 2px solid gray; border-radius: 50%;">
+                                    
+                                    @if(strlen($cv_user->avatar) > 3)
+                                        @if (strpos($cv_user->avatar, 'https') !== false)
+                                            <img src="{{ $cv_user->avatar }}" id="avatar-image" class="img" style="height: 150px; width: 150px; background-color: #fff; border: 2px solid gray; border-radius: 50%;">
+                                        @else
+                                        <img src="http://test.gmon.com.vn/?image={{ $cv_user->avatar }}" id="avatar-image" class="img" style="height: 150px; width: 150px; background-color: #fff; border: 2px solid gray; border-radius: 50%;">
+                                        @endif
                                     @else
-                                    <img src="http://test.gmon.com.vn/?image={{ $cv_user->avatar }}" id="avatar-image" class="img" style="height: 150px; width: 150px; background-color: #fff; border: 2px solid gray; border-radius: 50%;">
+                                        <img src="http://test.gmon.com.vn/?image=avatar.png" id="avatar-image" class="img" style="height: 150px; width: 150px; background-color: #fff; border: 2px solid gray; border-radius: 50%;">
                                     @endif
                                     <input type="file" name="avatar-img" id="avatar-img" style="display: none;">
                                     {!! $errors->first('avatar', '<p class="help-block">:message</p>') !!}
@@ -43,6 +48,13 @@
                                         </span>
                                     </div>
                                     {!! $errors->first('birthday', '<p class="help-block">:message</p>') !!}
+                                </div>
+                            </div>
+                            <div class="form-group {{ $errors->has('phone') ? 'has-error' : ''}}">
+                                {!! Form::label('phone', 'Số điện thoại', ['class' => 'col-md-5 control-label']) !!}
+                                <div class="col-md-7">
+                                    {!! Form::text('phone', \Auth::user()->phone, ['class' => 'form-control', 'placeholder' => 'Số điện thoại']) !!}
+                                    {!! $errors->first('phone', '<p class="help-block">:message</p>') !!}
                                 </div>
                             </div>
                             <div class="form-group {{ $errors->has('city') ? 'has-error' : ''}}">
@@ -86,6 +98,13 @@
                                     <label>{!! Form::radio('gender', '1', $cv_user->gender == 1); !!}Nam</label>
                                     <label>{!! Form::radio('gender', '0', $cv_user->gender == 0); !!}Nữ</label>
                                     {!! $errors->first('gender', '<p class="help-block">:message</p>') !!}
+                                </div>
+                            </div>
+                            <div class="form-group {{ $errors->has('email') ? 'has-error' : ''}}">
+                                {!! Form::label('email', 'Email', ['class' => 'col-md-5 control-label']) !!}
+                                <div class="col-md-7">
+                                    {!! Form::text('email', \Auth::user()->email, ['class' => 'form-control', 'placeholder' => 'Thư điện tử']) !!}
+                                    {!! $errors->first('email', '<p class="help-block">:message</p>') !!}
                                 </div>
                             </div>
                             <div class="form-group {{ $errors->has('district') ? 'has-error' : ''}}">
@@ -580,18 +599,24 @@
                         <div class="panel-heading">Thêm ảnh ngoại khóa</div>
                         <div class="panel-body">
                             <div class="form-group {{ $errors->has('images') ? 'has-error' : ''}}">
+                                <input type="hidden" name="images-plus-field" id="images-plus-field" value="">
                                 <div class="col-md-12">
                                     <label class="control-label">Thêm ảnh</label>
                                 </div>
                                 <div class="col-md-12">
                                     <div id="images-plus">
                                         <?php 
+                                            if(strlen($cv_user->images) > 0){
                                             $cv_user->images=rtrim($cv_user->images,";");
                                             $images = explode(";",$cv_user->images);
                                             for($i = 0; $i < count($images); $i++){
                                         ?>
+                                        <div class="image-holder">
                                             <img src="http://test.gmon.com.vn/?image={{ $images[$i] }}" class="img">
+                                            <span class="remove-image-class"></span>
+                                        </div>
                                         <?php
+                                            }
                                             }
                                         ?>
                                     </div>

@@ -25,8 +25,11 @@ $(document).ready(function () {
         $(html).appendTo('#qualification_content');
         $('.qualification-delete').off('click');
         $('.qualification-delete').click(function () {
-            $(this).parent().parent().addClass('removed');
-            $(this).parent().parent().hide();
+            var id_obj = $(this).attr('id');
+            id_obj = id_obj.substring(21, id_obj.length);
+            $('#qualification-' + id_obj).remove();
+            re_render_qualification(id_obj);
+            count_qualification--;
         });
         
         $('#ten_ky_nang').val('');
@@ -47,20 +50,22 @@ $(document).ready(function () {
         renderJsonNgoaiNgu();
 
         count_language++;
-        var html = "<label for='ten_ngoai_ngu' data-json='{\"ten_ngoai_ngu\":\""+ $('#ten_ngoai_ngu').val() + "\", \"trinh_do_ngoai_ngu\":\""+ $('#trinh_do_ngoai_ngu').val() + "\"}' class='col-md-4' id='language-" + count_language + "'><div class='col-md-12'>";
-        html += " - <span class='ngoai-ngu'>" + $('#ten_ngoai_ngu').val() + "</span> - Trình độ: <span class='trinh-do-ngoai-ngu'>" + $('#trinh_do_ngoai_ngu').val() + "</span>";
+        var html = "<label for='ten_ngoai_ngu' class='col-md-4' id='language-" + count_language + "'><div class='col-md-12'>";
+        html += " - <span class='ngoai-ngu'>" + $('#ten_ngoai_ngu').val() + "</span> - Trình độ: <span class='ngoai-ngu'>" + $('#trinh_do_ngoai_ngu').val() + "</span>";
         html += "<span class='language-delete' id='language-delete-" + count_language + "'>&nbsp;x&nbsp;</span></div></label>";
         $(html).appendTo('#ngoai_ngu_content');
         $('.language-delete').off('click');
         $('.language-delete').click(function () {
-            $(this).parent().parent().addClass('removed');
-            $(this).parent().parent().hide();
+            var id_obj = $(this).attr('id');
+            id_obj = id_obj.substring(16, id_obj.length);
+            $('#language-' + id_obj).remove();
+            re_render_language(id_obj);
+            count_language--;
         });
         
         $('#ten_ngoai_ngu').val('');
         $('#trinh_do_ngoai_ngu').val('');
     });
-
     function validate_kinh_nghiem_cu(id) {
         if ($('#ten_cong_ty_' + id).val().length <= 0) {
             swal("Tên công ty không được để trống!", "Xin hãy điền Tên công ty!");
@@ -103,6 +108,26 @@ $(document).ready(function () {
                 return false;
             }
         }
+
+        // if ($('#dia_chi_cong_ty_' + id).val().length <= 0) {
+        //     swal("Địa chỉ công ty không được để trống!", "Xin hãy điền Địa chỉ công ty!");
+        //     return false;
+        // }
+
+        // if ($('#thanh_pho_' + id).val() <= 0) {
+        //     swal("Thành phố nơi làm việc không được để trống!", "Xin hãy điền Thành phố nơi làm việc!");
+        //     return false;
+        // }
+
+        // if ($('#quan_huyen_' + id).val() <= 0) {
+        //     swal("Quận / Huyện nơi làm việc không được để trống!", "Xin hãy điền Quận / Huyện nơi làm việc!");
+        //     return false;
+        // }
+
+        // if ($('#mo_ta_' + id).val().length <= 0) {
+        //     swal("Mô tả ngắn không được để trống!", "Xin hãy điền Mô tả ngắn!");
+        //     return false;
+        // }
 
         return true;
     }
@@ -232,6 +257,7 @@ $(document).ready(function () {
         id_obj = id_obj.substring(19, id_obj.length);
         $('#kinh_nghiem_lam_viec_' + id_obj).hide();
         $('#kinh_nghiem_lam_viec_' + id_obj).addClass('removed');
+        count_kinh_nghiem;
     });
     $('.kinh_nghiem_success-btn').click(function () {
         var id_obj = $(this).attr('id');
@@ -278,6 +304,7 @@ $(document).ready(function () {
             id_obj = id_obj.substring(19, id_obj.length);
             $('#kinh_nghiem_lam_viec_' + id_obj).hide();
             $('#kinh_nghiem_lam_viec_' + id_obj).addClass('removed');
+            count_kinh_nghiem;
         });
         $('.kinh_nghiem_success-btn').off('click');
         $('.kinh_nghiem_success-btn').click(function () {
@@ -593,6 +620,7 @@ $(document).ready(function () {
         id_obj = id_obj.substring(7, id_obj.length);
         $('#hoc_tap_' + id_obj).hide();
         $('#hoc_tap_' + id_obj).addClass('removed');
+        count_hoc_tap;
     });
     $('.student_process').click(function () {
         var id_obj = $(this).attr('name');
@@ -660,6 +688,7 @@ $(document).ready(function () {
             id_obj = id_obj.substring(7, id_obj.length);
             $('#hoc_tap_' + id_obj).hide();
             $('#hoc_tap_' + id_obj).addClass('removed');
+            count_hoc_tap;
         });
         $('.hoc_tap_success-btn').click(function () {
 
@@ -763,6 +792,7 @@ $(document).ready(function () {
         }
     });
     $('#avatar-image').on('click', function (e) {
+        // $('#avatar-img').click();
         $('.modal-show-avatar').modal('show');
     });
     $('#images').on('click', function (e) {
@@ -770,17 +800,41 @@ $(document).ready(function () {
     });
     $('#images-img').on('change', function (e) {
         var fileInput = this;
-        var i = 0;
-        $(fileInput.files).each(function (index) {
-            var reader = new FileReader();
-            reader.onload = function (e) {
-                var html = '<img src="' + e.target.result + '" class="img">';
-                $('#images-plus').append(html);
+
+        if (fileInput.files[0]) {
+            var data = new FormData();
+            for(var i = 0; i < $(fileInput.files).length; i++){
+                data.append('input_file_name_' + i, fileInput.files[i]);
             }
-            
-            reader.readAsDataURL(fileInput.files[i]);
-            i++;
-        });
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                type: 'POST',
+                processData: false, // important
+                contentType: false, // important
+                data: data,
+                url: url_site + "/postImages",
+                dataType: 'json',
+                success: function (jsonData) {
+                    if (jsonData.code == 200) {
+                        var res = jsonData.images_url.split(";");
+                        var html = '';
+                        for(var i = 0; i < res.length - 1; i++){
+                            html += '<div class="image-holder">';
+                            html += '<img src="http://test.gmon.com.vn/?image=' + res[i] + '" class="img" height="150">';
+                            html += '<span class="remove-image-class"></span>';
+                            html += '</div>';
+                        }
+                        $('#images-plus').append(html);
+                        $('.remove-image-class').off('click');
+                        $('.remove-image-class').on('click', function(){
+                            $(this).parent().addClass('removed').hide();
+                        });        
+                    }
+                }
+            });
+        }
     });
     
     $("#city").change(function () {
@@ -849,8 +903,6 @@ $(document).ready(function () {
 
         $('#education').val('');
         $('#word_experience').val('');
-        $('#language').val();
-        $('#qualification').val();
 
         $('#active').val(CKEDITOR.instances['active'].getData());
         $('#references').val(CKEDITOR.instances['references'].getData());
@@ -869,18 +921,6 @@ $(document).ready(function () {
             }
         });
 
-        $.each($("#ngoai_ngu_content .col-md-4"), function(){
-            if(!$(this).hasClass('removed')){
-                $('#language').val($('#language').val() + ';' + $(this).attr('data-json'));
-            }
-        });
-
-        $.each($(".qualification-holder"), function(){  
-            if(!$(this).hasClass('removed')){
-                $('#qualification').val($('#qualification').val() + ';' + $(this).attr('data-json'));
-            }
-        });
-
         var listJobs = '';
         $('#jobs_hold .dropdown-menu.inner li.selected').each(function (index) {
             listJobs += $(this).text() + ';';
@@ -894,6 +934,15 @@ $(document).ready(function () {
         $('#time_can_work').val(listTimes);
 
         $('#salary').val($('#salary_select').val());
+
+        var listImages = '';
+        $('#images-plus .image-holder').each(function(index){
+            if(!$(this).hasClass('removed')){
+                var image_info = $($(this).find('img')).attr('src');
+                listImages += image_info.substr(31, image_info.length) + ';';
+            }
+        });
+        $('#images-plus-field').val(listImages);
 
         if (!validateForm()) {
             return false;
@@ -968,6 +1017,7 @@ $(document).ready(function () {
             id_obj = id_obj.substring(21, id_obj.length);
             $('#qualification-' + id_obj).remove();
             re_render_qualification(id_obj);
+            count_qualification--;
         });
     }
 
@@ -997,6 +1047,7 @@ $(document).ready(function () {
             id_obj = id_obj.substring(16, id_obj.length);
             $('#language-' + id_obj).remove();
             re_render_language(id_obj);
+            count_language--;
         });
     }
 
