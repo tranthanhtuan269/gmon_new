@@ -22,8 +22,8 @@
                                 <div class="col-md-12">
                                     <input type="hidden" id="avatar" name="avatar" value="{{ $cv_user->avatar }}">
                                     
-                                    @if(strlen($curriculumvitae->avatar) > 3)
-                                        @if (strpos($curriculumvitae->avatar, 'https') !== false)
+                                    @if(strlen($cv_user->avatar) > 3)
+                                        @if (strpos($cv_user->avatar, 'https') !== false)
                                             <img src="{{ $cv_user->avatar }}" id="avatar-image" class="img" style="height: 150px; width: 150px; background-color: #fff; border: 2px solid gray; border-radius: 50%;">
                                         @else
                                         <img src="http://test.gmon.com.vn/?image={{ $cv_user->avatar }}" id="avatar-image" class="img" style="height: 150px; width: 150px; background-color: #fff; border: 2px solid gray; border-radius: 50%;">
