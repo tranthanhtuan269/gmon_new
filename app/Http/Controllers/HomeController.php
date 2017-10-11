@@ -7,6 +7,8 @@ use App\CompanyCompanyType;
 use App\User;
 use App\Company;
 use App\Job;
+use App\Post;
+use App\Category;
 use App\JobType;
 use App\CompanyType;
 use Mail;
@@ -760,6 +762,18 @@ class HomeController extends Controller
             $companyType = \App\CompanyType::find($ct->id);
             $companyType->slug = null;
             $companyType->save();
+        }
+        $posts = \App\Post::select('id')->get();
+        foreach($posts as $p){
+            $post = \App\Post::find($p->id);
+            $post->slug = null;
+            $post->save();
+        }
+        $categories = \App\Category::select('id')->get();
+        foreach($categories as $ca){
+            $category = \App\Category::find($ct->id);
+            $category->slug = null;
+            $category->save();
         }
     }
 }
