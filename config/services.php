@@ -36,8 +36,8 @@ return [
     ],
 
     'facebook' => [
-        'client_id' => '212812479241763',
-        'client_secret' => '0194a76b837cb8ad9ce5a14c4d313f2e',
+        'client_id' => '458810724519754',
+        'client_secret' => '6b4b8adecfa04327c414f941375ac905',
         'redirect' => 'http://spa.gmon.vn/auth/facebook/callback',
     ],
 
