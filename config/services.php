@@ -38,13 +38,13 @@ return [
     'facebook' => [
         'client_id' => '212812479241763',
         'client_secret' => '0194a76b837cb8ad9ce5a14c4d313f2e',
-        'redirect' => 'http://gmon.vn/auth/facebook/callback',
+        'redirect' => 'http://spa.gmon.vn/auth/facebook/callback',
     ],
 
     'google' => [
         'client_id' => '417199133117-sing5evaq5342lub46auitbd4utc3u3q.apps.googleusercontent.com',
         'client_secret' => 'PK2KHvX6JntcZ0G-fsSUgS47',
-        'redirect' => 'http://gmon.vn/auth/google/callback',
+        'redirect' => 'http://spa.gmon.vn/auth/google/callback',
     ],
 
 ];
