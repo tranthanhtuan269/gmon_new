@@ -4,7 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>{{ config('app.name', 'Gmon') }}</title>
+    @if(isset($company) && isset($company->name))
+      @if(isset($job) && isset($job->name))
+      <title>{{ $job->name }} - {{ $company->name }}</title>
+      @else
+      <title>{{ $company->name }}</title>
+      @endif
+    @elseif(isset($curriculumvitae) && isset($curriculumvitae->name))
+      <title>{{ $curriculumvitae->name }}</title>
+    @else
+      <title>{{ config('app.name', 'Gmon') }}</title>
+    @endif
+
     <link rel="stylesheet" href="{{ url('/') }}/public/css/bootstrap.min.css" />
     <link rel="stylesheet" href="{{ url('/') }}/public/css/font-awesome.min.css" />
     <link rel="stylesheet" href="{{ url('/') }}/public/css/jquery.fancybox.min.css" />
