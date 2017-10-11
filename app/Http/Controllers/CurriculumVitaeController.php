@@ -140,7 +140,10 @@ class CurriculumVitaeController extends Controller
         unset($input['student_process_0']);
 
         $user = \Auth::user();
-        $user->email = $input['email'];
+        $userCheck = User::Where('email', $input['email'])->first();
+        if(!$userCheck){
+            $user->email = $input['email'];
+        }
         $user->phone = $input['phone'];
         $user->save();
 
@@ -410,7 +413,10 @@ class CurriculumVitaeController extends Controller
         unset($input['student_process_0']);
 
         $user = Auth::user();
-        $user->email = $input['email'];
+        $userCheck = User::Where('email', $input['email'])->first();
+        if(!$userCheck){
+            $user->email = $input['email'];
+        }
         $user->phone = $input['phone'];
         $user->save();
 
