@@ -599,18 +599,24 @@
                         <div class="panel-heading">Thêm ảnh ngoại khóa</div>
                         <div class="panel-body">
                             <div class="form-group {{ $errors->has('images') ? 'has-error' : ''}}">
+                                <input type="hidden" name="images-plus-field" id="images-plus-field" value="">
                                 <div class="col-md-12">
                                     <label class="control-label">Thêm ảnh</label>
                                 </div>
                                 <div class="col-md-12">
                                     <div id="images-plus">
                                         <?php 
+                                            if(strlen($cv_user->images) > 0){
                                             $cv_user->images=rtrim($cv_user->images,";");
                                             $images = explode(";",$cv_user->images);
                                             for($i = 0; $i < count($images); $i++){
                                         ?>
+                                        <div class="image-holder">
                                             <img src="http://test.gmon.com.vn/?image={{ $images[$i] }}" class="img">
+                                            <span class="remove-image-class"></span>
+                                        </div>
                                         <?php
+                                            }
                                             }
                                         ?>
                                     </div>
@@ -692,6 +698,7 @@
 
 <script src="{{ url('/') }}/public/js/croppie.js"></script>
 <script type="text/javascript">
+
     var src_avatar = "http://test.gmon.com.vn/?image={{ $cv_user->avatar }}";
     $uploadCrop = $('#upload-demo').croppie({
         enableExif: true,
@@ -705,13 +712,16 @@
             height: 300
         }
     });
+
     $('.select-avatar').click(function(){
         $("#upload").click();
     });
+
     $('.ok-select').click(function(){
         $('#avatar-image').attr('src',src_avatar);
         $('.modal-show-avatar').modal('toggle');
     });
+
     $('#avatar-img').on('change', function () {
         var reader = new FileReader();
         reader.onload = function (e) {
@@ -724,6 +734,7 @@
         }
         reader.readAsDataURL(this.files[0]);
     });
+
     $('#upload').on('change', function () {
         var reader = new FileReader();
         reader.onload = function (e) {
@@ -736,11 +747,13 @@
         }
         reader.readAsDataURL(this.files[0]);
     });
+
     $('.upload-result').on('click', function (ev) {
         $uploadCrop.croppie('result', {
             type: 'canvas',
             size: 'viewport'
         }).then(function (resp) {
+
             $.ajax({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
