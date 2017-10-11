@@ -111,7 +111,7 @@
                                <!-- Tab panes -->
                                <div class="tab-content">
                                    <div id="login" class="tab-pane login active" id="home" role="tabpanel">
-                                       <form action="javascript:void(0);" onsubmit="return(loginFunc());"  name="loginForm" id="loginForm">
+                                       <form action="javascript:void(0);"  name="loginForm" id="loginForm">
                                            <div class="form-group">
                                                <label for="email"></label>
                                                <input type="email" class="form-control" id="login-email" placeholder="Email">
@@ -139,7 +139,7 @@
                                    </div>
                                    <div id="register" class="tab-pane register" id="profile" role="tabpanel">
                                        <h3>đăng ký tài khoản gmon ngay!</h3>
-                                       <form action="javascript:void(0);" onsubmit="return(registerFunc());"  name="registerForm" id="registerForm">
+                                       <form action="javascript:void(0);"  name="registerForm" id="registerForm">
                                            <div class="form-group">
                                                <input type="text" class="form-control" id="username" placeholder="Họ & tên">
                                            </div>
