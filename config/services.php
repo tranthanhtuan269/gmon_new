@@ -42,8 +42,8 @@ return [
     ],
 
     'google' => [
-        'client_id' => '417199133117-sing5evaq5342lub46auitbd4utc3u3q.apps.googleusercontent.com',
-        'client_secret' => 'PK2KHvX6JntcZ0G-fsSUgS47',
+        'client_id' => '417199133117-9c8utpacu1ts1gl16omtqpeklu13a2d2.apps.googleusercontent.com',
+        'client_secret' => 'l3Cb0kg1SdAbBy9r2HEU3LLg',
         'redirect' => 'http://spa.gmon.vn/auth/google/callback',
     ],
 
