@@ -5,11 +5,18 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
-        <title>{{ config('app.name', 'Gmon') }}</title>
+        @if(isset($curriculumvitae) && isset($curriculumvitae->name))
+        <title>{{ $curriculumvitae->name }}</title>
+        @else
+        <title>@yield('title')</title>
+        @endif
+        <meta name="description" content="@yield('description')"/>
+        <meta name="keyword" content="@yield('keyword')"/>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <base href="{{ url('/') }}" target="_self">
+        <link rel="icon" href="http://test.gmon.com.vn/?image=favicon.png" type="image/x-icon">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link href="https://fonts.googleapis.com/css?family=Noto+Sans" rel="stylesheet"> 
         <script src="{{ url('/') }}/public/sweetalert/sweetalert.min.js"></script>
@@ -17,10 +24,17 @@
         <script src="{{ url('/') }}/public/js/jquery.cookie.js"></script>
         <link rel="stylesheet" href="{{ url('/') }}/public/css/home.css">
         <link href="{{ url('/') }}/public/css/customize.css" rel="stylesheet">
-        <link rel="shortcut icon" href="http://test.gmon.com.vn/?image=favicon.png" type="image/x-icon">
-        <link rel="icon" href="http://test.gmon.com.vn/?image=favicon.png" type="image/x-icon">
     </head>
     <body class="homepage">
+        <!-- Global Site Tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-106844998-1"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments)};
+          gtag('js', new Date());
+
+          gtag('config', 'UA-106844998-1');
+        </script>
         <div class="mass-content">
             <div class="loader"></div>
         </div>
@@ -47,7 +61,6 @@
                 left: 45%;
                 display: none;
             }
-
             @keyframes spin {
                 0% { transform: rotate(0deg); }
                 100% { transform: rotate(360deg); }
@@ -69,6 +82,7 @@
                                         <a target="_self" href="{{ url('/') }}"><i></i>Trang chủ</a>
                                         <a target="_self" href="{{ url('/') }}/showmore?job=new"><i></i>Việc làm</a>
                                         <a target="_self" href="{{ url('/') }}/showmore?company=new"><i></i>Nhà tuyển dụng</a>
+                                        <a target="_self" href="http://news.gmon.vn/"><i class="fa fa-newspaper-o" aria-hidden="true"></i>Tin Tức</a>
                                     </div>
                                     <div class="login">
                                         @if (Auth::guest())
@@ -220,7 +234,7 @@
                 <div class="footer-top row">
                     <div class="col-md-4 col-xs-6 footer-col">
                         <p class="title">về gmon</p>
-                        <p><a target="_self" href="http://news.gmon.vn/post/10/lich-su-phat-trien-gmon">Giới thiệu</a></p>
+                        <p><a target="_self" href="{{ url('/') }}">Giới thiệu</a></p>
                         <p><a target="_self" href="{{ url('/') }}/showmore?job=new">Việc làm</a></p>
                         <p><a target="_self" href="{{ url('/') }}/showmore?company=new">Nhà tuyển dụng</a></p>
                         <p><a target="_self" href="{{ url('/') }}/showmore?cv=vip">Hồ sơ ứng viên</a></p>
@@ -314,7 +328,6 @@
                 });
 
                 $('#register-btn').click(function () {
-                    $('#register-btn').off('click');
                     $('#register-message').hide();
                     var username = $('#username').val();
                     var registersdt = $('#sdt').val();
@@ -343,14 +356,9 @@
                     });
 
                     request.done(function (msg) {
-                        $('#register-btn').on('click');
                         if (msg.code == 200) {
                             location.reload();
-                        }else if(msg.code == 201) {
-                            $('#register-message').html('Email đã tồn tại!')
-                            $('#register-message').show();
                         }else{
-                            $('#register-message').html('Đăng ký không thành công!')
                             $('#register-message').show();
                         }
                     });
