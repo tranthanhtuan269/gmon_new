@@ -9,8 +9,11 @@
                         <div class="row main-top">
                             <div class="col-md-5">
                                 @if(strlen($curriculumvitae->avatar) > 3)
-                                <img src="http://test.gmon.com.vn/?image={{ $curriculumvitae->avatar }}" width="200" height="200" class="img-circle
-                                ">
+                                    @if (strpos($curriculumvitae->avatar, 'https') !== false)
+                                    <img src="{{ $curriculumvitae->avatar }}" width="200" height="200" class="img-circle">
+                                    @else
+                                    <img src="http://test.gmon.com.vn/?image={{ $curriculumvitae->avatar }}" width="200" height="200" class="img-circle">
+                                    @endif
                                 @else
                                 <img src="http://test.gmon.com.vn/?image=avatar.png" width="200" height="200" class="img-circle
                                 ">
