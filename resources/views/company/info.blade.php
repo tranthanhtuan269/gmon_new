@@ -336,6 +336,7 @@ gtag('config', 'UA-106844998-1');
                     </div>
                 </div>
             </div>
+            @if(isset($$jobsRelated) && count($jobsRelated) > 0)
             <div class="related-work row">
                 <p class="title"><i></i>Thêm cơ hội làm việc cho bạn</p>
                 <div class="wrapper" id="wrapper">
@@ -361,6 +362,7 @@ gtag('config', 'UA-106844998-1');
                     </div>
                 </div>
             </div>
+            @endif
         </div>
         <footer>
             <div class="container">
