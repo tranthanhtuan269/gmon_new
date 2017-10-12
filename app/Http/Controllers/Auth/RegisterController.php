@@ -150,7 +150,7 @@ class RegisterController extends Controller
             auth()->login($user);
         }
 
-        return redirect()->to('/#');
-        // return redirect()->back();
+        // return redirect()->to('/#');
+        return redirect()->back();
     }
 }
