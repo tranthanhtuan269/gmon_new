@@ -107,7 +107,8 @@ class RegisterController extends Controller
             auth()->login($user);
         }
 
-        return redirect()->to('/#');
+        // return redirect()->to('/#');
+        return redirect()->back();
     }
 
     /**
@@ -149,6 +150,7 @@ class RegisterController extends Controller
             auth()->login($user);
         }
 
-        return redirect()->to('/#');
+        // return redirect()->to('/#');
+        return redirect()->back();
     }
 }
