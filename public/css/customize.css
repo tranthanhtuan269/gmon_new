@@ -352,3 +352,18 @@ img.no-vote{
     font-size: 20px;
     margin: 0;
 }
+
+.item-work .work-img img {
+    width: auto;
+    height: 75%;
+    margin: 10% 0;
+    position: relative;
+}
+
+.item-work .work-img {
+    height: 120px;
+    text-align: center;
+    background: white;
+    margin: 0 -2px;
+    border-top: 3px solid #2a70b8;
+}

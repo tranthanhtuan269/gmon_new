@@ -336,6 +336,31 @@ gtag('config', 'UA-106844998-1');
                     </div>
                 </div>
             </div>
+            <div class="related-work row">
+                <p class="title"><i></i>Thêm cơ hội làm việc cho bạn</p>
+                <div class="wrapper" id="wrapper">
+                    <div class="prev" id="btPrev"><img src="http://test.gmon.com.vn/?image=prev.png" alt=""></div>
+                    <div class="next"  id="btNext"><img src="http://test.gmon.com.vn/?image=next.png" alt=""></div>
+                    <div style="width: 100%;overflow: hidden;display: inline-block;position: relative;">
+                        <div id="contents">
+                            @foreach($jobsRelated as $related)
+                            <div class="item-work" >
+                                <a target="_self" href="{{ url('/') }}/job/{{ $related->id }}/{{ $related->slug }}">
+                                    <p class="work-img"><img src="http://test.gmon.com.vn/?image={{ $related->logo }}" alt=""></p>
+                                    <div class="details">
+                                        <p class="single">{{ $related->name }} TẠI {{ $related->companyname }}</p>
+                                        <div class="work-view">
+                                            <p class="location"><i></i>{{ $related->district }}, {{ $related->city }}</p>
+                                            <p class="salary"><i></i>{{ $related->salary }}</p>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            @endforeach
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         <footer>
             <div class="container">

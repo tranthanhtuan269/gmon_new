@@ -470,16 +470,42 @@ class CompanyController extends Controller {
                     ->take(12)
                     ->get();
 
+            $jobsRelated = \DB::table('jobs')
+                    ->join('companies', 'companies.id', '=', 'jobs.company')
+                    ->join('salaries', 'salaries.id', '=', 'jobs.salary')
+                    ->join('cities', 'cities.id', '=', 'companies.city')
+                    ->join('districts', 'districts.id', '=', 'companies.district')
+                    ->where('companies.jobs', '=', 'Spa;')
+                    ->where('companies.id', '<>', $company->id)
+                    ->select(
+                        'jobs.id as id', 
+                        'jobs.name as name', 
+                        'jobs.number as number', 
+                        'jobs.views as views', 
+                        'jobs.slug as slug', 
+                        'jobs.applied as applied', 
+                        'jobs.expiration_date as expiration_date', 
+                        'salaries.name as salary', 
+                        'companies.logo', 
+                        'companies.name as companyname', 
+                        'cities.name as city', 
+                        'districts.name as district')
+                    ->orderBy('jobs.created_at', 'desc')
+                    ->take(12)
+                    ->get();
+
+            // dd($jobsRelated);
+
             if($company->template == 0){
-                return view('company.info', array('company' => $company, 'company_id' => $company_id, 'cv_id' => $cv_id, 'followed' => $followed, 'comments' => $comments, 'votes' => $star, 'template' => $company->template, 'jobs' => $jobs));
+                return view('company.info', array('company' => $company, 'company_id' => $company_id, 'cv_id' => $cv_id, 'followed' => $followed, 'comments' => $comments, 'votes' => $star, 'template' => $company->template, 'jobs' => $jobs, 'jobsRelated' => $jobsRelated));
             }else if($company->template == 1){
-                return view('company.view01', array('company' => $company, 'company_id' => $company_id, 'cv_id' => $cv_id, 'followed' => $followed, 'comments' => $comments, 'votes' => $star, 'template' => $company->template, 'jobs' => $jobs));
+                return view('company.view01', array('company' => $company, 'company_id' => $company_id, 'cv_id' => $cv_id, 'followed' => $followed, 'comments' => $comments, 'votes' => $star, 'template' => $company->template, 'jobs' => $jobs, 'jobsRelated' => $jobsRelated));
             }else if($company->template == 2){
-                return view('company.view02', array('company' => $company, 'company_id' => $company_id, 'cv_id' => $cv_id, 'followed' => $followed, 'comments' => $comments, 'votes' => $star, 'template' => $company->template, 'jobs' => $jobs));
+                return view('company.view02', array('company' => $company, 'company_id' => $company_id, 'cv_id' => $cv_id, 'followed' => $followed, 'comments' => $comments, 'votes' => $star, 'template' => $company->template, 'jobs' => $jobs, 'jobsRelated' => $jobsRelated));
             }else if($company->template == 3){
-                return view('company.view03', array('company' => $company, 'company_id' => $company_id, 'cv_id' => $cv_id, 'followed' => $followed, 'comments' => $comments, 'votes' => $star, 'template' => $company->template, 'jobs' => $jobs));
+                return view('company.view03', array('company' => $company, 'company_id' => $company_id, 'cv_id' => $cv_id, 'followed' => $followed, 'comments' => $comments, 'votes' => $star, 'template' => $company->template, 'jobs' => $jobs, 'jobsRelated' => $jobsRelated));
             }else{
-                return view('company.info', array('company' => $company, 'company_id' => $company_id, 'cv_id' => $cv_id, 'followed' => $followed, 'comments' => $comments, 'votes' => $star, 'jobs' => $jobs));
+                return view('company.info', array('company' => $company, 'company_id' => $company_id, 'cv_id' => $cv_id, 'followed' => $followed, 'comments' => $comments, 'votes' => $star, 'jobs' => $jobs, 'jobsRelated' => $jobsRelated));
             }
         }
         return view('errors.404');
