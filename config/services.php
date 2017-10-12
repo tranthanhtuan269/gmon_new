@@ -42,9 +42,9 @@ return [
     ],
 
     'google' => [
-        'client_id' => '566442920106-9ev8g1q8d099o043uqodgbmb6mc9lha6.apps.googleusercontent.com',
-        'client_secret' => 'WJOVW2OhlbHvyThAPrkhg8Tb',
-        'redirect' => 'http://gmon.vn/auth/google/callback',
+        'client_id' => '417199133117-f9mpi1lti0v15p3eoo1vg3o5q620rfm0.apps.googleusercontent.com',
+        'client_secret' => 'Dro25j4tC1q2VbnUCRN469hG',
+        'redirect' => 'http://news.gmon.vn/auth/google/callback',
     ],
 
 ];
