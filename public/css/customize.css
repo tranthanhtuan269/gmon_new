@@ -354,7 +354,7 @@ img.no-vote{
 }
 
 .item-work .work-img img {
-    width: auto;
+    width: 100%;
     height: 75%;
     margin: 10% 0;
     position: relative;
@@ -362,6 +362,7 @@ img.no-vote{
 
 .item-work .work-img {
     height: 120px;
+    width: 100%;
     text-align: center;
     background: white;
     margin: 0 -2px;

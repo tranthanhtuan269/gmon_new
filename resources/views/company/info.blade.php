@@ -336,7 +336,7 @@ gtag('config', 'UA-106844998-1');
                     </div>
                 </div>
             </div>
-            @if(isset($$jobsRelated) && count($jobsRelated) > 0)
+            @if(isset($jobsRelated) && count($jobsRelated) > 0)
             <div class="related-work row">
                 <p class="title"><i></i>Thêm cơ hội làm việc cho bạn</p>
                 <div class="wrapper" id="wrapper">
@@ -346,14 +346,10 @@ gtag('config', 'UA-106844998-1');
                         <div id="contents">
                             @foreach($jobsRelated as $related)
                             <div class="item-work" >
-                                <a target="_self" href="{{ url('/') }}/job/{{ $related->id }}/{{ $related->slug }}">
+                                <a target="_self" href="{{ url('/') }}/company/{{ $related->id }}/{{ $related->slug }}">
                                     <p class="work-img"><img src="http://test.gmon.com.vn/?image={{ $related->logo }}" alt=""></p>
                                     <div class="details">
-                                        <p class="single">{{ $related->name }} TẠI {{ $related->companyname }}</p>
-                                        <div class="work-view">
-                                            <p class="location"><i></i>{{ $related->district }}, {{ $related->city }}</p>
-                                            <p class="salary"><i></i>{{ $related->salary }}</p>
-                                        </div>
+                                        <p class="single">{{ $related->companyname }}</p>
                                     </div>
                                 </a>
                             </div>
