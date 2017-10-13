@@ -369,6 +369,29 @@
                 </div>
             </div>
         </div>
+        @if(isset($jobsRelated) && count($jobsRelated) > 0)
+        <div class="related-work row">
+            <p class="title"><i></i>Thêm cơ hội làm việc cho bạn</p>
+            <div class="wrapper" id="wrapper">
+                <div class="prev" id="btPrev"><img src="http://test.gmon.com.vn/?image=prev.png" alt=""></div>
+                <div class="next"  id="btNext"><img src="http://test.gmon.com.vn/?image=next.png" alt=""></div>
+                <div style="width: 100%;overflow: hidden;display: inline-block;position: relative;">
+                    <div id="contents">
+                        @foreach($jobsRelated as $related)
+                        <div class="item-work" >
+                            <a target="_self" href="{{ url('/') }}/company/{{ $related->id }}/{{ $related->slug }}">
+                                <p class="work-img"><img src="http://test.gmon.com.vn/?image={{ $related->logo }}" alt=""></p>
+                                <div class="details">
+                                    <p class="single">{{ $related->companyname }}</p>
+                                </div>
+                            </a>
+                        </div>
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+        </div>
+        @endif
     </div>
     <footer>
         <div class="container">
@@ -414,127 +437,153 @@
         </div>
     </footer>
     <script>
-        window.onresize = function(event){
-            resetSlide();
-        }
-        window.onload =function(){resetSlide();}
-        function resetSlide()
+        window.onload = function ()
         {
-            clearTimeout(listLogo.action);
-            clearTimeout(listNewEmployer.action);
-            clearTimeout(listNewJobs.action);
-            $( "#"+listLogo.contents ).css("margin-left","0");
-            $( "#"+listNewEmployer.contents ).css("margin-left","0");
-            $( "#"+listNewJobs.contents ).css("margin-left","0");
-            var w=screen.width;
-            var w2=$(".new-jobs #wrapper").outerWidth();
+            var w = screen.width;
+            var w2 = $("#wrapper").outerWidth();
             var w3;
-            if(w>1000){
-                w3=w2/5;
-                $(".need-jobs .wrapper" ).css("width",w3*4+"px");
-                $(".need-jobs .title" ).css("width",w3*4+"px");
-                $("#col-ads").css("width",w3+"px");
-            }else if(w>800){
-                w3=w2/4;
-                $(".need-jobs .wrapper" ).css("width",w3*3+"px");
-                $(".need-jobs .title" ).css("width",w3*3+"px");
-                $("#col-ads").css("width",w3+"px");
-            }else if(w>600){
-                w3=w2/3;
-                $(".need-jobs .wrapper" ).css("width",w3*2+"px");
-                $(".need-jobs .title" ).css("width",w3*2+"px");
-                $("#col-ads").css("width",w3+"px");
-            }else if(w>400){
-                w3=w2/2;
-            }else{
-                w3=w2;
-            }
-            $(".item-work").css("width",w3+"px");
-            $(".new-jobs .contents" ).css("width",w3*( $( "#contents-jobs .item-work" ).length)+"px");
-            $(".new-employer .contents" ).css("width",w3*( $( "#contents-employer .item-work" ).length)+"px");
-            $(".vip-candidates .item-u" ).css("width",w3+"px");
-           
-            if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
-                $(".new-jobs #wrapper" ).addClass("mobile");
-                $(".new-employer .next").css("margin-right","0px");
-                $(".new-employer .prev").css("margin-left","0px");
-            }
+            if (w > 768) {
+                w3 = w2 / 5;
+            } else if (w > 600) {
+                w3 = w2 / 3;
 
-            w2=$("#wrapper-logo").outerWidth();
-            if(w>1000){
-                w3=w2/13;
-            }else if(w>800){
-                w3=w2/10;
-            }else if(w>600){
-                w3=w2/8;
-            }else if(w>400){
-                w3=w2/5;
-            }else{
-                w3=w2/4;
+            } else {
+                w3 = w2;
             }
-            $("#wrapper-logo li").css("width",w3+"px");
-            $("#wrapper-logo li").css("height",w3+"px");
-            $("#contents-logo").css("width",w3*($( "#wrapper-logo li" ).length)+"px");
-            $("#wrapper-logo").parent().children("span").css("top",w3/2+"px");
+            $(".item-work").css("width", w3 + "px");
+            var n = w3 * ($("#contents .item-work").length);
+            $("#contents").css("width", n + "px");
+            setTimeout(function () {
+                onNext(false);
+            }, 2000);
 
-            setTimeout(function(){onNext(true,listLogo)},2000);
-            setTimeout(function(){onPrev(true,listNewEmployer)},3000);
-            setTimeout(function(){onNext(true,listNewJobs)},4000);
+            //------------------------------------------------//
+
+            var w2_big = $("#wrapper-big").outerWidth();
+            var w3_big = w2_big;
+            $(".item-work-big").css("width", w3_big + "px");
+            var n_big = w3_big * ($("#contents-big .item-work-big").length);
+            $("#contents-big").css("width", n_big + "px");
+            setTimeout(function () {
+                onNext_big(false);
+            }, 2000);
         };
-        var listLogo={
-            isRun:false,
-            wrapper:"wrapper-logo",
-            contents:"contents-logo",
-            item:"item-logo",
-            action:""
+
+        var isR = false;
+        var action;
+        $("#btPrev").click(function () {
+            onPrev(true);
+        });
+        $("#btNext").click(function () {
+            onNext(true);
+        });
+        function onNext(b) {
+            if (b)
+                clearTimeout(action);
+            if (isR)
+                return;
+            isR = true;
+            var w = $(".item-work").outerWidth();
+            var n = parseFloat($("#contents").css("margin-left"));
+            var w2 = $("#contents").outerWidth();
+            var w3 = $("#wrapper").outerWidth();
+            var n2 = n - w;
+            if (n2 + w2 - w3 >= 0) {
+                $("#contents").animate({marginLeft: n2 + 'px'}, {duration: 300, complete: function () {
+                        isR = false;
+                    }});
+                action = setTimeout(function () {
+                    onNext(false);
+                }, 2000);
+            } else {
+                isR = false;
+                action = setTimeout(function () {
+                    onPrev(false);
+                }, 2000);
+            }
         }
-        var listNewEmployer={
-            isRun:false,
-            wrapper:"wrapper2",
-            contents:"contents-employer",
-            item:"item-work",
-            action:""
+        function onPrev(b) {
+            if (b)
+                clearTimeout(action);
+            if (isR)
+                return;
+            isR = true;
+            var w = $(".item-work").outerWidth();
+            var n = parseFloat($("#contents").css("margin-left"));
+            var w2 = $("#contents").outerWidth();
+            var n2 = n + w;
+            if (n2 <= 0) {
+                $("#contents").animate({marginLeft: n2 + 'px'}, {duration: 300, complete: function () {
+                        isR = false;
+                    }});
+                action = setTimeout(function () {
+                    onPrev(false);
+                }, 2000);
+            } else {
+                isR = false;
+                action = setTimeout(function () {
+                    onNext(false);
+                }, 2000);
+            }
         }
-        var listNewJobs={
-            isRun:false,
-            wrapper:"wrapper",
-            contents:"contents-jobs",
-            item:"item-work",
-            action:""
+
+        // -----------------------------------------------------
+        var isR_big = false;
+        var action_big;
+        $("#btPrev-big").click(function () {
+            onPrev_big(true);
+        });
+        $("#btNext-big").click(function () {
+            onNext_big(true);
+        });
+        function onNext_big(b_big) {
+            if (b_big)
+                clearTimeout(action_big);
+            if (isR_big)
+                return;
+            isR_big = true;
+            var w_big = $(".item-work-big").outerWidth();
+            var n_big = parseFloat($("#contents-big").css("margin-left"));
+            var w2_big = $("#contents-big").outerWidth();
+            var w3_big = $("#wrapper-big").outerWidth();
+            var n2_big = n_big - w_big;
+            if (n2_big + w2_big - w3_big >= 0) {
+                $("#contents-big").animate({marginLeft: n2_big + 'px'}, {duration: 300, complete: function () {
+                        isR_big = false;
+                    }});
+                action_big = setTimeout(function () {
+                    onNext(false);
+                }, 2000);
+            } else {
+                isR_big = false;
+                action_big = setTimeout(function () {
+                    onPrev(false);
+                }, 2000);
+            }
         }
-        $("#btPrev").click(function(){onPrev(true,listLogo);});
-        $("#btNext").click(function(){onNext(true,listLogo);});
-        $("#btPrevNewJobs").click(function(){onPrev(true,listNewJobs);});
-        $("#btNextNewJobs").click(function(){onNext(true,listNewJobs);});
-        $("#btPrevNewEmployer").click(function(){onPrev(true,listNewEmployer);});
-        $("#btNextNewEmployer").click(function(){onNext(true,listNewEmployer);});
-        function onNext(b,ob){
-            if(ob.isRun) return;
-            if(b)clearTimeout(ob.action);
-            ob.isRun=true;
-            var w=$("#"+ob.contents +" ."+ob.item).outerWidth();
-             var n=parseFloat($( "#"+ob.contents ).css("margin-left"));
-             var w2=$( "#"+ob.contents ).outerWidth();
-             var w3=$( "#"+ob.wrapper ).outerWidth();
-             var n2=n-w;
-             if(n2+w2-w3>=0){
-                $( "#"+ob.contents ).animate({marginLeft: n2+'px'},{duration: 300,complete:function(){ob.isRun=false;}});
-                ob.action=setTimeout(function(){onNext(false,ob);},2000);
-             }
-             else{ob.isRun=false;ob.action=setTimeout(function(){onPrev(false,ob);},2000);}
-        }
-        function onPrev(b,ob){
-            if(ob.isRun) return;
-            if(b)clearTimeout(ob.action);
-            ob.isRun=true;
-             var w=$("#"+ob.contents +" ."+ob.item).outerWidth();
-             var n=parseFloat($( "#"+ob.contents ).css("margin-left"));
-             var n2=n+w;
-             if(n2<=0){
-                $( "#"+ob.contents ).animate({marginLeft: n2+'px'},{duration: 300,complete:function(){ob.isRun=false;}});
-                ob.action=setTimeout(function(){onPrev(false,ob);},2000);
-             }
-             else{ob.isRun=false;ob.action=setTimeout(function(){onNext(b,ob);},2000);}
+        function onPrev_big(b_big) {
+            if (b_big)
+                clearTimeout(action_big);
+            if (isR_big)
+                return;
+            isR_big = true;
+            var w_big = $(".item-work-big").outerWidth();
+            var n_big = parseFloat($("#contents-big").css("margin-left"));
+            var w2_big = $("#contents-big").outerWidth();
+            var n2_big = n_big + w_big;
+            if (n2_big <= 0) {
+                $("#contents-big").animate({marginLeft: n2_big + 'px'}, {duration: 300, complete: function () {
+                        isR_big = false;
+                    }});
+                action_big = setTimeout(function () {
+                    onPrev(false);
+                }, 2000);
+            } else {
+                isR_big = false;
+                action_big = setTimeout(function () {
+                    onNext(false);
+                }, 2000);
+            }
         }
         function onCloseModalLogin(){
             $("#myModal").modal('toggle');
