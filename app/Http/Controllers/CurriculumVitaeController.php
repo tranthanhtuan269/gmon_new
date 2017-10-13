@@ -141,6 +141,7 @@ class CurriculumVitaeController extends Controller
 
         $user = \Auth::user();
         $userCheck = User::Where('email', $input['email'])->first();
+        $user->name = $input['name'];
         if(!$userCheck){
             $user->email = $input['email'];
         }
@@ -414,6 +415,7 @@ class CurriculumVitaeController extends Controller
 
         $user = \Auth::user();
         $userCheck = User::Where('email', $input['email'])->first();
+        $user->name = $input['name'];
         if(!$userCheck){
             $user->email = $input['email'];
         }

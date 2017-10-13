@@ -29,6 +29,20 @@
                             </div>
                         </div>
                         <div class="col-md-5">
+                            <div class="form-group {{ $errors->has('name') ? 'has-error' : ''}}">
+                                {!! Form::label('name', 'Họ và tên', ['class' => 'col-md-5 control-label']) !!}
+                                <div class="col-md-7">
+                                    {!! Form::text('name', \Auth::user()->name, ['class' => 'form-control', 'placeholder' => 'Họ và tên']) !!}
+                                    {!! $errors->first('name', '<p class="help-block">:message</p>') !!}
+                                </div>
+                            </div>
+                            <div class="form-group {{ $errors->has('email') ? 'has-error' : ''}}">
+                                {!! Form::label('email', 'Email', ['class' => 'col-md-5 control-label']) !!}
+                                <div class="col-md-7">
+                                    {!! Form::text('email', \Auth::user()->email, ['class' => 'form-control', 'placeholder' => 'Thư điện tử']) !!}
+                                    {!! $errors->first('email', '<p class="help-block">:message</p>') !!}
+                                </div>
+                            </div>
                             <div class="form-group {{ $errors->has('birthday') ? 'has-error' : ''}}">
                                 {!! Form::label('birthday', 'Ngày sinh', ['class' => 'col-md-5 control-label']) !!}
                                 <div class="col-md-7">
@@ -40,6 +54,35 @@
                                         </span>
                                     </div>
                                     {!! $errors->first('birthday', '<p class="help-block">:message</p>') !!}
+                                </div>
+                            </div>
+                            <div class="form-group {{ $errors->has('district') ? 'has-error' : ''}}">
+                                {!! Form::label('district', 'Quận / Huyện', ['class' => 'col-md-5 control-label']) !!}
+                                <div class="col-md-7">
+                                    <select class="form-control" id="district" name="district"><option value="0">Chọn Quận / Huyện</option></select>
+                                    {!! $errors->first('district', '<p class="help-block">:message</p>') !!}
+                                </div>
+                            </div>
+                            <div class="form-group {{ $errors->has('salary') ? 'has-error' : ''}}">
+                                {!! Form::label('salary', 'Mức lương', ['class' => 'col-md-5 control-label']) !!}
+                                <div class="col-md-7">
+                                    <input type="hidden" id="salary" name="salary" value="1">
+                                    <select class="form-control" title="Mức lương" id="salary_select" name="salary_select">
+                                        @foreach($salaries as $key => $value)
+                                        <option value="{{ $key }}">{{ $value }}</option>
+                                        @endforeach
+                                    </select>
+                                    {!! $errors->first('salary', '<p class="help-block">:message</p>') !!}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-5" style="margin:3px 0;">
+                            <div class="form-group {{ $errors->has('gender') ? 'has-error' : ''}}">
+                                {!! Form::label('gender', 'Giới tính', ['class' => 'col-md-5 control-label']) !!}
+                                <div class="col-md-7">
+                                    <label>{!! Form::radio('gender', '1', true); !!}Nam</label>
+                                    <label>{!! Form::radio('gender', '0'); !!}Nữ</label>
+                                    {!! $errors->first('gender', '<p class="help-block">:message</p>') !!}
                                 </div>
                             </div>
                             <div class="form-group {{ $errors->has('phone') ? 'has-error' : ''}}">
@@ -61,53 +104,6 @@
                                     {!! $errors->first('city', '<p class="help-block">:message</p>') !!}
                                 </div>
                             </div>
-                            <div class="form-group {{ $errors->has('salary') ? 'has-error' : ''}}">
-                                {!! Form::label('salary', 'Mức lương', ['class' => 'col-md-5 control-label']) !!}
-                                <div class="col-md-7">
-                                    <input type="hidden" id="salary" name="salary" value="1">
-                                    <select class="form-control" title="Mức lương" id="salary_select" name="salary_select">
-                                        @foreach($salaries as $key => $value)
-                                        <option value="{{ $key }}">{{ $value }}</option>
-                                        @endforeach
-                                    </select>
-                                    {!! $errors->first('salary', '<p class="help-block">:message</p>') !!}
-                                </div>
-                            </div>
-                            <div id="jobs_hold" class="form-group {{ $errors->has('jobs') ? 'has-error' : ''}}">
-                                <div class="col-md-12">
-                                    <input type="hidden" id="jobs" name="jobs" value="">
-                                    <select class="form-control selectpicker" multiple title="Chọn công việc">
-                                        @foreach($job_types as $key => $value)
-                                        <option value="{{ $key }}">{{ $value }}</option>
-                                        @endforeach
-                                    </select>
-                                    {!! $errors->first('jobs', '<p class="help-block">:message</p>') !!}
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-5" style="margin:3px 0;">
-                            <div class="form-group {{ $errors->has('gender') ? 'has-error' : ''}}">
-                                {!! Form::label('gender', 'Giới tính', ['class' => 'col-md-5 control-label']) !!}
-                                <div class="col-md-7">
-                                    <label>{!! Form::radio('gender', '1', true); !!}Nam</label>
-                                    <label>{!! Form::radio('gender', '0'); !!}Nữ</label>
-                                    {!! $errors->first('gender', '<p class="help-block">:message</p>') !!}
-                                </div>
-                            </div>
-                            <div class="form-group {{ $errors->has('email') ? 'has-error' : ''}}">
-                                {!! Form::label('email', 'Email', ['class' => 'col-md-5 control-label']) !!}
-                                <div class="col-md-7">
-                                    {!! Form::text('email', \Auth::user()->email, ['class' => 'form-control', 'placeholder' => 'Thư điện tử']) !!}
-                                    {!! $errors->first('email', '<p class="help-block">:message</p>') !!}
-                                </div>
-                            </div>
-                            <div class="form-group {{ $errors->has('district') ? 'has-error' : ''}}">
-                                {!! Form::label('district', 'Quận / Huyện', ['class' => 'col-md-5 control-label']) !!}
-                                <div class="col-md-7">
-                                    <select class="form-control" id="district" name="district"><option value="0">Chọn Quận / Huyện</option></select>
-                                    {!! $errors->first('district', '<p class="help-block">:message</p>') !!}
-                                </div>
-                            </div>
                             <div class="form-group {{ $errors->has('address') ? 'has-error' : ''}}">
                                 {!! Form::label('address', 'Địa chỉ', ['class' => 'col-md-5 control-label']) !!}
                                 <div class="col-md-7">
@@ -123,6 +119,19 @@
                                         <option>Ca 2 (12h - 17h)</option>
                                         <option>Ca 3 (17h - 22h)</option>
                                         <option>Fulltime</option>
+                                    </select>
+                                    {!! $errors->first('jobs', '<p class="help-block">:message</p>') !!}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div id="jobs_hold" class="form-group {{ $errors->has('jobs') ? 'has-error' : ''}}">
+                                <div class="col-md-12">
+                                    <input type="hidden" id="jobs" name="jobs" value="">
+                                    <select class="form-control selectpicker" multiple title="Chọn công việc">
+                                        @foreach($job_types as $key => $value)
+                                        <option value="{{ $key }}">{{ $value }}</option>
+                                        @endforeach
                                     </select>
                                     {!! $errors->first('jobs', '<p class="help-block">:message</p>') !!}
                                 </div>
@@ -463,6 +472,7 @@
 </div>
 <script src="{{ url('/') }}/public/js/croppie.js"></script>
 <script type="text/javascript">
+
     var src_avatar = "";
     $uploadCrop = $('#upload-demo').croppie({
         enableExif: true,
@@ -476,13 +486,16 @@
             height: 300
         }
     });
+
     $('.select-avatar').click(function(){
         $("#upload").click();
     });
+
     $('.ok-select').click(function(){
         $('#avatar-image').attr('src',src_avatar);
         $('.modal-show-avatar').modal('toggle');
     });
+
     $('#avatar-img').on('change', function () {
         var reader = new FileReader();
         reader.onload = function (e) {
@@ -495,6 +508,7 @@
         }
         reader.readAsDataURL(this.files[0]);
     });
+
     $('#upload').on('change', function () {
         var reader = new FileReader();
         reader.onload = function (e) {
@@ -507,11 +521,13 @@
         }
         reader.readAsDataURL(this.files[0]);
     });
+
     $('.upload-result').on('click', function (ev) {
         $uploadCrop.croppie('result', {
             type: 'canvas',
             size: 'viewport'
         }).then(function (resp) {
+
             $.ajax({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
