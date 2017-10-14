@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\City;
 use App\Job;
 use App\Company;
+use App\CurriculumVitae;
 use Illuminate\Http\Request;
 use Session;
 
@@ -149,6 +150,7 @@ class CityController extends Controller
         }
         $jobGetObj = new Job;
         $companyGetObj = new Company;
+        $cvGetObj = new CurriculumVitae;
         $perPage = 1000;
         $checkJobVip = 0;
         $district = $city = $job_type = $company = $cv = $vip = $from = $number_get = null;
@@ -178,14 +180,9 @@ class CityController extends Controller
         // get job of vip
         $jobsvip2 = $jobGetObj->getJob($district, $city, $field, $job_type, $company, $cv, 2, $from, $number_get);
 
-        // get cv of vip
-        $cvs = \DB::table('curriculum_vitaes')
-            ->join('users', 'users.id', '=', 'curriculum_vitaes.user')
-            ->select('curriculum_vitaes.id as id', 'users.name as username', 'curriculum_vitaes.birthday', 'curriculum_vitaes.avatar', 'curriculum_vitaes.school')
-            ->where('curriculum_vitaes.city', '=', $city)
-            ->orderBy('curriculum_vitaes.created_at', 'desc')
-            ->take(10)
-            ->get();  
+        // get company of vip
+        $cvs = $cvGetObj->getCV($district, $city, $from, 10);
+
         // get cv of vip
         $companies = $companyGetObj->getCompany($district, $city, $field, $from, 20);
 
@@ -218,6 +215,7 @@ class CityController extends Controller
         }
         $jobGetObj = new Job;
         $companyGetObj = new Company;
+        $cvGetObj = new CurriculumVitae;
         $perPage = 1000;
         $checkJobVip = 0;
         $district = $city = $job_type = $company = $cv = $vip = $from = $number_get = null;
@@ -247,14 +245,9 @@ class CityController extends Controller
         // get job of vip
         $jobsvip2 = $jobGetObj->getJob($district, $city, $field, $job_type, $company, $cv, 2, $from, $number_get);
 
-        // get cv of vip
-        $cvs = \DB::table('curriculum_vitaes')
-            ->join('users', 'users.id', '=', 'curriculum_vitaes.user')
-            ->select('curriculum_vitaes.id as id', 'users.name as username', 'curriculum_vitaes.birthday', 'curriculum_vitaes.avatar', 'curriculum_vitaes.school')
-            ->where('curriculum_vitaes.city', '=', $city)
-            ->orderBy('curriculum_vitaes.created_at', 'desc')
-            ->take(10)
-            ->get();  
+        // get company of vip
+        $cvs = $cvGetObj->getCV($district, $city, $from, 10);
+
         // get cv of vip
         $companies = $companyGetObj->getCompany($district, $city, $field, $from, 20);
 

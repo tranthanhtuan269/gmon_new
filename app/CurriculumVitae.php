@@ -47,7 +47,8 @@ class CurriculumVitae extends \Eloquent
                     curriculum_vitaes.id, 
                     users.name as username,
                     curriculum_vitaes.birthday, 
-                    curriculum_vitaes.avatar, 
+                    users.avatar as avatarU,
+                    curriculum_vitaes.avatar as avatarCV,
                     curriculum_vitaes.school
                 FROM 
                     curriculum_vitaes ";
@@ -55,6 +56,8 @@ class CurriculumVitae extends \Eloquent
                     users ON users.id = curriculum_vitaes.user ";
         $sql .= "WHERE 
                     1 = 1 ";
+        $sql .= "AND 
+                    (users.avatar is not null OR curriculum_vitaes.avatar is not null)";
         if($city > 0 && $city != 1000){
             if($district > 0){
                 $sql .= " AND curriculum_vitaes.district = $district";

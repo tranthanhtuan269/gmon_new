@@ -201,7 +201,8 @@ class CurriculumVitaeController extends Controller
                 ->join('users', 'users.id', '=', 'curriculum_vitaes.user')
                 ->select(
                         'curriculum_vitaes.id', 
-                        'curriculum_vitaes.avatar', 
+                        'curriculum_vitaes.avatar as avatarCV', 
+                        'users.avatar as avatarU', 
                         'curriculum_vitaes.birthday', 
                         'curriculum_vitaes.gender', 
                         'users.name as name', 
@@ -370,7 +371,8 @@ class CurriculumVitaeController extends Controller
                     ->join('users', 'users.id', '=', 'curriculum_vitaes.user')
                     ->select(
                             'curriculum_vitaes.id', 
-                            'curriculum_vitaes.avatar', 
+                            'curriculum_vitaes.avatar as avatarCV', 
+                            'users.avatar as avatarU', 
                             'curriculum_vitaes.birthday', 
                             'curriculum_vitaes.salary_want', 
                             'curriculum_vitaes.gender', 

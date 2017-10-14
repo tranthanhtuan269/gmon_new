@@ -232,11 +232,18 @@
                 @foreach($cvs as $cv)
                 <div class="item-u" >
                     <a target="_self" href="{{ url('/') }}/curriculumvitae/view/{{ $cv->id }}" onmouseenter="onFocusCandidates(event)" onmouseleave ="onDisFocusCandidates(event)">
-                        @if(strlen($cv->avatar) > 0)
-                            @if (strpos($cv->avatar, 'https') !== false)
-                            <div class="img"><img src="{{ $cv->avatar }}" alt="{{ url('/') }}/curriculumvitae/view/{{ $cv->id }}"></div>
+                        <?php 
+                            if($cv->avatarCV == null){
+                                $avatar = $cv->avatarU;
+                            }else{
+                                $avatar = $cv->avatarCV;
+                            }
+                        ?>
+                        @if(strlen($avatar) > 0)
+                            @if (strpos($avatar, 'https') !== false)
+                            <div class="img"><img src="{{ $avatar }}" alt="{{ url('/') }}/curriculumvitae/view/{{ $cv->id }}"></div>
                             @else
-                            <div class="img"><img src="http://test.gmon.com.vn/?image={{ $cv->avatar }}" alt="{{ url('/') }}/curriculumvitae/view/{{ $cv->id }}"></div>
+                            <div class="img"><img src="http://test.gmon.com.vn/?image={{ $avatar }}" alt="{{ url('/') }}/curriculumvitae/view/{{ $cv->id }}"></div>
                             @endif
                         @else
                         <div class="img"><img src="http://test.gmon.com.vn/?image=avatar.png" alt="{{ url('/') }}/curriculumvitae/view/{{ $cv->id }}"></div>
@@ -246,11 +253,11 @@
                         <div class="view">
                             <div class="info">
                                 <div class="sub-img"><div class="border">
-                                        @if(strlen($cv->avatar) > 0)
-                                            @if (strpos($cv->avatar, 'https') !== false)
-                                            <img src="{{ $cv->avatar }}" alt="{{ url('/') }}/curriculumvitae/view/{{ $cv->id }}">
+                                        @if(strlen($avatar) > 0)
+                                            @if (strpos($avatar, 'https') !== false)
+                                            <img src="{{ $avatar }}" alt="{{ url('/') }}/curriculumvitae/view/{{ $cv->id }}">
                                             @else
-                                            <img src="http://test.gmon.com.vn/?image={{ $cv->avatar }}" alt="{{ url('/') }}/curriculumvitae/view/{{ $cv->id }}">
+                                            <img src="http://test.gmon.com.vn/?image={{ $avatar }}" alt="{{ url('/') }}/curriculumvitae/view/{{ $cv->id }}">
                                             @endif
                                         @else
                                         <img src="http://test.gmon.com.vn/?image=avatar.png" alt="{{ url('/') }}/curriculumvitae/view/{{ $cv->id }}">
