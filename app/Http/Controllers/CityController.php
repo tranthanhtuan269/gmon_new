@@ -267,13 +267,7 @@ class CityController extends Controller
         // get job of vip
         $jobsvip2 = $jobGetObj->getJob($district, $city, $field, $job_type, $company, $cv, 2, $from, $number_get);
         // get cv of vip
-        $cvs = \DB::table('curriculum_vitaes')
-            ->join('users', 'users.id', '=', 'curriculum_vitaes.user')
-            ->select('curriculum_vitaes.id as id', 'users.name as username', 'curriculum_vitaes.birthday', 'curriculum_vitaes.avatar', 'curriculum_vitaes.school')
-            ->where('curriculum_vitaes.city', '=', $city)
-            ->orderBy('curriculum_vitaes.created_at', 'desc')
-            ->take($number_get)
-            ->get();  
+        $cvs = $cvGetObj->getCV($district, $city, $from, $number_get);
         // get cv of vip
         $companies = $companyGetObj->getCompany($district, $city, $field, $from, 20);
         $this_day = date('Y-m-d H:i:s');

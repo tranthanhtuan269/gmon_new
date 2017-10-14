@@ -8,11 +8,18 @@
                     <div class="col-md-12">
                         <div class="row main-top">
                             <div class="col-md-5">
-                                @if(strlen($curriculumvitae->avatar) > 3)
-                                @if (strpos($curriculumvitae->avatar, 'https') !== false)
-                                    <img src="{{ $curriculumvitae->avatar }}" width="200" height="200" class="img-circle">
+                                <?php 
+                                    if($curriculumvitae->avatarCV == null){
+                                        $avatar = $curriculumvitae->avatarU;
+                                    }else{
+                                        $avatar = $curriculumvitae->avatarCV;
+                                    }
+                                ?>
+                                @if(strlen($avatar) > 3)
+                                @if (strpos($avatar, 'https') !== false)
+                                    <img src="{{ $avatar }}" width="200" height="200" class="img-circle">
                                 @else
-                                <img src="http://test.gmon.com.vn/?image={{ $curriculumvitae->avatar }}" width="200" height="200" class="img-circle
+                                <img src="http://test.gmon.com.vn/?image={{ $avatar }}" width="200" height="200" class="img-circle
                                 ">
                                 @endif
                                 @else

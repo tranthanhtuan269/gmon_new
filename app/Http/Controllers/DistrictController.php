@@ -9,6 +9,7 @@ use App\District;
 use App\City;
 use App\Job;
 use App\Company;
+use App\CurriculumVitae;
 use Illuminate\Http\Request;
 use Session;
 use DB;
@@ -187,6 +188,7 @@ class DistrictController extends Controller
         }
         $jobGetObj = new Job;
         $companyGetObj = new Company;
+        $cvGetObj = new CurriculumVitae;
         $perPage = 1000;
         $checkJobVip = 0;
         $district = $city = $job_type = $company = $cv = $vip = $from = $number_get = null;
@@ -209,13 +211,8 @@ class DistrictController extends Controller
         $jobsvip1 = $jobGetObj->getJob($district, $city, $field, $job_type, $company, $cv, 1, $from, $number_get);
         // get job of vip
         $jobsvip2 = $jobGetObj->getJob($district, $city, $field, $job_type, $company, $cv, 2, $from, $number_get);
-        $cvs = \DB::table('curriculum_vitaes')
-            ->join('users', 'users.id', '=', 'curriculum_vitaes.user')
-            ->select('curriculum_vitaes.id as id', 'users.name as username', 'curriculum_vitaes.birthday', 'curriculum_vitaes.avatar', 'curriculum_vitaes.school')
-            ->where('curriculum_vitaes.district', '=', $district)
-            ->orderBy('curriculum_vitaes.created_at', 'desc')
-            ->take(10)
-            ->get();  
+        // get cv of vip
+        $cvs = $cvGetObj->getCV($district, $city, $from, 10);
         // get cv of vip
         $companies = $companyGetObj->getCompany($district, $city, $field, $from, 20);
         $this_day = date('Y-m-d H:i:s');
