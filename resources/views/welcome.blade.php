@@ -289,7 +289,7 @@
                                 <a target="_self" href="{{ url('/') }}/job/{{ $job->id }}/{{ $job->slug }}">
                                     <p class="work-img"><img  src="http://test.gmon.com.vn/?image={{ $job->logo }}" alt="{{ url('/') }}/job/{{ $job->id }}/{{ $job->slug }}"></p>
                                     <div class="details">
-                                        <div class="single"><p>{{ $job->name }} tại {{ $job->companyname }}</p></div>
+                                        <div class="single"><p>{{ ucfirst($job->name) }} tại {{ $job->companyname }}</p></div>
                                         <div class="work-view">
                                             <p class="location"><i></i>{{ $job->district }}, {{ $job->city }}</p>
                                             <p class="salary"><i></i>{{ $job->salary }}</p>
@@ -316,7 +316,7 @@
                                 <a target="_self" href="{{ url('/') }}/job/{{ $job->id }}/{{ $job->slug }}">
                                     <p class="work-img"><img  src="http://test.gmon.com.vn/?image={{ $job->logo }}" alt="{{ url('/') }}/job/{{ $job->id }}/{{ $job->slug }}"></p>
                                     <div class="details">
-                                        <div class="single"><p>{{ $job->name }} tại {{ $job->companyname }}</p></div>
+                                        <div class="single"><p>{{ ucfirst($job->name) }} tại {{ $job->companyname }}</p></div>
                                         <div class="work-view">
                                             <p class="location"><i></i>{{ $job->district }}, {{ $job->city }}</p>
                                             <p class="salary"><i></i>{{ $job->salary }}</p>
@@ -351,7 +351,7 @@
                                     <span class="icon-new"><img src="http://test.gmon.com.vn/?image=icon-new.png" alt="{{ url('/') }}/job/{{ $job->id }}/{{ $job->slug }}"></span>
                                     <p class="work-img"><img  src="http://test.gmon.com.vn/?image={{ $job->logo }}" alt="{{ url('/') }}/job/{{ $job->id }}/{{ $job->slug }}"></p>
                                     <div class="details">
-                                        <div class="single"><p>{{ $job->name }} tại {{ $job->companyname }}</p></div>
+                                        <div class="single"><p>{{ ucfirst($job->name) }} tại {{ $job->companyname }}</p></div>
                                         <div class="work-view">
                                             <p class="location"><i></i>{{ $job->district }}, {{ $job->city }}</p>
                                             <p class="salary"><i></i>{{ $job->salary }}</p>
@@ -381,7 +381,7 @@
                                     <span class="icon-new"><img src="http://test.gmon.com.vn/?image=icon-new.png" alt="{{ url('/') }}/company/{{ $company->id }}/{{ $company->slug }}"></span>
                                     <p class="work-img"><img  src="http://test.gmon.com.vn/?image={{ $company->logo }}" alt="{{ url('/') }}/company/{{ $company->id }}/{{ $company->slug }}"></p>
                                     <div class="details">
-                                        <div class="single"><p>{{ $company->name }}</p></div>
+                                        <div class="single"><p>{{ ucfirst($company->name) }}</p></div>
                                         <div class="work-view">
                                             <p>Xem thêm &rsaquo;&rsaquo;</p>
                                         </div>
