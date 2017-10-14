@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\CompanyCompanyType;
 use App\User;
 use App\Company;
+use App\CurriculumVitae;
 use App\Job;
 use App\Post;
 use App\Category;
