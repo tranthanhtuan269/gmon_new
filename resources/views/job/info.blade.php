@@ -176,7 +176,7 @@
                         <span style="padding:0;" id="share">
                             <a target="_blank" class="icon" href=""><i class="i1"></i></a>
                             <a target="_blank" class="icon" href=""> <i class="i2"></i></a>
-                            <a target="_blank" class="icon" href=""><i class="i3"></i></a>
+                            <a target="_blank" class="icon" href="https://twitter.com/intent/tweet?url={{ $content_share['url'] }}&text={{ $content_share['description'] }}"><i class="i3"></i></a>
                             <a target="_blank" class="icon" href="https://plus.google.com/share?url={{ $content_share['url'] }}"><i class="i4"></i></a>
                             <a target="_blank" class="icon" href="https://www.facebook.com/sharer/sharer.php?u={{ $content_share['url'] }}&display=popup"><i class="i5"></i></a>
                             <span class="hidden-xs hidden-sm">Chia sẻ qua</span>
