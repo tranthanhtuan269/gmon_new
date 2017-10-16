@@ -324,7 +324,7 @@
             var n = w3 * ($("#contents .item-work").length);
             $("#contents").css("width", n + "px");
             setTimeout(function () {
-                // onNext(false);
+                onNext(false);
             }, 2000);
         };
 
