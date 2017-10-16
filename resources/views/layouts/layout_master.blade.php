@@ -20,7 +20,7 @@
       <meta property="og:url"           content="{{ $content_share['url'] }}" />
       <meta property="og:type"          content="website" />
       <meta property="og:title"         content="{{ $content_share['title'] }}" />
-      <meta property="og:description"   content="{{ $content_share['description'] }}" />
+      <meta property="og:description"   content="<?php echo $content_share['description']; ?>" />
       <meta property="og:image"         content="{{ $content_share['image'] }}" />
     @endif
 
