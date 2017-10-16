@@ -165,11 +165,11 @@
                     <div class="col-md-12 col-xs-12 link-social">
                         <span class="text hidden-xs hidden-sm">Chi tiết tuyển dụng</span> 
                         <span style="padding:0;" id="share">
-                            <a target="_self" class="icon" href=""><i class="i1"></i></a>
-                            <a target="_self" class="icon" href=""> <i class="i2"></i></a>
-                            <a target="_self" class="icon" href=""><i class="i3"></i></a>
-                            <a target="_self" class="icon" href=""><i class="i4"></i></a>
-                            <a class="icon" href="https://www.facebook.com/sharer/sharer.php?u={{ $content_share['url'] }}&display=popup"><i class="i5"></i></a>
+                            <a target="_blank" class="icon" href=""><i class="i1"></i></a>
+                            <a target="_blank" class="icon" href=""> <i class="i2"></i></a>
+                            <a target="_blank" class="icon" href=""><i class="i3"></i></a>
+                            <a target="_blank" class="icon" href=""><i class="i4"></i></a>
+                            <a target="_blank" class="icon" href="https://www.facebook.com/sharer/sharer.php?u={{ $content_share['url'] }}&display=popup"><i class="i5"></i></a>
                             <span class="hidden-xs hidden-sm">Chia sẻ qua</span>
                         </span>
                     </div>
