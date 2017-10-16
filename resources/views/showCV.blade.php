@@ -95,11 +95,18 @@
                 @foreach($cvs as $cv)
                 <div class="item-u" >
                     <a target="_self" href="{{ url('/') }}/curriculumvitae/view/{{ $cv->id }}" onmouseenter="onFocusCandidates(event)" onmouseleave ="onDisFocusCandidates(event)">
-                        @if(strlen($cv->avatar) > 0)
-                            @if (strpos($cv->avatar, 'https') !== false)
-                                <div class="img"><img src="{{ $cv->avatar }}" alt="{{ $cv->avatar }}"></div>
+                        <?php 
+                            if($cv->avatarCV == null){
+                                $avatar = $cv->avatarU;
+                            }else{
+                                $avatar = $cv->avatarCV;
+                            }
+                        ?>
+                        @if(strlen($avatar) > 0)
+                            @if (strpos($avatar, 'https') !== false)
+                                <div class="img"><img src="{{ $avatar }}" alt="{{ $avatar }}"></div>
                             @else
-                                <div class="img"><img src="http://test.gmon.com.vn/?image={{ $cv->avatar }}" alt="{{ $cv->avatar }}"></div>
+                                <div class="img"><img src="http://test.gmon.com.vn/?image={{ $avatar }}" alt="{{ $avatar }}"></div>
                             @endif
                         @else
                         <div class="img"><img src="http://test.gmon.com.vn/?image=avatar.png" alt=""></div>
@@ -110,11 +117,11 @@
                             <div class="info">
                                 <div class="sub-img">
                                     <div class="border">
-                                        @if(strlen($cv->avatar) > 0)
-                                            @if (strpos($cv->avatar, 'https') !== false)
-                                                <img src="{{ $cv->avatar }}" alt="{{ $cv->avatar }}">
+                                        @if(strlen($avatar) > 0)
+                                            @if (strpos($avatar, 'https') !== false)
+                                                <img src="{{ $avatar }}" alt="{{ $avatar }}">
                                             @else
-                                                <img src="http://test.gmon.com.vn/?image={{ $cv->avatar }}" alt="{{ $cv->avatar }}">
+                                                <img src="http://test.gmon.com.vn/?image={{ $avatar }}" alt="{{ $avatar }}">
                                             @endif
                                         @else
                                         <img src="http://test.gmon.com.vn/?image=avatar.png" alt="">
@@ -215,11 +222,20 @@
                     if(msg['code'] == 200){
                         var $html = '';
                         $(msg['cvs']).each(function( index ) {
-                            console.log($(this)[0].avatar);
                             $html += '<div class="item-u" >';
                                 $html += '<a target="_self" href="' + site_url + '/curriculumvitae/view/{{ $cv->id }}" onmouseenter="onFocusCandidates(event)" onmouseleave ="onDisFocusCandidates(event)">';
-                                    if($(this)[0].avatar != null && $(this)[0].avatar.length > 0){
-                                    $html += '<div class="img"><img src="http://test.gmon.com.vn/?image='+ $(this)[0].avatar + '" alt=""></div>';
+                                    var avatar = '';
+                                    if($(this)[0].avatarCV == null){
+                                        avatar =  $(this)[0].avatarU;
+                                    }else{
+                                        avatar =  $(this)[0].avatarCV;
+                                    }
+                                    if(avatar != null && avatar.length > 0){
+                                        if(avatar.indexOf('https') !== -1){
+                                            $html += '<div class="img"><img src="'+ avatar + '" alt=""></div>';
+                                        }else{
+                                            $html += '<div class="img"><img src="http://test.gmon.com.vn/?image='+ avatar + '" alt=""></div>';
+                                        }
                                     }else{
                                     $html += '<div class="img"><img src="http://test.gmon.com.vn/?image=avatar.png" alt=""></div>';
                                     }
@@ -232,8 +248,12 @@
                                     $html += '<div class="view">';
                                         $html += '<div class="info">';
                                             $html += '<div class="sub-img"><div class="border">';
-                                                    if($(this)[0].avatar != null && $(this)[0].avatar.length > 0){
-                                                    $html += '<img src="http://test.gmon.com.vn/?image='+ $(this)[0].avatar +'" alt="'+ $(this)[0].name +'">';
+                                                    if(avatar != null && avatar.length > 0){
+                                                        if(avatar.indexOf('https') !== -1){
+                                                            $html += '<img src="'+ avatar +'" alt="'+ $(this)[0].name +'">';
+                                                        }else{
+                                                            $html += '<img src="http://test.gmon.com.vn/?image='+ avatar +'" alt="'+ $(this)[0].name +'">';
+                                                        }
                                                     }else{
                                                     $html += '<img src="http://test.gmon.com.vn/?image=avatar.png" alt="'+ $(this)[0].username +'">';
                                                     }
