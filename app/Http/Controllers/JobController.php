@@ -438,7 +438,10 @@ class JobController extends Controller
                                 ->join('cities', 'cities.id', '=', 'companies.city')
                                 ->join('districts', 'districts.id', '=', 'companies.district')
                                 ->where('jobs.job_type', '=', $job->job_type)
-                                ->select('jobs.id as id', 'jobs.name as name', 'salaries.name as salary', 'companies.logo', 'companies.name as companyname', 'cities.name as city', 'districts.name as district')
+                                ->whereRaw('LENGTH(jobs.name) < 50')
+                                ->whereRaw('LENGTH(companies.name) < 50')
+                                ->where('companies.id', '<>', $job->company)
+                                ->select('jobs.id as id', 'jobs.name as name', 'jobs.slug as slug', 'salaries.name as salary', 'companies.logo', 'companies.name as companyname', 'cities.name as city', 'districts.name as district')
                                 ->orderBy('jobs.created_at', 'desc')
                                 ->take(12)
                                 ->get();
@@ -536,7 +539,10 @@ class JobController extends Controller
                                 ->join('cities', 'cities.id', '=', 'companies.city')
                                 ->join('districts', 'districts.id', '=', 'companies.district')
                                 ->where('jobs.job_type', '=', $job->job_type)
-                                ->select('jobs.id as id', 'jobs.name as name', 'salaries.name as salary', 'companies.logo', 'companies.name as companyname', 'cities.name as city', 'districts.name as district')
+                                ->where('companies.id', '<>', $job->company)
+                                ->whereRaw('LENGTH(jobs.name) < 50')
+                                ->whereRaw('LENGTH(companies.name) < 50')
+                                ->select('jobs.id as id', 'jobs.name as name', 'jobs.slug as slug', 'salaries.name as salary', 'companies.logo', 'companies.name as companyname', 'cities.name as city', 'districts.name as district')
                                 ->orderBy('jobs.created_at', 'desc')
                                 ->take(12)
                                 ->get();

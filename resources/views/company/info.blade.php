@@ -336,6 +336,29 @@ gtag('config', 'UA-106844998-1');
                     </div>
                 </div>
             </div>
+            @if(isset($jobsRelated) && count($jobsRelated) > 0)
+            <div class="related-work row">
+                <p class="title"><i></i>Thêm cơ hội làm việc cho bạn</p>
+                <div class="wrapper" id="wrapper">
+                    <div class="prev" id="btPrev"><img src="http://test.gmon.com.vn/?image=prev.png" alt=""></div>
+                    <div class="next"  id="btNext"><img src="http://test.gmon.com.vn/?image=next.png" alt=""></div>
+                    <div style="width: 100%;overflow: hidden;display: inline-block;position: relative;">
+                        <div id="contents">
+                            @foreach($jobsRelated as $related)
+                            <div class="item-work" >
+                                <a target="_self" href="{{ url('/') }}/company/{{ $related->id }}/{{ $related->slug }}">
+                                    <p class="work-img"><img src="http://test.gmon.com.vn/?image={{ $related->logo }}" alt=""></p>
+                                    <div class="details">
+                                        <p class="single">{{ $related->companyname }}</p>
+                                    </div>
+                                </a>
+                            </div>
+                            @endforeach
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @endif
         </div>
         <footer>
             <div class="container">

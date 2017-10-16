@@ -212,9 +212,180 @@
                 @endif
             </div>
         </div>
+        @if(isset($job_relatives) && count($job_relatives) > 0)
+        <div class="related-work row">
+            <p class="title"><i></i>Thêm cơ hội làm việc cho bạn</p>
+            <div class="wrapper" id="wrapper">
+                <div class="prev" id="btPrev"><img src="http://test.gmon.com.vn/?image=prev.png" alt=""></div>
+                <div class="next"  id="btNext"><img src="http://test.gmon.com.vn/?image=next.png" alt=""></div>
+                <div style="width: 100%;overflow: hidden;display: inline-block;position: relative;">
+                    <div id="contents">
+                        @foreach($job_relatives as $related)
+                        <div class="item-work" >
+                            <div class="border-item">
+                                <a target="_self" href="{{ url('/') }}/job/{{ $related->id }}/{{ $related->slug }}">
+                                    <p class="work-img"><img src="http://test.gmon.com.vn/?image={{ $related->logo }}" alt=""></p>
+                                    <div class="details">
+                                        <div class="single"><p>{{ $related->name }} tại {{ $related->companyname }}</p></div>
+                                        <div class="work-view">
+                                            <p class="location"><i></i>{{ $related->district }}, {{ $related->city }}</p>
+                                            <p class="salary"><i></i>{{ $related->salary }}</p>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+        </div>
+        @endif
     </div>
+    <style type="text/css">
+        .item-work .work-img img {
+            width: 100%;
+            height: 75%;
+            margin: 10% 0;
+            position: relative;
+        }
+
+        .item-work .work-img {
+            height: 120px;
+            width: 100%;
+            text-align: center;
+            background: white;
+            margin: 0px;
+            border-top: 3px solid #2a70b8;
+        }
+
+        .related-work{margin-top: 20px;}
+        .related-work p.title{font-weight: bold;color:#464646;font-size: 15px;margin-bottom: 20px}
+        .related-work p.title i{background: url("../../../public/images/bg.png") -37px -38px;width: 25px;height: 25px;float: left;margin-right: 10px;margin-top: -2px;}
+        .wrapper{position: relative;margin-top: 10px;width: 100%;}
+        .wrapper .next img,.prev img{background: white;padding:8px 10px ;border:1px solid #c9c9c9;border-radius: 50%;height: 30px;width:30px;text-align: center;}
+        .wrapper .next{float: right;margin-right: -40px;height: 190px;width: 40px;line-height: 190px;text-align: center;}
+        .wrapper .prev{float: left;margin-left: -40px;height: 190px;width: 40px;line-height: 190px;text-align: center;}
+        .wrapper .prev button{background-position: -60px -60px;}
+        .wrapper .next img:hover,.prev img:hover{background: #c9c9c9;}
+        .wrapper #contents{width: 2000px;display: inline-block;}
+
+        .item-work{padding: 0 5px;width: 200px;float: left;}
+        .item-work a{width: 100%;border:1px solid #dce7f3;margin:0;overflow: hidden;display: inline-block;border-top: none;color:black;}
+        .item-work .details{position: relative;background: white;height: 68px;padding:18px 10%;border-top: 1px solid #c9c9c9;}
+        .item-work .single{font-weight: bold;margin: 0;font-size: 12px;}
+        .item-work .single{text-align: center;background: white;word-wrap: break-word;overflow: hidden;text-overflow: ellipsis;
+        display: -webkit-box;-webkit-line-clamp: 2;-webkit-box-orient: vertical;}
+
+        .item-work .work-view{background: white;position: absolute;top:-1px;left: 0;width: 100%;display: none}
+        .item-work .work-view i{background-image: url("../../../public/images/bg.png");width: 20px ;height: 15px;display: inline-block;margin-bottom: -3px;margin-right: 15px}
+        .item-work .work-view .location i{background-position:-20px -60px}
+        .item-work .work-view .salary i{background-position:0 -60px}
+        .item-work .work-view .salary,.location{font-size: 12px;height: 33px;background: #2a70b8;padding: 0px 20px;line-height: 33px;color:white;text-overflow:ellipsis;overflow: hidden;white-space: nowrap;}
+        .item-work .work-view .location{margin-bottom: 2px;}
+
+        .item-work .work-img-border{border:2px solid #2a70b8;}
+        .item-work .work-img img {
+            width: 100%;
+            height: 75%;
+            margin: 10% 0;
+            position: relative;
+        }
+
+        .item-work .work-img {
+            height: 120px;
+            width: 100%;
+            text-align: center;
+            background: white;
+            margin: 0;
+            border-top: 3px solid #2a70b8;
+        }
+
+        .item-work a:hover{overflow: visible;}
+        .item-work a:hover .work-img{border:2px solid #2a70b8;}
+        .item-work a:hover .work-view{display:inline-block;}
+    </style>
     <script type="text/javascript">
         var url_site = $('base').attr('href');
+        window.onload = function ()
+        {
+            var w = screen.width;
+            var w2 = $("#wrapper").outerWidth();
+            var w3;
+            if (w > 768) {
+                w3 = w2 / 5;
+            } else if (w > 600) {
+                w3 = w2 / 3;
+
+            } else {
+                w3 = w2;
+            }
+            $(".item-work").css("width", w3 + "px");
+            var n = w3 * ($("#contents .item-work").length);
+            $("#contents").css("width", n + "px");
+            setTimeout(function () {
+                onNext(false);
+            }, 2000);
+        };
+
+        var isR = false;
+        var action;
+        $("#btPrev").click(function () {
+            onPrev(true);
+        });
+        $("#btNext").click(function () {
+            onNext(true);
+        });
+        function onNext(b) {
+            if (b)
+                clearTimeout(action);
+            if (isR)
+                return;
+            isR = true;
+            var w = $(".item-work").outerWidth();
+            var n = parseFloat($("#contents").css("margin-left"));
+            var w2 = $("#contents").outerWidth();
+            var w3 = $("#wrapper").outerWidth();
+            var n2 = n - w;
+            if (n2 + w2 - w3 >= 0) {
+                $("#contents").animate({marginLeft: n2 + 'px'}, {duration: 300, complete: function () {
+                        isR = false;
+                    }});
+                action = setTimeout(function () {
+                    onNext(false);
+                }, 2000);
+            } else {
+                isR = false;
+                action = setTimeout(function () {
+                    onPrev(false);
+                }, 2000);
+            }
+        }
+        function onPrev(b) {
+            if (b)
+                clearTimeout(action);
+            if (isR)
+                return;
+            isR = true;
+            var w = $(".item-work").outerWidth();
+            var n = parseFloat($("#contents").css("margin-left"));
+            var w2 = $("#contents").outerWidth();
+            var n2 = n + w;
+            if (n2 <= 0) {
+                $("#contents").animate({marginLeft: n2 + 'px'}, {duration: 300, complete: function () {
+                        isR = false;
+                    }});
+                action = setTimeout(function () {
+                    onPrev(false);
+                }, 2000);
+            } else {
+                isR = false;
+                action = setTimeout(function () {
+                    onNext(false);
+                }, 2000);
+            }
+        }
+
         function onOpenLogin() {
             $("#login").addClass("in active");
             $("#register").removeClass("in active");

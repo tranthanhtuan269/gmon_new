@@ -352,3 +352,7 @@ img.no-vote{
     font-size: 20px;
     margin: 0;
 }
+
+.form-horizontal .form-group{
+    min-height: 30px;
+}

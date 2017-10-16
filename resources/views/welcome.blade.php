@@ -209,8 +209,15 @@
                 @foreach($cvs as $cv)
                 <div class="item-u" >
                     <a target="_self" href="{{ url('/') }}/curriculumvitae/view/{{ $cv->id }}" onmouseenter="onFocusCandidates(event)" onmouseleave ="onDisFocusCandidates(event)">
-                        @if(strlen($cv->avatar) > 0)
-                        <div class="img"><img src="http://test.gmon.com.vn/?image={{ $cv->avatar }}" alt=""></div>
+                        <?php 
+                            if($cv->avatarCV == null){
+                                $avatar = $cv->avatarU;
+                            }else{
+                                $avatar = $cv->avatarCV;
+                            }
+                        ?>
+                        @if(strlen($avatar) > 0)
+                        <div class="img"><img src="http://test.gmon.com.vn/?image={{ $avatar }}" alt=""></div>
                         @else
                         <div class="img"><img src="http://test.gmon.com.vn/?image=avatar.png" alt=""></div>
                         @endif
@@ -219,8 +226,8 @@
                         <div class="view">
                             <div class="info">
                                 <div class="sub-img"><div class="border">
-                                        @if(strlen($cv->avatar) > 0)
-                                        <img src="http://test.gmon.com.vn/?image={{ $cv->avatar }}" alt="">
+                                        @if(strlen($avatar) > 0)
+                                        <img src="http://test.gmon.com.vn/?image={{ $avatar }}" alt="">
                                         @else
                                         <img src="http://test.gmon.com.vn/?image=avatar.png" alt="">
                                         @endif
@@ -239,6 +246,14 @@
             </div>
         </div>
         @endif
+        <?php
+            function strtolower_utf8($inputString) {
+                $outputString    = utf8_decode($inputString);
+                $outputString    = strtolower($outputString);
+                $outputString    = utf8_encode($outputString);
+                return $outputString;
+            }
+        ?>
         @if(count($jobsvip1) > 0)
         <div class="hot-jobs row">
             <div class="title clearfix"><span>Việc làm HOT <i class="hot"></i></span><a target="_self" href="{{ url('/') }}/showmore?job=vip1">Xem thêm việc làm HOT <i></i></a></div>
@@ -251,7 +266,7 @@
                                 <a target="_self" href="{{ url('/') }}/job/{{ $job->id }}/{{ $job->slug }}">
                                     <p class="work-img"><img  src="http://test.gmon.com.vn/?image={{ $job->logo }}" alt=""></p>
                                     <div class="details">
-                                        <div class="single"><p>{{ $job->name }} tại {{ $job->companyname }}</p></div>
+                                        <div class="single"><p>{{ ucfirst($job->name) }} tại {{ $job->companyname }}</p></div>
                                         <div class="work-view">
                                             <p class="location"><i></i>{{ $job->district }}, {{ $job->city }}</p>
                                             <p class="salary"><i></i>{{ $job->salary }}</p>
@@ -278,7 +293,7 @@
                                 <a target="_self" href="{{ url('/') }}/job/{{ $job->id }}/{{ $job->slug }}">
                                     <p class="work-img"><img  src="http://test.gmon.com.vn/?image={{ $job->logo }}" alt=""></p>
                                     <div class="details">
-                                        <div class="single"><p>{{ $job->name }} tại {{ $job->companyname }}</p></div>
+                                        <div class="single"><p>{{ ucfirst($job->name) }} tại {{ $job->companyname }}</p></div>
                                         <div class="work-view">
                                             <p class="location"><i></i>{{ $job->district }}, {{ $job->city }}</p>
                                             <p class="salary"><i></i>{{ $job->salary }}</p>
@@ -308,7 +323,7 @@
                                     <span class="icon-new"><img src="http://test.gmon.com.vn/?image=icon-new.png" alt=""></span>
                                     <p class="work-img"><img  src="http://test.gmon.com.vn/?image={{ $job->logo }}" alt=""></p>
                                     <div class="details">
-                                        <div class="single"><p>{{ $job->name }} tại {{ $job->companyname }}</p></div>
+                                        <div class="single"><p>{{ ucfirst($job->name) }} tại {{ $job->companyname }}</p></div>
                                         <div class="work-view">
                                             <p class="location"><i></i>{{ $job->district }}, {{ $job->city }}</p>
                                             <p class="salary"><i></i>{{ $job->salary }}</p>
@@ -338,7 +353,7 @@
                                     <span class="icon-new"><img src="http://test.gmon.com.vn/?image=icon-new.png" alt=""></span>
                                     <p class="work-img"><img  src="http://test.gmon.com.vn/?image={{ $company->logo }}" alt=""></p>
                                     <div class="details">
-                                        <div class="single"><p>{{ $company->name }}</p></div>
+                                        <div class="single"><p>{{ ucfirst($company->name) }}</p></div>
                                         <div class="work-view">
                                             <p>Xem thêm &rsaquo;&rsaquo;</p>
                                         </div>
@@ -575,5 +590,9 @@
                 });
             });
         });
+
+        function onFocusCandidates(event) {
+            $(event.target).find(".view").animate({top: 0 + 'px'}, 300);
+        }
     </script>
 @endsection
