@@ -20,6 +20,15 @@
         position: relative;
         font-family: Roboto, sans-serif;
     }
+
+    .obj-name:first-letter {
+        text-transform: uppercase;
+    }
+
+    .single p:first-letter {
+        text-transform: uppercase;
+    }
+
 </style>
     <div class="container" id="info-page">
         <div class="row" id="images-company">
