@@ -16,6 +16,14 @@
       <title>{{ config('app.name', 'Gmon') }}</title>
     @endif
 
+    @if(isset($content_share))
+      <meta property="og:url"           content="{{ $content_share['url'] }}" />
+      <meta property="og:type"          content="website" />
+      <meta property="og:title"         content="{{ $content_share['title'] }}" />
+      <meta property="og:description"   content="<?php echo $content_share['description']; ?>" />
+      <meta property="og:image"         content="{{ $content_share['image'] }}" />
+    @endif
+
     <link rel="stylesheet" href="{{ url('/') }}/public/css/bootstrap.min.css" />
     <link rel="stylesheet" href="{{ url('/') }}/public/css/font-awesome.min.css" />
     <link rel="stylesheet" href="{{ url('/') }}/public/css/jquery.fancybox.min.css" />
