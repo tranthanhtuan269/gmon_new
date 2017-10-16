@@ -449,7 +449,7 @@ class JobController extends Controller
 
             $content_share = array();
             $content_share['url'] = url('/') . '/job/' . $job->id . '/' . $job->slug;
-            $content_share['title'] = $job->name;
+            $content_share['title'] = ucfirst($job->name);
             $content_share['description'] = $job->description;
             $content_share['image'] = 'http://test.gmon.com.vn/?image=' . $company->logo;
             return view('job.info', compact('job', 'company', 'company_id', 'cv_id', 'applied', 'branches', 'job_relatives', 'content_share'));
@@ -557,7 +557,7 @@ class JobController extends Controller
 
             $content_share = array();
             $content_share['url'] = url('/') . '/job/' . $job->id . '/' . $job->slug;
-            $content_share['title'] = $job->name;
+            $content_share['title'] = ucfirst($job->name);
             $content_share['description'] = $job->description;
             $content_share['image'] = 'http://test.gmon.com.vn/?image=' . $company->logo;
             return view('job.info', compact('job', 'company', 'company_id', 'cv_id', 'applied', 'branches', 'job_relatives', 'content_share'));
