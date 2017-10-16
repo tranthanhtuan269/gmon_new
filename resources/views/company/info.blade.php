@@ -462,17 +462,6 @@ gtag('config', 'UA-106844998-1');
                 setTimeout(function () {
                     onNext(false);
                 }, 2000);
-
-                //------------------------------------------------//
-
-                var w2_big = $("#wrapper-big").outerWidth();
-                var w3_big = w2_big;
-                $(".item-work-big").css("width", w3_big + "px");
-                var n_big = w3_big * ($("#contents-big .item-work-big").length);
-                $("#contents-big").css("width", n_big + "px");
-                setTimeout(function () {
-                    onNext_big(false);
-                }, 2000);
             };
 
             var isR = false;
