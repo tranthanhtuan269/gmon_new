@@ -223,7 +223,7 @@
                         var $html = '';
                         $(msg['cvs']).each(function( index ) {
                             $html += '<div class="item-u" >';
-                                $html += '<a target="_self" href="' + site_url + '/curriculumvitae/view/{{ $cv->id }}" onmouseenter="onFocusCandidates(event)" onmouseleave ="onDisFocusCandidates(event)">';
+                                $html += '<a target="_self" href="' + site_url + '/curriculumvitae/view/' + $(this)[0].id + '" onmouseenter="onFocusCandidates(event)" onmouseleave ="onDisFocusCandidates(event)">';
                                     var avatar = '';
                                     if($(this)[0].avatarCV == null){
                                         avatar =  $(this)[0].avatarU;
