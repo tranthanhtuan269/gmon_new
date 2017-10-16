@@ -282,6 +282,7 @@ class HomeController extends Controller
 
         $jobGetObj = new Job;
         $companyGetObj = new Company;
+        $cvGetObj = new CurriculumVitae;
 
         $perPage = 25;
         $checkJobVip = 0;
@@ -348,12 +349,7 @@ class HomeController extends Controller
                     $jobs = [];
 
                     // get cv of vip
-                    $cvs = \DB::table('curriculum_vitaes')
-                        ->join('users', 'users.id', '=', 'curriculum_vitaes.user')
-                        ->select('curriculum_vitaes.id as id', 'users.name as username', 'curriculum_vitaes.birthday', 'curriculum_vitaes.avatar', 'curriculum_vitaes.school')
-                        ->where('curriculum_vitaes.district', '=', $district)
-                        ->orderBy('curriculum_vitaes.id', 'desc')
-                        ->take($perPage)->get();
+                    $cvs = $cvGetObj->getCV($district, $city, $from, 10);
                         
                     // get cv of vip
                     $companies = [];
@@ -465,12 +461,7 @@ class HomeController extends Controller
                     $jobsvip2 = [];
 
                     // get cv of vip
-                    $cvs = \DB::table('curriculum_vitaes')
-                        ->join('users', 'users.id', '=', 'curriculum_vitaes.user')
-                        ->select('curriculum_vitaes.id as id', 'users.name as username', 'curriculum_vitaes.birthday', 'curriculum_vitaes.avatar', 'curriculum_vitaes.school')
-                        ->where('curriculum_vitaes.city', '=', $city)
-                        ->orderBy('curriculum_vitaes.id', 'desc')
-                        ->take($perPage)->get();
+                    $cvs = $cvGetObj->getCV($district, $city, $from, 10);
 
                     // get cv of vip
                     $companies = [];
@@ -550,11 +541,7 @@ class HomeController extends Controller
                     $jobsvip2 = [];
 
                     // get cv of vip
-                    $cvs = \DB::table('curriculum_vitaes')
-                        ->join('users', 'users.id', '=', 'curriculum_vitaes.user')
-                        ->select('curriculum_vitaes.id as id', 'users.name as username', 'curriculum_vitaes.birthday', 'curriculum_vitaes.avatar', 'curriculum_vitaes.school')
-                        ->orderBy('curriculum_vitaes.id', 'desc')
-                        ->take($perPage)->get();
+                    $cvs = $cvGetObj->getCV($district, $city, $from, 10);
 
                     // get cv of vip
                     $companies = [];
