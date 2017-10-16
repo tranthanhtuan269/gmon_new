@@ -255,7 +255,7 @@
             width: 100%;
             text-align: center;
             background: white;
-            margin: 0 -2px;
+            margin: 0px;
             border-top: 3px solid #2a70b8;
         }
 
@@ -281,7 +281,7 @@
         .item-work .work-view i{background-image: url("../../../public/images/bg.png");width: 20px ;height: 15px;display: inline-block;margin-bottom: -3px;margin-right: 15px}
         .item-work .work-view .location i{background-position:-20px -60px}
         .item-work .work-view .salary i{background-position:0 -60px}
-        .item-work .work-view .salary,.location{font-size: 12px;height: 33px;background: #2a70b8;padding: 0px 20px;line-height: 33px;color:white;text-overflow:ellipsis;overflow: hidden;white-space: nowrap;margin:0 -2px;}
+        .item-work .work-view .salary,.location{font-size: 12px;height: 33px;background: #2a70b8;padding: 0px 20px;line-height: 33px;color:white;text-overflow:ellipsis;overflow: hidden;white-space: nowrap;}
         .item-work .work-view .location{margin-bottom: 2px;}
 
         .item-work .work-img-border{border:2px solid #2a70b8;}
@@ -297,7 +297,7 @@
             width: 100%;
             text-align: center;
             background: white;
-            margin: 0 -2px;
+            margin: 0;
             border-top: 3px solid #2a70b8;
         }
 
@@ -324,7 +324,7 @@
             var n = w3 * ($("#contents .item-work").length);
             $("#contents").css("width", n + "px");
             setTimeout(function () {
-                onNext(false);
+                // onNext(false);
             }, 2000);
         };
 
