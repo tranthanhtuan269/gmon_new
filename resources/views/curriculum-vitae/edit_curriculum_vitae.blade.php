@@ -21,10 +21,10 @@
                             <div class="form-group {{ $errors->has('avatar') ? 'has-error' : ''}}">
                                 <div class="col-md-12">
                                     <?php 
-                                        if($curriculumvitae->avatarCV == null){
-                                            $avatar = $curriculumvitae->avatarU;
+                                        if($cv_user->avatarCV == null){
+                                            $avatar = $cv_user->avatarU;
                                         }else{
-                                            $avatar = $curriculumvitae->avatarCV;
+                                            $avatar = $cv_user->avatarCV;
                                         }
                                     ?>
                                     <input type="hidden" id="avatar" name="avatar" value="{{ $avatar }}">
