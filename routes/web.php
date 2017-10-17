@@ -19,6 +19,9 @@ Route::get('/google2fa952a6c07ee729.html', function(){
     echo 'google-site-verification: google2fa952a6c07ee729.html';
 });
 
+Route::get('testnew', 'HomeController@testnew');
+
+
 Route::resource('branch', 'BranchController');
 Route::get('hello', 'HomeController@homenew2');
 Route::get('welcome', 'HomeController@homenew');

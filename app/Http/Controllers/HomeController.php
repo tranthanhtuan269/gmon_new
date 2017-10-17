@@ -748,4 +748,18 @@ class HomeController extends Controller
             $category->save();
         }
     }
+
+    public function testnew(){
+        if (\Auth::check()) {
+
+            // get info User
+            $myInfo = CurriculumVitae::where('user', '=', \Auth::user()->id)->orderBy('created_at', 'desc')->select('id', 'avatar', 'school')->first();
+            if($myInfo->avatar == null) $myInfo->avatar = \Auth::user()->avatar;
+
+            // get 5 hot jobs 
+            return view('uv.main', compact('myInfo'));
+        }
+
+        return redirect('/');
+    }
 }
