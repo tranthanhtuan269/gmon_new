@@ -392,6 +392,7 @@ class JobController extends Controller
                         'jobs.job_type',
                         'jobs.gender',
                         'jobs.branches',
+                        'jobs.slug',
                         'salaries.name as salary'
                 )
                 ->where('jobs.id', $id)
@@ -445,7 +446,13 @@ class JobController extends Controller
                                 ->orderBy('jobs.created_at', 'desc')
                                 ->take(12)
                                 ->get();
-            return view('job.info', compact('job', 'company', 'company_id', 'cv_id', 'applied', 'branches', 'job_relatives'));
+
+            $content_share = array();
+            $content_share['url'] = url('/') . '/job/' . $job->id . '/' . $job->slug;
+            $content_share['title'] = ucfirst($job->name);
+            $content_share['description'] = $job->description;
+            $content_share['image'] = 'http://test.gmon.com.vn/?image=' . $company->logo;
+            return view('job.info', compact('job', 'company', 'company_id', 'cv_id', 'applied', 'branches', 'job_relatives', 'content_share'));
         }
         return view('errors.404');
     }
@@ -493,6 +500,7 @@ class JobController extends Controller
                         'jobs.job_type',
                         'jobs.gender',
                         'jobs.branches',
+                        'jobs.slug',
                         'salaries.name as salary'
                 )
                 ->where('jobs.id', $id)
@@ -546,7 +554,13 @@ class JobController extends Controller
                                 ->orderBy('jobs.created_at', 'desc')
                                 ->take(12)
                                 ->get();
-            return view('job.info', compact('job', 'company', 'company_id', 'cv_id', 'applied', 'branches', 'job_relatives'));
+
+            $content_share = array();
+            $content_share['url'] = url('/') . '/job/' . $job->id . '/' . $job->slug;
+            $content_share['title'] = ucfirst($job->name);
+            $content_share['description'] = $job->description;
+            $content_share['image'] = 'http://test.gmon.com.vn/?image=' . $company->logo;
+            return view('job.info', compact('job', 'company', 'company_id', 'cv_id', 'applied', 'branches', 'job_relatives', 'content_share'));
         }
         return view('errors.404');
     }
