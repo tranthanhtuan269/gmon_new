@@ -532,7 +532,7 @@
                             <div class="form-ngon-ngu-group">
                                 <div class="form-group" id="qualification_content">
                                     <?php
-                                        if(strlen($cv_user->qualification) > 0){
+                                        if(strlen($cv_user->qualification) > 3){
                                             $cv_user->qualification=ltrim($cv_user->qualification,";");
                                             $qualifications = explode(";",$cv_user->qualification);
                                             for($i = 0; $i < count($qualifications); $i++){
@@ -620,7 +620,7 @@
                                 <div class="col-md-12">
                                     <div id="images-plus">
                                         <?php 
-                                            if(strlen($cv_user->images) > 0){
+                                            if(strlen($cv_user->images) > 3){
                                             $cv_user->images=rtrim($cv_user->images,";");
                                             $images = explode(";",$cv_user->images);
                                             for($i = 0; $i < count($images); $i++){
@@ -713,7 +713,7 @@
 <script src="{{ url('/') }}/public/js/croppie.js"></script>
 <script type="text/javascript">
 
-    var src_avatar = "http://test.gmon.com.vn/?image={{ $cv_user->avatar }}";
+    var src_avatar = "http://test.gmon.com.vn/?image={{ $avatar }}";
     $uploadCrop = $('#upload-demo').croppie({
         enableExif: true,
         viewport: {
