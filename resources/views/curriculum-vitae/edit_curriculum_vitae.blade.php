@@ -714,7 +714,7 @@
 <script src="{{ url('/') }}/public/js/croppie.js"></script>
 <script type="text/javascript">
 
-    var src_avatar = "http://test.gmon.com.vn/?image={{ $cv_user->avatar }}";
+    var src_avatar = "http://test.gmon.com.vn/?image={{ $avatar }}";
     $uploadCrop = $('#upload-demo').croppie({
         enableExif: true,
         viewport: {
