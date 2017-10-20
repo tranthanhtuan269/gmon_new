@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Socialite;
+use Mail;
 
 class RegisterController extends Controller
 {
@@ -102,7 +103,15 @@ class RegisterController extends Controller
                 'avatar' => $socialUser->getAvatar()
             ]);
 
-            auth()->login($user_login);
+            if($user_login){
+                $user_login->assignRole('user');
+                $dataUser = array('email'=>$socialUser->getEmail(), 'name'=>$socialUser->getName());
+                Mail::send('emails.registerUV', [], function($message) use ($dataUser) {
+                    $message->from('support@gmon.vn', 'gmon.vn');
+                    $message->to($dataUser['email'], $dataUser['name'])->subject('Gmon.vn thông báo đăng ký thành công!');
+                });
+                auth()->login($user_login);
+            }
         }else{
             auth()->login($user);
         }
@@ -128,24 +137,30 @@ class RegisterController extends Controller
      */
     public function handleFacebookCallback()
     {
-
         try {
             $socialUser = Socialite::driver('facebook')->user();
         } catch (Exception $e) {
             return redirect('/');
         }
 
-        $user = User::Where('email', $socialUser->getEmail())->first();
+        $user = User::Where('id_fb', $socialUser->getId())->first();
 
         if(!$user){
             $user_login = User::create([
                 'name' => $socialUser->getName(),
                 'email' => $socialUser->getEmail(),
-                'avatar' => $socialUser->getAvatar()
+                'avatar' => $socialUser->getAvatar(),
+                'id_fb' => $socialUser->getId()
             ]);
-            
-            $user_login->assignRole('user');
-            auth()->login($user_login);
+            if($user_login){
+                $user_login->assignRole('user');
+                $dataUser = array('email'=>$socialUser->getEmail(), 'name'=>$socialUser->getName());
+                Mail::send('emails.registerUV', [], function($message) use ($dataUser) {
+                    $message->from('support@gmon.vn', 'gmon.vn');
+                    $message->to($dataUser['email'], $dataUser['name'])->subject('Gmon.vn thông báo đăng ký thành công!');
+                });
+                auth()->login($user_login);
+            }
         }else{
             auth()->login($user);
         }
