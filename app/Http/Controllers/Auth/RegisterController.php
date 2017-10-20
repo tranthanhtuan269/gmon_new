@@ -137,7 +137,6 @@ class RegisterController extends Controller
      */
     public function handleFacebookCallback()
     {
-
         try {
             $socialUser = Socialite::driver('facebook')->user();
         } catch (Exception $e) {

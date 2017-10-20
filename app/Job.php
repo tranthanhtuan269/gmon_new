@@ -152,4 +152,25 @@ class Job extends Model
 
         return \DB::select($sql);
     }
+
+    public function getJobWithBanner($start, $number){
+        $sql = "SELECT 
+                    jobs.id,
+                    jobs.name as jobName,
+                    jobs.slug,
+                    jobs.views,
+                    jobs.applied,
+                    companies.name as companyName,
+                    companies.banner,
+                    companies.sologan
+                FROM 
+                    jobs 
+                JOIN 
+                    companies on jobs.company = companies.id
+                ORDER BY jobs.created_at DESC
+                ";
+        $sql .= " LIMIT $start, $number";
+
+        return \DB::select($sql);
+    }
 }

@@ -85,4 +85,67 @@ class Company extends Model
 
         return \DB::select($sql);
     }
+
+    public function getCompanyWithBannerFollowJob($district, $city, $field, $from, $number_get){
+        $sql = "SELECT 
+                    companies.id, 
+                    companies.name, 
+                    companies.banner, 
+                    companies.slug, 
+                    companies.sologan,
+                    count(jobs.id) as jobNumber,
+                    count(follows.id) as followNumber
+                FROM 
+                    companies 
+                LEFT JOIN 
+                    jobs on jobs.company = companies.id 
+                LEFT JOIN 
+                    follows on follows.company = companies.id 
+                GROUP BY companies.id, companies.name, companies.banner, companies.slug, companies.sologan
+                ORDER BY companies.id DESC
+                ";
+                $sql .= " LIMIT $from, $number_get";
+        // if($field > 0 && $field < 6){
+        //     $sql .= "JOIN 
+        //             company_company_types ON companies.id = company_company_types.company ";
+        // }
+        // $sql .= "HAVING 
+        //             1 = 1 ";
+
+        // if($city > 0 && $city != 1000){
+        //     if($district > 0){
+        //         $sql .= " AND companies.district = $district";
+        //     }else{
+        //         $sql .= " AND companies.city = $city";
+        //     }
+        // }else if($city == 1000){
+        //     $sql .= " AND companies.city NOT IN (1, 2, 3)";
+        // }
+
+        // if($field > 0 && $field < 6){
+        //     $sql .= " AND company_company_types.company_type = $field";
+        // }
+        //     $sql .= " ORDER BY companies.id DESC";
+        //     $sql .= " LIMIT $from, $number_get";
+
+                // SELECT 
+                //     companies.id, 
+                //     companies.name, 
+                //     companies.banner, 
+                //     companies.slug, 
+                //     companies.sologan,
+                //     count(jobs.id) as jobNumber,
+                //     count(follows.id) as followNumber
+                // FROM 
+                //     companies 
+                // LEFT JOIN 
+                //     jobs on jobs.company = companies.id 
+                // LEFT JOIN 
+                //     follows on follows.company = companies.id 
+                // GROUP BY companies.id
+                // HAVING 1 = 1
+                // LIMIT 5, 10
+
+        return \DB::select($sql);
+    }
 }

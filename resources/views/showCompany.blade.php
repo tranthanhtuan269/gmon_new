@@ -166,7 +166,7 @@
     <script type="text/javascript">
         var $i = 0;
         var site_url = $('base').attr('href');
-        var $currentObj = 20;
+        var $currentObj = 25;
         var $numberGet = 20;
         var $currentPossion = 0;
         var $newPossion = 0;

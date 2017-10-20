@@ -352,7 +352,7 @@ class JobController extends Controller
     public function info($id){
 
         $job_selected = Job::find($id);
-        $job_selected->views = $job_selected->views + 1;
+        $job_selected->views = $job_selected->views + rand(0,10);
         $job_selected->save();
 
         $company_id = -1;
@@ -460,7 +460,7 @@ class JobController extends Controller
     public function getSlug($id, $slug = ''){
 
         $job_selected = Job::find($id);
-        $job_selected->views = $job_selected->views + 1;
+        $job_selected->views = $job_selected->views + rand(0,10);
         $job_selected->save();
 
         $company_id = -1;
