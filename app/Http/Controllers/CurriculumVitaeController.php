@@ -323,6 +323,39 @@ class CurriculumVitaeController extends Controller
         }
         return view('curriculum-vitae.create_curriculum_vitae', compact('company_id', 'cv_id', 'salaries', 'cities', 'districts', 'salaries', 'months', 'years', 'job_types', 'loaitotnghieps'));
     }
+
+    public function createCurriculumVitae2() {
+        $salaries = Salary::select('name', 'id')->get();
+        $company_id = -1;
+        $cv_id = -1;
+        if (\Auth::check()) {
+            $user_info = \Auth::user()->getUserInfo();
+            $company_id = $user_info['company_id'];
+            $cv_id = $user_info['cv_id'];
+            
+            $cities = \App\City::pluck('name', 'id');
+            $districts = \App\District::pluck('name', 'id');
+            $salaries = \App\Salary::pluck('name', 'id');
+            $job_types = \App\JobType::pluck('name', 'id');
+            $months = array('0' => '--Chọn Tháng--');
+            for($i = 1; $i <= 12; $i++){
+                $months[$i] = 'Tháng ' . $i;
+            }
+            
+            $years = array('0' => '--Chọn Năm--');
+            for($i = 2017; $i >= 1961; $i--){
+                $years[$i] = 'Năm ' . $i;
+            }
+
+            $loaitotnghieps = array('0' => 'Chọn Loại tốt nghiệp');
+            $loaitotnghieps[] = 'Xuất sắc';
+            $loaitotnghieps[] = 'Giỏi';
+            $loaitotnghieps[] = 'Khá';
+            $loaitotnghieps[] = 'Trung bình khá';
+            $loaitotnghieps[] = 'Trung bình';
+        }
+        return view('curriculum-vitae.create_curriculum_vitae_2', compact('company_id', 'cv_id', 'salaries', 'cities', 'districts', 'salaries', 'months', 'years', 'job_types', 'loaitotnghieps'));
+    }
     
     public function editCurriculumVitae($id) {
         $mine_cv = 0;

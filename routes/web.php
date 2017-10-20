@@ -42,6 +42,7 @@ Route::group(['middleware' => 'auth'], function(){
 
     // Check role in route middleware
     Route::get('curriculumvitae/create', 'CurriculumVitaeController@createCurriculumVitae');
+    Route::get('curriculumvitae/create2', 'CurriculumVitaeController@createCurriculumVitae2');
     Route::get('curriculumvitae/{id}/edit', 'CurriculumVitaeController@editCurriculumVitae');
     Route::post('curriculumvitae/update/{id}', 'CurriculumVitaeController@updateCurriculumVitae');
     Route::post('curriculumvitae/store', 'CurriculumVitaeController@storeCurriculumVitae');
