@@ -137,20 +137,20 @@ class RegisterController extends Controller
      */
     public function handleFacebookCallback()
     {
-
         try {
             $socialUser = Socialite::driver('facebook')->user();
         } catch (Exception $e) {
             return redirect('/');
         }
 
-        $user = User::Where('email', $socialUser->getEmail())->first();
+        $user = User::Where('id_fb', $socialUser->getId())->first();
 
         if(!$user){
             $user_login = User::create([
                 'name' => $socialUser->getName(),
                 'email' => $socialUser->getEmail(),
-                'avatar' => $socialUser->getAvatar()
+                'avatar' => $socialUser->getAvatar(),
+                'id_fb' => $socialUser->getId()
             ]);
             if($user_login){
                 $user_login->assignRole('user');
