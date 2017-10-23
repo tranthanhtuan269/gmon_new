@@ -69,6 +69,7 @@ Route::group(['middleware' => 'auth'], function(){
     Route::post('/postImage', 'HomeController@postImage');
     Route::post('/postImages', 'HomeController@postImages');
     Route::post('/curriculumvitae/send-comment', 'CurriculumVitaeController@sendcomment');
+    
 });
 
 // Check role in route middleware
