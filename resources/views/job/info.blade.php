@@ -260,21 +260,6 @@
         @endif
     </div>
     <style type="text/css">
-        .item-work .work-img img {
-            width: 70%;
-            height: 70%;
-            margin: 10% 0;
-            position: relative;
-        }
-
-        .item-work .work-img {
-            height: 120px;
-            width: 100%;
-            text-align: center;
-            background: white;
-            margin: 0px;
-            border-top: 3px solid #2a70b8;
-        }
 
         .related-work{margin-top: 20px;}
         .related-work p.title{font-weight: bold;color:#464646;font-size: 15px;margin-bottom: 20px}
@@ -303,8 +288,8 @@
 
         .item-work .work-img-border{border:2px solid #2a70b8;}
         .item-work .work-img img {
-            width: 100%;
-            height: 75%;
+            width: 70%;
+            height: 70%;
             margin: 10% 0;
             position: relative;
         }
@@ -314,7 +299,7 @@
             width: 100%;
             text-align: center;
             background: white;
-            margin: 0;
+            margin: 0px;
             border-top: 3px solid #2a70b8;
         }
 
