@@ -17,9 +17,42 @@
     <script type="text/javascript" src="{{ url('/') }}/public/assets/js/jquery.fancybox.min.js"></script>
     <script type="text/javascript" src="{{ url('/') }}/public/assets/js/jquery.mmenu.all.min.js"></script>
     <script type="text/javascript" src="{{ url('/') }}/public/assets/js/custom.js"></script>
+    <link rel="shortcut icon" href="http://test.gmon.com.vn/?image=favicon.png" type="image/x-icon">
+    <link rel="icon" href="http://test.gmon.com.vn/?image=favicon.png" type="image/x-icon">
 </head>
 <body class="backend">
     <div class="header-homepage">
+        <div class="mass-content">
+            <div class="loader"></div>
+        </div>
+        <style type="text/css">
+            .mass-content{
+                width: 100%;
+                height: 100%;
+                position: fixed;
+                background-color:rgba(0, 0, 0, 0.5);
+                z-index: 1;
+                display: none;
+            }
+            .loader {
+                z-index: 10000;
+                border: 16px solid #f3f3f3; /* Light grey */
+                border-top: 16px solid #3498db; /* Blue */
+                border-bottom: 16px solid #3498db; /* Blue */
+                border-radius: 50%;
+                width: 120px;
+                height: 120px;
+                animation: spin 1s linear infinite;
+                position: absolute;
+                top: 50%;
+                left: 45%;
+                display: none;
+            }
+            @keyframes spin {
+                0% { transform: rotate(0deg); }
+                100% { transform: rotate(360deg); }
+            }
+        </style>
         <div class="top-menu">
             <div class="container-fluid">
                 <div class="row">
@@ -40,7 +73,7 @@
                     <div class="col-xl-6 col-lg-4 right-menu">
                         <ul class="homepage-menu">
                             <li>
-                                <a href="#" class="avatar"><img src="{{ url('/') }}/public/assets/images/avatar.png" alt=""></a>
+                                <a href="#" class="avatar"><img src="http://test.gmon.com.vn/?image=avatar.png" alt=""></a>
                                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     Tên ứng viên
                                 </button>
@@ -71,7 +104,7 @@
                                 <li><a href="http://gmon.vn/showmore?company=new">Nhà tuyển dụng</a></li>
                                 <li><a href="http://news.gmon.vn">Tư vấn nghề nghiệp</a></li>
                                 <li>
-                                    <a href="#" class="avatar-mobile"><img src="assets/images/avatar.png" alt=""> Tên ứng viên</a>
+                                    <a href="#" class="avatar-mobile"><img src="http://test.gmon.com.vn/?image=avatar.png" alt=""> Tên ứng viên</a>
                                     <ul class="sub-menu" aria-labelledby="dropdownMenuButton">
                                        <li> <a class="dropdown-item" href="#">Action</a></li>
                                         <li> <a class="dropdown-item" href="#">Action</a></li>
@@ -191,6 +224,53 @@
             </div>
         </div>
     </div>
+    <?php $user_info = \Auth::user()->getUserInfo() ?>
+    <div class="wrapper-homepage profile-01 profile-05">
+       <div class="container">
+           <div class="row">
+               <div class="left col-lg-3">
+                    <div class="avatar">
+                        <img src="http://test.gmon.com.vn/?image={{ $myInfo->avatar }}" alt="Avatar">
+                    </div>
+                    <div class="name">
+                        <h3>{{ \Auth::user()->name }}</h3>
+                        <h4>{{ $myInfo->school }}</h4>
+                    </div>
+                    <div class="job">
+                        <h3>Quản lý tài khoản</h3>
+                        <ul>
+                            <li><a href="{{ url('/') }}/user/main">Trang chính</a></li>
+                            @if($user_info['cv_id'] > 0)
+                            <li><a href="{{ url('/') }}/user/updateCV">Cập nhật hồ sơ</a></li>
+                            @else
+                            <li><a href="{{ url('/') }}/user/createCV">Tạo hồ sơ</a></li>
+                            @endif
+                            <li><a href="">Việc đã ứng tuyển</a></li>
+                            <li><a href="">Việc làm phù hợp</a></li>
+                            <li><a href="">Nhà tuyển dụng đã theo dõi</a></li>
+                            <li><a href="">Nhà tuyển dụng mới</a></li>
+                        </ul>
+                    </div>
+                    <div class="hot-job">
+                   <h3>Việc đang hot</h3>
+                   <ul>
+                      @foreach($companies as $company)
+                       <li>
+                           <div class="image">
+                               <img src="http://test.gmon.com.vn/?image={{ $company->logo }}" alt="avatar">
+                           </div>
+                           <div class="name-hot-job">
+                               <a href="{{ url('/') }}/company/{{ $company->id }}/{{ $company->slug }}">{{ $company->name }}</a>
+                           </div>
+                           <div class="clearfix"></div>
+                       </li>
+                      @endforeach
+                   </ul>
+               </div>
+               <div class="image-adv">
+                   <img src="http://test.gmon.com.vn/?image=job.jpg" alt="">
+               </div>
+           </div>
     @yield('content')
     <div class="footer-homepage">
         <div class="top-footer">
@@ -244,138 +324,7 @@
         </div>
     </div>
     <script type="text/javascript">
-
-        function onCloseModalLogin() {
-            $("#myModal").modal('toggle');
-        }
-        function onOpenRegister() {
-            $("#register").addClass("in active");
-            $("#login").removeClass("in active");
-            $("li.login a").removeClass("active");
-            $("li.register a").addClass("active");
-        }
-        function onOpenLogin() {
-            $("#login").addClass("in active");
-            $("#register").removeClass("in active");
-            $("li.register a").removeClass("active");
-            $("li.login a").addClass("active");
-        }
-        function onFocusCandidates(event) {
-            $(event.target).find(".view").animate({top: 0 + 'px'}, 300);
-        }
-        function onDisFocusCandidates(event) {
-            $(event.target).find(".view").animate({top: 200 + 'px'});
-        }
-
-        function loginFunc(){
-            $('#login-message').html('');
-            var loginEmail = $('#login-email').val();
-            var loginPassword = $('#login-password').val();
-            if(loginEmail.length == 0){
-                $('#login-message').html('Email rỗng!');
-            }else if(loginPassword.length == 0){
-                $('#login-message').html('Password rỗng!');
-            }else{
-                var request = $.ajax({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    url: "http://gmon.vn/auth/login",
-                    method: "POST",
-                    data: {
-                        'email': loginEmail,
-                        'password': loginPassword
-                    },
-                    dataType: "json"
-                });
-
-                request.done(function (msg) {
-                    if (msg.code == 200) {
-                        location.reload();
-                    }else{
-                        $('#login-message').html('Tài khoản không tồn tại!');
-                        $('#login-message').show();
-                    }
-                });
-
-                request.fail(function (jqXHR, textStatus) {
-                    alert("Request failed: " + textStatus);
-                });
-            }
-        }
-
-        function registerFunc(){
-            $('#register-btn').off('click');
-            $('#register-message').val('');
-            var username = $('#username').val();
-            var registersdt = $('#sdt').val();
-            var registerEmail = $('#register-email').val();
-            var registerPassword = $('#register-password').val();
-            var rPassword = $('#r_password').val();
-            var role = $('#areyou').val();
-            if (registerPassword != rPassword) {
-                $('#register-message').html('Password được đánh lại chưa chính xác!');
-                return false;
-            }else if(username.length == 0){
-                $('#register-message').html('Username rỗng!');
-                return false;
-            }else if(registersdt.length == 0){
-                $('#register-message').html('Số điện thoại rỗng!');
-                return false;
-            }else if(registerEmail.length == 0){
-                $('#register-message').html('Email rỗng!');
-                return false;
-            }else if(registerPassword.length == 0){
-                $('#register-message').html('Password rỗng!');
-                return false;
-            }else if(role == 0){
-                $('#register-message').html('Bạn chưa chọn vai trò của bạn!');
-                return false;
-            }else{
-                var request = $.ajax({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    url: "http://gmon.vn/auth/register",
-                    method: "POST",
-                    data: {
-                        'username': username,
-                        'password': registerPassword,
-                        'email': registerEmail,
-                        'phone': registersdt,
-                        'role': role
-                    },
-                    dataType: "json"
-                });
-
-                request.done(function (msg) {
-                    $('#register-btn').on('click');
-                    if(msg.code == 200) {
-                        location.reload();
-                        // window.location.replace("http://gmon.vn");
-                    }else if(msg.code == 201) {
-                        $('#register-message').html('Email của bạn đã có người sử dụng!');
-                    }else{
-                        $('#register-message').html('Đăng ký bị lỗi! <br /> Xin hãy liên hệ quản trị viên');
-                    }
-                });
-
-                request.fail(function (jqXHR, textStatus) {
-                    alert("Request failed: " + textStatus);
-                });
-            }
-        }
-
         $(document).ready(function(){
-            onOpenLogin();
-            $('#login-btn').click(function () {
-                loginFunc();
-            });
-
-            $('#register-btn').click(function () {
-                registerFunc();
-            });
-
             $('#select-job-type li').click(function(){
                 $('#select-job-type-btn').text($(this).text());
                 $('#select-job-type-btn').attr('data-id', $(this).val());

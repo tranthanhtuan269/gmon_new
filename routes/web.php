@@ -19,6 +19,9 @@ Route::get('/google2fa952a6c07ee729.html', function(){
     echo 'google-site-verification: google2fa952a6c07ee729.html';
 });
 
+Route::get('/user/main', 'HomeController@usermain');
+Route::get('/user/createCV', 'HomeController@usercreateCV');
+Route::get('/user/updateCV', 'HomeController@userupdateCV');
 Route::get('testnew', 'HomeController@testnew');
 
 
@@ -39,6 +42,7 @@ Route::get('curriculumvitae', 'CurriculumVitaeController@indexCurriculumVitae');
 Route::get('curriculumvitae/view/{id}', 'CurriculumVitaeController@showCurriculumVitae');
 Route::get('/job/view/{id}', 'JobController@info');
 Route::get('/getJob/', 'JobController@getJob');
+Route::get('/getJobWithBanner/', 'JobController@getJobWithBanner');
 Route::get('/getCompany/', 'CompanyController@getCompany');
 Route::get('/getCV/', 'CurriculumVitaeController@getCV');
 
@@ -69,7 +73,7 @@ Route::group(['middleware' => 'auth'], function(){
     Route::post('/postImage', 'HomeController@postImage');
     Route::post('/postImages', 'HomeController@postImages');
     Route::post('/curriculumvitae/send-comment', 'CurriculumVitaeController@sendcomment');
-    
+
 });
 
 // Check role in route middleware

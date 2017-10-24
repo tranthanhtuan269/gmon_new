@@ -764,7 +764,76 @@ class HomeController extends Controller
             $myInfo = CurriculumVitae::where('user', '=', \Auth::user()->id)->orderBy('created_at', 'desc')->select('id', 'avatar', 'school')->first();
             if($myInfo->avatar == null) $myInfo->avatar = \Auth::user()->avatar;
 
-            $jobsvip = $jobGetObj->getJobWithBanner($from, 10);
+            $jobsvip = $jobGetObj->getJobWithBanner($from, 5);
+            $companies = $companyGetObj->getCompany($district, $city, $field, $from, $number_get);
+            return view('uv.main', compact('myInfo', 'jobsvip', 'companies'));
+        }
+
+        return redirect('/');
+    }
+
+    public function usermain(){
+        if (\Auth::check()) {
+
+            $jobGetObj = new Job;
+            $field = $district = $city = $job_type = $company = $cv = $vip = null;
+            $from = 0;
+            $number_get = 5;
+
+            
+            $companyGetObj = new Company;
+
+            // get info User
+            $myInfo = CurriculumVitae::where('user', '=', \Auth::user()->id)->orderBy('created_at', 'desc')->select('id', 'avatar', 'school')->first();
+            if($myInfo->avatar == null) $myInfo->avatar = \Auth::user()->avatar;
+
+            $jobsvip = $jobGetObj->getJobWithBanner($from, 5);
+            $companies = $companyGetObj->getCompany($district, $city, $field, $from, $number_get);
+            return view('uv.main', compact('myInfo', 'jobsvip', 'companies'));
+        }
+
+        return redirect('/');
+    }
+
+    public function usercreateCV(){
+        if (\Auth::check()) {
+
+            $jobGetObj = new Job;
+            $field = $district = $city = $job_type = $company = $cv = $vip = null;
+            $from = 0;
+            $number_get = 5;
+
+            
+            $companyGetObj = new Company;
+
+            // get info User
+            $myInfo = CurriculumVitae::where('user', '=', \Auth::user()->id)->orderBy('created_at', 'desc')->select('id', 'avatar', 'school')->first();
+            if($myInfo->avatar == null) $myInfo->avatar = \Auth::user()->avatar;
+
+            $jobsvip = $jobGetObj->getJobWithBanner($from, 5);
+            $companies = $companyGetObj->getCompany($district, $city, $field, $from, $number_get);
+            return view('uv.createCV', compact('myInfo', 'jobsvip', 'companies'));
+        }
+
+        return redirect('/');
+    }
+
+    public function userupdateCV(){
+        if (\Auth::check()) {
+
+            $jobGetObj = new Job;
+            $field = $district = $city = $job_type = $company = $cv = $vip = null;
+            $from = 0;
+            $number_get = 5;
+
+            
+            $companyGetObj = new Company;
+
+            // get info User
+            $myInfo = CurriculumVitae::where('user', '=', \Auth::user()->id)->orderBy('created_at', 'desc')->select('id', 'avatar', 'school')->first();
+            if($myInfo->avatar == null) $myInfo->avatar = \Auth::user()->avatar;
+
+            $jobsvip = $jobGetObj->getJobWithBanner($from, 5);
             $companies = $companyGetObj->getCompany($district, $city, $field, $from, $number_get);
             return view('uv.main', compact('myInfo', 'jobsvip', 'companies'));
         }

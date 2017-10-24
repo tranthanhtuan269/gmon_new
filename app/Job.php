@@ -156,13 +156,13 @@ class Job extends Model
     public function getJobWithBanner($start, $number){
         $sql = "SELECT 
                     jobs.id,
-                    jobs.name as jobName,
+                    REPLACE(jobs.name, \"'\", \"&apos;\") as jobName,
                     jobs.slug,
                     jobs.views,
                     jobs.applied,
-                    companies.name as companyName,
+                    REPLACE(companies.name, \"'\", \"&apos;\") as companyName,
                     companies.banner,
-                    companies.sologan
+                    REPLACE(companies.sologan, \"'\", \"&apos;\") as sologan
                 FROM 
                     jobs 
                 JOIN 
