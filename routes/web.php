@@ -22,6 +22,9 @@ Route::get('/google2fa952a6c07ee729.html', function(){
 Route::get('/user/main', 'HomeController@usermain');
 Route::get('/user/createCV', 'HomeController@usercreateCV');
 Route::get('/user/updateCV', 'HomeController@userupdateCV');
+Route::get('/user/applied', 'HomeController@userapplied');
+Route::get('/user/jobrelative', 'HomeController@userJobRelative');
+Route::get('/getJobRelative', 'JobController@getJobRelative');
 Route::get('testnew', 'HomeController@testnew');
 
 

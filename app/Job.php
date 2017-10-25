@@ -173,4 +173,117 @@ class Job extends Model
 
         return \DB::select($sql);
     }
+
+    public function getJobApplied($user_id, $district, $city, $field, $job_type, $from, $number_get){
+        $ret_data = [];
+
+            $sql = "SELECT 
+                    jobs.id AS id, 
+                    jobs.name AS name, 
+                    jobs.number AS number, 
+                    jobs.views as views, 
+                    jobs.applied AS applied, 
+                    jobs.expiration_date AS expiration_date, 
+                    jobs.slug, 
+                    salaries.name AS salary, companies.logo, 
+                    companies.name AS companyname, 
+                    cities.name AS city, 
+                    districts.name AS district 
+                FROM 
+                    jobs
+                JOIN 
+                    companies ON companies.id = jobs.company
+                JOIN 
+                    applies ON applies.job = jobs.id";
+        if($field > 0 && $field < 6){
+            $sql .= " JOIN 
+                    company_company_types ON companies.id = company_company_types.company";
+        }
+            $sql .= " JOIN
+                    salaries ON salaries.id = jobs.salary
+                JOIN
+                    cities ON cities.id = companies.city
+                JOIN
+                    districts ON districts.id = companies.district";
+
+            $sql .= " WHERE 1 = 1";
+
+        if($job_type > 0){
+            $sql .= " AND jobs.job_type = $job_type";
+        }
+
+        if($field > 0 && $field < 6){
+            $sql .= " AND company_company_types.company_type = $field";
+        }
+
+        if($city > 0 && $city != 1000){
+            if($district > 0){
+                $sql .= " AND companies.district = $district";
+            }else{
+                $sql .= " AND companies.city = $city";
+            }
+        }else if($city == 1000){
+            $sql .= " AND companies.city NOT IN (1, 2, 3)";
+        }
+
+            $sql .= " AND applies.user = " . $user_id;
+
+            $sql .= " ORDER BY jobs.id DESC";
+            $sql .= " LIMIT $from, $number_get";
+
+        return \DB::select($sql);
+    }
+
+    public function getJobRelative($district, $city, $salary_want, $jobs_want, $from, $number_get){
+        $ret_data = [];
+
+            $sql = "SELECT 
+                    jobs.id AS id, 
+                    jobs.name AS name, 
+                    jobs.number AS number, 
+                    jobs.views as views, 
+                    jobs.applied AS applied, 
+                    jobs.expiration_date AS expiration_date, 
+                    jobs.slug, 
+                    salaries.name AS salary, 
+                    companies.logo, 
+                    companies.name AS companyname, 
+                    cities.name AS city, 
+                    districts.name AS district 
+                FROM 
+                    jobs
+                JOIN 
+                    companies ON companies.id = jobs.company";
+            $sql .= " JOIN
+                    salaries ON salaries.id = jobs.salary
+                JOIN
+                    cities ON cities.id = companies.city
+                JOIN
+                    districts ON districts.id = companies.district";
+
+            $sql .= " WHERE 1 = 1";
+
+        if($city > 0 && $city != 1000){
+            if($district > 0){
+                $sql .= " AND companies.district = $district";
+            }else{
+                $sql .= " AND companies.city = $city";
+            }
+        }else if($city == 1000){
+            $sql .= " AND companies.city NOT IN (1, 2, 3)";
+        }
+
+        if($salary_want > 1){
+            $salary_want_plus = $salary_want + 1;
+            $sql .= " AND ( jobs.salary = 1 OR jobs.salary = $salary_want OR jobs.salary = $salary_want_plus)";
+        }
+
+        if(strlen($jobs_want) > 0){
+            $sql .= " AND jobs.job_type in ($jobs_want)";
+        }
+
+            $sql .= " ORDER BY jobs.id DESC";
+            $sql .= " LIMIT $from, $number_get";
+        return \DB::select($sql);
+    }
 }

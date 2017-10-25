@@ -681,6 +681,41 @@ class JobController extends Controller
         }
     }
 
+    public function getJobRelative(){
+        $jobGetObj = new Job;
+        $district = $city = $salary_want = $jobs_want = $from = $number_get = null;
+        $number_get = 5;
+        if(isset($_GET)){
+
+            if(isset($_GET['start']) && $_GET['start'] > 0){
+                $from = $_GET['start'];
+            }
+
+            if(isset($_GET['number']) && $_GET['number'] > 0){
+                $number_get = $_GET['number'];
+            }
+            
+            if(isset($_GET['salary_want']) && $_GET['salary_want'] > 0){
+                $salary_want = $_GET['salary_want'];
+            }
+            
+            if(isset($_GET['jobs_want']) && $_GET['jobs_want'] > 0){
+                $jobs_want = $_GET['jobs_want'];
+            }
+
+            if(isset($_GET['city']) && $_GET['city'] > 0){
+                $city = $_GET['city'];
+            }
+
+            if(isset($_GET['district']) && $_GET['district'] > 0){
+                $district = $_GET['district'];
+            }
+
+            $jobs = $jobGetObj->getJobRelative($district, $city, $salary_want, $jobs_want, $from, $number_get);
+            return \Response::json(array('code' => '200', 'message' => 'Success!', 'jobs' => $jobs));
+        }
+    }
+
     public function getJobWithBanner(){
         $jobGetObj = new Job;
         $district = $city = $field = $job_type = $company = $cv = $vip = $from = $number_get = null;

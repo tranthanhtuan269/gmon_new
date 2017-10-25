@@ -19,6 +19,7 @@
     <script type="text/javascript" src="{{ url('/') }}/public/assets/js/custom.js"></script>
     <link rel="shortcut icon" href="http://test.gmon.com.vn/?image=favicon.png" type="image/x-icon">
     <link rel="icon" href="http://test.gmon.com.vn/?image=favicon.png" type="image/x-icon">
+    <base href="{{ url('/') }}" target="_self">
 </head>
 <body class="backend">
     <div class="header-homepage">
@@ -245,8 +246,8 @@
                             @else
                             <li><a href="{{ url('/') }}/user/createCV">Tạo hồ sơ</a></li>
                             @endif
-                            <li><a href="">Việc đã ứng tuyển</a></li>
-                            <li><a href="">Việc làm phù hợp</a></li>
+                            <li><a href="{{ url('/') }}/user/applied">Việc đã ứng tuyển</a></li>
+                            <li><a href="{{ url('/') }}/user/jobrelative">Việc làm phù hợp</a></li>
                             <li><a href="">Nhà tuyển dụng đã theo dõi</a></li>
                             <li><a href="">Nhà tuyển dụng mới</a></li>
                         </ul>
@@ -266,12 +267,15 @@
                        </li>
                       @endforeach
                    </ul>
-               </div>
-               <div class="image-adv">
-                   <img src="http://test.gmon.com.vn/?image=job.jpg" alt="">
-               </div>
-           </div>
-    @yield('content')
+                </div>
+                <div class="image-adv">
+                    <img src="http://test.gmon.com.vn/?image=job.jpg" alt="">
+                </div>
+            </div>
+            @yield('content')
+            </div>
+        </div>
+    </div>
     <div class="footer-homepage">
         <div class="top-footer">
             <div class="container">

@@ -749,9 +749,6 @@
                     </div>
                 </div>
            </div>
-       </div>
-   </div>
-</div>
 
 <script type="text/javascript">
   var site_url = $('base').attr('href');
