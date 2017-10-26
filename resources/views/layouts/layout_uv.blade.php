@@ -22,6 +22,7 @@
     <base href="{{ url('/') }}" target="_self">
 </head>
 <body class="backend">
+    <?php $user_info = \Auth::user()->getUserInfo() ?>
     <div class="header-homepage">
         <div class="mass-content">
             <div class="loader"></div>
@@ -73,15 +74,31 @@
                     </div>
                     <div class="col-xl-6 col-lg-4 right-menu">
                         <ul class="homepage-menu">
+                            <?php 
+                                // dd(\Auth::user()->avatar);
+                                $avatar = '';
+                                if($myInfo->avatar){
+                                    $avatar = $myInfo->avatar;
+                                }else{
+                                    $avatar = \Auth::user()->avatar;
+                                }
+                                ?>
                             <li>
-                                <a href="#" class="avatar"><img src="http://test.gmon.com.vn/?image=avatar.png" alt=""></a>
+                                <a href="#" class="avatar"><img src="http://test.gmon.com.vn/?image={{ $avatar }}" alt=""></a>
                                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Tên ứng viên
+                                    {{ \Auth::user()->name }}
                                 </button>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                    <a class="dropdown-item" href="#">Action</a>
-                                    <a class="dropdown-item" href="#">Another action</a>
-                                    <a class="dropdown-item" href="#">Something else here</a>
+                                    <a class="dropdown-item" href="{{ url('/') }}/user/main">Trang chính</a>
+                                    @if($user_info['cv_id'] > 0)
+                                    <a class="dropdown-item" href="{{ url('/') }}/user/updateCV">Cập nhật hồ sơ</a>
+                                    @else
+                                    <a class="dropdown-item" href="{{ url('/') }}/user/createCV">Tạo hồ sơ</a>
+                                    @endif
+                                    <a class="dropdown-item" href="{{ url('/') }}/user/applied">Việc đã ứng tuyển</a>
+                                    <a class="dropdown-item" href="{{ url('/') }}/user/jobrelative">Việc làm phù hợp</a>
+                                    <a class="dropdown-item" href="{{ url('/') }}/user/companyfollow">Nhà tuyển dụng đã theo dõi</a>
+                                    <a class="dropdown-item" href="{{ url('/') }}/user/companynew">Nhà tuyển dụng mới</a>
                                 </div>
                             </li>
                             <li></li>
@@ -107,9 +124,16 @@
                                 <li>
                                     <a href="#" class="avatar-mobile"><img src="http://test.gmon.com.vn/?image=avatar.png" alt=""> Tên ứng viên</a>
                                     <ul class="sub-menu" aria-labelledby="dropdownMenuButton">
-                                       <li> <a class="dropdown-item" href="#">Action</a></li>
-                                        <li> <a class="dropdown-item" href="#">Action</a></li>
-                                        <li> <a class="dropdown-item" href="#">Action</a></li>
+                                        <li><a href="{{ url('/') }}/user/main">Trang chính</a></li>
+                                        @if($user_info['cv_id'] > 0)
+                                        <li><a class="dropdown-item" href="{{ url('/') }}/user/updateCV">Cập nhật hồ sơ</a></li>
+                                        @else
+                                        <li><a class="dropdown-item" href="{{ url('/') }}/user/createCV">Tạo hồ sơ</a></li>
+                                        @endif
+                                        <li><a class="dropdown-item" href="{{ url('/') }}/user/applied">Việc đã ứng tuyển</a></li>
+                                        <li><a class="dropdown-item" href="{{ url('/') }}/user/jobrelative">Việc làm phù hợp</a></li>
+                                        <li><a class="dropdown-item" href="{{ url('/') }}/user/companyfollow">Nhà tuyển dụng đã theo dõi</a></li>
+                                        <li><a class="dropdown-item" href="{{ url('/') }}/user/companynew">Nhà tuyển dụng mới</a></li>
                                     </ul>
                                 </li>
                             </ul>
@@ -225,7 +249,7 @@
             </div>
         </div>
     </div>
-    <?php $user_info = \Auth::user()->getUserInfo() ?>
+    
     <div class="wrapper-homepage profile-01 profile-05">
        <div class="container">
            <div class="row">
@@ -248,8 +272,8 @@
                             @endif
                             <li><a href="{{ url('/') }}/user/applied">Việc đã ứng tuyển</a></li>
                             <li><a href="{{ url('/') }}/user/jobrelative">Việc làm phù hợp</a></li>
-                            <li><a href="">Nhà tuyển dụng đã theo dõi</a></li>
-                            <li><a href="">Nhà tuyển dụng mới</a></li>
+                            <li><a href="{{ url('/') }}/user/companyfollow">Nhà tuyển dụng đã theo dõi</a></li>
+                            <li><a href="{{ url('/') }}/user/companynew">Nhà tuyển dụng mới</a></li>
                         </ul>
                     </div>
                     <div class="hot-job">

@@ -5,6 +5,9 @@
   .info span i{
     background: none;
   }
+  .profile-05 .right .content{
+    padding: 0 15px;
+  }
 </style>
 <div class="col-lg-9 right">
     <div class="title">
@@ -18,7 +21,7 @@
               <img src="http://test.gmon.com.vn/?image={{ $job->logo }}" alt="avatar" />
           </div>
           <div class="text col-lg-10">
-              <h3><a href="{{ url('/') }}/job/{{ $job->id }}/{{ $job->slug }}">{{ ucfirst($job->name) }} tại {{ ucfirst($job->companyname) }}</a></h3>
+              <h3><a target="_blank" href="{{ url('/') }}/job/{{ $job->id }}/{{ $job->slug }}">{{ ucfirst($job->name) }} tại {{ ucfirst($job->companyname) }}</a></h3>
               <div class="info">
                   <span>
                       <i class="fa fa-map-marker" aria-hidden="true"></i>{{ $job->district }}, {{ $job->city }}

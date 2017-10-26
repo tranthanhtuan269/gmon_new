@@ -5,33 +5,15 @@
   .info span i{
     background: none;
   }
+  .profile-05 .right .content{
+    padding: 0 15px;
+  }
 </style>
 <div class="col-lg-9 right">
     <div class="title">
         <i class="fa fa-address-book" aria-hidden="true"></i>
         <span>Việc làm phù hợp</span>
     </div>
-<!-- 
-    <div class="content" id="sort">
-      <div class="row">
-        <div class="col-lg-4">
-            <span>
-              <i class="fa fa-map-marker" aria-hidden="true"></i> Đông Anh, Hà Nội
-            </span>
-        </div>
-        <div class="col-lg-4">
-            <span>
-              <i class="fa fa-money" aria-hidden="true"></i> 4 - 6 triệu
-            </span>
-        </div>
-        <div class="col-lg-4">
-            <span>
-              <i class="fa fa-black-tie" aria-hidden="true"></i> Spa
-            </span>
-        </div>
-      </div>
-    </div> -->
-
     <div class="content" id="job-list">
       @foreach($jobsrelative as $job)
         <div class="item row">
@@ -39,7 +21,7 @@
               <img src="http://test.gmon.com.vn/?image={{ $job->logo }}" alt="avatar" />
           </div>
           <div class="text col-lg-10">
-              <h3><a href="{{ url('/') }}/job/{{ $job->id }}/{{ $job->slug }}">{{ ucfirst($job->name) }} tại {{ ucfirst($job->companyname) }}</a></h3>
+              <h3><a target="_blank" href="{{ url('/') }}/job/{{ $job->id }}/{{ $job->slug }}">{{ ucfirst($job->name) }} tại {{ ucfirst($job->companyname) }}</a></h3>
               <div class="info">
                   <span>
                       <i class="fa fa-map-marker" aria-hidden="true"></i>{{ $job->district }}, {{ $job->city }}
@@ -101,7 +83,7 @@
                             $html += '<img src="http://test.gmon.com.vn/?image='+ $(this)[0].logo +'" alt="avatar" />';
                         $html += '</div>';
                         $html += '<div class="text col-lg-10">';
-                            $html += '<h3><a href="'+ site_url +'/job/'+ $(this)[0].id +'/'+ $(this)[0].slug +'">'+ $(this)[0].name  +' tại '+ $(this)[0].companyname +'</a></h3>';
+                            $html += '<h3><a target="_blank" href="'+ site_url +'/job/'+ $(this)[0].id +'/'+ $(this)[0].slug +'">'+ $(this)[0].name  +' tại '+ $(this)[0].companyname +'</a></h3>';
                             $html += '<div class="info">';
                                 $html += '<span>';
                                     $html += '<i class="fa fa-map-marker" aria-hidden="true"></i>'+ $(this)[0].district +', '+ $(this)[0].city;

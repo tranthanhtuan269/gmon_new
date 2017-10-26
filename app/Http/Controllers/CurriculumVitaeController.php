@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\CurriculumVitae;
 use App\CommentCurriculumVitae;
 use App\Company;
+use App\Job;
 use App\User;
 use App\Salary;
 use Illuminate\Http\Request;
@@ -521,5 +522,51 @@ class CurriculumVitaeController extends Controller
             $cvs = $cvGetObj->getCV($district, $city, $from, $number_get);
             return \Response::json(array('code' => '200', 'message' => 'Success!', 'cvs' => $cvs));
         }
+    }
+
+    public function usercreateCV(){
+        if (\Auth::check()) {
+
+            $jobGetObj = new Job;
+            $field = $district = $city = $job_type = $company = $cv = $vip = null;
+            $from = 0;
+            $number_get = 5;
+
+            
+            $companyGetObj = new Company;
+
+            // get info User
+            $myInfo = CurriculumVitae::where('user', '=', \Auth::user()->id)->orderBy('created_at', 'desc')->select('id', 'avatar', 'school')->first();
+            if($myInfo->avatar == null) $myInfo->avatar = \Auth::user()->avatar;
+
+            $jobsvip = $jobGetObj->getJobWithBanner($from, 5);
+            $companies = $companyGetObj->getCompany($district, $city, $field, $from, $number_get);
+            return view('uv.createCV', compact('myInfo', 'jobsvip', 'companies'));
+        }
+
+        return redirect('/');
+    }
+
+    public function userupdateCV(){
+        if (\Auth::check()) {
+
+            $jobGetObj = new Job;
+            $field = $district = $city = $job_type = $company = $cv = $vip = null;
+            $from = 0;
+            $number_get = 5;
+
+            
+            $companyGetObj = new Company;
+
+            // get info User
+            $myInfo = CurriculumVitae::where('user', '=', \Auth::user()->id)->orderBy('created_at', 'desc')->select('id', 'avatar', 'school')->first();
+            if($myInfo->avatar == null) $myInfo->avatar = \Auth::user()->avatar;
+
+            $jobsvip = $jobGetObj->getJobWithBanner($from, 5);
+            $companies = $companyGetObj->getCompany($district, $city, $field, $from, $number_get);
+            return view('uv.main', compact('myInfo', 'jobsvip', 'companies'));
+        }
+
+        return redirect('/');
     }
 }

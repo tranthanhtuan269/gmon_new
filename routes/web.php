@@ -20,11 +20,16 @@ Route::get('/google2fa952a6c07ee729.html', function(){
 });
 
 Route::get('/user/main', 'HomeController@usermain');
-Route::get('/user/createCV', 'HomeController@usercreateCV');
-Route::get('/user/updateCV', 'HomeController@userupdateCV');
-Route::get('/user/applied', 'HomeController@userapplied');
-Route::get('/user/jobrelative', 'HomeController@userJobRelative');
+Route::get('/user/createCV', 'CurriculumVitaeController@usercreateCV');
+Route::get('/user/updateCV', 'CurriculumVitaeController@userupdateCV');
+Route::get('/user/applied', 'JobController@userapplied');
+Route::get('/user/jobrelative', 'JobController@userJobRelative');
+Route::get('/user/companyfollow', 'CompanyController@usercompanyfollow');
+Route::get('/user/companynew', 'CompanyController@usercompanynew');
+Route::get('/getJobApply', 'JobController@getJobApply');
 Route::get('/getJobRelative', 'JobController@getJobRelative');
+Route::get('/getCompanyFollowed', 'CompanyController@getCompanyFollowed');
+Route::get('/getCompanyNew', 'CompanyController@getCompanyNew');
 Route::get('testnew', 'HomeController@testnew');
 
 

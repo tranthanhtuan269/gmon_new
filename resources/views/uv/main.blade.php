@@ -10,7 +10,7 @@
       @foreach($jobsvip as $job)
         <div class="item-01">
             <div class="thumbnail">
-              <a href="{{ url('/') }}/job/{{ $job->id }}/{{ $job->slug }}">
+              <a target="_blank" href="{{ url('/') }}/job/{{ $job->id }}/{{ $job->slug }}">
                 <img src="http://test.gmon.com.vn/?image={{ $job->banner }}" alt="{{ $job->jobName }}">
               </a>
                 @if(strlen($job->sologan) > 0)
@@ -25,7 +25,7 @@
                <div class="container-fluid">
                    <div class="row">
                        <div class="col-md-8 name">
-                           <a href="{{ url('/') }}/job/{{ $job->id }}/{{ $job->slug }}">{{ $job->jobName }} tại {{ $job->companyName }}</a>
+                           <a target="_blank" href="{{ url('/') }}/job/{{ $job->id }}/{{ $job->slug }}">{{ $job->jobName }} tại {{ $job->companyName }}</a>
                        </div>
                        <div class="col-md-4 tool">
                             <span class="tool-work">
@@ -75,7 +75,7 @@
                   $(msg['jobs']).each(function( index ) {
                       $html += '<div class="item-01">';
                         $html += '<div class="thumbnail">';
-                          $html += '<a href="{{ url('/') }}/job/'+ $(this)[0].id +'/'+ $(this)[0].slug +'">'
+                          $html += '<a target="_blank" href="{{ url('/') }}/job/'+ $(this)[0].id +'/'+ $(this)[0].slug +'">'
                             $html += '<img src="http://test.gmon.com.vn/?image='+ $(this)[0].banner +'" alt="'+ $(this)[0].jobName +'">';
                           $html += '</a>';
                             var $temp = $(this)[0].sologan + "";
@@ -92,7 +92,7 @@
                            $html += '<div class="container-fluid">';
                                $html += '<div class="row">';
                                    $html += '<div class="col-md-8 name">';
-                                       $html += '<a href="{{ url('/') }}/job/'+ $(this)[0].id +'/'+ $(this)[0].slug +'">'+ $(this)[0].jobName +' tại '+ $(this)[0].companyName +'</a>';
+                                       $html += '<a target="_blank" href="{{ url('/') }}/job/'+ $(this)[0].id +'/'+ $(this)[0].slug +'">'+ $(this)[0].jobName +' tại '+ $(this)[0].companyName +'</a>';
                                    $html += '</div>';
                                    $html += '<div class="col-md-4 tool">';
                                         $html += '<span class="tool-work">';
