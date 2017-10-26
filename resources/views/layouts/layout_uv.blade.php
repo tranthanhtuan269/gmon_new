@@ -84,14 +84,15 @@
                                 }
                                 ?>
                             <li>
-                                <a href="#" class="avatar"><img src="http://test.gmon.com.vn/?image={{ $avatar }}" alt=""></a>
+                                <a href="{{ url('/') }}/user/main" class="avatar"><img src="http://test.gmon.com.vn/?image={{ $avatar }}" alt=""></a>
                                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     {{ \Auth::user()->name }}
                                 </button>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                     <a class="dropdown-item" href="{{ url('/') }}/user/main">Trang chính</a>
                                     @if($user_info['cv_id'] > 0)
-                                    <a class="dropdown-item" href="{{ url('/') }}/user/updateCV">Cập nhật hồ sơ</a>
+                                    <a class="dropdown-item" href="{{ url('/') }}/curriculumvitae/view/{{ $user_info['cv_id'] }}">Xem hồ sơ</a>
+                                    <a class="dropdown-item" href="{{ url('/') }}/curriculumvitae/{{ $user_info['cv_id'] }}/edit">Cập nhật hồ sơ</a>
                                     @else
                                     <a class="dropdown-item" href="{{ url('/') }}/user/createCV">Tạo hồ sơ</a>
                                     @endif
@@ -122,11 +123,12 @@
                                 <li><a href="http://gmon.vn/showmore?company=new">Nhà tuyển dụng</a></li>
                                 <li><a href="http://news.gmon.vn">Tư vấn nghề nghiệp</a></li>
                                 <li>
-                                    <a href="#" class="avatar-mobile"><img src="http://test.gmon.com.vn/?image=avatar.png" alt=""> Tên ứng viên</a>
+                                    <a href="{{ url('/') }}/user/main" class="avatar-mobile"><img src="http://test.gmon.com.vn/?image=avatar.png" alt=""> Tên ứng viên</a>
                                     <ul class="sub-menu" aria-labelledby="dropdownMenuButton">
                                         <li><a href="{{ url('/') }}/user/main">Trang chính</a></li>
                                         @if($user_info['cv_id'] > 0)
-                                        <li><a class="dropdown-item" href="{{ url('/') }}/user/updateCV">Cập nhật hồ sơ</a></li>
+                                        <li><a class="dropdown-item" href="{{ url('/') }}/curriculumvitae/view/{{ $user_info['cv_id'] }}">Xem hồ sơ</a></li>
+                                        <li><a class="dropdown-item" href="{{ url('/') }}/curriculumvitae/{{ $user_info['cv_id'] }}/edit">Cập nhật hồ sơ</a></li>
                                         @else
                                         <li><a class="dropdown-item" href="{{ url('/') }}/user/createCV">Tạo hồ sơ</a></li>
                                         @endif
@@ -266,9 +268,10 @@
                         <ul>
                             <li><a href="{{ url('/') }}/user/main">Trang chính</a></li>
                             @if($user_info['cv_id'] > 0)
-                            <li><a href="{{ url('/') }}/user/updateCV">Cập nhật hồ sơ</a></li>
+                            <li><a href="{{ url('/') }}/curriculumvitae/view/{{ $user_info['cv_id'] }}">Xem hồ sơ</a></li>
+                            <li><a href="{{ url('/') }}/curriculumvitae/{{ $user_info['cv_id'] }}/edit">Cập nhật hồ sơ</a></li>
                             @else
-                            <li><a href="{{ url('/') }}/user/createCV">Tạo hồ sơ</a></li>
+                            <li><a href="{{ url('/') }}/curriculumvitae/create">Tạo hồ sơ</a></li>
                             @endif
                             <li><a href="{{ url('/') }}/user/applied">Việc đã ứng tuyển</a></li>
                             <li><a href="{{ url('/') }}/user/jobrelative">Việc làm phù hợp</a></li>
