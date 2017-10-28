@@ -421,8 +421,8 @@
             request.done(function (msg) {
                 if (msg.code == 200) {
                     $('.bt-join').off('click');
-                        $('#join-btn').hide();
-                        $('#joined-btn').show();
+                        $('.bt-join').hide();
+                        $('.bt-joined').show();
                     swal("Thông báo", "Bạn đã ứng tuyển thành công!", "success");
                 }else if(msg.code == 401 && msg.message == "unauthen!"){
                         onOpenLogin();
