@@ -304,12 +304,12 @@
               <div class="part-2 slideshow-container">
                 <div class="container mySlides fade">
                   
-                  <img src="http://test.gmon.com.vn/?image=news_bg_01.jpg" style="width:100%">
+                  <img src="http://test.gmon.com.vn/?image=News-v3-01.jpg" style="width:100%">
 
                 </div>
 
                 <div class="container mySlides fade">
-                  <img src="http://test.gmon.com.vn/?image=news_bg_02.jpg" style="width:100%">
+                  <img src="http://test.gmon.com.vn/?image=News-v3-02.jpg" style="width:100%">
                 </div>
               </div>
             </a>
