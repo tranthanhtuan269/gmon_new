@@ -118,7 +118,17 @@
             <div class="col-md-8 col-xs-12 info-job">
                 <div class="row simple-info">
                     <div class="col-md-12 col-xs-12 info-job-row">
-                        <h1 class="obj-name">{{ $job->name }}</h1>
+                        <h1 class="obj-name">
+                            {{ $job->name }}
+                            @if(!Auth::check())
+                                <a id="join-btn" target="_self" href="javascript:void(0)" data-toggle="modal" data-target="#loginHeader" class="btn btn-sm btn-primary bt-join" data-id="{{ $job->id }}" @if($applied == 0)style="display:inline-block;" @else style="display:none;"@endif>Ứng tuyển ngay</a><a id="joined-btn" target="_self" href="javascript:void(0)" class="btn btn-sm btn-danger bt-joined" data-id="{{ $job->id }}" @if($applied == 0)style="display:none;" @else style="display:inline-block;"@endif>Đã ứng tuyển</a>
+                            @elseif(Auth::check() && Auth::user()->hasRole('user'))
+                                <a id="join-btn" target="_self" href="javascript:void(0)" class="btn btn-sm btn-primary bt-join" data-id="{{ $job->id }}" @if($applied == 0)style="display:inline-block;" @else style="display:none;"@endif>Ứng tuyển ngay</a><a id="joined-btn" target="_self" href="javascript:void(0)" class="btn btn-sm btn-danger bt-joined" data-id="{{ $job->id }}" @if($applied == 0)style="display:none;" @else style="display:inline-block;"@endif>Đã ứng tuyển</a>
+                            @elseif($company->id == $company_id)
+                                <a href="{{ url('/') }}/job/{{ $job->id }}/editJob" class="btn btn-sm btn-primary">Sửa Việc</a>
+                            @else
+                            @endif
+                        </h1>
                     </div>
                     <div class="col-md-12 col-xs-12 info-job-row">
                         <i class="fa fa-map-marker"></i>
@@ -260,6 +270,7 @@
         @endif
     </div>
     <style type="text/css">
+
         .related-work{margin-top: 20px;}
         .related-work p.title{font-weight: bold;color:#464646;font-size: 15px;margin-bottom: 20px}
         .related-work p.title i{background: url("../../../public/images/bg.png") -37px -38px;width: 25px;height: 25px;float: left;margin-right: 10px;margin-top: -2px;}
@@ -298,7 +309,7 @@
             width: 100%;
             text-align: center;
             background: white;
-            margin: 0;
+            margin: 0px;
             border-top: 3px solid #2a70b8;
         }
 
@@ -410,8 +421,8 @@
             request.done(function (msg) {
                 if (msg.code == 200) {
                     $('.bt-join').off('click');
-                        $('#join-btn').hide();
-                        $('#joined-btn').show();
+                        $('.bt-join').hide();
+                        $('.bt-joined').show();
                     swal("Thông báo", "Bạn đã ứng tuyển thành công!", "success");
                 }else if(msg.code == 401 && msg.message == "unauthen!"){
                         onOpenLogin();
