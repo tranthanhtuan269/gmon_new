@@ -80,4 +80,82 @@ class CurriculumVitae extends Model
 
         return \DB::select($sql);
     }
+
+    public function getCVSaved($user_id, $from, $number_get){
+        $sql = "SELECT 
+                    curriculum_vitaes.id, 
+                    users.name as username,
+                    curriculum_vitaes.birthday, 
+                    curriculum_vitaes.gender, 
+                    -- users.avatar as avatarU, 
+                    -- curriculum_vitaes.avatar as avatarCV, 
+                    curriculum_vitaes.school,
+                    cities.name as city,
+                    districts.name as district,
+                    curriculum_vitaes.address
+                FROM 
+                    curriculum_vitaes ";
+        $sql .= "JOIN 
+                    users ON users.id = curriculum_vitaes.user ";
+        $sql .= "JOIN 
+                    cities ON cities.id = curriculum_vitaes.city ";
+        $sql .= "JOIN 
+                    districts ON districts.id = curriculum_vitaes.district ";
+        $sql .= "JOIN 
+                    save_cv ON save_cv.cv = curriculum_vitaes.id ";
+        $sql .= "WHERE 
+                    1 = 1 ";
+        // $sql .= "AND 
+                    // (users.avatar is not null OR curriculum_vitaes.avatar is not null)";
+        $sql .= " AND save_cv.user = $user_id";
+        $sql .= " ORDER BY curriculum_vitaes.id DESC";
+        $sql .= " LIMIT $from, $number_get";
+
+        return \DB::select($sql);
+    }
+
+    public function getCVAppliedByJobID($job_id, $from, $number_get, $status){
+        $sql = "SELECT 
+                    curriculum_vitaes.id, 
+                    users.name as username,
+                    curriculum_vitaes.user as user_id,
+                    curriculum_vitaes.birthday, 
+                    curriculum_vitaes.gender, 
+                    curriculum_vitaes.school,
+                    cities.name as city,
+                    districts.name as district,
+                    curriculum_vitaes.address,
+                    applies.job as job_id
+                FROM 
+                    curriculum_vitaes ";
+        $sql .= "JOIN 
+                    users ON users.id = curriculum_vitaes.user ";
+        $sql .= "JOIN 
+                    cities ON cities.id = curriculum_vitaes.city ";
+        $sql .= "JOIN 
+                    districts ON districts.id = curriculum_vitaes.district ";
+        $sql .= "JOIN 
+                    applies ON applies.user = users.id ";
+        $sql .= "WHERE 
+                    1 = 1 ";
+        $sql .= "AND 
+                    applies.job = $job_id ";
+        if($status == 0){
+            // new
+        $sql .= "AND 
+                applies.active == 0 ";
+        }elseif ($status == 1) {
+            // viewed
+        $sql .= "AND 
+                applies.active == 1 ";
+        }elseif ($status == 2) {
+            // applied
+        $sql .= "AND 
+                applies.active != -1 ";
+        }
+        $sql .= " ORDER BY curriculum_vitaes.id DESC";
+        $sql .= " LIMIT $from, $number_get";
+
+        return \DB::select($sql);
+    }
 }

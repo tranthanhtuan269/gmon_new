@@ -30,7 +30,23 @@ Route::get('/getJobApply', 'JobController@getJobApply');
 Route::get('/getJobRelative', 'JobController@getJobRelative');
 Route::get('/getCompanyFollowed', 'CompanyController@getCompanyFollowed');
 Route::get('/getCompanyNew', 'CompanyController@getCompanyNew');
+
+Route::get('/user/jobcreated', 'HomeController@jobcreated');
+Route::get('/user/jobactive', 'HomeController@jobactive');
+Route::get('/user/jobinactive', 'HomeController@jobinactive');
+Route::get('/user/jobexpired', 'HomeController@jobexpired');
+
+Route::get('/user/cvapplied', 'HomeController@cvapplied');
+Route::get('/user/cvappliednew', 'HomeController@cvappliednew');
+Route::get('/user/cvviewed', 'HomeController@cvviewed');
+Route::get('/user/cvsaved', 'HomeController@cvsaved');
+Route::get('/user/cvsuggest', 'HomeController@cvsuggest');
 Route::get('testnew', 'HomeController@testnew');
+Route::post('curriculumvitae/saveCV', 'HomeController@saveCV');
+Route::post('removeApplied', 'HomeController@removeApplied');
+Route::post('changeToViewed', 'HomeController@changeToViewed');
+
+
 
 
 Route::resource('branch', 'BranchController');

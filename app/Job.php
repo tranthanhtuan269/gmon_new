@@ -286,4 +286,63 @@ class Job extends Model
             $sql .= " LIMIT $from, $number_get";
         return \DB::select($sql);
     }
+
+    public function getFirstJobCreatedByID($id, $active = null){
+
+        // get company from $id
+        $company = Company::where("user", "=", $id)->orderBy("created_at", "DESC")->select("id")->first();
+
+        if($company != null){
+            $sql = "SELECT 
+                    jobs.id AS id
+                FROM 
+                    jobs
+                WHERE 
+                    jobs.company = $company->id";
+            if($active == 1){
+                $sql .= " AND STR_TO_DATE(jobs.expiration_date, '%d/%m/%Y') > CURDATE()";
+            }elseif($active == 2){
+                $sql .= " AND STR_TO_DATE(jobs.expiration_date, '%d/%m/%Y') < CURDATE()";
+            }
+                $sql .= " ORDER BY jobs.id DESC";
+                $sql .= " LIMIT 0, 1";
+        }else{
+            $sql = "";
+        }
+
+        return \DB::select($sql);
+    }
+
+    public function getJobCreatedByID($id, $active = null){
+
+        // get company from $id
+        $company = Company::where("user", "=", $id)->orderBy("created_at", "DESC")->select("id")->first();
+
+        if($company != null){
+            $sql = "SELECT 
+                    jobs.id AS id, 
+                    jobs.name AS name, 
+                    jobs.number AS number, 
+                    -- jobs.views as views, 
+                    jobs.applied AS applied, 
+                    jobs.created_at AS created_at,
+                    jobs.expiration_date AS expiration_date, 
+                    jobs.slug
+                FROM 
+                    jobs
+                WHERE 
+                    jobs.company = $company->id";
+            if($active == 1){
+                $sql .= " AND STR_TO_DATE(jobs.expiration_date, '%d/%m/%Y') > CURDATE()";
+            }elseif($active == 2){
+                $sql .= " AND STR_TO_DATE(jobs.expiration_date, '%d/%m/%Y') < CURDATE()";
+            }
+            $sql .= " ORDER BY jobs.id DESC";
+        }else{
+            $sql = "";
+        }
+        // dd($sql);
+
+        return \DB::select($sql);
+    }
 }

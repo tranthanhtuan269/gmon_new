@@ -1,6 +1,7 @@
 @extends('layouts.layout')
 
 @section('content')
+<?php //dd($curriculumvitae); ?>
     <div class="container show-curriculum-vitae-page" style="margin-top: 20px;">
         <div class="row">
             <div class="col-md-8">            
@@ -296,7 +297,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="cv-btn-holder">
-                            <div class="btn btn-primary">Lưu hồ sơ</div>
+                            <div class="btn btn-primary save-cv" data-id="{{ $curriculumvitae->id }}">Lưu hồ sơ</div>
                             <div class="btn btn-warning pull-right">Xem thông tin liên hệ ( -3 điểm )</div>
                         </div>
                     </div>
@@ -648,6 +649,34 @@
                 request.fail(function (jqXHR, textStatus) {
                     swal("Cảnh báo", textStatus, "error");
                 });
+            });
+
+            $('.save-cv').click(function (){
+                var cv_id = $(this).attr('data-id');
+                var request = $.ajax({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    url: "{{ url('/') }}/curriculumvitae/saveCV",
+                    method: "POST",
+                    data: {
+                        'cv_id': cv_id
+                    },
+                    dataType: "json"
+                });
+                request.done(function (msg) {
+                    if (msg.code == 200) {
+                        $('#add-comment').modal('toggle');
+                        swal("Thông báo", "Lưu hồ sơ thành công!", "success");
+                    } else {
+                        $('#add-comment').modal('toggle');
+                        swal("Cảnh báo", msg.message, "error");
+                    }
+                });
+                request.fail(function (jqXHR, textStatus) {
+                    swal("Cảnh báo", textStatus, "error");
+                });
+                swal("Thông báo", "" + user_id, "success");
             });
         });
     </script>

@@ -35,7 +35,7 @@ class User extends Authenticatable
             $current_id = \Auth::user()->id;
             //get company 
             $company = \DB::table('companies')
-                    ->where('companies.user', $current_id)
+                    ->where('companies.user', $current_id)->orderBy("created_at", "DESC")
                     ->select(
                         'id'
                     )
@@ -46,7 +46,7 @@ class User extends Authenticatable
             
             //get CV 
             $cv_user = \DB::table('curriculum_vitaes')
-                    ->where('curriculum_vitaes.user', $current_id)
+                    ->where('curriculum_vitaes.user', $current_id)->orderBy("created_at", "DESC")
                     ->select(
                         'id'
                     )
