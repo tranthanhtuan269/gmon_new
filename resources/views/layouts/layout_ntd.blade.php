@@ -293,7 +293,7 @@
                     <div class="job">
                         <h3>Quản lý tài khoản</h3>
                         <ul>
-                            <li><a href="{{ url('/') }}/user/main">Trang chính</a></li>
+                            <!-- <li><a href="{{ url('/') }}/user/main">Trang chính</a></li> -->
                             @if($user_info['company_id'] > 0)
                             <li><a href="{{ url('/') }}/company/{{ $user_info['company_id'] }}/info">Xem trang tuyển dụng</a></li>
                             <li><a href="{{ url('/') }}/company/editCompany">Cập nhật trang tuyển dụng</a></li>

@@ -44,8 +44,11 @@ Route::get('/user/cvsuggest', 'HomeController@cvsuggest');
 Route::get('testnew', 'HomeController@testnew');
 Route::post('curriculumvitae/saveCV', 'HomeController@saveCV');
 Route::post('removeApplied', 'HomeController@removeApplied');
+Route::post('removeSaved', 'HomeController@removeSaved');
 Route::post('changeToViewed', 'HomeController@changeToViewed');
 Route::get('getCVAppliedOfJob', 'HomeController@getCVAppliedByJobID');
+Route::get('getCVAppliedNewOfJob', 'HomeController@getCVAppliedNewByJobID');
+Route::get('getCVAppliedViewedOfJob', 'HomeController@getCVAppliedViewedByJobID');
 
 
 

@@ -133,25 +133,33 @@
                                             </a>
 
                                             <ul class="dropdown-menu" role="menu">
-                                                @if(Auth::check() && Auth::user()->hasRole('admin'))
+                                                <?php $user_info = \Auth::user()->getUserInfo() ?>
+                                                @if(Auth::user()->hasRole('admin'))
                                                 <li><a target="_self" href="{{ url('/admin') }}">Administrator</a></li>
-                                                @elseif(Auth::check() && Auth::user()->hasRole('master'))
+                                                @elseif(Auth::user()->hasRole('master'))
                                                 <li><a target="_self" href="{{ url('/city/admin') }}">Administrator</a></li>
-                                                @elseif(Auth::check() && Auth::user()->hasRole('creator'))
+                                                @elseif(Auth::user()->hasRole('creator'))
                                                 <li><a target="_self" href="{{ url('/post/create') }}">Create Post</a></li>
-                                                @elseif(Auth::check() && Auth::user()->hasRole('poster'))
-                                                    @if($company_id > 0)
-                                                    <li><a target="_self" href="{{ url('/') }}/company/{{ $company_id }}/info">Trang tuyển dụng</a></li>
-                                                    <li><a target="_self" href="{{ url('/') }}/job/create">Đăng tin tuyển dụng</a></li>
+                                                @elseif(Auth::user()->hasRole('poster'))
+                                                    @if($user_info['company_id'] > 0)
+                                                    <li><a href="{{ url('/') }}/company/{{ $user_info['company_id'] }}/info">Xem trang tuyển dụng</a></li>
+                                                    <li><a href="{{ url('/') }}/company/editCompany">Cập nhật trang tuyển dụng</a></li>
+                                                    <li><a href="{{ url('/') }}/job/create">Tạo tuyển dụng</a></li>
                                                     @else
-                                                    <li><a target="_self" href="{{ url('/') }}/company/create">Tạo trang tuyển dụng</a></li>
+                                                    <li><a href="{{ url('/') }}/company/create">Tạo trang tuyển dụng</a></li>
                                                     @endif
-                                                @elseif(Auth::check() && Auth::user()->hasRole('user'))
-                                                    @if($cv_id > 0)
-                                                    <li><a target="_self" href="{{ url('/') }}/curriculumvitae/view/{{ $cv_id }}">Trang hồ sơ</a></li>
+                                                @elseif(Auth::user()->hasRole('user'))
+                                                    <li><a href="{{ url('/') }}/user/main">Trang chính</a></li>
+                                                    @if($user_info['cv_id'] > 0)
+                                                    <li><a href="{{ url('/') }}/curriculumvitae/view/{{ $user_info['cv_id'] }}">Xem hồ sơ</a></li>
+                                                    <li><a href="{{ url('/') }}/curriculumvitae/{{ $user_info['cv_id'] }}/edit">Cập nhật hồ sơ</a></li>
                                                     @else
-                                                    <li><a target="_self" href="{{ url('/') }}/curriculumvitae/create">Tạo hồ sơ</a></li>
+                                                    <li><a href="{{ url('/') }}/user/createCV">Tạo hồ sơ</a></li>
                                                     @endif
+                                                    <li><a href="{{ url('/') }}/user/applied">Việc đã ứng tuyển</a></li>
+                                                    <li><a href="{{ url('/') }}/user/jobrelative">Việc làm phù hợp</a></li>
+                                                    <li><a href="{{ url('/') }}/user/companyfollow">Nhà tuyển dụng đã theo dõi</a></li>
+                                                    <li><a href="{{ url('/') }}/user/companynew">Nhà tuyển dụng mới</a></li>
                                                 @else 
 
                                                 @endif

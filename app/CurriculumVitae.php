@@ -84,6 +84,7 @@ class CurriculumVitae extends Model
     public function getCVSaved($user_id, $from, $number_get){
         $sql = "SELECT 
                     curriculum_vitaes.id, 
+                    users.id as user_id,
                     users.name as username,
                     curriculum_vitaes.birthday, 
                     curriculum_vitaes.gender, 
@@ -143,11 +144,11 @@ class CurriculumVitae extends Model
         if($status == 0){
             // new
         $sql .= "AND 
-                applies.active == 0 ";
+                applies.active = 0 ";
         }elseif ($status == 1) {
             // viewed
         $sql .= "AND 
-                applies.active == 1 ";
+                applies.active = 1 ";
         }elseif ($status == 2) {
             // applied
         $sql .= "AND 
