@@ -275,10 +275,10 @@
                             về gmon
                         </div>
                         <ul>
-                            <li><a href="http://news.gmon.vn/post/10/lich-su-phat-trien-gmon">giới thiệu</a></li>
-                            <li><a href="{{ url('/') }}/showmore?job=new">việc làm</a></li>
-                            <li><a href="{{ url('/') }}/showmore?company=new">nhà tuyển dụng</a></li>
-                            <li><a href="{{ url('/') }}">hồ sơ ứng viên</a></li>
+                            <li><a href="http://news.gmon.vn/post/10/lich-su-phat-trien-gmon">Giới thiệu</a></li>
+                            <li><a href="{{ url('/') }}/showmore?job=new">Việc làm</a></li>
+                            <li><a href="{{ url('/') }}/showmore?company=new">Nhà tuyển dụng</a></li>
+                            <li><a href="{{ url('/') }}">Hồ sơ ứng viên</a></li>
                         </ul>
                     </div>
                     <div class="col-md-4 footer-2 item">
@@ -286,16 +286,16 @@
                             công cụ
                         </div>
                         <ul>
-                            <li><a href="{{ url('/') }}">hồ sơ</a></li>
-                            <li><a href="{{ url('/') }}">việc làm của tôi</a></li>
-                            <li><a href="{{ url('/') }}">thông báo việc làm</a></li>
-                            <li><a href="{{ url('/') }}">phản hồi</a></li>
-                            <li><a href="http://news.gmon.vn">tư vấn nghề nghiệp</a></li>
+                            <li><a href="{{ url('/') }}/privacy-policy">Quy định bảo mật</a></li>
+                            <li><a href="{{ url('/') }}/terms-of-service">Điều khoản sử dụng</a></li>
+                            <li><a href="{{ url('/') }}">Thông báo việc làm</a></li>
+                            <li><a href="{{ url('/') }}">Phản hồi</a></li>
+                            <li><a href="http://news.gmon.vn">Tư vấn nghề nghiệp</a></li>
                         </ul>
                     </div>
                     <div class="col-md-4 footer-3 item">
                         <div class="title">
-                            về gmon
+                            Về gmon
                         </div>
                         <ul>
                             <li><a href="{{ url('/') }}"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>

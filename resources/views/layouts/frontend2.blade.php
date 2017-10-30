@@ -282,11 +282,11 @@
                 </div>
                 <div class="col-md-3 col-xs-6 footer-col">
                     <p class="title">công cụ</p>
-                    <p><a target="_self" href="">Hồ sơ</a></p>
-                    <p><a target="_self" href="">Việc làm của tôi</a></p>
-                    <p><a target="_self" href="">Thông báo việc làm</a></p>
-                    <p><a target="_self" href="">Phản hồi</a></p>
-                    <p><a target="_self" href="">Tư vấn nghề nghiệp</a></p>
+                    <p><a href="{{ url('/') }}/privacy-policy">Quy định bảo mật</a></p>
+                    <p><a href="{{ url('/') }}/terms-of-service">Điều khoản sử dụng</a></p>
+                    <p><a href="{{ url('/') }}">Thông báo việc làm</a></p>
+                    <p><a href="{{ url('/') }}">Phản hồi</a></p>
+                    <p><a href="http://news.gmon.vn">Tư vấn nghề nghiệp</a></p>
                 </div>
                 <div class="col-md-5 contact col-xs-12 footer-col">
                     <p class="title">kết nối với gmon</p>
