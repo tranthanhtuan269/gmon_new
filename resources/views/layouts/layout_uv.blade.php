@@ -77,7 +77,7 @@
                             <?php 
                                 // dd(\Auth::user()->avatar);
                                 $avatar = '';
-                                if($myInfo->avatar){
+                                if(isset($myInfo)){
                                     $avatar = $myInfo->avatar;
                                 }else{
                                     $avatar = \Auth::user()->avatar;
@@ -94,7 +94,7 @@
                                     <a class="dropdown-item" href="{{ url('/') }}/curriculumvitae/view/{{ $user_info['cv_id'] }}">Xem hồ sơ</a>
                                     <a class="dropdown-item" href="{{ url('/') }}/curriculumvitae/{{ $user_info['cv_id'] }}/edit">Cập nhật hồ sơ</a>
                                     @else
-                                    <a class="dropdown-item" href="{{ url('/') }}/user/createCV">Tạo hồ sơ</a>
+                                    <a class="dropdown-item" href="{{ url('/') }}/curriculumvitae/create">Tạo hồ sơ</a>
                                     @endif
                                     <a class="dropdown-item" href="{{ url('/') }}/user/applied">Việc đã ứng tuyển</a>
                                     <a class="dropdown-item" href="{{ url('/') }}/user/jobrelative">Việc làm phù hợp</a>
@@ -130,7 +130,7 @@
                                         <li><a class="dropdown-item" href="{{ url('/') }}/curriculumvitae/view/{{ $user_info['cv_id'] }}">Xem hồ sơ</a></li>
                                         <li><a class="dropdown-item" href="{{ url('/') }}/curriculumvitae/{{ $user_info['cv_id'] }}/edit">Cập nhật hồ sơ</a></li>
                                         @else
-                                        <li><a class="dropdown-item" href="{{ url('/') }}/user/createCV">Tạo hồ sơ</a></li>
+                                        <li><a class="dropdown-item" href="{{ url('/') }}/curriculumvitae/create">Tạo hồ sơ</a></li>
                                         @endif
                                         <li><a class="dropdown-item" href="{{ url('/') }}/user/applied">Việc đã ứng tuyển</a></li>
                                         <li><a class="dropdown-item" href="{{ url('/') }}/user/jobrelative">Việc làm phù hợp</a></li>
@@ -257,11 +257,16 @@
            <div class="row">
                <div class="left col-lg-3">
                     <div class="avatar">
-                        <img src="http://test.gmon.com.vn/?image={{ $myInfo->avatar }}" alt="Avatar">
+                        @if(isset($myInfo))
+                        <img src="http://test.gmon.com.vn/?image={{ \Auth::user()->avatar }}" alt="Avatar">
+                        @else
+                        @endif
                     </div>
                     <div class="name">
                         <h3>{{ \Auth::user()->name }}</h3>
+                        @if(isset($myInfo))
                         <h4>{{ $myInfo->school }}</h4>
+                        @endif
                     </div>
                     <div class="job">
                         <h3>Quản lý tài khoản</h3>

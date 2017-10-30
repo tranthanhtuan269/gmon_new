@@ -695,7 +695,6 @@ class JobController extends Controller
 
             // get info User
             $myInfo = CurriculumVitae::where('user', '=', \Auth::user()->id)->orderBy('created_at', 'desc')->select('id', 'avatar', 'school')->first();
-            if($myInfo->avatar == null) $myInfo->avatar = \Auth::user()->avatar;
 
             $jobsvip = $jobGetObj->getJobApplied(\Auth::user()->id, $district, $city, $field, $job_type, $from, 100);
             // dd($jobsvip);
@@ -790,7 +789,6 @@ class JobController extends Controller
 
             // get info User
             $myInfo = CurriculumVitae::where('user', '=', \Auth::user()->id)->orderBy('created_at', 'desc')->select('id', 'avatar', 'school')->first();
-            if($myInfo->avatar == null) $myInfo->avatar = \Auth::user()->avatar;
 
             $jobsrelative = $jobGetObj->getJobRelative($district, $city, $salary_want, $jobs_want, $from, 10);
 

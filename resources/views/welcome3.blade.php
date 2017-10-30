@@ -76,7 +76,7 @@
                                     <li><a href="{{ url('/') }}/curriculumvitae/view/{{ $user_info['cv_id'] }}">Xem hồ sơ</a></li>
                                     <li><a href="{{ url('/') }}/curriculumvitae/{{ $user_info['cv_id'] }}/edit">Cập nhật hồ sơ</a></li>
                                     @else
-                                    <li><a href="{{ url('/') }}/user/createCV">Tạo hồ sơ</a></li>
+                                    <li><a href="{{ url('/') }}/curriculumvitae/create">Tạo hồ sơ</a></li>
                                     @endif
                                     <li><a href="{{ url('/') }}/user/applied">Việc đã ứng tuyển</a></li>
                                     <li><a href="{{ url('/') }}/user/jobrelative">Việc làm phù hợp</a></li>
@@ -226,7 +226,7 @@
                                     <li><a href="{{ url('/') }}/curriculumvitae/view/{{ $user_info['cv_id'] }}">Xem hồ sơ</a></li>
                                     <li><a href="{{ url('/') }}/curriculumvitae/{{ $user_info['cv_id'] }}/edit">Cập nhật hồ sơ</a></li>
                                     @else
-                                    <li><a href="{{ url('/') }}/user/createCV">Tạo hồ sơ</a></li>
+                                    <li><a href="{{ url('/') }}/curriculumvitae/create">Tạo hồ sơ</a></li>
                                     @endif
                                     <li><a href="{{ url('/') }}/user/applied">Việc đã ứng tuyển</a></li>
                                     <li><a href="{{ url('/') }}/user/jobrelative">Việc làm phù hợp</a></li>

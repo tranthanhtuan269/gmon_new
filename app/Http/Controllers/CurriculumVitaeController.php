@@ -537,7 +537,7 @@ class CurriculumVitaeController extends Controller
 
             // get info User
             $myInfo = CurriculumVitae::where('user', '=', \Auth::user()->id)->orderBy('created_at', 'desc')->select('id', 'avatar', 'school')->first();
-            if($myInfo->avatar == null) $myInfo->avatar = \Auth::user()->avatar;
+            if(isset($myInfo)) $myInfo->avatar = \Auth::user()->avatar;
 
             $jobsvip = $jobGetObj->getJobWithBanner($from, 5);
             $companies = $companyGetObj->getCompany($district, $city, $field, $from, $number_get);

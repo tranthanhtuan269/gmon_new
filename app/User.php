@@ -48,7 +48,8 @@ class User extends Authenticatable
             $cv_user = \DB::table('curriculum_vitaes')
                     ->where('curriculum_vitaes.user', $current_id)->orderBy("created_at", "DESC")
                     ->select(
-                        'id'
+                        'id',
+                        'avatar'
                     )
                     ->first();
             if($cv_user != null){

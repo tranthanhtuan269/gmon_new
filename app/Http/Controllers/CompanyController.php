@@ -930,7 +930,6 @@ class CompanyController extends Controller {
 
             // get info User
             $myInfo = CurriculumVitae::where('user', '=', \Auth::user()->id)->orderBy('created_at', 'desc')->select('id', 'avatar', 'school')->first();
-            if($myInfo->avatar == null) $myInfo->avatar = \Auth::user()->avatar;
 
             $companiesFollowed = $companyGetObj->getCompanyWithBannerFollowJob($district, $city, $field, $from, $number_get, \Auth::user()->id);
             $companies = $companyGetObj->getCompany($district, $city, $field, $from, $number_get);
@@ -953,7 +952,6 @@ class CompanyController extends Controller {
 
             // get info User
             $myInfo = CurriculumVitae::where('user', '=', \Auth::user()->id)->orderBy('created_at', 'desc')->select('id', 'avatar', 'school')->first();
-            if($myInfo->avatar == null) $myInfo->avatar = \Auth::user()->avatar;
 
             $companiesFollowed = $companyGetObj->getCompanyWithBannerFollowJob($district, $city, $field, $from, $number_get);
             $companies = $companyGetObj->getCompany($district, $city, $field, $from, $number_get);
