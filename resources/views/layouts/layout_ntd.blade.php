@@ -131,6 +131,15 @@
                                     @else
                                     <a class="dropdown-item" href="{{ url('/') }}/company/create">Tạo trang tuyển dụng</a>
                                     @endif
+                                    <a class="dropdown-item end-group" href="{{ url('/') }}/user/jobcreated">Tin đã đăng</a>
+                                    <a class="dropdown-item" href="{{ url('/') }}/user/jobactive">Tin đang tuyển</a>
+                                    <a class="dropdown-item" href="{{ url('/') }}/user/jobinactive">Tin chờ duyệt</a>
+                                    <a class="dropdown-item" href="{{ url('/') }}/user/jobexpired">Tin hết hạn</a>
+                                    <a class="dropdown-item" href="{{ url('/') }}/user/cvapplied">Hồ sơ đã ứng tuyển</a>
+                                    <a class="dropdown-item" href="{{ url('/') }}/user/cvappliednew">Hồ sơ ứng tuyển mới</a>
+                                    <a class="dropdown-item" href="{{ url('/') }}/user/cvviewed">Hồ sơ đã xem </a>
+                                    <a class="dropdown-item" href="{{ url('/') }}/user/cvsaved">Hồ sơ đã lưu</a>
+                                    <a class="dropdown-item" href="{{ url('/') }}/user/cvsuggest">Hồ sơ được đề xuất</a>
                                 </div>
                             </li>
                             <li></li>
@@ -163,6 +172,15 @@
                                         @else
                                         <a class="dropdown-item" href="{{ url('/') }}/company/create">Tạo trang tuyển dụng</a>
                                         @endif
+                                        <a class="dropdown-item end-group" href="{{ url('/') }}/user/jobcreated">Tin đã đăng</a>
+                                        <a class="dropdown-item" href="{{ url('/') }}/user/jobactive">Tin đang tuyển</a>
+                                        <a class="dropdown-item" href="{{ url('/') }}/user/jobinactive">Tin chờ duyệt</a>
+                                        <a class="dropdown-item" href="{{ url('/') }}/user/jobexpired">Tin hết hạn</a>
+                                        <a class="dropdown-item" href="{{ url('/') }}/user/cvapplied">Hồ sơ đã ứng tuyển</a>
+                                        <a class="dropdown-item" href="{{ url('/') }}/user/cvappliednew">Hồ sơ ứng tuyển mới</a>
+                                        <a class="dropdown-item" href="{{ url('/') }}/user/cvviewed">Hồ sơ đã xem </a>
+                                        <a class="dropdown-item" href="{{ url('/') }}/user/cvsaved">Hồ sơ đã lưu</a>
+                                        <a class="dropdown-item" href="{{ url('/') }}/user/cvsuggest">Hồ sơ được đề xuất</a>
                                     </ul>
                                 </li>
                             </ul>
@@ -306,7 +324,7 @@
                     <div class="job">
                         <h3>Quản lý tin tuyển dụng</h3>
                         <ul>
-                            <li><a href="{{ url('/') }}/user/jobcreated">Tin đã đăng</a></li>
+                            <li class="end-group"><a href="{{ url('/') }}/user/jobcreated">Tin đã đăng</a></li>
                             <li><a href="{{ url('/') }}/user/jobactive">Tin đang tuyển</a></li>
                             <li><a href="{{ url('/') }}/user/jobinactive">Tin chờ duyệt</a></li>
                             <li><a href="{{ url('/') }}/user/jobexpired">Tin hết hạn</a></li>

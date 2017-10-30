@@ -152,6 +152,15 @@
                                                     @else
                                                     <li><a href="{{ url('/') }}/company/create">Tạo trang tuyển dụng</a></li>
                                                     @endif
+                                                    <li class="end-group"><a href="{{ url('/') }}/user/jobcreated">Tin đã đăng</a></li>
+                                                    <li><a href="{{ url('/') }}/user/jobactive">Tin đang tuyển</a></li>
+                                                    <li><a href="{{ url('/') }}/user/jobinactive">Tin chờ duyệt</a></li>
+                                                    <li><a href="{{ url('/') }}/user/jobexpired">Tin hết hạn</a></li>
+                                                    <li><a href="{{ url('/') }}/user/cvapplied">Hồ sơ đã ứng tuyển</a></li>
+                                                    <li><a href="{{ url('/') }}/user/cvappliednew">Hồ sơ ứng tuyển mới</a></li>
+                                                    <li><a href="{{ url('/') }}/user/cvviewed">Hồ sơ đã xem </a></li>
+                                                    <li><a href="{{ url('/') }}/user/cvsaved">Hồ sơ đã lưu</a></li>
+                                                    <li><a href="{{ url('/') }}/user/cvsuggest">Hồ sơ được đề xuất</a></li>
                                                 @elseif(Auth::user()->hasRole('user'))
                                                     <li><a href="{{ url('/') }}/user/main">Trang chính</a></li>
                                                     @if($user_info['cv_id'] > 0)
