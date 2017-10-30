@@ -372,8 +372,8 @@ gtag('config', 'UA-106844998-1');
                     </div>
                     <div class="col-md-3 col-xs-6 footer-col">
                         <p class="title">công cụ</p>
-                        <p><a target="_self" href="">Việc làm của tôi</a></p>
-                        <p><a target="_self" href="">Thông báo việc làm</a></p>
+                        <p><a target="_self" href="{{ url('/') }}/privacy-policy">Quy định bảo mật</a></p>
+                        <p><a target="_self" href="{{ url('/') }}/terms-of-service">Điều khoản sử dụng</a></p>
                         <p><a target="_self" href="">Phản hồi</a></p>
                         <p><a target="_self" href="">Tư vấn nghề nghiệp</a></p>
                     </div>

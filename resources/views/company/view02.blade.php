@@ -396,8 +396,8 @@
                 <div class="col-md-3 col-xs-6 footer-col">
                     <p class="title">công cụ</p>
                     <p><a href="">Hồ sơ</a></p>
-                    <p><a href="">Việc làm của tôi</a></p>
-                    <p><a href="">Thông báo việc làm</a></p>
+                    <p><a target="_self" href="{{ url('/') }}/privacy-policy">Quy định bảo mật</a></p>
+                    <p><a target="_self" href="{{ url('/') }}/terms-of-service">Điều khoản sử dụng</a></p>
                     <p><a href="">Phản hồi</a></p>
                     <p><a href="">Tư vấn nghề nghiệp</a></p>
                 </div>

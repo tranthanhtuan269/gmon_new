@@ -187,8 +187,8 @@
                         công cụ
                     </div>
                     <ul>
-                        <li><a href="{{ url('/') }}">hồ sơ</a></li>
-                        <li><a href="{{ url('/') }}">việc làm của tôi</a></li>
+                        <li><a href="{{ url('/') }}/privacy-policy">Quy định bảo mật</a></li>
+                        <li><a href="{{ url('/') }}/terms-of-service">Điều khoản sử dụng</a></li>
                         <li><a href="{{ url('/') }}">thông báo việc làm</a></li>
                         <li><a href="{{ url('/') }}">phản hồi</a></li>
                         <li><a href="http://news.gmon.vn">tư vấn nghề nghiệp</a></li>
