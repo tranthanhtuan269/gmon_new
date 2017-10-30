@@ -1,7 +1,6 @@
 @extends('layouts.layout_ntd')
 
 @section('content')
-<?php //var_dump($jobs); ?>
 <div class="col-lg-9 right">
   <div class="title">
     <i class="fa fa-address-book" aria-hidden="true"></i>
@@ -203,6 +202,49 @@
           $('.loader').hide();
           if (msg.code == 200) {
               window.location.href = site_url + "/curriculumvitae/view/" + cv_id;
+          }
+      });
+
+      request.fail(function (jqXHR, textStatus) {
+          alert("Request failed: " + textStatus);
+      });
+    });
+
+    $('.jobshow').click(function(){
+      var job_id = $(this).attr('data-job');
+      var _self = $(this);
+      $('.mass-content').show();
+      $('.loader').show();
+
+      var request = $.ajax({
+          headers: {
+              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          },
+          url: "{{ url('/') }}/getCVAppliedOfJob",
+          method: "GET",
+          data: {
+              'job_id': job_id
+          },
+          dataType: "json"
+      });
+
+      request.done(function (msg) {
+          $('.mass-content').hide();
+          $('.loader').hide();
+          var i = 0;
+          if (msg.code == 200) {
+            $(msg['jobs']).each(function( index ) {
+            var $html = "<tr>";
+                  $html = "<td>" + i + "</td>";
+                  $html = "<td><div class='changeCVStatus' data-user='{{ $cv->user_id }}' data-job='{{ $cv->job_id }}' data-cv='{{ $cv->id }}'>{{ $cv->username }}</div></td>";
+                  $html = "<td>{{ $cv->district }}, {{ $cv->city }}</td>";
+                  $html = "<td>{{ $cv->birthday }}</td>";
+                  $html = "<td>{{ ($cv->gender == 1) ? 'Nam' : 'Nữ' }}</td>";
+                  $html = "<td><div class='btn btn-sm btn-danger remove-btn' data-user='{{ $cv->user_id }}' data-job='{{ $cv->job_id }}'>Xóa</div></td>";
+              $html = "</tr>";
+            });
+            $('.lg-table tbody').html('');
+
           }
       });
 

@@ -932,7 +932,6 @@ class HomeController extends Controller
     }
 
     public function cvapplied(){
-        $user_id = \Auth::user()->id;
         $field = $district = $city = $job_type = $company = $cv = $vip = null;
         $from = 0;
         $number_get = 5;
@@ -941,18 +940,21 @@ class HomeController extends Controller
         $status = 2; // 0 is new, 1 is viewed, 2 is applied
 
         if (\Auth::check()) {
+            $user_id = \Auth::user()->id;
             $cvGetObj = new CurriculumVitae;
             $companyGetObj = new Company;
 
-            $jobSelected = $jobGetObj->getFirstJobCreatedByID($user_id, $active);
+            $jobs = $jobGetObj->getJobCreatedByID($user_id, $active);
 
-            if(count($jobSelected) > 0){
-                $cvs = $cvGetObj->getCVAppliedByJobID($jobSelected[0]->id, $from, $number_get, $status);
+
+            if(count($jobs) > 0){
+                $jobSelected = $jobs[0];
+                $cvs = $cvGetObj->getCVAppliedByJobID($jobs[0]->id, $from, $number_get, $status);
             }else{
+                $jobSelected = null;
                 $cvs = array();
             }
 
-            $jobs = $jobGetObj->getJobCreatedByID($user_id, $active);
 
             $myInfo = Company::where('user', '=', \Auth::user()->id)->orderBy('created_at', 'desc')->select('id', 'logo', 'name')->first();
             if($myInfo->logo == null) $myInfo->logo = \Auth::user()->avatar;
@@ -961,6 +963,20 @@ class HomeController extends Controller
 
             return view('ntd.main', compact('myInfo', 'cvs', 'jobSelected', 'jobs', 'companies'));
         }
+    }
+
+    public function getCVAppliedByJobID(Request $request){
+        $input = $request->all();
+        $field = $district = $city = $job_type = $company = $cv = $vip = null;
+        $from = 0;
+        $number_get = 5;
+        $status = 2; // 0 is new, 1 is viewed, 2 is applied
+        if (\Auth::check() && isset($input['job_id'])) {
+            $cvGetObj = new CurriculumVitae;
+            $cvs = $cvGetObj->getCVAppliedByJobID($input['job_id'], $from, $number_get, $status);
+            return \Response::json(array('code' => '200', 'message' => 'success', 'cvs' => $cvs));
+        }
+        return \Response::json(array('code' => '403', 'message' => 'unauthen'));
     }
 
     public function cvappliednew(){

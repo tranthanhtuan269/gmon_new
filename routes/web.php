@@ -45,6 +45,8 @@ Route::get('testnew', 'HomeController@testnew');
 Route::post('curriculumvitae/saveCV', 'HomeController@saveCV');
 Route::post('removeApplied', 'HomeController@removeApplied');
 Route::post('changeToViewed', 'HomeController@changeToViewed');
+Route::get('getCVAppliedOfJob', 'HomeController@getCVAppliedByJobID');
+
 
 
 
