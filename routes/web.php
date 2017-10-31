@@ -22,6 +22,7 @@ Route::get('auth/google', 'Auth\RegisterController@redirectToGoogle');
 Route::get('auth/google/callback', 'Auth\RegisterController@handleGoogleCallback');
 Route::post('auth/login', 'SiteController@loginApi');
 Route::post('auth/register', 'SiteController@registerApi');
+
 Route::get('curriculumvitae', 'CurriculumVitaeController@indexCurriculumVitae');
 Route::get('curriculumvitae/view/{id}', 'CurriculumVitaeController@showCurriculumVitae');
 Route::get('/job/view/{id}', 'JobController@info');
@@ -31,6 +32,7 @@ Route::get('/sitemap', 'HomeController@generatorSitemap');
 Route::post('ajaxpro', 'HomeController@ajaxpro');
 
 Route::get('/getJob/', 'JobController@getJob');
+Route::get('/getJobWithBanner/', 'JobController@getJobWithBanner');
 Route::get('/getCompany/', 'CompanyController@getCompany');
 Route::get('/getCV/', 'CurriculumVitaeController@getCV');
 
