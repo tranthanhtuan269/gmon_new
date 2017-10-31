@@ -27,7 +27,7 @@
             <?php $count++; ?>
               <tr>
                   <td>{{ $count }}</td>
-                  <td>{{ ucfirst($job->name) }}</td>
+                  <td><a href="{{ url('/') }}/job/{{ $job->id }}/{{ $job->slug }}"> {{ ucfirst($job->name) }}</a></td>
                   <td class="text-center">{{ $job->number }}</td>
                   <td>{{ date("d/m/Y", strtotime($job->created_at)) }}</td>
                   <td>{{ $job->expiration_date }}</td>
