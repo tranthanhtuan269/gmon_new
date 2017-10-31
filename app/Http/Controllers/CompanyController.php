@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Company;
+use App\CurriculumVitae;
 use App\CompanyCompanyType;
 use App\Follow;
 use App\Branch;
@@ -884,6 +885,108 @@ class CompanyController extends Controller {
 
             $companies = $companyGetObj->getCompany($district, $city, $field, $from, $number_get);
             return \Response::json(array('code' => '200', 'message' => 'Success!', 'companies' => $companies));
+        }
+    }
+
+    public function getCompanyFollowed(){
+        $companyGetObj = new Company;
+        $district = $city = $field = $job_type = $company = $cv = $vip = $from = $number_get = null;
+        $number_get = 20;
+        if(isset($_GET)){
+
+            if(isset($_GET['start']) && $_GET['start'] > 0){
+                $from = $_GET['start'];
+            }
+
+            if(isset($_GET['number']) && $_GET['number'] > 0){
+                $number_get = $_GET['number'];
+            }
+
+            if(isset($_GET['city']) && $_GET['city'] > 0){
+                $city = $_GET['city'];
+            }
+
+            if(isset($_GET['district']) && $_GET['district'] > 0){
+                $district = $_GET['district'];
+            }
+
+            $companiesFollowed = $companyGetObj->getCompanyWithBannerFollowJob($district, $city, $field, $from, $number_get, \Auth::user()->id);
+            
+            return \Response::json(array('code' => '200', 'message' => 'Success!', 'companiesFollowed' => $companiesFollowed));
+        }
+    }
+
+    
+
+    public function usercompanyfollow(){
+        if (\Auth::check()) {
+
+            $jobGetObj = new Job;
+            $field = $district = $city = $job_type = $company = $cv = $vip = null;
+            $from = 0;
+            $number_get = 5;
+
+            
+            $companyGetObj = new Company;
+
+            // get info User
+            $myInfo = CurriculumVitae::where('user', '=', \Auth::user()->id)->orderBy('created_at', 'desc')->select('id', 'avatar', 'school')->first();
+
+            $companiesFollowed = $companyGetObj->getCompanyWithBannerFollowJob($district, $city, $field, $from, $number_get, \Auth::user()->id);
+            $companies = $companyGetObj->getCompany($district, $city, $field, $from, $number_get);
+            return view('uv.companyfollow', compact('myInfo', 'companiesFollowed', 'companies'));
+        }
+
+        return redirect('/');
+    }
+
+    public function usercompanynew(){
+        if (\Auth::check()) {
+
+            $jobGetObj = new Job;
+            $field = $district = $city = $job_type = $company = $cv = $vip = null;
+            $from = 0;
+            $number_get = 5;
+
+            
+            $companyGetObj = new Company;
+
+            // get info User
+            $myInfo = CurriculumVitae::where('user', '=', \Auth::user()->id)->orderBy('created_at', 'desc')->select('id', 'avatar', 'school')->first();
+
+            $companiesFollowed = $companyGetObj->getCompanyWithBannerFollowJob($district, $city, $field, $from, $number_get);
+            $companies = $companyGetObj->getCompany($district, $city, $field, $from, $number_get);
+            return view('uv.companynew', compact('myInfo', 'companiesFollowed', 'companies'));
+        }
+
+        return redirect('/');
+    }
+
+    public function getCompanyNew(){
+        $companyGetObj = new Company;
+        $district = $city = $field = $job_type = $company = $cv = $vip = $from = $number_get = null;
+        $number_get = 20;
+        if(isset($_GET)){
+
+            if(isset($_GET['start']) && $_GET['start'] > 0){
+                $from = $_GET['start'];
+            }
+
+            if(isset($_GET['number']) && $_GET['number'] > 0){
+                $number_get = $_GET['number'];
+            }
+
+            if(isset($_GET['city']) && $_GET['city'] > 0){
+                $city = $_GET['city'];
+            }
+
+            if(isset($_GET['district']) && $_GET['district'] > 0){
+                $district = $_GET['district'];
+            }
+
+            $companiesFollowed = $companyGetObj->getCompanyWithBannerFollowJob($district, $city, $field, $from, $number_get);
+            
+            return \Response::json(array('code' => '200', 'message' => 'Success!', 'companiesFollowed' => $companiesFollowed));
         }
     }
 }

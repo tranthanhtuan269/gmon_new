@@ -5,9 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>{{ config('app.name', 'Gmon') }} - {{ $company->name }}</title>
-    <meta name="description" content="{{ $company->name }}, {{ $company->address }}, {{ $company->district }}, {{ $company->city }}"/>
-    <link rel="icon" href="http://test.gmon.com.vn/?image=favicon.png" type="image/x-icon">
+    <title>{{ $company->name }}</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -18,17 +16,10 @@
     <link rel="stylesheet" type="text/css" href="{{ url('/') }}/public/sweetalert/sweetalert.css">
     <link rel="stylesheet" href="{{ url('/') }}/public/css/style.css">
     <link rel="stylesheet" href="{{ url('/') }}/public/css/customize.css">
+    <link rel="shortcut icon" href="http://test.gmon.com.vn/?image=favicon.png" type="image/x-icon">
+    <link rel="icon" href="http://test.gmon.com.vn/?image=favicon.png" type="image/x-icon">
 </head>
 <body class="homepage">
-    <!-- Global Site Tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-106844998-1"></script>
-    <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments)};
-    gtag('js', new Date());
-
-    gtag('config', 'UA-106844998-1');
-    </script>
     <header>
         <div class="header-top clearfix">
             <nav class="navbar navbar-default">
@@ -43,8 +34,9 @@
                             <div class="row">
                                 <div class="link-left">
                                     <a target="_self" href="{{ url('/') }}"><i></i>Trang chủ</a>
-                                    <a target="_self" href=""><i></i>Việc làm</a>
-                                    <a target="_self" href=""><i></i>Nhà tuyển dụng</a>
+                                    <a href="{{ url('/') }}/showmore?job=new">Việc làm</a>
+                                    <a href="{{ url('/') }}/showmore?company=new">Nhà tuyển dụng</a>
+                                    <a href="http://news.gmon.vn">Tư vấn nghề nghiệp</a>
                                 </div>
                                 <div class="login">
                                     @if (Auth::guest())
@@ -146,16 +138,44 @@
                                             </a>
 
                                             <ul class="dropdown-menu" role="menu">
-                                                @if(Auth::check() && Auth::user()->hasRole('admin'))
-                                                    <li><a target="_self" href="{{ url('/admin') }}">Administrator</a></li>
-                                                @elseif(Auth::check() && Auth::user()->hasRole('master'))
-                                                    <li><a target="_self" href="{{ url('/city/admin') }}">Administrator</a></li>
-                                                @elseif(Auth::check() && Auth::user()->hasRole('user'))
-                                                    @if(isset($cv_id) && $cv_id > 0)
-                                                    <li><a target="_self" href="{{ url('/') }}/curriculumvitae/view/{{ $cv_id }}">Trang hồ sơ</a></li>
+                                                <?php $user_info = \Auth::user()->getUserInfo() ?>
+                                                @if(Auth::user()->hasRole('admin'))
+                                                <li><a target="_self" href="{{ url('/admin') }}">Administrator</a></li>
+                                                @elseif(Auth::user()->hasRole('master'))
+                                                <li><a target="_self" href="{{ url('/city/admin') }}">Administrator</a></li>
+                                                @elseif(Auth::user()->hasRole('creator'))
+                                                <li><a target="_self" href="{{ url('/post/create') }}">Create Post</a></li>
+                                                @elseif(Auth::user()->hasRole('poster'))
+                                                    @if($user_info['company_id'] > 0)
+                                                    <li><a href="{{ url('/') }}/company/{{ $user_info['company_id'] }}/info">Xem trang tuyển dụng</a></li>
+                                                    <li><a href="{{ url('/') }}/company/editCompany">Cập nhật trang tuyển dụng</a></li>
+                                                    <li><a href="{{ url('/') }}/job/create">Tạo tuyển dụng</a></li>
+                                                    @else
+                                                    <li><a href="{{ url('/') }}/company/create">Tạo trang tuyển dụng</a></li>
                                                     @endif
+                                                    <li class="end-group"><a href="{{ url('/') }}/user/jobcreated">Tin đã đăng</a></li>
+                                                    <li><a href="{{ url('/') }}/user/jobactive">Tin đang tuyển</a></li>
+                                                    <li><a href="{{ url('/') }}/user/jobinactive">Tin chờ duyệt</a></li>
+                                                    <li><a href="{{ url('/') }}/user/jobexpired">Tin hết hạn</a></li>
+                                                    <li><a href="{{ url('/') }}/user/cvapplied">Hồ sơ đã ứng tuyển</a></li>
+                                                    <li><a href="{{ url('/') }}/user/cvappliednew">Hồ sơ ứng tuyển mới</a></li>
+                                                    <li><a href="{{ url('/') }}/user/cvviewed">Hồ sơ đã xem </a></li>
+                                                    <li><a href="{{ url('/') }}/user/cvsaved">Hồ sơ đã lưu</a></li>
+                                                    <li><a href="{{ url('/') }}/user/cvsuggest">Hồ sơ được đề xuất</a></li>
+                                                @elseif(Auth::user()->hasRole('user'))
+                                                    <li><a href="{{ url('/') }}/user/main">Trang chính</a></li>
+                                                    @if($user_info['cv_id'] > 0)
+                                                    <li><a href="{{ url('/') }}/curriculumvitae/view/{{ $user_info['cv_id'] }}">Xem hồ sơ</a></li>
+                                                    <li><a href="{{ url('/') }}/curriculumvitae/{{ $user_info['cv_id'] }}/edit">Cập nhật hồ sơ</a></li>
+                                                    @else
+                                                    <li><a href="{{ url('/') }}/curriculumvitae/create">Tạo hồ sơ</a></li>
+                                                    @endif
+                                                    <li><a href="{{ url('/') }}/user/applied">Việc đã ứng tuyển</a></li>
+                                                    <li><a href="{{ url('/') }}/user/jobrelative">Việc làm phù hợp</a></li>
+                                                    <li><a href="{{ url('/') }}/user/companyfollow">Nhà tuyển dụng đã theo dõi</a></li>
+                                                    <li><a href="{{ url('/') }}/user/companynew">Nhà tuyển dụng mới</a></li>
                                                 @else 
-                                                
+
                                                 @endif
                                                 <li>
                                                     <a target="_self" href="{{ url('/logout') }}"
@@ -208,14 +228,14 @@
                             <div style="padding: 10%;"><img src="http://test.gmon.com.vn/?image={{ $company->logo }}" alt=""></div>
                         </div>
                         <div class="job-content">
-                            <div class="job-name"><a target="_self" href="{{ url('/') }}/job/view/{{ $job->id }}"> {{ $job->name }} </a></div>
+                            <div class="job-name"><a target="_self" href="{{ url('/') }}/job/{{ $job->id }}/{{ $job->slug }}"> {{ $job->name }} </a></div>
                             <div class="job-info">
                                 <span><i></i>Số lượng: {{ $job->number }}</span>
                                 <span><i></i>Cầu Giấy, Ba Đình</span>
                                 <span class="active"><i></i>Hạn nộp: {{ $job->expiration_date }}</span>
                             </div>
                             <span class="job-hot">HOT</span>
-                            <a target="_self" href="{{ url('/') }}/job/view/{{ $job->id }}" class="job-view">Chi tiết </a>
+                            <a target="_self" href="{{ url('/') }}/job/{{ $job->id }}/{{ $job->slug }}" class="job-view">Chi tiết </a>
                         </div>
                     </div>
                     @endforeach
@@ -263,7 +283,7 @@
                 <div class="footer-top row">
                     <div class="col-md-4 col-xs-6 footer-col">
                         <p class="title">về gmon</p>
-                        <p><a target="_self" href="">Giới thiệu</a></p>
+                        <p><a target="_self" href="http://news.gmon.vn/post/10/lich-su-phat-trien-gmon">Giới thiệu</a></p>
                         <p><a target="_self" href="">Việc làm</a></p>
                         <p><a target="_self" href="">Nhà tuyển dụng</a></p>
                         <p><a target="_self" href="">Hồ sơ ứng viên</a></p>
@@ -287,18 +307,18 @@
                     </div>
                 </div>
                 <div class="footer-bot row">
-                <div class="col-md-8">
-                    <p><b>Công ty cổ phần giải pháp và công nghệ Gmon</b></p>
-                    <p><b>Trụ sở chính:</b> Tầng 8, Tòa nhà Trần Phú, Dương Đình Nghệ, Cầu Giấy, Hà Nội</p>
-                    <p><b>Điện thoại:</b> 0243.212.1515</p>
-                    <p><b>VPĐD:</b> Số 31, Trần Phú, Hải Châu I, Hải Châu, Đà Nẵng</p>
-                    <p><b>Điện thoại:</b> 0961 545 115</p>
-                    <p><b>Email:</b> support@gmon.vn</p>
+                    <div class="col-md-8">
+                        <p><b>Công ty cổ phần giải pháp và công nghệ Gmon</b></p>
+                        <p><b>Trụ sở chính:</b> Tầng 8, Tòa nhà Trần Phú, Dương Đình Nghệ, Cầu Giấy, Hà Nội</p>
+                        <p><b>Điện thoại:</b> 0243.212.1515</p>
+                        <p><b>VPĐD:</b> Số 31, Trần Phú, Hải Châu I, Hải Châu, Đà Nẵng</p>
+                        <p><b>Điện thoại:</b> 0961 545 115</p>
+                        <p><b>Email:</b> support@gmon.vn</p>
+                    </div>
+                    <div class="col-md-4">
+                        <p style="margin-top: 15px">&#64; 2016-2017 Gmon.vn,inc. All rights reserved</p>
+                    </div>
                 </div>
-                <div class="col-md-4">
-                    <p style="margin-top: 72px">&#64; 2016-2017 Gmon.vn,inc. All rights reserved</p>
-                </div>
-            </div>
             </div>
         </footer>
 

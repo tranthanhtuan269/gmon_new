@@ -654,4 +654,405 @@ class HomeController extends Controller
             $district->save();
         }
     }
+
+    public function privacypolicy(){
+        return view('home.privacypolicy');
+    }
+
+    public function termsofservice(){
+        return view('home.termsofservice');
+    }
+
+    public function usermain(){
+        if (\Auth::check()) {
+
+            $jobGetObj = new Job;
+            $field = $district = $city = $job_type = $company = $cv = $vip = null;
+            $from = 0;
+            $number_get = 5;
+
+            
+            $companyGetObj = new Company;
+
+            // get info User
+            $myInfo = CurriculumVitae::where('user', '=', \Auth::user()->id)->orderBy('created_at', 'desc')->select('id', 'avatar', 'school')->first();
+            if($myInfo == null){
+                $myInfo = Company::where('user', '=', \Auth::user()->id)->orderBy('created_at', 'desc')->select('id', 'logo as avatar', 'name as school')->first();
+            }
+            if(isset($myInfo->avatar)) $myInfo->avatar = \Auth::user()->avatar;
+
+            $jobsvip = $jobGetObj->getJobWithBanner($from, 5);
+            $companies = $companyGetObj->getCompany($district, $city, $field, $from, $number_get);
+            return view('uv.main', compact('myInfo', 'jobsvip', 'companies'));
+        }
+
+        return redirect('/');
+    }
+
+    public function userfollow(){
+        if (\Auth::check()) {
+
+            $jobGetObj = new Job;
+            $field = $district = $city = $job_type = $company = $cv = $vip = null;
+            $from = 0;
+            $number_get = 5;
+
+            
+            $companyGetObj = new Company;
+
+            // get info User
+            $myInfo = CurriculumVitae::where('user', '=', \Auth::user()->id)->orderBy('created_at', 'desc')->select('id', 'avatar', 'school')->first();
+            if($myInfo->avatar == null) $myInfo->avatar = \Auth::user()->avatar;
+
+            $companiesFollowed = $companyGetObj->getCompanyFollowed(\Auth::user()->id, $district, $city, $field, $job_type, $from, 100);
+            // dd($jobsvip);
+            $companies = $companyGetObj->getCompany($district, $city, $field, $from, $number_get);
+            return view('uv.applied', compact('myInfo', 'jobsvip', 'companies'));
+        }
+
+        return redirect('/');
+    }
+
+    public function saveCV(Request $request){
+        $input = $request->all();
+        
+        if (\Auth::check()) {
+            $check = SaveCV::where('cv', '=', $input['cv_id'])->where('user', '=', \Auth::user()->id)->first();
+            if(!isset($check)){
+                $savecv = new SaveCV;
+                $savecv->user = \Auth::user()->id;
+                $savecv->cv = $input['cv_id'];
+                $savecv->created_at = date("Y-m-d H:i:s");;
+                if($savecv->save()){
+                    return \Response::json(array('code' => '200', 'message' => 'success'));
+                }else{
+                    return \Response::json(array('code' => '404', 'message' => 'unsuccess'));
+                }
+            }else{
+                return \Response::json(array('code' => '200', 'message' => 'success'));
+            }
+        }else{
+            return \Response::json(array('code' => '403', 'message' => 'unauthen'));
+        }
+    }
+
+    public function jobcreated(){
+        if (\Auth::check()) {
+            $field = $district = $city = $job_type = $company = $cv = $vip = null;
+            $from = 0;
+            $number_get = 5;
+            $jobGetObj = new Job;
+            $user_id = \Auth::user()->id;
+            $companyGetObj = new Company;
+
+            $jobs = $jobGetObj->getJobCreatedByID($user_id);
+
+            $myInfo = Company::where('user', '=', \Auth::user()->id)->orderBy("created_at", "DESC")->select('id', 'logo', 'name')->first();
+            if($myInfo->logo == null) $myInfo->logo = \Auth::user()->avatar;
+
+            $companies = $companyGetObj->getCompany($district, $city, $field, $from, $number_get);
+
+            return view('ntd.jobscreated', compact('myInfo', 'jobs', 'companies'));
+        }
+    }
+
+    public function jobactive(){
+        if (\Auth::check()) {
+            $field = $district = $city = $job_type = $company = $cv = $vip = null;
+            $from = 0;
+            $number_get = 5;
+            $jobGetObj = new Job;
+            $user_id = \Auth::user()->id;
+            $companyGetObj = new Company;
+            $active = 1;
+
+            $jobs = $jobGetObj->getJobCreatedByID($user_id, $active);
+
+            $myInfo = Company::where('user', '=', \Auth::user()->id)->orderBy("created_at", "DESC")->select('id', 'logo', 'name')->first();
+            if($myInfo->logo == null) $myInfo->logo = \Auth::user()->avatar;
+
+            $companies = $companyGetObj->getCompany($district, $city, $field, $from, $number_get);
+
+            return view('ntd.jobsactive', compact('myInfo', 'jobs', 'companies'));
+        }
+    }
+
+    public function jobinactive(){
+        if (\Auth::check()) {
+            $field = $district = $city = $job_type = $company = $cv = $vip = null;
+            $from = 0;
+            $number_get = 5;
+            $jobGetObj = new Job;
+            $user_id = \Auth::user()->id;
+            $companyGetObj = new Company;
+            $active = 1;
+
+            $jobs = array();
+
+            $myInfo = Company::where('user', '=', \Auth::user()->id)->orderBy("created_at", "DESC")->select('id', 'logo', 'name')->first();
+            if($myInfo->logo == null) $myInfo->logo = \Auth::user()->avatar;
+
+            $companies = $companyGetObj->getCompany($district, $city, $field, $from, $number_get);
+
+            return view('ntd.jobsinactive', compact('myInfo', 'jobs', 'companies'));
+        }
+    }
+
+    public function jobexpired(){
+        if (\Auth::check()) {
+            $field = $district = $city = $job_type = $company = $cv = $vip = null;
+            $from = 0;
+            $number_get = 5;
+            $jobGetObj = new Job;
+            $user_id = \Auth::user()->id;
+            $companyGetObj = new Company;
+            $active = 2;
+
+            $jobs = $jobGetObj->getJobCreatedByID($user_id, $active);
+
+            $myInfo = Company::where('user', '=', \Auth::user()->id)->orderBy("created_at", "DESC")->select('id', 'logo', 'name')->first();
+            if($myInfo->logo == null) $myInfo->logo = \Auth::user()->avatar;
+
+            $companies = $companyGetObj->getCompany($district, $city, $field, $from, $number_get);
+
+            return view('ntd.jobsexpired', compact('myInfo', 'jobs', 'companies'));
+        }
+    }
+
+    public function cvapplied(){
+        $field = $district = $city = $job_type = $company = $cv = $vip = null;
+        $from = 0;
+        $number_get = 5;
+        $jobGetObj = new Job;
+        $active = 1;
+        $status = 2; // 0 is new, 1 is viewed, 2 is applied
+
+        if (\Auth::check()) {
+            $user_id = \Auth::user()->id;
+            $cvGetObj = new CurriculumVitae;
+            $companyGetObj = new Company;
+
+            $jobs = $jobGetObj->getJobCreatedByID($user_id, $active);
+
+
+            if(count($jobs) > 0){
+                $jobSelected = $jobs[0];
+                $cvs = $cvGetObj->getCVAppliedByJobID($jobs[0]->id, $from, $number_get, $status);
+            }else{
+                $jobSelected = null;
+                $cvs = array();
+            }
+
+
+            $myInfo = Company::where('user', '=', \Auth::user()->id)->orderBy('created_at', 'desc')->select('id', 'logo', 'name')->first();
+            if($myInfo->logo == null) $myInfo->logo = \Auth::user()->avatar;
+
+            $companies = $companyGetObj->getCompany($district, $city, $field, $from, $number_get);
+
+            return view('ntd.cvapplied', compact('myInfo', 'cvs', 'jobSelected', 'jobs', 'companies'));
+        }
+    }
+
+    public function getCVAppliedByJobID(Request $request){
+        $input = $request->all();
+        $field = $district = $city = $job_type = $company = $cv = $vip = null;
+        $from = 0;
+        $number_get = 5;
+        $status = 2; // 0 is new, 1 is viewed, 2 is applied
+        if (\Auth::check() && isset($input['job_id'])) {
+            $cvGetObj = new CurriculumVitae;
+            $cvs = $cvGetObj->getCVAppliedByJobID($input['job_id'], $from, $number_get, $status);
+            return \Response::json(array('code' => '200', 'message' => 'success', 'cvs' => $cvs));
+        }
+        return \Response::json(array('code' => '403', 'message' => 'unauthen'));
+    }
+
+    public function cvappliednew(){
+        $field = $district = $city = $job_type = $company = $cv = $vip = null;
+        $from = 0;
+        $number_get = 5;
+        $jobGetObj = new Job;
+        $active = 1;
+        $status = 0; // 0 is new, 1 is viewed, 2 is applied
+
+        if (\Auth::check()) {
+            $user_id = \Auth::user()->id;
+            $cvGetObj = new CurriculumVitae;
+            $companyGetObj = new Company;
+
+            $jobs = $jobGetObj->getJobCreatedByID($user_id, $active);
+
+
+            if(count($jobs) > 0){
+                $jobSelected = $jobs[0];
+                $cvs = $cvGetObj->getCVAppliedByJobID($jobs[0]->id, $from, $number_get, $status);
+            }else{
+                $jobSelected = null;
+                $cvs = array();
+            }
+
+
+            $myInfo = Company::where('user', '=', \Auth::user()->id)->orderBy('created_at', 'desc')->select('id', 'logo', 'name')->first();
+            if($myInfo->logo == null) $myInfo->logo = \Auth::user()->avatar;
+
+            $companies = $companyGetObj->getCompany($district, $city, $field, $from, $number_get);
+
+            return view('ntd.cvappliednew', compact('myInfo', 'cvs', 'jobSelected', 'jobs', 'companies'));
+        }
+    }
+
+    public function getCVAppliedNewByJobID(Request $request){
+        $input = $request->all();
+        $field = $district = $city = $job_type = $company = $cv = $vip = null;
+        $from = 0;
+        $number_get = 5;
+        $status = 0; // 0 is new, 1 is viewed, 2 is applied
+        if (\Auth::check() && isset($input['job_id'])) {
+            $cvGetObj = new CurriculumVitae;
+            $cvs = $cvGetObj->getCVAppliedByJobID($input['job_id'], $from, $number_get, $status);
+            return \Response::json(array('code' => '200', 'message' => 'success', 'cvs' => $cvs));
+        }
+        return \Response::json(array('code' => '403', 'message' => 'unauthen'));
+    }
+
+    public function cvviewed(){
+        $field = $district = $city = $job_type = $company = $cv = $vip = null;
+        $from = 0;
+        $number_get = 5;
+        $jobGetObj = new Job;
+        $active = 1;
+        $status = 1; // 0 is new, 1 is viewed, 2 is applied
+
+        if (\Auth::check()) {
+            $user_id = \Auth::user()->id;
+            $cvGetObj = new CurriculumVitae;
+            $companyGetObj = new Company;
+
+            $jobs = $jobGetObj->getJobCreatedByID($user_id, $active);
+
+
+            if(count($jobs) > 0){
+                $jobSelected = $jobs[0];
+                $cvs = $cvGetObj->getCVAppliedByJobID($jobs[0]->id, $from, $number_get, $status);
+            }else{
+                $jobSelected = null;
+                $cvs = array();
+            }
+
+
+            $myInfo = Company::where('user', '=', \Auth::user()->id)->orderBy('created_at', 'desc')->select('id', 'logo', 'name')->first();
+            if($myInfo->logo == null) $myInfo->logo = \Auth::user()->avatar;
+
+            $companies = $companyGetObj->getCompany($district, $city, $field, $from, $number_get);
+
+            return view('ntd.cvappliedviewed', compact('myInfo', 'cvs', 'jobSelected', 'jobs', 'companies'));
+        }
+    }
+
+    public function getCVAppliedViewedByJobID(Request $request){
+        $input = $request->all();
+        $field = $district = $city = $job_type = $company = $cv = $vip = null;
+        $from = 0;
+        $number_get = 5;
+        $status = 1; // 0 is new, 1 is viewed, 2 is applied
+        if (\Auth::check() && isset($input['job_id'])) {
+            $cvGetObj = new CurriculumVitae;
+            $cvs = $cvGetObj->getCVAppliedByJobID($input['job_id'], $from, $number_get, $status);
+            return \Response::json(array('code' => '200', 'message' => 'success', 'cvs' => $cvs));
+        }
+        return \Response::json(array('code' => '403', 'message' => 'unauthen'));
+    }
+
+    public function cvsaved(){
+
+        $user_id = \Auth::user()->id;
+        $district = $city = $field = null;
+        $from = 0;
+        $number_get = 10;
+
+        if (\Auth::check()) {
+            $cvGetObj = new CurriculumVitae;
+            $companyGetObj = new Company;
+            $cvssaved = $cvGetObj->getCVSaved($user_id, $from, $number_get);
+            $cvs = $cvssaved;
+
+            $myInfo = Company::where('user', '=', \Auth::user()->id)->orderBy('created_at', 'desc')->select('id', 'logo', 'name')->first();
+            if($myInfo->logo == null) $myInfo->logo = \Auth::user()->avatar;
+
+            $companies = $companyGetObj->getCompany($district, $city, $field, $from, $number_get);
+
+            return view('ntd.main', compact('myInfo', 'cvssaved', 'companies', 'cvs'));
+        }
+    }
+
+    public function cvsuggest(){
+        $field = $district = $city = $job_type = $company = $cv = $vip = null;
+        $from = 0;
+        $number_get = 5;
+        $jobGetObj = new Job;
+        $active = 1;
+        $status = 0; // 0 is new, 1 is viewed, 2 is applied
+
+        if (\Auth::check()) {
+            $user_id = \Auth::user()->id;
+            $cvGetObj = new CurriculumVitae;
+            $companyGetObj = new Company;
+
+            $jobs = $jobGetObj->getJobCreatedByID($user_id, $active);
+
+
+            if(count($jobs) > 0){
+                $jobSelected = $jobs[0];
+                $cvs = $cvGetObj->getCVAppliedByJobID($jobs[0]->id, $from, $number_get, $status);
+            }else{
+                $jobSelected = null;
+                $cvs = array();
+            }
+
+            $myInfo = Company::where('user', '=', \Auth::user()->id)->orderBy('created_at', 'desc')->select('id', 'logo', 'name')->first();
+            if($myInfo->logo == null) $myInfo->logo = \Auth::user()->avatar;
+
+            $companies = $companyGetObj->getCompany($district, $city, $field, $from, $number_get);
+
+            return view('ntd.cvappliednew', compact('myInfo', 'cvs', 'jobSelected', 'jobs', 'companies'));
+        }
+    }
+
+    public function removeApplied(Request $request){
+        $input = $request->all();
+        if (\Auth::check()) {
+            $apply = Apply::where("user", "=", $input['user_id'])->where("job", "=", $input['job_id'])->first();
+            $apply->active = -1; // removed
+            if($apply->save()){
+                return \Response::json(array('code' => '200', 'message' => 'success'));
+            }
+            return \Response::json(array('code' => '201', 'message' => 'unsuccess'));
+        }
+        return \Response::json(array('code' => '403', 'message' => 'unauthen'));
+    }
+
+    public function removeSaved(Request $request){
+        $input = $request->all();
+        if (\Auth::check()) {
+            $apply = SaveCV::where("cv", "=", $input['cv_id'])->where("user", "=", \Auth::user()->id)->first();
+            if($apply->delete()){
+                return \Response::json(array('code' => '200', 'message' => 'success'));
+            }
+            return \Response::json(array('code' => '201', 'message' => 'unsuccess'));
+        }
+        return \Response::json(array('code' => '403', 'message' => 'unauthen'));
+    }
+
+    public function changeToViewed(Request $request){
+        $input = $request->all();
+        if (\Auth::check()) {
+            $apply = Apply::where("user", "=", $input['user_id'])->where("job", "=", $input['job_id'])->first();
+            $apply->active = 1; // viewed
+            if($apply->save()){
+                return \Response::json(array('code' => '200', 'message' => 'success'));
+            }
+            return \Response::json(array('code' => '201', 'message' => 'unsuccess'));
+        }
+        return \Response::json(array('code' => '403', 'message' => 'unauthen'));
+    }
 }

@@ -7,9 +7,11 @@ use App\Http\Controllers\Controller;
 
 use App\Job;
 use App\Company;
+use App\CurriculumVitae;
 use App\Apply;
 use Illuminate\Http\Request;
 use Session;
+
 
 class JobController extends Controller
 {
@@ -678,6 +680,198 @@ class JobController extends Controller
             }
 
             $jobs = $jobGetObj->getJob($district, $city, $field, $job_type, $company, $cv, $vip, $from, $number_get);
+            return \Response::json(array('code' => '200', 'message' => 'Success!', 'jobs' => $jobs));
+        }
+    }
+    public function userapplied(){
+        if (\Auth::check()) {
+
+            $jobGetObj = new Job;
+            $field = $district = $city = $job_type = $company = $cv = $vip = null;
+            $from = 0;
+            $number_get = 5;
+
+            
+            $companyGetObj = new Company;
+
+            // get info User
+            $myInfo = CurriculumVitae::where('user', '=', \Auth::user()->id)->orderBy('created_at', 'desc')->select('id', 'avatar', 'school')->first();
+
+            $jobsvip = $jobGetObj->getJobApplied(\Auth::user()->id, $district, $city, $field, $job_type, $from, 100);
+            // dd($jobsvip);
+            $companies = $companyGetObj->getCompany($district, $city, $field, $from, $number_get);
+            return view('uv.applied', compact('myInfo', 'jobsvip', 'companies'));
+        }
+
+        return redirect('/');
+    }
+
+    public function userJobRelative(){
+        $jobGetObj = new Job;
+        $district = $city = $salary_want = $jobs_want = null;
+        $from = 0;
+        $number_get = 5;
+
+        if (\Auth::check()) {
+            $user = \Auth::user();
+
+            // check relative exist in system
+            $relative = \DB::table('relatives')->where('user', '=', $user->id)->first();
+            // dd($relative);
+            // if null
+            if(!isset($relative)){
+                // create relative
+                // get city, district, salary, jobs in CV
+                $cv_user = \DB::table('curriculum_vitaes')
+                    ->where('curriculum_vitaes.user', $user->id)
+                    ->select(
+                        'id',
+                        'city',
+                        'district',
+                        'salary_want',
+                        'jobs'
+                    )
+                    ->first();
+                    // dd($cv_user);
+                if(isset($cv_user)){
+                    // step 2: get city, district, salary, job
+
+                    $city = $cv_user->city;
+                    $district = $cv_user->district;
+                    $salary_want = $cv_user->salary_want;
+                    $jobs_want = "";
+
+                    $cv_user->jobs = rtrim($cv_user->jobs,";");
+                    $jobs = explode(";",$cv_user->jobs);
+                    $sql = "SELECT id FROM job_types WHERE";
+                    $i = 0; 
+                    foreach($jobs as $j){
+                        if($i == 0){
+                            $sql .= " name = '" . $j . "'";
+                        }else{
+                            $sql .= " OR name = '" . $j . "'";
+                        }
+                        $i++;
+                    }
+
+                    $ret = \DB::select($sql);
+
+                    $i = 0;
+                    foreach ($ret as $r) {
+                        if($i == 0){
+                            $jobs_want .= $r->id;
+                        }else{
+                            $jobs_want .= ',' . $r->id;
+                        }
+                        $i++;
+                    }
+
+                    // dd($jobs_want);
+                    // save to database
+                    $arr = array();
+                    $arr['city'] = $city;
+                    $arr['district'] = $district;
+                    $arr['salary_want'] = $salary_want;
+                    $arr['jobs_want'] = $jobs_want;
+                    $rel = new Relative;
+                    $rel->user = $user->id;
+                    $rel->json = json_encode($arr);
+                    $rel->save();
+                }
+            }else{
+                $rel = json_decode($relative->json);
+                $city = $rel->city;
+                $district = $rel->district;
+                $salary_want = $rel->salary_want;
+                $jobs_want = $rel->jobs_want;
+            }
+            
+            $companyGetObj = new Company;
+
+            // get info User
+            $myInfo = CurriculumVitae::where('user', '=', \Auth::user()->id)->orderBy('created_at', 'desc')->select('id', 'avatar', 'school')->first();
+
+            $jobsrelative = $jobGetObj->getJobRelative($district, $city, $salary_want, $jobs_want, $from, 10);
+
+            $companies = $companyGetObj->getCompany($district, $city, null, $from, $number_get);
+            return view('uv.jobs', compact('myInfo', 'jobsrelative', 'companies', 'city', 'district', 'salary_want', 'jobs_want'));
+        }
+
+        return redirect('/');
+    }
+
+    public function getJobRelative(){
+        $jobGetObj = new Job;
+        $district = $city = $salary_want = $jobs_want = $from = $number_get = null;
+        $number_get = 5;
+        if(isset($_GET)){
+
+            if(isset($_GET['start']) && $_GET['start'] > 0){
+                $from = $_GET['start'];
+            }
+
+            if(isset($_GET['number']) && $_GET['number'] > 0){
+                $number_get = $_GET['number'];
+            }
+            
+            if(isset($_GET['salary_want']) && $_GET['salary_want'] > 0){
+                $salary_want = $_GET['salary_want'];
+            }
+            
+            if(isset($_GET['jobs_want']) && $_GET['jobs_want'] > 0){
+                $jobs_want = $_GET['jobs_want'];
+            }
+
+            if(isset($_GET['city']) && $_GET['city'] > 0){
+                $city = $_GET['city'];
+            }
+
+            if(isset($_GET['district']) && $_GET['district'] > 0){
+                $district = $_GET['district'];
+            }
+
+            $jobs = $jobGetObj->getJobRelative($district, $city, $salary_want, $jobs_want, $from, $number_get);
+            return \Response::json(array('code' => '200', 'message' => 'Success!', 'jobs' => $jobs));
+        }
+    }
+
+    public function getJobWithBanner(){
+        $jobGetObj = new Job;
+        $district = $city = $field = $job_type = $company = $cv = $vip = $from = $number_get = null;
+        $number_get = 5;
+        if(isset($_GET)){
+
+            if(isset($_GET['start']) && $_GET['start'] > 0){
+                $from = $_GET['start'];
+            }
+
+            if(isset($_GET['number']) && $_GET['number'] > 0){
+                $number_get = $_GET['number'];
+            }
+            
+            if(isset($_GET['job_type']) && $_GET['job_type'] > 0){
+                $job_type = $_GET['job_type'];
+            }
+
+            if(isset($_GET['city']) && $_GET['city'] > 0){
+                $city = $_GET['city'];
+            }
+
+            if(isset($_GET['district']) && $_GET['district'] > 0){
+                $district = $_GET['district'];
+            }
+
+            if(isset($_GET['job'])){
+                if($_GET['job'] == 'vip1'){
+                    $vip = 1;
+                }else if($_GET['job'] == 'vip2'){
+                    $vip = 2;
+                }else if($_GET['job'] == 'new'){
+                    $vip = 0;
+                }
+            }
+
+            $jobs = $jobGetObj->getJobWithBanner($from, $number_get);
             return \Response::json(array('code' => '200', 'message' => 'Success!', 'jobs' => $jobs));
         }
     }

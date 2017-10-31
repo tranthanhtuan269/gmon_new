@@ -133,25 +133,42 @@
                                             </a>
 
                                             <ul class="dropdown-menu" role="menu">
-                                                @if(Auth::check() && Auth::user()->hasRole('admin'))
+                                                <?php $user_info = \Auth::user()->getUserInfo() ?>
+                                                @if(Auth::user()->hasRole('admin'))
                                                 <li><a target="_self" href="{{ url('/admin') }}">Administrator</a></li>
-                                                @elseif(Auth::check() && Auth::user()->hasRole('master'))
+                                                @elseif(Auth::user()->hasRole('master'))
                                                 <li><a target="_self" href="{{ url('/city/admin') }}">Administrator</a></li>
-                                                @elseif(Auth::check() && Auth::user()->hasRole('creator'))
+                                                @elseif(Auth::user()->hasRole('creator'))
                                                 <li><a target="_self" href="{{ url('/post/create') }}">Create Post</a></li>
-                                                @elseif(Auth::check() && Auth::user()->hasRole('poster'))
-                                                    @if($company_id > 0)
-                                                    <li><a target="_self" href="{{ url('/') }}/company/{{ $company_id }}/info">Trang tuyển dụng</a></li>
-                                                    <li><a target="_self" href="{{ url('/') }}/job/create">Đăng tin tuyển dụng</a></li>
+                                                @elseif(Auth::user()->hasRole('poster'))
+                                                    @if($user_info['company_id'] > 0)
+                                                    <li><a href="{{ url('/') }}/company/{{ $user_info['company_id'] }}/info">Xem trang tuyển dụng</a></li>
+                                                    <li><a href="{{ url('/') }}/company/editCompany">Cập nhật trang tuyển dụng</a></li>
+                                                    <li><a href="{{ url('/') }}/job/create">Tạo tuyển dụng</a></li>
                                                     @else
-                                                    <li><a target="_self" href="{{ url('/') }}/company/create">Tạo trang tuyển dụng</a></li>
+                                                    <li><a href="{{ url('/') }}/company/create">Tạo trang tuyển dụng</a></li>
                                                     @endif
-                                                @elseif(Auth::check() && Auth::user()->hasRole('user'))
-                                                    @if($cv_id > 0)
-                                                    <li><a target="_self" href="{{ url('/') }}/curriculumvitae/view/{{ $cv_id }}">Trang hồ sơ</a></li>
+                                                    <li class="end-group"><a href="{{ url('/') }}/user/jobcreated">Tin đã đăng</a></li>
+                                                    <li><a href="{{ url('/') }}/user/jobactive">Tin đang tuyển</a></li>
+                                                    <li><a href="{{ url('/') }}/user/jobinactive">Tin chờ duyệt</a></li>
+                                                    <li><a href="{{ url('/') }}/user/jobexpired">Tin hết hạn</a></li>
+                                                    <li><a href="{{ url('/') }}/user/cvapplied">Hồ sơ đã ứng tuyển</a></li>
+                                                    <li><a href="{{ url('/') }}/user/cvappliednew">Hồ sơ ứng tuyển mới</a></li>
+                                                    <li><a href="{{ url('/') }}/user/cvviewed">Hồ sơ đã xem </a></li>
+                                                    <li><a href="{{ url('/') }}/user/cvsaved">Hồ sơ đã lưu</a></li>
+                                                    <li><a href="{{ url('/') }}/user/cvsuggest">Hồ sơ được đề xuất</a></li>
+                                                @elseif(Auth::user()->hasRole('user'))
+                                                    <li><a href="{{ url('/') }}/user/main">Trang chính</a></li>
+                                                    @if($user_info['cv_id'] > 0)
+                                                    <li><a href="{{ url('/') }}/curriculumvitae/view/{{ $user_info['cv_id'] }}">Xem hồ sơ</a></li>
+                                                    <li><a href="{{ url('/') }}/curriculumvitae/{{ $user_info['cv_id'] }}/edit">Cập nhật hồ sơ</a></li>
                                                     @else
-                                                    <li><a target="_self" href="{{ url('/') }}/curriculumvitae/create">Tạo hồ sơ</a></li>
+                                                    <li><a href="{{ url('/') }}/curriculumvitae/create">Tạo hồ sơ</a></li>
                                                     @endif
+                                                    <li><a href="{{ url('/') }}/user/applied">Việc đã ứng tuyển</a></li>
+                                                    <li><a href="{{ url('/') }}/user/jobrelative">Việc làm phù hợp</a></li>
+                                                    <li><a href="{{ url('/') }}/user/companyfollow">Nhà tuyển dụng đã theo dõi</a></li>
+                                                    <li><a href="{{ url('/') }}/user/companynew">Nhà tuyển dụng mới</a></li>
                                                 @else 
 
                                                 @endif
@@ -406,11 +423,11 @@
                 </div>
                 <div class="col-md-3 col-xs-6 footer-col">
                     <p class="title">công cụ</p>
-                    <p><a target="_self" href="{{ url('/') }}/privacy-policy">Quy định bảo mật</a></p>
-                    <p><a target="_self" href="{{ url('/') }}/terms-of-service">Điều khoản sử dụng</a></p>
-                    <p><a href="">Thông báo việc làm</a></p>
-                    <p><a href="">Phản hồi</a></p>
-                    <p><a href="">Tư vấn nghề nghiệp</a></p>
+                    <p><a href="{{ url('/') }}/privacy-policy">Quy định bảo mật</a></p>
+                    <p><a href="{{ url('/') }}/terms-of-service">Điều khoản sử dụng</a></p>
+                    <p><a href="{{ url('/') }}">Thông báo việc làm</a></p>
+                    <p><a href="{{ url('/') }}">Phản hồi</a></p>
+                    <p><a href="http://news.gmon.vn">Tư vấn nghề nghiệp</a></p>
                 </div>
                 <div class="col-md-5 contact col-xs-12 footer-col">
                     <p class="title">kết nối với gmon</p>
@@ -455,6 +472,17 @@
             $("#contents").css("width", n + "px");
             setTimeout(function () {
                 onNext(false);
+            }, 2000);
+
+            //------------------------------------------------//
+
+            var w2_big = $("#wrapper-big").outerWidth();
+            var w3_big = w2_big;
+            $(".item-work-big").css("width", w3_big + "px");
+            var n_big = w3_big * ($("#contents-big .item-work-big").length);
+            $("#contents-big").css("width", n_big + "px");
+            setTimeout(function () {
+                onNext_big(false);
             }, 2000);
         };
 
@@ -515,7 +543,65 @@
                 }, 2000);
             }
         }
-        
+
+        // -----------------------------------------------------
+        var isR_big = false;
+        var action_big;
+        $("#btPrev-big").click(function () {
+            onPrev_big(true);
+        });
+        $("#btNext-big").click(function () {
+            onNext_big(true);
+        });
+        function onNext_big(b_big) {
+            if (b_big)
+                clearTimeout(action_big);
+            if (isR_big)
+                return;
+            isR_big = true;
+            var w_big = $(".item-work-big").outerWidth();
+            var n_big = parseFloat($("#contents-big").css("margin-left"));
+            var w2_big = $("#contents-big").outerWidth();
+            var w3_big = $("#wrapper-big").outerWidth();
+            var n2_big = n_big - w_big;
+            if (n2_big + w2_big - w3_big >= 0) {
+                $("#contents-big").animate({marginLeft: n2_big + 'px'}, {duration: 300, complete: function () {
+                        isR_big = false;
+                    }});
+                action_big = setTimeout(function () {
+                    onNext(false);
+                }, 2000);
+            } else {
+                isR_big = false;
+                action_big = setTimeout(function () {
+                    onPrev(false);
+                }, 2000);
+            }
+        }
+        function onPrev_big(b_big) {
+            if (b_big)
+                clearTimeout(action_big);
+            if (isR_big)
+                return;
+            isR_big = true;
+            var w_big = $(".item-work-big").outerWidth();
+            var n_big = parseFloat($("#contents-big").css("margin-left"));
+            var w2_big = $("#contents-big").outerWidth();
+            var n2_big = n_big + w_big;
+            if (n2_big <= 0) {
+                $("#contents-big").animate({marginLeft: n2_big + 'px'}, {duration: 300, complete: function () {
+                        isR_big = false;
+                    }});
+                action_big = setTimeout(function () {
+                    onPrev(false);
+                }, 2000);
+            } else {
+                isR_big = false;
+                action_big = setTimeout(function () {
+                    onNext(false);
+                }, 2000);
+            }
+        }
         function onCloseModalLogin(){
             $("#myModal").modal('toggle');
         }

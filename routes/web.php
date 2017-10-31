@@ -34,6 +34,39 @@ Route::get('/getJob/', 'JobController@getJob');
 Route::get('/getCompany/', 'CompanyController@getCompany');
 Route::get('/getCV/', 'CurriculumVitaeController@getCV');
 
+
+Route::get('/user/main', 'HomeController@usermain');
+Route::get('/user/createCV', 'CurriculumVitaeController@usercreateCV');
+Route::get('/user/updateCV', 'CurriculumVitaeController@userupdateCV');
+Route::get('/user/applied', 'JobController@userapplied');
+Route::get('/user/jobrelative', 'JobController@userJobRelative');
+Route::get('/user/companyfollow', 'CompanyController@usercompanyfollow');
+Route::get('/user/companynew', 'CompanyController@usercompanynew');
+Route::get('/getJobApply', 'JobController@getJobApply');
+Route::get('/getJobRelative', 'JobController@getJobRelative');
+Route::get('/getCompanyFollowed', 'CompanyController@getCompanyFollowed');
+Route::get('/getCompanyNew', 'CompanyController@getCompanyNew');
+
+Route::get('/user/jobcreated', 'HomeController@jobcreated');
+Route::get('/user/jobactive', 'HomeController@jobactive');
+Route::get('/user/jobinactive', 'HomeController@jobinactive');
+Route::get('/user/jobexpired', 'HomeController@jobexpired');
+
+Route::get('/user/cvapplied', 'HomeController@cvapplied');
+Route::get('/user/cvappliednew', 'HomeController@cvappliednew');
+Route::get('/user/cvviewed', 'HomeController@cvviewed');
+Route::get('/user/cvsaved', 'HomeController@cvsaved');
+Route::get('/user/cvsuggest', 'HomeController@cvsuggest');
+Route::get('testnew', 'HomeController@testnew');
+Route::post('curriculumvitae/saveCV', 'HomeController@saveCV');
+Route::post('removeApplied', 'HomeController@removeApplied');
+Route::post('removeSaved', 'HomeController@removeSaved');
+Route::post('changeToViewed', 'HomeController@changeToViewed');
+Route::get('getCVAppliedOfJob', 'HomeController@getCVAppliedByJobID');
+Route::get('getCVAppliedNewOfJob', 'HomeController@getCVAppliedNewByJobID');
+Route::get('getCVAppliedViewedOfJob', 'HomeController@getCVAppliedViewedByJobID');
+
+
 Route::group(['middleware' => 'auth'], function(){
 
     Route::post('send-comment', 'CompanyController@sendcomment');

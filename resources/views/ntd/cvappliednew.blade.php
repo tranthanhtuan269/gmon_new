@@ -4,11 +4,33 @@
 <div class="col-lg-9 right">
   <div class="title">
     <i class="fa fa-address-book" aria-hidden="true"></i>
-    <span>Hồ sơ đã lưu</span>
+    <span>Hồ sơ mới ứng tuyển</span>
   </div>
   <div class="content">
     <div class="table-responsive">
-      <table class="table">
+      <table class="table sm-table">
+          <thead>
+              <tr>
+                  <th></th>
+                  <th>Vị trí</th>
+              </tr>
+          </thead>
+          <tbody>
+            <?php $count = 0; ?>
+            @foreach($jobs as $job)
+            <?php $count++; ?>
+              <tr>
+                  <td>{{ $count }}</td>
+                  @if($count == 1)
+                    <td><div class="jobshow jobactive" data-job="{{ $job->id }}">{{ $job->name }}</div></td>
+                  @else
+                    <td><div class="jobshow" data-job="{{ $job->id }}">{{ $job->name }}</div></td>
+                  @endif
+              </tr>
+            @endforeach
+          </tbody>
+      </table>
+      <table class="table lg-table">
           <thead>
               <tr>
                   <th></th>
@@ -26,11 +48,11 @@
             <?php $count++; ?>
               <tr>
                   <td>{{ $count }}</td>
-                  <td><a href="{{ url('/') }}/curriculumvitae/view/{{ $cv->id }}">{{ $cv->username }}</a></td>
+                  <td><div class="changeCVStatus" data-user="{{ $cv->user_id }}" data-job="{{ $cv->job_id }}" data-cv="{{ $cv->id }}">{{ $cv->username }}</div></td>
                   <td>{{ $cv->district }}, {{ $cv->city }}</td>
                   <td>{{ $cv->birthday }}</td>
                   <td>{{ ($cv->gender == 1) ? "Nam" : "Nữ" }}</td>
-                  <td><div class="btn btn-sm btn-danger remove-btn" data-cv="{{ $cv->id }}">Xóa</div></td>
+                  <td><div class="btn btn-sm btn-danger remove-btn" data-user="{{ $cv->user_id }}" data-job="{{ $cv->job_id }}">Xóa</div></td>
               </tr>
             @endforeach
             @else
@@ -131,7 +153,7 @@
           headers: {
               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
           },
-          url: "{{ url('/') }}/getCVAppliedOfJob",
+          url: "{{ url('/') }}/getCVAppliedNewOfJob",
           method: "GET",
           data: {
               'job_id': job_id
@@ -173,7 +195,8 @@
     function addEvent(){
       $('.remove-btn').off('click');
       $('.remove-btn').click(function(){
-        var cv_id = $(this).attr('data-cv');
+        var user_id = $(this).attr('data-user');
+        var job_id = $(this).attr('data-job');
         var _self = $(this);
         $('.mass-content').show();
         $('.loader').show();
@@ -182,10 +205,11 @@
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
-            url: "{{ url('/') }}/removeSaved",
+            url: "{{ url('/') }}/removeApplied",
             method: "POST",
             data: {
-                'cv_id': cv_id
+                'user_id': user_id,
+                'job_id': job_id
             },
             dataType: "json"
         });
@@ -195,6 +219,41 @@
             $('.loader').hide();
             if (msg.code == 200) {
                 _self.parent().parent().hide();
+            }
+        });
+
+        request.fail(function (jqXHR, textStatus) {
+            alert("Request failed: " + textStatus);
+        });
+      });
+
+      $('.changeCVStatus').off('click');
+      $('.changeCVStatus').click(function(){
+        var user_id = $(this).attr('data-user');
+        var job_id = $(this).attr('data-job');
+        var cv_id = $(this).attr('data-cv');
+        var _self = $(this);
+        $('.mass-content').show();
+        $('.loader').show();
+
+        var request = $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            url: "{{ url('/') }}/changeToViewed",
+            method: "POST",
+            data: {
+                'user_id': user_id,
+                'job_id': job_id
+            },
+            dataType: "json"
+        });
+
+        request.done(function (msg) {
+            $('.mass-content').hide();
+            $('.loader').hide();
+            if (msg.code == 200) {
+                window.location.href = site_url + "/curriculumvitae/view/" + cv_id;
             }
         });
 

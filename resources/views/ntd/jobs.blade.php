@@ -1,50 +1,47 @@
-@extends('layouts.layout_uv')
+@extends('layouts.layout_ntd')
 
 @section('content')
 <div class="col-lg-9 right">
-    <div class="title">
-        <i class="fa fa-address-book" aria-hidden="true"></i>
-        <span>Trang chính</span>
+  <div class="title">
+    <i class="fa fa-address-book" aria-hidden="true"></i>
+    <span>Tin đã đăng</span>
+  </div>
+  <div class="content">
+    @if(count($jobs) > 0)
+    <div class="table-responsive">
+      <table class="table">
+          <thead>
+              <tr>
+                  <th></th>
+                  <th>Vị trí tuyển dụng</th>
+                  <th>Ứng tuyển</th>
+                  <th>Ngày đăng</th>
+                  <th>Hạn nộp</th>
+                  <th>Xét duyệt</th>
+                  <th>Công cụ</th>
+              </tr>
+          </thead>
+          <tbody>
+            <?php $count = 0; ?>
+            @foreach($jobs as $job)
+            <?php $count++; ?>
+              <tr>
+                  <td>{{ $count }}</td>
+                  <td>{{ ucfirst($job->name) }}</td>
+                  <td class="text-center">{{ $job->number }}</td>
+                  <td>{{ date("d/m/Y", strtotime($job->created_at)) }}</td>
+                  <td>{{ $job->expiration_date }}</td>
+                  <td>Đã duyệt</td>
+                  <td><a target="_blank" href="{{ url('/') }}/job/{{ $job->id }}/editJob">Chỉnh sửa</a></td>
+              </tr>
+            @endforeach
+          </tbody>
+      </table>
     </div>
-    <div class="content" id="job-list">
-      @foreach($jobsvip as $job)
-        <div class="item-01">
-            <div class="thumbnail">
-              <a target="_blank" href="{{ url('/') }}/job/{{ $job->id }}/{{ $job->slug }}">
-                <img src="http://test.gmon.com.vn/?image={{ $job->banner }}" alt="{{ $job->jobName }}">
-              </a>
-                @if(strlen($job->sologan) > 0)
-                <div class="caption">
-                    <p>
-                        {{ $job->sologan }}
-                    </p>
-                </div>
-                @endif
-            </div>
-            <div class="info">
-               <div class="container-fluid">
-                   <div class="row">
-                       <div class="col-md-8 name">
-                           <a target="_blank" href="{{ url('/') }}/job/{{ $job->id }}/{{ $job->slug }}">{{ $job->jobName }} tại {{ $job->companyName }}</a>
-                       </div>
-                       <div class="col-md-4 tool">
-                            <span class="tool-work">
-                                <i class="fa fa-eye" aria-hidden="true"></i>
-                                <span class="red">{{ $job->views }}</span>
-                                đã xem
-                            </span>
-                            <span class="tool-work">
-                                <i class="fa fa-briefcase" aria-hidden="true"></i>
-                                <span class="red">{{ $job->applied }}</span>
-                                đã ứng tuyển
-                            </span>
-                       </div>
-                   </div>
-               </div>
-            </div>
-        </div>
-        @endforeach
-    </div>
+    @else
+      <div class="info">Chưa có tuyển dụng nào được đăng!</div>
+    @endif
+  </div>
 </div>
 
 <script type="text/javascript">

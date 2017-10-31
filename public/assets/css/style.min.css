@@ -731,6 +731,10 @@
     text-align: right
 }
 
+.profile-01 .right .content .item-01 .info .tool .tool-work {
+    margin: 0 2px;
+}
+
 .profile-01 .right .content .item-01 .info .tool i {
     background: none
 }
@@ -783,8 +787,7 @@
 }
 
 .v1-02 .dropdown-menu {
-    background: #f4fbfe!important;
-    margin:-0.875rem 33px 0;
+    background: #f4fbfe!important
 }
 
 .v1-02 .dropdown-menu a {
