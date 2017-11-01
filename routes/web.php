@@ -31,6 +31,8 @@ Route::get('/getJobRelative', 'JobController@getJobRelative');
 Route::get('/getCompanyFollowed', 'CompanyController@getCompanyFollowed');
 Route::get('/getCompanyNew', 'CompanyController@getCompanyNew');
 
+Route::post('/refreshJob', 'JobController@refreshJob');
+Route::post('/removeJob', 'JobController@removeJob');
 Route::get('/user/jobcreated', 'HomeController@jobcreated');
 Route::get('/user/jobactive', 'HomeController@jobactive');
 Route::get('/user/jobinactive', 'HomeController@jobinactive');

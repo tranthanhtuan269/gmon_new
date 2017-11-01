@@ -74,7 +74,7 @@ class Job extends Model
                 JOIN
                     districts ON districts.id = companies.district";
 
-            $sql .= " WHERE 1 = 1";
+            $sql .= " WHERE 1 = 1 AND jobs.active = 1";
         if($vip == 1){
             $sql .= " AND jobs.vip = 1";
         }else if($vip == 2){
@@ -167,6 +167,8 @@ class Job extends Model
                     jobs 
                 JOIN 
                     companies on jobs.company = companies.id
+                WHERE 
+                    jobs.active = 1
                 ORDER BY jobs.created_at DESC
                 ";
         $sql .= " LIMIT $start, $number";
@@ -209,7 +211,7 @@ class Job extends Model
             $sql .= " WHERE 1 = 1";
 
         if($job_type > 0){
-            $sql .= " AND jobs.job_type = $job_type";
+            $sql .= " AND jobs.job_type = $job_type AND jobs.active = 1";
         }
 
         if($field > 0 && $field < 6){
@@ -253,7 +255,7 @@ class Job extends Model
                 FROM 
                     jobs
                 JOIN 
-                    companies ON companies.id = jobs.company";
+                    companies ON companies.id = jobs.company AND jobs.active = 1";
             $sql .= " JOIN
                     salaries ON salaries.id = jobs.salary
                 JOIN
@@ -298,7 +300,7 @@ class Job extends Model
                 FROM 
                     jobs
                 WHERE 
-                    jobs.company = $company->id";
+                    jobs.company = $company->id AND jobs.active = 1";
             if($active == 1){
                 $sql .= " AND STR_TO_DATE(jobs.expiration_date, '%d/%m/%Y') > CURDATE()";
             }elseif($active == 2){
@@ -331,7 +333,7 @@ class Job extends Model
                 FROM 
                     jobs
                 WHERE 
-                    jobs.company = $company->id";
+                    jobs.company = $company->id AND jobs.active = 1";
             if($active == 1){
                 $sql .= " AND STR_TO_DATE(jobs.expiration_date, '%d/%m/%Y') > CURDATE()";
             }elseif($active == 2){
