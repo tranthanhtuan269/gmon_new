@@ -17,7 +17,6 @@
                   <th>Ứng tuyển</th>
                   <th>Ngày đăng</th>
                   <th>Hạn nộp</th>
-                  <th>Xét duyệt</th>
                   <th>Công cụ</th>
               </tr>
           </thead>
@@ -31,8 +30,11 @@
                   <td class="text-center">{{ $job->number }}</td>
                   <td>{{ date("d/m/Y", strtotime($job->created_at)) }}</td>
                   <td>{{ $job->expiration_date }}</td>
-                  <td>Đã duyệt</td>
-                  <td><a target="_blank" href="{{ url('/') }}/job/{{ $job->id }}/editJob">Chỉnh sửa</a></td>
+                  <td>
+                    <span class="refresh-job" data-job="{{ $job->id }}">Làm mới</span>
+                    <a target="_blank" href="{{ url('/') }}/job/{{ $job->id }}/editJob">Sửa</a>
+                    <span class="remove-job" data-job="{{ $job->id }}">Xóa</span>
+                  </td>
               </tr>
             @endforeach
           </tbody>
@@ -46,77 +48,73 @@
 
 <script type="text/javascript">
   var site_url = $('base').attr('href');
-  var $currentJob = 5;
-  var $numberGet = 5;
-  var $currentPossion = 0;
-  var $newPossion = 0;
-  $(window).scroll(function (event) {
-      var scroll = $(window).scrollTop();
-      $newPossion = scroll;
-      if($newPossion - $currentPossion > 2000){
-          $currentPossion = $newPossion;
-          $('.mass-content').show();
-          $('.loader').show();
-          var request = $.ajax({
-              url: "{{ URL::to('/') }}/getJobWithBanner/?start=" + $currentJob  + "&number=" + $numberGet + "&<?php echo parse_url(url('/') . $_SERVER['REQUEST_URI'], PHP_URL_QUERY); ?>",
-              method: "GET",
-              dataType: "json"
-          });
+  $(document).ready(function(){
+    $('.refresh-job').click(function(){
+      var job_id = $(this).attr('data-job');
+      var _self = $(this);
+      $('.mass-content').show();
+      $('.loader').show();
 
-          request.done(function (msg) {
-              $('.mass-content').hide();
-              $('.loader').hide();
-              if(msg['code'] == 200){
-                  var $html = '';
-                  var temp = '';
-                  $(msg['jobs']).each(function( index ) {
-                      $html += '<div class="item-01">';
-                        $html += '<div class="thumbnail">';
-                          $html += '<a target="_blank" href="{{ url('/') }}/job/'+ $(this)[0].id +'/'+ $(this)[0].slug +'">'
-                            $html += '<img src="http://test.gmon.com.vn/?image='+ $(this)[0].banner +'" alt="'+ $(this)[0].jobName +'">';
-                          $html += '</a>';
-                            var $temp = $(this)[0].sologan + "";
-                            if($temp.length > 0 && $temp != "null"){
-                              $html += '<div class="caption">';
-                                  $html += '<p>';
-                                    $html += $temp;
-                                  $html += '</p>';
-                              $html += '</div>';
-                            }
+      var request = $.ajax({
+          headers: {
+              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          },
+          url: "{{ url('/') }}/refreshJob",
+          method: "POST",
+          data: {
+              'job_id': job_id
+          },
+          dataType: "json"
+      });
 
-                        $html += '</div>';
-                        $html += '<div class="info">';
-                           $html += '<div class="container-fluid">';
-                               $html += '<div class="row">';
-                                   $html += '<div class="col-md-8 name">';
-                                       $html += '<a target="_blank" href="{{ url('/') }}/job/'+ $(this)[0].id +'/'+ $(this)[0].slug +'">'+ $(this)[0].jobName +' tại '+ $(this)[0].companyName +'</a>';
-                                   $html += '</div>';
-                                   $html += '<div class="col-md-4 tool">';
-                                        $html += '<span class="tool-work">';
-                                            $html += '<i class="fa fa-eye" aria-hidden="true"></i>';
-                                            $html += '<span class="red">'+ $(this)[0].views +'</span>';
-                                            $html += ' đã xem';
-                                        $html += '</span>';
-                                        $html += '<span class="tool-work">';
-                                            $html += '<i class="fa fa-briefcase" aria-hidden="true"></i>';
-                                            $html += '<span class="red">'+ $(this)[0].applied +'</span>';
-                                            $html += ' đã ứng tuyển';
-                                        $html += '</span>';
-                                   $html += '</div>';
-                               $html += '</div>';
-                           $html += '</div>';
-                        $html += '</div>';
-                      $html += '</div>';
-                  });
-                  $currentJob += $numberGet;
-                  $('#job-list').append($html);
-              }
-          });
+      request.done(function (msg) {
+          $('.mass-content').hide();
+          $('.loader').hide();
+          if (msg.code == 200) {
+            swal("Thông báo", "Làm mới thành công!", "success");
+          }
+      });
 
-          request.fail(function (jqXHR, textStatus) {
-              alert("Request failed: " + textStatus);
-          });
-      }
+      request.fail(function (jqXHR, textStatus) {
+        $('.mass-content').hide();
+        $('.loader').hide();
+        swal("Thông báo", "Làm mới không thành công!", "error");
+      });
+    });
+
+    $('.remove-job').click(function(){
+      var job_id = $(this).attr('data-job');
+      var _self = $(this);
+      $('.mass-content').show();
+      $('.loader').show();
+
+      var request = $.ajax({
+          headers: {
+              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          },
+          url: "{{ url('/') }}/removeJob",
+          method: "POST",
+          data: {
+              'job_id': job_id
+          },
+          dataType: "json"
+      });
+
+      request.done(function (msg) {
+          $('.mass-content').hide();
+          $('.loader').hide();
+          if (msg.code == 200) {
+            swal("Thông báo", "Xóa thành công!", "success");
+            _self.parent().parent().hide();
+          }
+      });
+
+      request.fail(function (jqXHR, textStatus) {
+        $('.mass-content').hide();
+        $('.loader').hide();
+        swal("Thông báo", "Xóa không thành công!", "error");
+      });
+    });
   });
 </script>
 @endsection

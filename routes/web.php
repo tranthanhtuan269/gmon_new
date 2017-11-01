@@ -27,6 +27,8 @@ Route::get('curriculumvitae', 'CurriculumVitaeController@indexCurriculumVitae');
 Route::get('curriculumvitae/view/{id}', 'CurriculumVitaeController@showCurriculumVitae');
 Route::get('/job/view/{id}', 'JobController@info');
 Route::post('/job/join', 'JobController@join');
+Route::post('/refreshJob', 'JobController@refreshJob');
+Route::post('/removeJob', 'JobController@removeJob');
 Route::get('/action', 'HomeController@action');
 Route::get('/sitemap', 'HomeController@generatorSitemap');
 Route::post('ajaxpro', 'HomeController@ajaxpro');

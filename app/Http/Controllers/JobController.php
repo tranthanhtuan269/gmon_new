@@ -607,6 +607,54 @@ class JobController extends Controller
         }
     }
 
+    public function refreshJob(Request $request){
+        if (\Auth::check()) {
+            $current_id = \Auth::user()->id;
+            if(isset($request->job_id) && $request->job_id > 0){
+                // check exist CV
+                $job_selected = Job::find($request->job_id);
+                if($job_selected){
+                    // check job exist
+                    $job_selected->updated_at = date("Y-m-d H:i:s");
+
+                    if($job_selected->save()){
+                        return \Response::json(array('code' => '200', 'message' => 'Save success!'));
+                    }
+                }else{
+                    return \Response::json(array('code' => '401', 'message' => 'Save unsuccess!'));
+                }
+                return \Response::json(array('code' => '403', 'message' => 'Save unsuccess!'));
+            }
+            return \Response::json(array('code' => '401', 'message' => 'unauthen!'));
+        }else{
+            return \Response::json(array('code' => '401', 'message' => 'unauthen!'));
+        }
+    }
+
+    public function removeJob(Request $request){
+        if (\Auth::check()) {
+            $current_id = \Auth::user()->id;
+            if(isset($request->job_id) && $request->job_id > 0){
+                // check exist CV
+                $job_selected = Job::find($request->job_id);
+                if($job_selected){
+                    // check job exist
+                    $job_selected->active = 0;
+
+                    if($job_selected->save()){
+                        return \Response::json(array('code' => '200', 'message' => 'Save success!'));
+                    }
+                }else{
+                    return \Response::json(array('code' => '401', 'message' => 'Save unsuccess!'));
+                }
+                return \Response::json(array('code' => '403', 'message' => 'Save unsuccess!'));
+            }
+            return \Response::json(array('code' => '401', 'message' => 'unauthen!'));
+        }else{
+            return \Response::json(array('code' => '401', 'message' => 'unauthen!'));
+        }
+    }
+
     public function vip(Request $request){
         $input = $request->all();
         if(isset($input) && isset($input['job'])){

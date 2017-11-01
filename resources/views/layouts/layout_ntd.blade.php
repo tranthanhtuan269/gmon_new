@@ -11,12 +11,14 @@
     <link rel="stylesheet" href="{{ url('/') }}/public/assets/css/jquery.mmenu.all.css" />
     <link rel="stylesheet" href="{{ url('/') }}/public/assets/css/style.min.css" />
     <link rel="stylesheet" href="{{ url('/') }}/public/assets/css/style-new-home.min.css" />
+<link rel="stylesheet" type="text/css" href="{{ url('/') }}/public/sweetalert/sweetalert.css">
 
     <script type="text/javascript" src="{{ url('/') }}/public/assets/js/jquery-3.2.0.min.js"></script>
     <script type="text/javascript" src="{{ url('/') }}/public/assets/js/tether.min.js"></script>
     <script type="text/javascript" src="{{ url('/') }}/public/assets/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="{{ url('/') }}/public/assets/js/jquery.fancybox.min.js"></script>
     <script type="text/javascript" src="{{ url('/') }}/public/assets/js/jquery.mmenu.all.min.js"></script>
+    <script src="{{ url('/') }}/public/sweetalert/sweetalert.min.js"></script>
     <script type="text/javascript" src="{{ url('/') }}/public/assets/js/custom.js"></script>
     <link rel="shortcut icon" href="http://test.gmon.com.vn/?image=favicon.png" type="image/x-icon">
     <link rel="icon" href="http://test.gmon.com.vn/?image=favicon.png" type="image/x-icon">
@@ -84,6 +86,18 @@
                 width: 73%!important;
                 float: left;
                 border: 1px solid #eee;
+            }
+
+            .refresh-job,
+            .remove-job{
+                color: #0275d8;
+                cursor: pointer;
+            }
+
+            .refresh-job:hover,
+            .remove-job:hover{
+                color: #014c8c;
+                text-decoration: underline;
             }
 
             @keyframes spin {
