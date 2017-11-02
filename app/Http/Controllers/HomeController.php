@@ -1167,4 +1167,12 @@ class HomeController extends Controller
         }
         return \Response::json(array('code' => '403', 'message' => 'unauthen'));
     }
+
+    public function test(){
+        $dataUser = array('email'=>'tran.thanh.tuan269@gmail.com', 'name'=>'tran thanh tuan');
+        Mail::send('emails.registerUV', [], function($message) use ($dataUser) {
+            $message->from('support@gmon.vn', 'gmon.vn');
+            $message->to($dataUser['email'], $dataUser['name'])->subject('Gmon.vn thông báo đăng ký thành công!');
+        });
+    }
 }

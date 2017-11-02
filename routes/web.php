@@ -43,6 +43,7 @@ Route::get('/user/cvappliednew', 'HomeController@cvappliednew');
 Route::get('/user/cvviewed', 'HomeController@cvviewed');
 Route::get('/user/cvsaved', 'HomeController@cvsaved');
 Route::get('/user/cvsuggest', 'HomeController@cvsuggest');
+Route::get('test', 'HomeController@test');
 Route::get('testnew', 'HomeController@testnew');
 Route::post('curriculumvitae/saveCV', 'HomeController@saveCV');
 Route::post('removeApplied', 'HomeController@removeApplied');
@@ -179,8 +180,6 @@ Route::group(['middleware' => ['auth', 'roles'], 'roles' => 'master'], function 
     Route::post('post/active', 'PostController@active');
     Route::post('post/unactive', 'PostController@unactive');
     Route::resource('master/category', 'CategoryController');
-
-    Route::get('test', 'HomeController@action');
 
     Route::post('jobtype/active', 'JobTypeController@active');
     Route::post('jobtype/unactive', 'JobTypeController@unactive');
