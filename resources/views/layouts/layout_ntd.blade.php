@@ -89,7 +89,8 @@
             }
 
             .refresh-job,
-            .remove-job{
+            .remove-job,
+            .showCV{
                 color: #0275d8;
                 cursor: pointer;
             }
