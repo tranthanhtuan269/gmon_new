@@ -1024,6 +1024,11 @@ class HomeController extends Controller
             $apply = Apply::where("user", "=", $input['user_id'])->where("job", "=", $input['job_id'])->first();
             $apply->active = -1; // removed
             if($apply->save()){
+                $job_selected = Job::find($input['job_id']);
+                if($job_selected){
+                    $job_selected->applied = $job_selected->applied - 1;
+                    $job_selected->save();
+                }
                 return \Response::json(array('code' => '200', 'message' => 'success'));
             }
             return \Response::json(array('code' => '201', 'message' => 'unsuccess'));
