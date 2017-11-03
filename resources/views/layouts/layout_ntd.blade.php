@@ -11,14 +11,14 @@
     <link rel="stylesheet" href="{{ url('/') }}/public/assets/css/jquery.mmenu.all.css" />
     <link rel="stylesheet" href="{{ url('/') }}/public/assets/css/style.min.css" />
     <link rel="stylesheet" href="{{ url('/') }}/public/assets/css/style-new-home.min.css" />
-<link rel="stylesheet" type="text/css" href="{{ url('/') }}/public/sweetalert/sweetalert.css">
+    <link rel="stylesheet" type="text/css" href="{{ url('/') }}/public/sweetalert/sweetalert.css">
 
     <script type="text/javascript" src="{{ url('/') }}/public/assets/js/jquery-3.2.0.min.js"></script>
+    <script type="text/javascript" src="{{ url('/') }}/public/sweetalert/sweetalert.min.js"></script>
     <script type="text/javascript" src="{{ url('/') }}/public/assets/js/tether.min.js"></script>
     <script type="text/javascript" src="{{ url('/') }}/public/assets/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="{{ url('/') }}/public/assets/js/jquery.fancybox.min.js"></script>
     <script type="text/javascript" src="{{ url('/') }}/public/assets/js/jquery.mmenu.all.min.js"></script>
-    <script src="{{ url('/') }}/public/sweetalert/sweetalert.min.js"></script>
     <script type="text/javascript" src="{{ url('/') }}/public/assets/js/custom.js"></script>
     <link rel="shortcut icon" href="http://test.gmon.com.vn/?image=favicon.png" type="image/x-icon">
     <link rel="icon" href="http://test.gmon.com.vn/?image=favicon.png" type="image/x-icon">
@@ -89,7 +89,8 @@
             }
 
             .refresh-job,
-            .remove-job{
+            .remove-job,
+            .showCV{
                 color: #0275d8;
                 cursor: pointer;
             }
@@ -154,15 +155,6 @@
                                     <a class="dropdown-item" href="{{ url('/') }}/user/cvviewed">Hồ sơ đã xem </a>
                                     <a class="dropdown-item" href="{{ url('/') }}/user/cvsaved">Hồ sơ đã lưu</a>
                                     <a class="dropdown-item" href="{{ url('/') }}/user/cvsuggest">Hồ sơ được đề xuất</a>
-                                    <a class="dropdown-item" target="_self" href="{{ url('/logout') }}"
-                                       onclick="event.preventDefault();
-                                               document.getElementById('logout-form').submit();">
-                                        Đăng Xuất
-                                    </a>
-
-                                    <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
-                                        {{ csrf_field() }}
-                                    </form>
                                 </div>
                             </li>
                             <li></li>
@@ -204,15 +196,6 @@
                                         <a class="dropdown-item" href="{{ url('/') }}/user/cvviewed">Hồ sơ đã xem </a>
                                         <a class="dropdown-item" href="{{ url('/') }}/user/cvsaved">Hồ sơ đã lưu</a>
                                         <a class="dropdown-item" href="{{ url('/') }}/user/cvsuggest">Hồ sơ được đề xuất</a>
-                                        <a class="dropdown-item" target="_self" href="{{ url('/logout') }}"
-                                       onclick="event.preventDefault();
-                                               document.getElementById('logout-form').submit();">
-                                            Đăng Xuất
-                                        </a>
-
-                                        <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
-                                            {{ csrf_field() }}
-                                        </form>
                                     </ul>
                                 </li>
                             </ul>
