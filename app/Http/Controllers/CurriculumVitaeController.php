@@ -293,13 +293,18 @@ class CurriculumVitaeController extends Controller
     }
     
     public function createCurriculumVitae() {
-        $salaries = Salary::select('name', 'id')->get();
-        $company_id = -1;
-        $cv_id = -1;
         if (\Auth::check()) {
+            // if check exist CV then goto update CV
+
+            $salaries = Salary::select('name', 'id')->get();
+            $company_id = -1;
+            $cv_id = -1;
             $user_info = \Auth::user()->getUserInfo();
             $company_id = $user_info['company_id'];
             $cv_id = $user_info['cv_id'];
+            if($cv_id != -1){
+                return redirect('curriculumvitae/'.$cv_id.'/edit');
+            }
             
             $cities = \App\City::pluck('name', 'id');
             $districts = \App\District::pluck('name', 'id');
@@ -321,8 +326,10 @@ class CurriculumVitaeController extends Controller
             $loaitotnghieps[] = 'Khá';
             $loaitotnghieps[] = 'Trung bình khá';
             $loaitotnghieps[] = 'Trung bình';
+            return view('curriculum-vitae.create_curriculum_vitae', compact('company_id', 'cv_id', 'salaries', 'cities', 'districts', 'salaries', 'months', 'years', 'job_types', 'loaitotnghieps'));
         }
-        return view('curriculum-vitae.create_curriculum_vitae', compact('company_id', 'cv_id', 'salaries', 'cities', 'districts', 'salaries', 'months', 'years', 'job_types', 'loaitotnghieps'));
+
+        return view('errors.404');
     }
 
     public function createCurriculumVitae2() {
