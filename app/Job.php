@@ -99,7 +99,7 @@ class Job extends Model
             $sql .= " AND companies.city NOT IN (1, 2, 3)";
         }
 
-            $sql .= " ORDER BY jobs.id DESC";
+            $sql .= " ORDER BY jobs.updated_at DESC";
             $sql .= " LIMIT $from, $number_get";
 
         return \DB::select($sql);
@@ -169,7 +169,7 @@ class Job extends Model
                     companies on jobs.company = companies.id
                 WHERE 
                     jobs.active = 1
-                ORDER BY jobs.created_at DESC
+                ORDER BY jobs.updated_at DESC
                 ";
         $sql .= " LIMIT $start, $number";
 
@@ -230,7 +230,7 @@ class Job extends Model
 
             $sql .= " AND applies.user = " . $user_id;
 
-            $sql .= " ORDER BY jobs.id DESC";
+            $sql .= " ORDER BY jobs.updated_at DESC";
             $sql .= " LIMIT $from, $number_get";
 
         return \DB::select($sql);
@@ -284,7 +284,7 @@ class Job extends Model
             $sql .= " AND jobs.job_type in ($jobs_want)";
         }
 
-            $sql .= " ORDER BY jobs.id DESC";
+            $sql .= " ORDER BY jobs.updated_at DESC";
             $sql .= " LIMIT $from, $number_get";
         return \DB::select($sql);
     }
@@ -306,7 +306,7 @@ class Job extends Model
             }elseif($active == 2){
                 $sql .= " AND STR_TO_DATE(jobs.expiration_date, '%d/%m/%Y') < CURDATE()";
             }
-                $sql .= " ORDER BY jobs.id DESC";
+                $sql .= " ORDER BY jobs.updated_at DESC";
                 $sql .= " LIMIT 0, 1";
         }else{
             $sql = "";
@@ -339,7 +339,7 @@ class Job extends Model
             }elseif($active == 2){
                 $sql .= " AND STR_TO_DATE(jobs.expiration_date, '%d/%m/%Y') < CURDATE()";
             }
-            $sql .= " ORDER BY jobs.id DESC";
+            $sql .= " ORDER BY jobs.updated_at DESC";
         }else{
             $sql = "";
         }
