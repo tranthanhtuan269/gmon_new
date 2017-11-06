@@ -15,6 +15,7 @@ use App\CompanyType;
 use App\Relative;
 use App\SaveCV;
 use App\Apply;
+use App\Mail\JobSuggest;
 use Mail;
 
 class HomeController extends Controller
@@ -1175,9 +1176,8 @@ class HomeController extends Controller
         //     $message->to($dataUser['email'], $dataUser['name'])->subject('Gmon.vn thông báo đăng ký thành công!');
         // });
 
-        $jobs = new array();
-        $jobs[] = new array('name'=>'Tran Thanh Tuan');
-        $jobs[] = new array('name'=>'Tran Thanh Tuan 2');
+        $jobs = new User;
+        $jobs->name = "Tran Thanh Tuan";
 
         Mail::to($dataUser)->send(new JobSuggest($jobs));
     }
