@@ -153,12 +153,10 @@ class CurriculumVitaeController extends Controller
         $input['time_can_work'] = $request['time_can_work'];
         $input['jobs'] = $request['jobs'];
         $input['salary_want'] = $request['salary_want'];
-        
         $input['user'] = \Auth::user()->id;
         $input['updated_at'] = date("Y-m-d H:i:s");
 
         $curriculumvitae = CurriculumVitae::findOrFail($id);
-        
 
         if ($curriculumvitae) {
             $curriculumvitae->update($input);
@@ -331,39 +329,6 @@ class CurriculumVitaeController extends Controller
 
         return view('errors.404');
     }
-
-    public function createCurriculumVitae2() {
-        $salaries = Salary::select('name', 'id')->get();
-        $company_id = -1;
-        $cv_id = -1;
-        if (\Auth::check()) {
-            $user_info = \Auth::user()->getUserInfo();
-            $company_id = $user_info['company_id'];
-            $cv_id = $user_info['cv_id'];
-            
-            $cities = \App\City::pluck('name', 'id');
-            $districts = \App\District::pluck('name', 'id');
-            $salaries = \App\Salary::pluck('name', 'id');
-            $job_types = \App\JobType::pluck('name', 'id');
-            $months = array('0' => '--Chọn Tháng--');
-            for($i = 1; $i <= 12; $i++){
-                $months[$i] = 'Tháng ' . $i;
-            }
-            
-            $years = array('0' => '--Chọn Năm--');
-            for($i = 2017; $i >= 1961; $i--){
-                $years[$i] = 'Năm ' . $i;
-            }
-
-            $loaitotnghieps = array('0' => 'Chọn Loại tốt nghiệp');
-            $loaitotnghieps[] = 'Xuất sắc';
-            $loaitotnghieps[] = 'Giỏi';
-            $loaitotnghieps[] = 'Khá';
-            $loaitotnghieps[] = 'Trung bình khá';
-            $loaitotnghieps[] = 'Trung bình';
-        }
-        return view('curriculum-vitae.create_curriculum_vitae_2', compact('company_id', 'cv_id', 'salaries', 'cities', 'districts', 'salaries', 'months', 'years', 'job_types', 'loaitotnghieps'));
-    }
     
     public function editCurriculumVitae($id) {
         $mine_cv = 0;
@@ -477,6 +442,12 @@ class CurriculumVitaeController extends Controller
         $curriculumVitae = CurriculumVitae::create($input);
 
         if ($curriculumVitae) {
+            $jobTypeGetObj = new \App\JobType;
+            $jobsID = $jobTypeGetObj->getIDByName($input['jobs']);
+
+            $jobGetObj = new Job;
+            $jtse = $jobGetObj->getJobRelative($input['district'], $input['city'], $input['salary_want'], $jobsID, 0, 5);
+            \Mail::to('tran.thanh.tuan269@gmail.com')->send(new \App\Mail\JobSuggest($jtse));
             return redirect()->action(
                     'CurriculumVitaeController@showCurriculumVitae', ['id' => $curriculumVitae->id]
                 );
