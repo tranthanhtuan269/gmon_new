@@ -1170,9 +1170,15 @@ class HomeController extends Controller
 
     public function test(){
         $dataUser = array('email'=>'tran.thanh.tuan269@gmail.com', 'name'=>'tran thanh tuan');
-        Mail::send('emails.welcomeNew', [], function($message) use ($dataUser) {
-            $message->from('support@gmon.com.vn', 'gmon.com.vn');
-            $message->to($dataUser['email'], $dataUser['name'])->subject('Gmon.vn thông báo đăng ký thành công!');
-        });
+        // Mail::send('emails.welcomeNew', [], function($message) use ($dataUser) {
+        //     $message->from('support@gmon.com.vn', 'gmon.com.vn');
+        //     $message->to($dataUser['email'], $dataUser['name'])->subject('Gmon.vn thông báo đăng ký thành công!');
+        // });
+
+        $jobs = new array();
+        $jobs[] = new array('name'=>'Tran Thanh Tuan');
+        $jobs[] = new array('name'=>'Tran Thanh Tuan 2');
+
+        Mail::to($dataUser)->send(new JobSuggest($jobs));
     }
 }

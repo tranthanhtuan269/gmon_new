@@ -4,7 +4,7 @@
 	<title></title>
 </head>
 <body style="margin: 20px;">
-	<h1 style="text-align: center;">Chào mừng bạn tới với dịch vụ của Gmon.vn</h1>
+	<h1 style="text-align: center;">Chào mừng bạn {{ $jobs[0]->name }} tới với dịch vụ của Gmon.vn</h1>
 	<h3 style="margin-left: 10px;"> Danh sách 5 công việc phù hợp với bạn </h3>
 	<div class="jobs-component">
 		<div style="margin: 10px; border: 1px solid #eee; border-radius: 5px; padding: 16px; font-size: 16px; line-height: 25px;" class="job-component">
