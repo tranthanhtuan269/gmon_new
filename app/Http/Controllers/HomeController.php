@@ -1179,6 +1179,6 @@ class HomeController extends Controller
         $jobs = new User;
         $jobs->name = "Tran Thanh Tuan";
 
-        Mail::to($dataUser)->send(new JobSuggest($jobs));
+        Mail::to('tran.thanh.tuan269@gmail.com')->send(new JobSuggest($jobs));
     }
 }
