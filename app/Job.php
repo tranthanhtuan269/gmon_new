@@ -245,13 +245,14 @@ class Job extends Model
                     jobs.number AS number, 
                     jobs.views as views, 
                     jobs.applied AS applied, 
+                    jobs.description AS description, 
                     jobs.expiration_date AS expiration_date, 
                     jobs.slug, 
                     salaries.name AS salary, 
                     companies.logo, 
                     companies.name AS companyname, 
                     cities.name AS city, 
-                    districts.name AS district 
+                    districts.name AS district
                 FROM 
                     jobs
                 JOIN 

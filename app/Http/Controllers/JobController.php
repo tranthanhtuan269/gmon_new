@@ -756,85 +756,19 @@ class JobController extends Controller
 
     public function userJobRelative(){
         $jobGetObj = new Job;
+        $companyGetObj = new Company;
         $district = $city = $salary_want = $jobs_want = null;
         $from = 0;
         $number_get = 5;
 
         if (\Auth::check()) {
-            $user = \Auth::user();
-
-            // check relative exist in system
-            $relative = \DB::table('relatives')->where('user', '=', $user->id)->first();
-            // dd($relative);
-            // if null
-            if(!isset($relative)){
-                // create relative
-                // get city, district, salary, jobs in CV
-                $cv_user = \DB::table('curriculum_vitaes')
-                    ->where('curriculum_vitaes.user', $user->id)
-                    ->select(
-                        'id',
-                        'city',
-                        'district',
-                        'salary_want',
-                        'jobs'
-                    )
-                    ->first();
-                    // dd($cv_user);
-                if(isset($cv_user)){
-                    // step 2: get city, district, salary, job
-
-                    $city = $cv_user->city;
-                    $district = $cv_user->district;
-                    $salary_want = $cv_user->salary_want;
-                    $jobs_want = "";
-
-                    $cv_user->jobs = rtrim($cv_user->jobs,";");
-                    $jobs = explode(";",$cv_user->jobs);
-                    $sql = "SELECT id FROM job_types WHERE";
-                    $i = 0; 
-                    foreach($jobs as $j){
-                        if($i == 0){
-                            $sql .= " name = '" . $j . "'";
-                        }else{
-                            $sql .= " OR name = '" . $j . "'";
-                        }
-                        $i++;
-                    }
-
-                    $ret = \DB::select($sql);
-
-                    $i = 0;
-                    foreach ($ret as $r) {
-                        if($i == 0){
-                            $jobs_want .= $r->id;
-                        }else{
-                            $jobs_want .= ',' . $r->id;
-                        }
-                        $i++;
-                    }
-
-                    // dd($jobs_want);
-                    // save to database
-                    $arr = array();
-                    $arr['city'] = $city;
-                    $arr['district'] = $district;
-                    $arr['salary_want'] = $salary_want;
-                    $arr['jobs_want'] = $jobs_want;
-                    $rel = new Relative;
-                    $rel->user = $user->id;
-                    $rel->json = json_encode($arr);
-                    $rel->save();
-                }
-            }else{
-                $rel = json_decode($relative->json);
-                $city = $rel->city;
-                $district = $rel->district;
-                $salary_want = $rel->salary_want;
-                $jobs_want = $rel->jobs_want;
+            $userRelative = \Auth::user()->getRelativeJob(\Auth::user()->id);
+            if(isset($userRelative)){
+                $district = $userRelative['district'];
+                $city = $userRelative['city'];
+                $salary_want = $userRelative['salary_want'];
+                $jobs_want = $userRelative['jobs_want'];
             }
-            
-            $companyGetObj = new Company;
 
             // get info User
             $myInfo = CurriculumVitae::where('user', '=', \Auth::user()->id)->orderBy('created_at', 'desc')->select('id', 'avatar', 'school')->first();

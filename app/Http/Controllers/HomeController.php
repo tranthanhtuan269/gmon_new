@@ -1176,8 +1176,9 @@ class HomeController extends Controller
         //     $message->to($dataUser['email'], $dataUser['name'])->subject('Gmon.vn thông báo đăng ký thành công!');
         // });
 
-        $jobs = new User;
-        $jobs->name = "Tran Thanh Tuan";
+        $jobs = array();
+        $jobs[0] = array();
+        $jobs[0]['name'] = "Tran Thanh Tuan 2";
 
         Mail::to('tran.thanh.tuan269@gmail.com')->send(new JobSuggest($jobs));
     }

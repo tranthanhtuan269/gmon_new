@@ -30,6 +30,9 @@ class JobSuggest extends Mailable
      */
     public function build()
     {
-        return $this->view('emails.welcomeNew');
+        return $this->view('emails.welcomeNew')
+                    ->with([
+                        'jobs' => $this->jobs
+                    ]);
     }
 }

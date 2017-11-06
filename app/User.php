@@ -62,4 +62,53 @@ class User extends Authenticatable
             return $returnData;
         }
     }
+
+    public function getRelativeJob($user_id){
+        // check relative exist in system
+        $relative = \DB::table('relatives')->where('user', '=', $user_id)->first();
+
+        // if null
+        if(!isset($relative)){
+            // create relative
+            // get city, district, salary, jobs in CV
+            $cv_user = \DB::table('curriculum_vitaes')
+                ->where('curriculum_vitaes.user', $user_id)
+                ->select(
+                    'id',
+                    'city',
+                    'district',
+                    'salary_want',
+                    'jobs'
+                )
+                ->first();
+            if(isset($cv_user)){
+                // step 2: get city, district, salary, job
+                $jobTypeGetObj = new \App\JobType;
+
+                $city = $cv_user->city;
+                $district = $cv_user->district;
+                $salary_want = $cv_user->salary_want;
+                $jobs_want = $jobTypeGetObj->getIDByName($cv_user->jobs);
+
+                // save to database
+                $arr = array();
+                $arr['city'] = $city;
+                $arr['district'] = $district;
+                $arr['salary_want'] = $salary_want;
+                $arr['jobs_want'] = $jobs_want;
+                $rel = new Relative;
+                $rel->user = $user->id;
+                $rel->json = json_encode($arr);
+                $rel->save();
+            }
+        }else{
+            $rel = json_decode($relative->json);
+            $city = $rel->city;
+            $district = $rel->district;
+            $salary_want = $rel->salary_want;
+            $jobs_want = $rel->jobs_want;
+        }
+
+        return array('city'=>$city, 'district'=>$district, 'salary_want'=>$salary_want,'jobs_want'=>$jobs_want);
+    }
 }

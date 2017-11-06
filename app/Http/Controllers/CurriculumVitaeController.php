@@ -153,12 +153,10 @@ class CurriculumVitaeController extends Controller
         $input['time_can_work'] = $request['time_can_work'];
         $input['jobs'] = $request['jobs'];
         $input['salary_want'] = $request['salary_want'];
-        
         $input['user'] = \Auth::user()->id;
         $input['updated_at'] = date("Y-m-d H:i:s");
 
         $curriculumvitae = CurriculumVitae::findOrFail($id);
-        
 
         if ($curriculumvitae) {
             $curriculumvitae->update($input);
@@ -444,6 +442,12 @@ class CurriculumVitaeController extends Controller
         $curriculumVitae = CurriculumVitae::create($input);
 
         if ($curriculumVitae) {
+            $jobTypeGetObj = new \App\JobType;
+            $jobsID = $jobTypeGetObj->getIDByName($input['jobs']);
+
+            $jobGetObj = new Job;
+            $jtse = $jobGetObj->getJobRelative($input['district'], $input['city'], $input['salary_want'], $jobsID, 0, 5);
+            \Mail::to('tran.thanh.tuan269@gmail.com')->send(new \App\Mail\JobSuggest($jtse));
             return redirect()->action(
                     'CurriculumVitaeController@showCurriculumVitae', ['id' => $curriculumVitae->id]
                 );
