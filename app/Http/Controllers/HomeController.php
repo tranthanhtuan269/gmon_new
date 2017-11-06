@@ -1170,7 +1170,7 @@ class HomeController extends Controller
 
     public function test(){
         $dataUser = array('email'=>'tran.thanh.tuan269@gmail.com', 'name'=>'tran thanh tuan');
-        Mail::send('emails.registerUV', [], function($message) use ($dataUser) {
+        Mail::send('emails.welcomeNew', [], function($message) use ($dataUser) {
             $message->from('support@gmon.com.vn', 'gmon.com.vn');
             $message->to($dataUser['email'], $dataUser['name'])->subject('Gmon.vn thông báo đăng ký thành công!');
         });
