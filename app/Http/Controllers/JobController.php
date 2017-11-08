@@ -6,6 +6,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use App\Job;
+use App\User;
 use App\Company;
 use App\CurriculumVitae;
 use App\Apply;
@@ -593,8 +594,18 @@ class JobController extends Controller
 
                     if($apply->save()){
                         $job_selected = Job::find($request->job);
-                        $job_selected->applied = $job_selected->applied + 1;
-                        $job_selected->save();
+                        if(isset($job_selected))
+                            $job_selected->applied = $job_selected->applied + 1;
+                            $job_selected->save();
+
+                            // send email
+                            if(isset($job_selected->created_by) && $job_selected->created_by > 0){
+                                $userToSend = User::find($job_selected->created_by);
+                                if(isset($userToSend) && isset($userToSend->email) && strlen($userToSend->email) > 3){
+                                    \Mail::to($userToSend->email)->send(new \App\Mail\JobSuggest($jtse));
+                                }
+                            }
+                        }
                         return \Response::json(array('code' => '200', 'message' => 'Created success!'));
                     }
                 }

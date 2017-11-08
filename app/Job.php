@@ -27,7 +27,7 @@ class Job extends Model
      *
      * @var array
      */
-    protected $fillable = ['name', 'number', 'expiration_date', 'work_time', 'public', 'description', 'requirement', 'benefit', 'time_start', 'city', 'district', 'position', 'experience', 'education', 'job_type', 'work_type', 'salary', 'gender', 'age', 'company', 'vip', 'branches', 'views', 'applied', 'slug'];
+    protected $fillable = ['name', 'number', 'expiration_date', 'work_time', 'public', 'description', 'requirement', 'benefit', 'time_start', 'city', 'district', 'position', 'experience', 'education', 'job_type', 'work_type', 'salary', 'gender', 'age', 'company', 'created_by', 'vip', 'branches', 'views', 'applied', 'slug'];
 
     /**
      * Return the sluggable configuration array for this model.
