@@ -447,7 +447,9 @@ class CurriculumVitaeController extends Controller
 
             $jobGetObj = new Job;
             $jtse = $jobGetObj->getJobRelative($input['district'], $input['city'], $input['salary_want'], $jobsID, 0, 5);
-            \Mail::to('tran.thanh.tuan269@gmail.com')->send(new \App\Mail\JobSuggest($jtse));
+            if(isset($user->email) && strlen($user->email) > 3){
+                \Mail::to($user->email)->send(new \App\Mail\JobSuggest($jtse));
+            }
             return redirect()->action(
                     'CurriculumVitaeController@showCurriculumVitae', ['id' => $curriculumVitae->id]
                 );
