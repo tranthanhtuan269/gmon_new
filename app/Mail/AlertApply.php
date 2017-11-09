@@ -7,20 +7,20 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class JobSuggest extends Mailable
+class AlertApply extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $jobs;
+    public $cv;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($jobs)
+    public function __construct($cv)
     {
-        $this->jobs = $jobs;
+        $this->cv = $cv;
     }
 
     /**
@@ -30,9 +30,9 @@ class JobSuggest extends Mailable
      */
     public function build()
     {
-        return $this->view('emails.fivejobs')
+        return $this->view('emails.alertApply')
                     ->with([
-                        'jobs' => $this->jobs
+                        'cv' => $this->cv
                     ]);
     }
 }
