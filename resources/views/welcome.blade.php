@@ -1,6 +1,12 @@
 @extends('layouts.layout')
 
 @section('content')
+
+<style type="text/css">
+    .image-banner{
+        float: left;
+    }
+</style>
 <?php $jobstype = \App\JobType::select('id', 'name')->get(); ?>
     <header>
         <div class="header-mid">
@@ -91,7 +97,7 @@
                     @if($city != 3)
                     <a width="50%" target="_self" href="http://gmon.vn/company/323/info"><img src="http://test.gmon.com.vn/?image=Banner-Web-Gmon-11.jpg" alt=""></a><a width="50%" target="_self" href="http://gmon.vn/company/278/info"><img src="http://test.gmon.com.vn/?image=Banner-Web-Gmon-12.jpg" alt=""></a>
                     @else
-                    <a width="50%" target="_self" href="http://gmon.vn/job/722/giam_doc_dieu_hanh"><img src="http://test.gmon.com.vn/?image=Banner-Web-Gmon-v3-01.png" alt=""></a><a width="50%" target="_self" href="http://gmon.vn/job/711/nhan_vien_thiet_ke"><img src="http://test.gmon.com.vn/?image=Banner-Web-Gmon-v3-02.png" alt=""></a>
+                    <a width="50%" target="_self" href="http://gmon.vn/job/743/nhan_vien_phuc_vu_part_time​" class="image-banner"><img src="http://test.gmon.com.vn/?image=web1.png" alt=""></a><a width="50%" target="_self" href="http://gmon.vn//job/view/722" class="image-banner"><img src="http://test.gmon.com.vn/?image=web2.png" alt=""></a><a width="50%" target="_self" href="http://gmon.vn/job/744/nhan_vien_tu_van_tai_chinh"><img src="http://test.gmon.com.vn/?image=web2.gif" alt=""></a>
                     @endif
                 </div>
                 <div class="row news">
@@ -175,7 +181,11 @@
             <div class="col-md-3 col-xs-12">
                 <div class="ads-top"><a target="_self" href=""><img src="http://test.gmon.com.vn/?image=ads.png" alt=""></a></div>
                 <div class="ads-bot">
+                    @if($city != 3)
                     <a target="_self" href="http://gmon.vn/company/27/info"><img src="http://test.gmon.com.vn/?image=Banner-Web-Gmon-13.gif" alt=""></a>
+                    @else
+                    <a target="_self" href="http://gmon.vn//job/view/709"><img src="http://test.gmon.com.vn/?image=web3.gif" alt=""></a>
+                    @endif
                 </div>
             </div>
         </div>
@@ -597,6 +607,21 @@
 
         function onFocusCandidates(event) {
             $(event.target).find(".view").animate({top: 0 + 'px'}, 300);
+        }
+
+        var slideIndex = 0;
+        showSlides();
+
+        function showSlides() {
+            var i;
+            var slides = document.getElementsByClassName("image-banner");
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none"; 
+            }
+            slideIndex++;
+            if (slideIndex > slides.length) {slideIndex = 1} 
+            slides[slideIndex-1].style.display = "block"; 
+            setTimeout(showSlides, 2000); // Change image every 2 seconds
         }
     </script>
 @endsection
