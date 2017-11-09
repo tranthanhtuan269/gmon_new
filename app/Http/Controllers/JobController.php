@@ -65,7 +65,7 @@ class JobController extends Controller
                 ->select(
                     'jobs.id',
                     'jobs.name',
-                    'companies.name as salary',
+                    'companies.name as company',
                     'jobs.vip as vip',
                     'jobs.expiration_date as expiration_date',
                     'cities.name as city'
@@ -79,7 +79,7 @@ class JobController extends Controller
                 ->select(
                     'jobs.id',
                     'jobs.name',
-                    'companies.name as salary',
+                    'companies.name as company',
                     'jobs.vip as vip',
                     'jobs.expiration_date as expiration_date',
                     'cities.name as city'

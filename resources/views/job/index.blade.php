@@ -42,7 +42,7 @@
                                 @foreach($job as $item)
                                     <tr>
                                         <td>{{ $item->id }}</td>
-                                        <td><a href="{{ url('/') }}//job/view/{{ $item->id }}">{{ $item->name }}</a></td>
+                                        <td><a href="{{ url('/') }}//job/view/{{ $item->id }}">{{ $item->name }}</a> <br /> tại {{ $item->company }}</td>
                                         <td>{{ $item->expiration_date }}</td>
                                         <td>{{ $item->city }}</td>
                                         <td>
