@@ -575,9 +575,21 @@ class JobController extends Controller
 
             // check exist CV
             $cv_user = \DB::table('curriculum_vitaes')
+                    ->join('users', 'users.id', '=', 'curriculum_vitaes.user')
+                    ->join('cities', 'cities.id', '=', 'curriculum_vitaes.city')
+                    ->join('districts', 'districts.id', '=', 'curriculum_vitaes.district')
+                    ->join('salaries', 'salaries.id', '=', 'curriculum_vitaes.salary_want')
                     ->where('curriculum_vitaes.user', $current_id)
                     ->select(
-                        'id'
+                        'curriculum_vitaes.id as id',
+                        'users.name as username',
+                        'curriculum_vitaes.birthday as birthday',
+                        'curriculum_vitaes.avatar as avatarCv',
+                        'users.avatar as avatarU',
+                        'curriculum_vitaes.jobs as jobs',
+                        'salaries.name as salary',
+                        'cities.name as city',
+                        'districts.name as district'
                     )
                     ->first();
             if($cv_user){
@@ -594,19 +606,17 @@ class JobController extends Controller
 
                     if($apply->save()){
                         $job_selected = Job::find($request->job);
-                        if(isset($job_selected))
+                        if(isset($job_selected)){
                             $job_selected->applied = $job_selected->applied + 1;
                             $job_selected->save();
-
-                            // send email
-                            if(isset($job_selected->created_by) && $job_selected->created_by > 0){
-                                $userToSend = User::find($job_selected->created_by);
+                            if(isset($job_selected->created_by) && ($job_selected->created_by > 0)){
+                                $userToSend = \App\User::find($job_selected->created_by);
                                 if(isset($userToSend) && isset($userToSend->email) && strlen($userToSend->email) > 3){
-                                    \Mail::to($userToSend->email)->send(new \App\Mail\JobSuggest($jtse));
+                                    \Mail::to($userToSend->email)->send(new \App\Mail\AlertApply($cv_user));
                                 }
                             }
+                            return \Response::json(array('code' => '200', 'message' => 'Created success!'));
                         }
-                        return \Response::json(array('code' => '200', 'message' => 'Created success!'));
                     }
                 }
             }else{
