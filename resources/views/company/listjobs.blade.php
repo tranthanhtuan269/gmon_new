@@ -441,7 +441,6 @@
         });
 
         function onOpenLogin() {
-            alert(1);
             $("#login").addClass("in active");
             $("#register").removeClass("in active");
             $("li.register a").removeClass("active");
