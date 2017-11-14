@@ -356,3 +356,121 @@ img.no-vote{
 .form-horizontal .form-group{
     min-height: 30px;
 }
+
+.main-content{
+    margin-top:20px;
+}
+
+.main-menu{margin-top: 20px;background: white;border-radius: 8px;border:1px solid #E5E5E5;}
+.slide{position: relative;width: 100%;height: auto;min-height: 245px;}
+.slide .logo{position: absolute;left:4%;bottom:-13%;border:1px solid #DDDDDD;background: white;width: 200px;height: 200px;}
+.menu{text-align: center;padding: 20px;margin: 5px;line-height: 20px; width: 100%;}
+.menu a{padding: 5px 0px;margin:0 10px;font-size: 16px;color:#000;border-bottom: 3px solid transparent;font-weight: bold;}
+.menu a.active{color:#5788c2;border-bottom-color: #5788c2}
+.menu a:hover{color:#5788c2;border-bottom-color: #5788c2}
+.menu button{float: right;font-size: 16px;margin-top: -2px;margin-bottom: 20px}
+.menu button i{background: url("../images/bg.png") -16px 0 no-repeat;width:20px;height: 12px;display:inline-block;}
+
+.hot-new{
+    width: 100%;
+}
+.bt-rate {
+    float: right;
+    margin-top: -3px;
+}
+
+.bt-rate i {
+    background: url(../images/bg.png) -0px 0px no-repeat;
+    width: 15px;
+    height: 15px;
+    display: inline-block;
+    margin-bottom: -4px;
+    margin-right: 5px;
+}
+
+#listjobs .col-right {
+    border-left: 20px solid transparent;
+    margin-bottom: 40px;
+}
+
+#listjobs .pn-left {
+    border: 1px solid #E3E3E3;
+    border-radius: 8px;
+    background: white;
+    padding: 10px 20px;
+    box-shadow: 0px 2px 3px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+}
+
+#listjobs .pn-left h5 {
+    background: #f5f8fa;
+    margin-left: -21px;
+    margin-right: -21px;
+    margin-top: 5px;
+    padding: 15px 20px;
+    margin-bottom: 10px;
+    color: #9ea5aa;
+    width: 120%;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+#listjobs .pn-hightlight h5 {
+    background: #f5f8fa;
+    margin-left: -21px;
+    margin-right: -21px;
+    margin-top: 5px;
+    padding: 15px 20px;
+    margin-bottom: 0;
+    color: #9ea5aa;
+    width: 120%;
+    font-weight: bold;
+}
+
+#listjobs .pn-rating .star-vote {
+    margin: 0;
+    padding-top: 0;
+    background:none;
+    height: auto;
+    border-radius:0;
+    width: 100%;
+}
+
+#listjobs .pn-rating .star-vote img {
+    border-radius: 8px;
+    background: #0970B1;
+    padding: 6px;
+    margin: 0;
+}
+
+#listjobs .pn-left>p {
+    padding: 10px 0 10px;
+    border-bottom: 1px solid #F2F2F2;
+}
+
+#listjobs .pn-hightlight .bot {
+    text-align: center;
+    margin-top: -5px;
+}
+
+#listjobs .pn-hightlight .bot {
+    text-align: center;
+    margin-top: 0px;
+    width: 100%;
+}
+
+#listjobs .pn-hightlight .bot span {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: white;
+    display: inline-block;
+    margin-right: 1px;
+    border: 1px solid #D4D4D4;
+}
+
+#listjobs .pn-hightlight .bot span.active {
+    background: #2a70b8;
+    width: 9px;
+    height: 9px;
+}

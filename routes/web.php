@@ -43,35 +43,35 @@ Route::get('/user/cvappliednew', 'HomeController@cvappliednew');
 Route::get('/user/cvviewed', 'HomeController@cvviewed');
 Route::get('/user/cvsaved', 'HomeController@cvsaved');
 Route::get('/user/cvsuggest', 'HomeController@cvsuggest');
-Route::get('test', 'HomeController@test');
-Route::get('testnew', 'HomeController@testnew');
-Route::post('curriculumvitae/saveCV', 'HomeController@saveCV');
-Route::post('removeApplied', 'HomeController@removeApplied');
-Route::post('removeSaved', 'HomeController@removeSaved');
-Route::post('changeToViewed', 'HomeController@changeToViewed');
-Route::get('getCVAppliedOfJob', 'HomeController@getCVAppliedByJobID');
-Route::get('getCVAppliedNewOfJob', 'HomeController@getCVAppliedNewByJobID');
-Route::get('getCVAppliedViewedOfJob', 'HomeController@getCVAppliedViewedByJobID');
+Route::get('/test', 'HomeController@test');
+Route::get('/testnew', 'HomeController@testnew');
+Route::post('/curriculumvitae/saveCV', 'HomeController@saveCV');
+Route::post('/removeApplied', 'HomeController@removeApplied');
+Route::post('/removeSaved', 'HomeController@removeSaved');
+Route::post('/changeToViewed', 'HomeController@changeToViewed');
+Route::get('/getCVAppliedOfJob', 'HomeController@getCVAppliedByJobID');
+Route::get('/getCVAppliedNewOfJob', 'HomeController@getCVAppliedNewByJobID');
+Route::get('/getCVAppliedViewedOfJob', 'HomeController@getCVAppliedViewedByJobID');
 
 
 
 
 
-Route::resource('branch', 'BranchController');
-Route::get('hello', 'HomeController@homenew2');
-Route::get('welcome', 'HomeController@homenew');
+Route::resource('/branch', 'BranchController');
+Route::get('/hello', 'HomeController@homenew2');
+Route::get('/welcome', 'HomeController@homenew');
 Route::get('/showmore', 'HomeController@showmore')->name('showmore');
 Route::get('/home', 'HomeController@welcome')->name('home');
 
-Route::get('auth/facebook', 'Auth\RegisterController@redirectToFacebook');
-Route::get('auth/facebook/callback', 'Auth\RegisterController@handleFacebookCallback');
-Route::get('auth/google', 'Auth\RegisterController@redirectToGoogle');
-Route::get('auth/google/callback', 'Auth\RegisterController@handleGoogleCallback');
-Route::post('auth/login', 'SiteController@loginApi');
-Route::post('auth/register', 'SiteController@registerApi');
+Route::get('/auth/facebook', 'Auth\RegisterController@redirectToFacebook');
+Route::get('/auth/facebook/callback', 'Auth\RegisterController@handleFacebookCallback');
+Route::get('/auth/google', 'Auth\RegisterController@redirectToGoogle');
+Route::get('/auth/google/callback', 'Auth\RegisterController@handleGoogleCallback');
+Route::post('/auth/login', 'SiteController@loginApi');
+Route::post('/auth/register', 'SiteController@registerApi');
 
-Route::get('curriculumvitae', 'CurriculumVitaeController@indexCurriculumVitae');
-Route::get('curriculumvitae/view/{id}', 'CurriculumVitaeController@showCurriculumVitae');
+Route::get('/curriculumvitae', 'CurriculumVitaeController@indexCurriculumVitae');
+Route::get('/curriculumvitae/view/{id}', 'CurriculumVitaeController@showCurriculumVitae');
 Route::get('/job/view/{id}', 'JobController@info');
 Route::get('/getJob/', 'JobController@getJob');
 Route::get('/getJobWithBanner/', 'JobController@getJobWithBanner');
@@ -79,13 +79,11 @@ Route::get('/getCompany/', 'CompanyController@getCompany');
 Route::get('/getCV/', 'CurriculumVitaeController@getCV');
 
 Route::post('/job/join', 'JobController@join');
-Route::get('company/{id}/info', 'CompanyController@info');
-Route::get('company/{id}/listjobs', 'CompanyController@listjobs');
+Route::get('/company/{id}/info', 'CompanyController@info');
+Route::get('/company/{id}/listjobs', 'CompanyController@listjobs');
 Route::get('/getDistrict/{id}', 'HomeController@getDistrict');
 Route::get('/getDistrictli/{id}', 'HomeController@getDistrictLi');
 Route::get('/getTown/{id}', 'HomeController@getTown');
-Route::post('follow-company', 'CompanyController@follow');
-Route::post('unfollow-company', 'CompanyController@unfollow');
 
 Route::get('privacy-policy', 'HomeController@privacypolicy');
 Route::get('terms-of-service', 'HomeController@termsofservice');
@@ -105,7 +103,8 @@ Route::group(['middleware' => 'auth'], function(){
     Route::post('/postImage', 'HomeController@postImage');
     Route::post('/postImages', 'HomeController@postImages');
     Route::post('/curriculumvitae/send-comment', 'CurriculumVitaeController@sendcomment');
-
+    Route::post('/follow-company', 'CompanyController@follow');
+    Route::post('/unfollow-company', 'CompanyController@unfollow');
 });
 
 // Check role in route middleware

@@ -29,6 +29,7 @@
     <link rel="stylesheet" href="{{ url('/') }}/public/css/jquery.fancybox.min.css" />
     <link rel="stylesheet" href="{{ url('/') }}/public/css/jquery.mmenu.all.css" />
     <link rel="stylesheet" href="{{ url('/') }}/public/css/style-new-home.min.css" />
+    <link rel="stylesheet" href="{{ url('/') }}/public/css/customize.css">
 
     <script type="text/javascript" src="{{ url('/') }}/public/js/jquery-3.2.0.min.js"></script>
     <script type="text/javascript" src="{{ url('/') }}/public/js/tether.min.js"></script>

@@ -343,6 +343,8 @@ class JobController extends Controller
         $job = Job::create($input);
 
         if ($job) {
+            
+            // \Mail::to($userToSend->email)->send(new \App\Mail\CVSuggest($cvs));
             return redirect()->action(
                     'JobController@info', ['id' => $job->id]
                 );
