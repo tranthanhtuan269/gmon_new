@@ -1380,6 +1380,9 @@
                         <a target="_self" href=""></a>
                         <a target="_self" href=""></a>
                     </p>
+                    <div style="font-size: 15px;">Giấy phép đăng ký kinh doanh số 0107560903</div>
+                    <div style="font-size: 15px;">Cấp lần đầu ngày 12/9/2016</div>
+                    <div style="font-size: 15px;">Nơi cấp: Sở Kế hoạch và Đầu tư thành phố Hà Nội</div>
                 </div>
             </div>
             <div class="footer-bot row">
