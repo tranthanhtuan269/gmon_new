@@ -396,6 +396,9 @@
                             <li><a href="http://gmon.vn"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>
                             <li><a href="http://gmon.vn"><i class="fa fa-youtube-play" aria-hidden="true"></i></a></li>
                         </ul>
+                        <div style="font-size: 15px;">Giấy phép đăng ký kinh doanh số 0107560903</div>
+                        <div style="font-size: 15px;">Cấp lần đầu ngày 12/9/2016</div>
+                        <div style="font-size: 15px;">Nơi cấp: Sở Kế hoạch và Đầu tư thành phố Hà Nội</div>
                     </div>
                 </div>
             </div>
