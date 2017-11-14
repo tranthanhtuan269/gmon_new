@@ -745,7 +745,7 @@ class CompanyController extends Controller {
 
             $star = intval($totalStar / $numberComment);
 
-            return view('company.listjobs', array('company' => $company, 'jobs' => $jobs, 'followed' => $followed, 'comments' => $comments, 'votes' => $star));
+            return view('company.listjobs', array('company' => $company, 'jobs' => $jobs, 'followed' => $followed, 'comments' => $comments, 'votes' => $star, 'cv_id' => $cv_id, 'company_id' => $company_id));
         }
         return view('errors.404');
     }
