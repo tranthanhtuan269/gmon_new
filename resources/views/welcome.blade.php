@@ -6,6 +6,9 @@
     .image-banner{
         float: left;
     }
+    .image-banner2{
+        float: left;
+    }
 </style>
 <?php $jobstype = \App\JobType::select('id', 'name')->get(); ?>
     <header>
@@ -197,8 +200,8 @@
                     @if($city != 3)
                     <a target="_self" href="http://gmon.vn/company/27/info"><img src="http://test.gmon.com.vn/?image=Banner-Web-Gmon-13.gif" alt=""></a>
                     @else
-                    <a target="_self" href="http://gmon.vn//job/view/709" class="image-banner"><img src="http://test.gmon.com.vn/?image=web3.gif" alt=""></a>
-                    <a target="_self" href="http://gmon.vn//job/view/759" class="image-banner"><img src="http://test.gmon.com.vn/?image=web4.gif" alt=""></a>
+                    <a target="_self" href="http://gmon.vn//job/view/709" class="image-banner3"><img src="http://test.gmon.com.vn/?image=web3.gif" alt=""></a>
+                    <a target="_self" href="http://gmon.vn//job/view/759" class="image-banner3"><img src="http://test.gmon.com.vn/?image=web4.gif" alt=""></a>
                     @endif
                 </div>
             </div>
@@ -623,25 +626,10 @@
             $(event.target).find(".view").animate({top: 0 + 'px'}, 300);
         }
 
-        var slideIndex = 0;
-        showSlides();
-
-        function showSlides() {
-            var i;
-            var slides = document.getElementsByClassName("image-banner");
-            for (i = 0; i < slides.length; i++) {
-                slides[i].style.display = "none"; 
-            }
-            slideIndex++;
-            if (slideIndex > slides.length) {slideIndex = 1} 
-            slides[slideIndex-1].style.display = "block"; 
-            setTimeout(showSlides, 2000); // Change image every 2 seconds
-        }
-
         var slideIndex2 = 0;
         showSlides2();
 
-        function showSlides2() {
+        function showSlides() {
             var i;
             var slides = document.getElementsByClassName("image-banner2");
             for (i = 0; i < slides.length; i++) {
@@ -651,6 +639,21 @@
             if (slideIndex > slides.length) {slideIndex = 1} 
             slides[slideIndex-1].style.display = "block"; 
             setTimeout(showSlides2, 2000); // Change image every 2 seconds
+        }
+
+        var slideIndex3 = 0;
+        showSlides3();
+
+        function showSlides3() {
+            var i;
+            var slides = document.getElementsByClassName("image-banner3");
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none"; 
+            }
+            slideIndex++;
+            if (slideIndex > slides.length) {slideIndex = 1} 
+            slides[slideIndex-1].style.display = "block"; 
+            setTimeout(showSlides3, 2000); // Change image every 2 seconds
         }
     </script>
 @endsection
