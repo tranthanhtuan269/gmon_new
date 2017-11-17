@@ -197,8 +197,8 @@
                     @if($city != 3)
                     <a target="_self" href="http://gmon.vn/company/27/info"><img src="http://test.gmon.com.vn/?image=Banner-Web-Gmon-13.gif" alt=""></a>
                     @else
-                    <a target="_self" href="http://gmon.vn//job/view/709" class="image-banner2"><img src="http://test.gmon.com.vn/?image=web3.gif" alt=""></a>
-                    <a target="_self" href="http://gmon.vn//job/view/759" class="image-banner2"><img src="http://test.gmon.com.vn/?image=web4.gif" alt=""></a>
+                    <a target="_self" href="http://gmon.vn//job/view/709" class="image-banner"><img src="http://test.gmon.com.vn/?image=web3.gif" alt=""></a>
+                    <a target="_self" href="http://gmon.vn//job/view/759" class="image-banner"><img src="http://test.gmon.com.vn/?image=web4.gif" alt=""></a>
                     @endif
                 </div>
             </div>
@@ -628,7 +628,7 @@
 
         function showSlides() {
             var i;
-            var slides = document.getElementsByClassName("image-banner2");
+            var slides = document.getElementsByClassName("image-banner");
             for (i = 0; i < slides.length; i++) {
                 slides[i].style.display = "none"; 
             }
@@ -636,6 +636,21 @@
             if (slideIndex > slides.length) {slideIndex = 1} 
             slides[slideIndex-1].style.display = "block"; 
             setTimeout(showSlides, 2000); // Change image every 2 seconds
+        }
+
+        var slideIndex2 = 0;
+        showSlides2();
+
+        function showSlides2() {
+            var i;
+            var slides = document.getElementsByClassName("image-banner2");
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none"; 
+            }
+            slideIndex++;
+            if (slideIndex > slides.length) {slideIndex = 1} 
+            slides[slideIndex-1].style.display = "block"; 
+            setTimeout(showSlides2, 2000); // Change image every 2 seconds
         }
     </script>
 @endsection
