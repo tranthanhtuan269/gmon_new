@@ -95,9 +95,22 @@
             <div class="col-md-9 col-xs-12">
                 <div class="banner row">
                     @if($city != 3)
-                    <a width="50%" target="_self" href="http://gmon.vn/company/323/info"><img src="http://test.gmon.com.vn/?image=Banner-Web-Gmon-11.jpg" alt=""></a><a width="50%" target="_self" href="http://gmon.vn/company/278/info"><img src="http://test.gmon.com.vn/?image=Banner-Web-Gmon-12.jpg" alt=""></a>
+                    <a width="50%" target="_self" href="http://gmon.vn/company/323/info">
+                        <img src="http://test.gmon.com.vn/?image=Banner-Web-Gmon-11.jpg" alt="">
+                    </a>
+                    <a width="50%" target="_self" href="http://gmon.vn/company/278/info">
+                        <img src="http://test.gmon.com.vn/?image=Banner-Web-Gmon-12.jpg" alt="">
+                    </a>
                     @else
-                    <a width="50%" target="_self" href="http://gmon.vn/job/743/nhan_vien_phuc_vu_part_time​" class="image-banner"><img src="http://test.gmon.com.vn/?image=web1.png" alt=""></a><a width="50%" target="_self" href="http://gmon.vn//job/view/722" class="image-banner"><img src="http://test.gmon.com.vn/?image=web2.png" alt=""></a><a width="50%" target="_self" href="http://gmon.vn/job/744/nhan_vien_tu_van_tai_chinh"><img src="http://test.gmon.com.vn/?image=web2.gif" alt=""></a>
+                    <a width="50%" target="_self" href="http://gmon.vn//job/view/757" class="image-banner">
+                        <img src="http://test.gmon.com.vn/?image=web1.png" alt="">
+                    </a>
+                    <a width="50%" target="_self" href="http://gmon.vn/job/744/nhan_vien_tu_van_tai_chinh" class="image-banner2">
+                        <img src="http://test.gmon.com.vn/?image=web2.gif" alt="">
+                    </a>
+                    <a width="50%" target="_self" href="http://gmon.vn/job/761/nhan_vien_phuc_vu_653" class="image-banner2">
+                        <img src="http://test.gmon.com.vn/?image=web5.gif" alt="">
+                    </a>
                     @endif
                 </div>
                 <div class="row news">
@@ -185,6 +198,7 @@
                     <a target="_self" href="http://gmon.vn/company/27/info"><img src="http://test.gmon.com.vn/?image=Banner-Web-Gmon-13.gif" alt=""></a>
                     @else
                     <a target="_self" href="http://gmon.vn//job/view/709"><img src="http://test.gmon.com.vn/?image=web3.gif" alt=""></a>
+                    <a target="_self" href="http://gmon.vn//job/view/759"><img src="http://test.gmon.com.vn/?image=web4.gif" alt=""></a>
                     @endif
                 </div>
             </div>
@@ -614,7 +628,7 @@
 
         function showSlides() {
             var i;
-            var slides = document.getElementsByClassName("image-banner");
+            var slides = document.getElementsByClassName("image-banner2");
             for (i = 0; i < slides.length; i++) {
                 slides[i].style.display = "none"; 
             }
