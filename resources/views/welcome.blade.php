@@ -629,7 +629,7 @@
         var slideIndex2 = 0;
         showSlides2();
 
-        function showSlides() {
+        function showSlides2() {
             var i;
             var slides = document.getElementsByClassName("image-banner2");
             for (i = 0; i < slides.length; i++) {
