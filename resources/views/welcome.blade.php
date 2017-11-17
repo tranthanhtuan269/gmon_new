@@ -635,9 +635,9 @@
             for (i = 0; i < slides.length; i++) {
                 slides[i].style.display = "none"; 
             }
-            slideIndex++;
-            if (slideIndex > slides.length) {slideIndex = 1} 
-            slides[slideIndex-1].style.display = "block"; 
+            slideIndex2++;
+            if (slideIndex2 > slides.length) {slideIndex2 = 1} 
+            slides[slideIndex2-1].style.display = "block"; 
             setTimeout(showSlides2, 2000); // Change image every 2 seconds
         }
 
@@ -650,9 +650,9 @@
             for (i = 0; i < slides.length; i++) {
                 slides[i].style.display = "none"; 
             }
-            slideIndex++;
-            if (slideIndex > slides.length) {slideIndex = 1} 
-            slides[slideIndex-1].style.display = "block"; 
+            slideIndex3++;
+            if (slideIndex3 > slides.length) {slideIndex3 = 1} 
+            slides[slideIndex3-1].style.display = "block"; 
             setTimeout(showSlides3, 2000); // Change image every 2 seconds
         }
     </script>
