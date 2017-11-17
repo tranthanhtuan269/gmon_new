@@ -197,8 +197,8 @@
                     @if($city != 3)
                     <a target="_self" href="http://gmon.vn/company/27/info"><img src="http://test.gmon.com.vn/?image=Banner-Web-Gmon-13.gif" alt=""></a>
                     @else
-                    <a target="_self" href="http://gmon.vn//job/view/709"><img src="http://test.gmon.com.vn/?image=web3.gif" alt=""></a>
-                    <a target="_self" href="http://gmon.vn//job/view/759"><img src="http://test.gmon.com.vn/?image=web4.gif" alt=""></a>
+                    <a target="_self" href="http://gmon.vn//job/view/709" class="image-banner2"><img src="http://test.gmon.com.vn/?image=web3.gif" alt=""></a>
+                    <a target="_self" href="http://gmon.vn//job/view/759" class="image-banner2"><img src="http://test.gmon.com.vn/?image=web4.gif" alt=""></a>
                     @endif
                 </div>
             </div>
