@@ -106,7 +106,7 @@
                     </a>
                     @else
                     <a width="50%" target="_self" href="http://gmon.vn//job/view/757" class="image-banner">
-                        <img src="http://test.gmon.com.vn/?image=web1.png" alt="">
+                        <img src="http://test.gmon.com.vn/?image=web1.gif" alt="">
                     </a>
                     <a width="50%" target="_self" href="http://gmon.vn/job/744/nhan_vien_tu_van_tai_chinh" class="image-banner2">
                         <img src="http://test.gmon.com.vn/?image=web2.gif" alt="">
