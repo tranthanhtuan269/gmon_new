@@ -280,7 +280,7 @@
                         <h4>Tìm kiếm việc làm. <span>Hàng ngàn cơ hội!</span></h4>
 
                         <form class="form-inline">
-                            <div class="form-group">
+                            <div class="form-group full-row">
                                 <div class="dropdown">
                                     <button id="select-job-type-btn" class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false" data-id="0">- Chọn ngành nghề -<span class="caret"></span></button>
 
@@ -292,7 +292,7 @@
                                     </ul>
                                 </div>
                             </div>
-                            <div class="form-group">
+                            <div class="form-group full-row">
                                 <div class="dropdown">
                                     <div class="dropdown">
                                         <button id="select-city-btn" class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
@@ -308,7 +308,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="form-group">
+                            <div class="form-group full-row">
                                 <div class="dropdown">
                                     <button id="select-district-btn" class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
                                         <span class="fa fa-map-marker"></span>- Quận/Huyện
@@ -322,72 +322,10 @@
                             <div class="form-group submit">
                                 <button type="submit" id="search-btn" class="btn btn-default">Tìm kiếm</button>
                             </div>
-
                         </form>
-                        <div class="bottom-search">
-                            <span>Tìm kiếm nhanh: </span>
-                            <a href="{{ url('/') }}/showmore?job=new">Tất cả công việc</a>
-                            <a href="{{ url('/') }}/showmore?job=vip1">Việc làm vip</a>
-                            <a href="{{ url('/') }}/showmore?job=vip2">Việc làm hot</a>
-                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-</div>
-
-<div class="footer-homepage">
-    <div class="top-footer">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-4 footer-1 item">
-                    <div class="title">
-                        về gmon
-                    </div>
-                    <ul>
-                        <li><a href="http://news.gmon.vn/post/10/lich-su-phat-trien-gmon">giới thiệu</a></li>
-                        <li><a href="{{ url('/') }}/showmore?job=new">việc làm</a></li>
-                        <li><a href="{{ url('/') }}/showmore?company=new">nhà tuyển dụng</a></li>
-                        <li><a href="{{ url('/') }}">hồ sơ ứng viên</a></li>
-                    </ul>
-                </div>
-                <div class="col-md-4 footer-2 item">
-                    <div class="title">
-                        công cụ
-                    </div>
-                    <ul>
-                        <li><a href="{{ url('/') }}/privacy-policy">Quy định bảo mật</a></li>
-                        <li><a href="{{ url('/') }}/terms-of-service">Điều khoản sử dụng</a></li>
-                        <li><a href="{{ url('/') }}">Thông báo việc làm</a></li>
-                        <li><a href="{{ url('/') }}">Phản hồi</a></li>
-                        <li><a href="http://news.gmon.vn">Tư vấn nghề nghiệp</a></li>
-                    </ul>
-                </div>
-                <div class="col-md-4 footer-3 item">
-                    <div class="title">
-                        về gmon
-                    </div>
-                    <ul>
-                        <li><a href="{{ url('/') }}"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-                        <li><a href="{{ url('/') }}"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>
-                        <li><a href="{{ url('/') }}"><i class="fa fa-youtube-play" aria-hidden="true"></i></a></li>
-                    </ul>
-                    <div style="font-size: 15px;">Giấy phép đăng ký kinh doanh số 0107560903</div>
-                    <div style="font-size: 15px;">Cấp lần đầu ngày 12/9/2016</div>
-                    <div style="font-size: 15px;">Nơi cấp: Sở Kế hoạch và Đầu tư thành phố Hà Nội</div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="bottom-footer">
-        <div class="container">
-            <p><b>Công ty cổ phần giải pháp và công nghệ Gmon</b></p>
-            <p><b>Trụ sở chính:</b> Tầng 8, Tòa nhà Trần Phú, Dương Đình Nghệ, Cầu Giấy, Hà Nội</p>
-            <p><b>Điện thoại:</b> 0243.212.1515</p>
-            <p><b>VPĐD:</b> Số 31, Trần Phú, Hải Châu I, Hải Châu, Đà Nẵng</p>
-            <p><b>Điện thoại:</b> 0961 545 115</p>
-            <p><b>Email:</b> support@gmon.vn</p>
         </div>
     </div>
 </div>
