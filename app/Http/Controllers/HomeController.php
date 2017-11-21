@@ -635,6 +635,7 @@ class HomeController extends Controller
 
         $job_types = \DB::table('job_types')
                         ->select('id', 'name', 'slug')
+                        ->where('teacher_show', '=', 1)
                         ->get();
 
         $cities = \DB::table('cities')
