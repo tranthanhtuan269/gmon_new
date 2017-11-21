@@ -1136,3 +1136,7 @@ header .top-menu-mobile .right .fa {
         display: none;
     }
 }
+
+#select-job-type{
+    width: 17.5rem;
+}
