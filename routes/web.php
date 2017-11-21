@@ -180,8 +180,10 @@ Route::group(['middleware' => ['auth', 'roles'], 'roles' => 'master'], function 
     Route::post('post/unactive', 'PostController@unactive');
     Route::resource('master/category', 'CategoryController');
 
-    Route::post('jobtype/active', 'JobTypeController@active');
-    Route::post('jobtype/unactive', 'JobTypeController@unactive');
+    Route::post('jobtype/activespa', 'JobTypeController@activespa');
+    Route::post('jobtype/unactivespa', 'JobTypeController@unactivespa');
+    Route::post('jobtype/activeteacher', 'JobTypeController@activeteacher');
+    Route::post('jobtype/unactiveteacher', 'JobTypeController@unactiveteacher');
     Route::resource('admin/job-type', 'JobTypeController');
     Route::resource('master/partner', 'PartnerController');
 });

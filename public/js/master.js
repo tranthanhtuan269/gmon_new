@@ -169,7 +169,7 @@ $(document).ready(function(){
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
-            url: url_site + "/jobtype/active",
+            url: url_site + "/jobtype/activespa",
             method: "POST",
             data: {
                 'jobtype': jobtype_id
@@ -189,6 +189,33 @@ $(document).ready(function(){
         });
     });
 
+    $('.active-teacher').click(function(){
+        var _sefl = $(this);
+        var jobtype_id = $(this).attr('data-id');
+        var request = $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            url: url_site + "/jobtype/activeteacher",
+            method: "POST",
+            data: {
+                'jobtype': jobtype_id
+            },
+            dataType: "json"
+        });
+
+        request.done(function (msg) {
+            if (msg.code == 200) {
+               _sefl.addClass('hidden-object').removeClass('show-object');
+               _sefl.parent().find(".unactive-teacher").addClass('show-object').removeClass('hidden-object');
+            }
+        });
+
+        request.fail(function (jqXHR, textStatus) {
+            alert("Request failed: " + textStatus);
+        });
+    });
+
     $('.unactive-spa').click(function(){
         var _sefl = $(this);
         var jobtype_id = $(this).attr('data-id');
@@ -196,7 +223,7 @@ $(document).ready(function(){
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
-            url: url_site + "/jobtype/unactive",
+            url: url_site + "/jobtype/unactivespa",
             method: "POST",
             data: {
                 'jobtype': jobtype_id
@@ -208,6 +235,33 @@ $(document).ready(function(){
             if (msg.code == 200) {
                _sefl.addClass('hidden-object').removeClass('show-object');
                _sefl.parent().find(".active-spa").addClass('show-object').removeClass('hidden-object');
+            }
+        });
+
+        request.fail(function (jqXHR, textStatus) {
+            alert("Request failed: " + textStatus);
+        });
+    });
+
+    $('.unactive-teacher').click(function(){
+        var _sefl = $(this);
+        var jobtype_id = $(this).attr('data-id');
+        var request = $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            url: url_site + "/jobtype/unactiveteacher",
+            method: "POST",
+            data: {
+                'jobtype': jobtype_id
+            },
+            dataType: "json"
+        });
+
+        request.done(function (msg) {
+            if (msg.code == 200) {
+               _sefl.addClass('hidden-object').removeClass('show-object');
+               _sefl.parent().find(".active-teacher").addClass('show-object').removeClass('hidden-object');
             }
         });
 

@@ -33,6 +33,7 @@
                                         <th>ID</th>
                                         <th>Name</th>
                                         <th>Show in Spa</th>
+                                        <th>Show in Teacher</th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
@@ -46,6 +47,14 @@
                                                 Unactive
                                                 </div>
                                                 <div class="btn btn-success btn-xs unactive-spa @if((int)$item->spa_show==0) hidden-object @else show-object @endif" data-id="{{ $item->id }}">
+                                                Active
+                                                </div>
+                                        </td>
+                                        <td>
+                                                <div class="btn btn-default btn-xs active-teacher @if((int)$item->teacher_show==1) hidden-object @else show-object @endif" data-id="{{ $item->id }}">
+                                                Unactive
+                                                </div>
+                                                <div class="btn btn-success btn-xs unactive-teacher @if((int)$item->teacher_show==0) hidden-object @else show-object @endif" data-id="{{ $item->id }}">
                                                 Active
                                                 </div>
                                         </td>
