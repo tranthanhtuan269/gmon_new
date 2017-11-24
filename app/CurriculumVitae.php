@@ -27,11 +27,14 @@ class CurriculumVitae extends Model
      */
     protected $fillable = ['user', 'avatar', 'birthday', 'gender', 'address', 'city', 'district', 'town', 'education','school', 'word_experience', 'language', 'interests', 'references', 'qualification', 'career_objective', 'images', 'active', 'time_can_work', 'salary_want', 'jobs', 'created_at'];
 
-    public function getCV($district, $city, $from, $number_get){
+    public function getCV($district, $city, $job_type, $from, $number_get){
         $sql = "SELECT 
                     curriculum_vitaes.id, 
                     users.name as username,
                     curriculum_vitaes.birthday, 
+                    curriculum_vitaes.gender, 
+                    curriculum_vitaes.word_experience, 
+                    curriculum_vitaes.created_at, 
                     users.avatar as avatarU, 
                     curriculum_vitaes.avatar as avatarCV, 
                     curriculum_vitaes.school
@@ -43,6 +46,9 @@ class CurriculumVitae extends Model
                     1 = 1 ";
         $sql .= "AND 
                     (users.avatar is not null OR curriculum_vitaes.avatar is not null)";
+        if($job_type > 0){
+            $sql .= " AND curriculum_vitaes.job_id = $job_type";
+        }
         if($city > 0 && $city != 1000){
             if($district > 0){
                 $sql .= " AND curriculum_vitaes.district = $district";
@@ -58,7 +64,7 @@ class CurriculumVitae extends Model
         return \DB::select($sql);
     }
 
-    public function getCVNumber($district, $city, $from, $number_get){
+    public function getCVNumber($district, $city, $job_type, $from, $number_get){
         $sql = "SELECT 
                     count(curriculum_vitaes.id) AS number_cv
                 FROM 
@@ -67,7 +73,9 @@ class CurriculumVitae extends Model
                     users ON users.id = curriculum_vitaes.user ";
         $sql .= "WHERE 
                     1 = 1 ";
-
+        if($job_type > 0){
+            $sql .= " AND curriculum_vitaes.job_id = $job_type";
+        }
         if($city > 0 && $city != 1000){
             if($district > 0){
                 $sql .= " AND curriculum_vitaes.district = $district";

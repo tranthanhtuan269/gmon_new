@@ -289,12 +289,12 @@ class HomeController extends Controller
         $cvGetObj = new CurriculumVitae;
 
         $perPage = 25;
-        $checkJobVip = 0;
-        $district = $city = $field = $job_type = $company = $cv = $vip = $from = $number_get = null;
+        $district = $city = $field = $job_type = $company = $cv = $vip = $from = $number_get = $companies = $cvs = null;
 
         $from  = 0;
         $number_get = 10;
-
+        $search_type = 0;
+        $jobcount = $cvcount = 0;
 
         if(isset($_GET['district']) && is_numeric($_GET['district'])){
             $district = (int)$_GET['district'];
@@ -320,6 +320,10 @@ class HomeController extends Controller
             $field = $_GET['field'];
         }
 
+        if(isset($_GET['search_type'])){
+            $search_type = $_GET['search_type'];
+        }
+
         if(isset($_GET['job_type'])){
             $job_type = $_GET['job_type'];
         }
@@ -328,288 +332,20 @@ class HomeController extends Controller
             $company = $_GET['company'];
         }
 
-        // get news 
-        $news = \DB::table('posts')
-           ->select('id', 'title', 'image')
-           ->orderBy('posts.created_at', 'desc')
-           ->take(5)->get();
-
-        if($district > 0){
-            // get district of city
-            $districtObj = \DB::table('districts')
-                        ->where('districts.id', '=', $district)
-                        ->first();   
-            if($districtObj){
-                $city = $districtObj->city;
-
-                if($cv == "vip"){
-                    // get job of vip
-                    $jobsvip1 = [];
-
-                    // get job of vip
-                    $jobsvip2 = [];
-
-                    // get job of vip
-                    $jobs = [];
-
-                    // get cv of vip
-                    $cvs = $cvGetObj->getCV($district, $city, $from, 10);
-                        
-                    // get cv of vip
-                    $companies = [];
-
-                    return view('showCV', compact('districts', 'city', 'cvs', 'jobs', 'jobsvip1', 'jobsvip2', 'companies', 'company_id', 'cv_id', 'news'));
-                }else if($job == "vip1"){
-                    $checkJobVip = 1;
-
-                    $jobs = $jobGetObj->getJob($district, $city, $field, $job_type, $company, $cv, 1, $from, $number_get);
-                    $jobcount = $jobGetObj->getJobNumber($district, $city, $field, $job_type, $company, $cv, 1);
-                    $jobsvip = $jobGetObj->getJob($district, $city, $field, $job_type, $company, $cv, 2, $from, 5);
-                    $companies = $companyGetObj->getCompany($district, $city, $field, $from, 20);
-
-                    return view('showJob', compact('districts', 'city', 'checkJobVip', 'cvs', 'jobs', 'jobsvip', 'companies', 'company_id', 'cv_id', 'news', 'jobcount'));
-                }else if($job == "vip2"){
-                    $checkJobVip = 1;
-
-                    $jobs = $jobGetObj->getJob($district, $city, $field, $job_type, $company, $cv, 1, $from, $number_get);
-                    $jobcount = $jobGetObj->getJobNumber($district, $city, $field, $job_type, $company, $cv, 1);
-                    $jobsvip = $jobGetObj->getJob($district, $city, $field, $job_type, $company, $cv, 2, $from, 5);
-                    $companies = $companyGetObj->getCompany($district, $city, $field, $from, 20);
-
-                    return view('showJob', compact('districts', 'city', 'checkJobVip', 'cvs', 'jobs', 'jobsvip', 'companies', 'company_id', 'cv_id', 'news', 'jobcount'));
-                }else if($job == "new"){
-
-                    $jobs = $jobGetObj->getJob($district, $city, $field, $job_type, $company, $cv, 0, $from, $number_get);
-                    $jobcount = $jobGetObj->getJobNumber($district, $city, $field, $job_type, $company, $cv, 0, $from, $number_get);
-                    $jobsvip = $jobGetObj->getJob($district, $city, $field, $job_type, $company, $cv, 1, $from, 5);
-                    $companies = $companyGetObj->getCompany($district, $city, $field, $from, 20);
-
-                    return view('showJob', compact('districts', 'city', 'checkJobVip', 'cvs', 'jobs', 'jobsvip', 'companies', 'company_id', 'cv_id', 'news', 'jobcount'));
-                }else if($field > 0 && $field < 6){
-                    $jobs = $jobGetObj->getJob($district, $city, $field, $job_type, $company, $cv, 0, $from, $number_get);
-                    $jobcount = $jobGetObj->getJobNumber($district, $city, $field, $job_type, $company, $cv, 0, $from, $number_get);
-                    $jobsvip = $jobGetObj->getJob($district, $city, $field, $job_type, $company, $cv, 1, $from, 5);
-                    $companies = $companyGetObj->getCompany($district, $city, $field, $from, 20);
-
-                    return view('showJob', compact('districts', 'city', 'checkJobVip', 'cvs', 'jobs', 'jobsvip', 'companies', 'company_id', 'cv_id', 'news', 'jobcount'));
-                }else if($job_type > 0){
-                    $jobs = $jobGetObj->getJob($district, $city, $field, $job_type, $company, $cv, 0, $from, $number_get);
-                    $jobcount = $jobGetObj->getJobNumber($district, $city, $field, $job_type, $company, $cv, 0, $from, $number_get);
-                    $jobsvip = $jobGetObj->getJob($district, $city, $field, $job_type, $company, $cv, 1, $from, 5);
-                    $companies = $companyGetObj->getCompany($district, $city, $field, $from, 20);
-
-                    return view('showJob', compact('districts', 'city', 'checkJobVip', 'cvs', 'jobs', 'jobsvip', 'companies', 'company_id', 'cv_id', 'news', 'jobcount'));
-                }else if($company == "new"){
-                    // get job of vip
-                    $jobsvip1 = [];
-
-                    // get job of vip
-                    $jobsvip2 = [];
-
-                    // get job of vip
-                    $jobs = [];
-
-                    // get cv of vip
-                    $cvs = [];
-                    // get cv of vip
-                    $companies = $companyGetObj->getCompany($district, $city, $field, $from, $perPage);
-
-                    return view('showCompany', compact('districts', 'city', 'cvs', 'jobs', 'jobsvip1', 'jobsvip2', 'companies', 'company_id', 'cv_id', 'news'));
-                }else{
-                    $jobs = $jobGetObj->getJob($district, $city, $field, $job_type, $company, $cv, 0, $from, $number_get);
-                    $jobcount = $jobGetObj->getJobNumber($district, $city, $field, $job_type, $company, $cv, 0, $from, $number_get);
-                    $jobsvip = $jobGetObj->getJob($district, $city, $field, $job_type, $company, $cv, 1, $from, 5);
-                    $companies = $companyGetObj->getCompany($district, $city, $field, $from, 20);
-
-                    return view('showJob', compact('districts', 'city', 'checkJobVip', 'cvs', 'jobs', 'jobsvip', 'companies', 'company_id', 'cv_id', 'news', 'jobcount'));
-                }
-            }else{
-                return redirect('/');
-            }
+        if($search_type == 1){
+            $cvs = $cvGetObj->getCV($district, $city, $job_type, $from, 10);
+            $cvcount = $cvGetObj->getCVNumber($district, $city, $job_type, $from, 10);
+            return view('filter.filterCV', compact('districts', 'city', 'cvs', 'jobs', 'companies', 'company_id', 'cv_id', 'jobcount', 'cvcount'));
         }else{
-            if(isset($_GET['city']) && is_numeric($_GET['city'])){
-                $city = (int)$_GET['city'];
-            }
-
-            if($city == 1000){
-                $jobs = [];
-
-                // get job of vip
-                $jobsvip1 = [];
-
-                // get job of vip
-                $jobsvip2 = [];
-
-                // get cv of vip
-                $cvs = [];
-
-                // get cv of vip
-                $companies = []; 
-            }
-
-            if($city > 0){
-                // get district of city
-                $districts = \DB::table('districts')
-                            ->where('districts.city', '=', $city)
-                            ->where('districts.active', '=', 1)
-                            ->get();   
-
-                if($cv == "vip"){
-                    // get job of vip
-                    $jobs = [];
-
-                    // get job of vip
-                    $jobsvip1 = [];
-
-                    // get job of vip
-                    $jobsvip2 = [];
-
-                    // get cv of vip
-                    $cvs = $cvGetObj->getCV($district, $city, $from, 10);
-
-                    // get cv of vip
-                    $companies = [];
-
-                    return view('showCV', compact('districts', 'city', 'cvs', 'jobs', 'jobsvip1', 'jobsvip2', 'companies', 'company_id', 'cv_id', 'news'));
-                }else if($job == "vip1"){
-                    $checkJobVip = 1;
-
-                    $jobs = $jobGetObj->getJob($district, $city, $field, $job_type, $company, $cv, 1, $from, $number_get);
-                    $jobcount = $jobGetObj->getJobNumber($district, $city, $field, $job_type, $company, $cv, 1, $from, $number_get);
-                    $jobsvip = $jobGetObj->getJob($district, $city, $field, $job_type, $company, $cv, 2, $from, 5);
-                    $companies = $companyGetObj->getCompany($district, $city, $field, $from, 20);
-
-                    return view('showJob', compact('districts', 'city', 'checkJobVip', 'cvs', 'jobs', 'jobsvip', 'companies', 'company_id', 'cv_id', 'news', 'jobcount'));
-                }else if($job == "vip2"){
-                    $checkJobVip = 1;
-                    $jobs = $jobGetObj->getJob($district, $city, $field, $job_type, $company, $cv, 2, $from, $number_get);
-                    $jobcount = $jobGetObj->getJobNumber($district, $city, $field, $job_type, $company, $cv, 2, $from, $number_get);
-                    $jobsvip = $jobGetObj->getJob($district, $city, $field, $job_type, $company, $cv, 1, $from, 5);
-                    $companies = $companyGetObj->getCompany($district, $city, $field, $from, 20);
-
-                    return view('showJob', compact('districts', 'city', 'checkJobVip', 'cvs', 'jobs', 'jobsvip', 'companies', 'company_id', 'cv_id', 'news', 'jobcount'));
-                }else if($job == "new"){
-                    $jobs = $jobGetObj->getJob($district, $city, $field, $job_type, $company, $cv, 0, $from, $number_get);
-                    $jobcount = $jobGetObj->getJobNumber($district, $city, $field, $job_type, $company, $cv, 0, $from, $number_get);
-                    $jobsvip = $jobGetObj->getJob($district, $city, $field, $job_type, $company, $cv, 1, $from, 5);
-                    $companies = $companyGetObj->getCompany($district, $city, $field, $from, 20);
-
-                    return view('showJob', compact('districts', 'city', 'checkJobVip', 'cvs', 'jobs', 'jobsvip', 'companies', 'company_id', 'cv_id', 'news', 'jobcount'));
-                }else if($field > 0 && $field < 6){
-                    $jobs = $jobGetObj->getJob($district, $city, $field, $job_type, $company, $cv, 0, $from, $number_get);
-                    $jobcount = $jobGetObj->getJobNumber($district, $city, $field, $job_type, $company, $cv, 0, $from, $number_get);
-                    $jobsvip = $jobGetObj->getJob($district, $city, $field, $job_type, $company, $cv, 1, $from, 5);
-                    $companies = $companyGetObj->getCompany($district, $city, $field, $from, 20);
-
-                    return view('showJob', compact('districts', 'city', 'checkJobVip', 'cvs', 'jobs', 'jobsvip', 'companies', 'company_id', 'cv_id', 'news', 'jobcount'));
-                }else if($job_type > 0){
-                    $jobs = $jobGetObj->getJob($district, $city, $field, $job_type, $company, $cv, 0, $from, $number_get);
-                    $jobcount = $jobGetObj->getJobNumber($district, $city, $field, $job_type, $company, $cv, 0, $from, $number_get);
-                    $jobsvip = $jobGetObj->getJob($district, $city, $field, $job_type, $company, $cv, 1, $from, 5);
-                    $companies = $companyGetObj->getCompany($district, $city, $field, $from, 20);
-
-                    return view('showJob', compact('districts', 'city', 'checkJobVip', 'cvs', 'jobs', 'jobsvip', 'companies', 'company_id', 'cv_id', 'news', 'jobcount'));
-                }else if($company == "new"){
-                    // get job of vip
-                    $jobsvip1 = [];
-
-                    // get job of vip
-                    $jobsvip2 = [];
-
-                    // get job of vip
-                    $jobs = [];
-
-                    // get cv of vip
-                    $cvs = [];
-                    // get cv of vip
-                    $companies = $companyGetObj->getCompany($district, $city, $field, $from, $perPage);
-
-                    return view('showCompany', compact('districts', 'city', 'cvs', 'jobs', 'jobsvip1', 'jobsvip2', 'companies', 'company_id', 'cv_id', 'news'));
-                }else{
-                    $jobs = $jobGetObj->getJob($district, $city, $field, $job_type, $company, $cv, 0, $from, $number_get);
-                    $jobcount = $jobGetObj->getJobNumber($district, $city, $field, $job_type, $company, $cv, 0, $from, $number_get);
-                    $jobsvip = $jobGetObj->getJob($district, $city, $field, $job_type, $company, $cv, 1, $from, 5);
-                    $companies = $companyGetObj->getCompany($district, $city, $field, $from, 20);
-
-                    return view('showJob', compact('districts', 'city', 'checkJobVip', 'cvs', 'jobs', 'jobsvip', 'companies', 'company_id', 'cv_id', 'news', 'jobcount'));
-                }
-            }else{
-                if($cv == "vip"){
-                    // get job of vip
-                    $jobs = [];
-
-                    // get job of vip
-                    $jobsvip1 = [];
-
-                    // get job of vip
-                    $jobsvip2 = [];
-
-                    // get cv of vip
-                    $cvs = $cvGetObj->getCV($district, $city, $from, 10);
-
-                    // get cv of vip
-                    $companies = [];
-
-                    return view('showCV', compact('districts', 'city', 'cvs', 'jobs', 'jobsvip1', 'jobsvip2', 'companies', 'company_id', 'cv_id', 'news'));
-                }else if($job == "vip1"){
-                    $checkJobVip = 1;
-                    $jobs = $jobGetObj->getJob($district, $city, $field, $job_type, $company, $cv, 1, $from, $number_get);
-                    $jobcount = $jobGetObj->getJobNumber($district, $city, $field, $job_type, $company, $cv, 1, $from, $number_get);
-                    $jobsvip = $jobGetObj->getJob($district, $city, $field, $job_type, $company, $cv, 2, $from, 5);
-                    $companies = $companyGetObj->getCompany($district, $city, $field, $from, 20);
-
-                    return view('showJob', compact('districts', 'city', 'checkJobVip', 'cvs', 'jobs', 'jobsvip', 'companies', 'company_id', 'cv_id', 'news', 'jobcount'));
-                }else if($job == "vip2"){
-                    $checkJobVip = 1;
-                    $jobs = $jobGetObj->getJob($district, $city, $field, $job_type, $company, $cv, 2, $from, $number_get);
-                    $jobcount = $jobGetObj->getJobNumber($district, $city, $field, $job_type, $company, $cv, 2, $from, $number_get);
-                    $jobsvip = $jobGetObj->getJob($district, $city, $field, $job_type, $company, $cv, 1, $from, 5);
-                    $companies = $companyGetObj->getCompany($district, $city, $field, $from, 20);
-
-                    return view('showJob', compact('districts', 'city', 'checkJobVip', 'cvs', 'jobs', 'jobsvip', 'companies', 'company_id', 'cv_id', 'news', 'jobcount'));
-                }else if($job == "new"){
-                    $jobs = $jobGetObj->getJob($district, $city, $field, $job_type, $company, $cv, 0, $from, $number_get);
-                    $jobcount = $jobGetObj->getJobNumber($district, $city, $field, $job_type, $company, $cv, 0, $from, $number_get);
-                    $jobsvip = $jobGetObj->getJob($district, $city, $field, $job_type, $company, $cv, 1, $from, 5);
-                    $companies = $companyGetObj->getCompany($district, $city, $field, $from, 20);
-
-                    return view('showJob', compact('districts', 'city', 'checkJobVip', 'cvs', 'jobs', 'jobsvip', 'companies', 'company_id', 'cv_id', 'news', 'jobcount'));
-                 }else if($field > 0 && $field < 6){
-                    $jobs = $jobGetObj->getJob($district, $city, $field, $job_type, $company, $cv, 0, $from, $number_get);
-                    $jobcount = $jobGetObj->getJobNumber($district, $city, $field, $job_type, $company, $cv, 0, $from, $number_get);
-                    $jobsvip = $jobGetObj->getJob($district, $city, $field, $job_type, $company, $cv, 1, $from, 5);
-                    $companies = $companyGetObj->getCompany($district, $city, $field, $from, 20);
-
-                    return view('showJob', compact('districts', 'city', 'checkJobVip', 'cvs', 'jobs', 'jobsvip', 'companies', 'company_id', 'cv_id', 'news', 'jobcount'));
-                }else if($job_type > 0){
-                    $jobs = $jobGetObj->getJob($district, $city, $field, $job_type, $company, $cv, 0, $from, $number_get);
-                    $jobcount = $jobGetObj->getJobNumber($district, $city, $field, $job_type, $company, $cv, 0, $from, $number_get);
-                    $jobsvip = $jobGetObj->getJob($district, $city, $field, $job_type, $company, $cv, 1, $from, 5);
-                    $companies = $companyGetObj->getCompany($district, $city, $field, $from, 20);
-
-                    return view('showJob', compact('districts', 'city', 'checkJobVip', 'cvs', 'jobs', 'jobsvip', 'companies', 'company_id', 'cv_id', 'news', 'jobcount'));
-                }else if($company == "new"){
-                    // get job of vip
-                    $jobsvip1 = [];
-
-                    // get job of vip
-                    $jobsvip2 = [];
-
-                    // get job of vip
-                    $jobs = [];
-
-                    // get cv of vip
-                    $cvs = [];
-                    // get cv of vip
-                    $companies = $companyGetObj->getCompany($district, $city, $field, $from, $perPage);
-
-                    return view('showCompany', compact('districts', 'city', 'cvs', 'jobs', 'jobsvip1', 'jobsvip2', 'companies', 'company_id', 'cv_id', 'news'));
-                }
-            }
-            
+            $jobs = $jobGetObj->getJob($district, $city, $field, $job_type, $company, $cv, 0, $from, $number_get);
+            $jobcount = $jobGetObj->getJobNumber($district, $city, $field, $job_type, $company, $cv, 0, $from, $number_get);
+            $companies = $companyGetObj->getCompany($district, $city, $field, $from, 20);
+            return view('filter.filterJob', compact('districts', 'city', 'cvs', 'jobs', 'companies', 'company_id', 'cv_id', 'jobcount', 'cvcount'));
         }
 
-        return redirect('/home');
+        
+
+        return view('filter', compact('districts', 'city', 'cvs', 'jobs', 'companies', 'company_id', 'cv_id', 'jobcount', 'cvcount'));
     }
 
     public function homenew(){
@@ -1171,16 +907,17 @@ class HomeController extends Controller
     }
 
     public function test(){
-        $dataUser = array('email'=>'tran.thanh.tuan269@gmail.com', 'name'=>'tran thanh tuan');
-        // Mail::send('emails.welcomeNew', [], function($message) use ($dataUser) {
-        //     $message->from('support@gmon.com.vn', 'gmon.com.vn');
-        //     $message->to($dataUser['email'], $dataUser['name'])->subject('Gmon.vn thông báo đăng ký thành công!');
-        // });
-
-        $jobs = array();
-        $jobs[0] = array();
-        $jobs[0]['name'] = "Tran Thanh Tuan 2";
-
-        Mail::to('tran.thanh.tuan269@gmail.com')->send(new JobSuggest($jobs));
+        $cvs = CurriculumVitae::get();
+        foreach ($cvs as $cv) {
+            if($cv->jobs != ''){
+                $cv->jobs = rtrim($cv->jobs,";");
+                $job_type = JobType::where('name', '=', $cv->jobs)->first();
+                if(isset($job_type)){
+                    $cv->job_id = $job_type->id;
+                    $cv->save();
+                    echo $cv->id . '<br />';
+                }
+            }
+        }
     }
 }

@@ -271,12 +271,10 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="wrapper-header">
-                    <h3>Trao cho bạn <span>chìa khóa thành công</span></h3>
+                    <h3><p style="text-align: left;">Trao cho bạn</p><span> chìa khóa thành công</span></h3>
                     <div class="form-search">
-                        <h4>Tìm kiếm việc làm. <span>Hàng ngàn cơ hội!</span></h4>
-
                         <form class="form-inline">
-                            <div class="form-group full-row">
+                            <div class="form-group">
                                 <div class="dropdown">
                                     <button id="select-job-type-btn" class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false" data-id="0">- Chọn ngành nghề -<span class="caret"></span></button>
 
@@ -288,7 +286,7 @@
                                     </ul>
                                 </div>
                             </div>
-                            <div class="form-group full-row">
+                            <div class="form-group">
                                 <div class="dropdown">
                                     <div class="dropdown">
                                         <button id="select-city-btn" class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
@@ -304,7 +302,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="form-group full-row">
+                            <div class="form-group">
                                 <div class="dropdown">
                                     <button id="select-district-btn" class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
                                         <span class="fa fa-map-marker"></span>- Quận/Huyện
@@ -316,7 +314,8 @@
                                 </div>
                             </div>
                             <div class="form-group submit">
-                                <button type="submit" id="search-btn" class="btn btn-default">Tìm kiếm</button>
+                                <button type="submit" id="search-cv-btn" class="btn btn-primary btn-search">Tìm người</button>
+                                <button type="submit" id="search-job-btn" class="btn btn-primary btn-search">Tìm việc</button>
                             </div>
                         </form>
                     </div>
@@ -326,7 +325,6 @@
     </div>
 </div>
 <script type="text/javascript">
-
     function onCloseModalLogin() {
         $("#myModal").modal('toggle');
     }
@@ -486,14 +484,16 @@
             });
         });
 
-        $('.form-search #search-btn').click(function(){
+        $('.form-search .btn-search').click(function(){
+          
             var new_link = '{{ url("/") }}/showmore?';
+            var search_type = $(this).attr('id') == 'search-cv-btn' ? 1 : 0;
             var job_selected = $('#select-job-type-btn').attr('data-id');
             var city_selected = $('#select-city-btn').attr('data-id');
             var district_selected = $('#select-district-btn').attr('data-id');
 
             if(job_selected > 0){
-                new_link = new_link + 'job_type=' + job_selected;
+                new_link = new_link + 'job_type=' + job_selected + '&search_type=' + search_type;
                 if(district_selected > 0){
                     new_link += '&district=' + district_selected;
                 }else{
@@ -503,17 +503,16 @@
                 }
             }else{
                 if(district_selected > 0){
-                    new_link += 'district=' + district_selected;
+                    new_link += 'district=' + district_selected + '&search_type=' + search_type;
                 }else{
                     if(city_selected > 0){
-                        new_link += 'city=' + city_selected;
+                        new_link += 'city=' + city_selected + '&search_type=' + search_type;
                     }
                 }
             }
             window.location.replace(new_link);
             return false;
         });
-        
     });
 </script>
 </body>

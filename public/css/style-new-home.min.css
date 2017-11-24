@@ -238,9 +238,10 @@ header .top-menu-mobile .right .fa {
     margin-left: 90px
 }
 
-.header-homepage .top-search .wrapper-header .form-search form .submit button {
+.header-homepage .top-search .wrapper-header .form-search form .submit #search-cv-btn {
     color: #fff;
-    background: #f07007
+    background: #f07007;
+    margin-right: 10px;
 }
 
 .header-homepage .top-search .wrapper-header .form-search .bottom-search {
@@ -744,6 +745,7 @@ header .top-menu-mobile .right .fa {
     header .top-search {
         padding: 20px;
         left: 0;
+        top: 100px;
     }
     .header-homepage .top-search .wrapper-header .form-search .form-group,
     header .top-search .wrapper-header .form-search .form-group {
@@ -752,7 +754,6 @@ header .top-menu-mobile .right .fa {
     .header-homepage .top-search .wrapper-header h3,
     header .top-search .wrapper-header h3 {
         font-size: 24px;
-        text-align: center
     }
 }
 

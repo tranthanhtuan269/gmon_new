@@ -54,6 +54,7 @@ class Job extends Model
                     jobs.views as views, 
                     jobs.applied AS applied, 
                     jobs.expiration_date AS expiration_date, 
+                    jobs.benefit AS benefit, 
                     jobs.slug, 
                     salaries.name AS salary, companies.logo, 
                     companies.name AS companyname, 
