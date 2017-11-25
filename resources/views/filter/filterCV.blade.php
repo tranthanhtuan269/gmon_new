@@ -241,6 +241,22 @@
     display: none;
   }
 
+  .logo-image{
+    border-radius: 50%;
+  }
+
+  #select-city,
+  #select-district,
+  #select-job-type{
+    z-index: 9000;
+  }
+
+  #select-city li,
+  #select-district li,
+  #select-job-type li{
+    margin: 0 10px;
+  }
+
 </style>
 
 <script type="text/javascript">
