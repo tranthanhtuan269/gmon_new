@@ -85,6 +85,7 @@
 <?php
   $job_types = \DB::table('job_types')
                   ->select('id', 'name')
+                  ->where('teacher_show', '=', 1)
                   ->get();
   $cities = \DB::table('cities')
                   ->where('active', '=', 1)

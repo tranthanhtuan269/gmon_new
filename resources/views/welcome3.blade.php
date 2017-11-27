@@ -92,7 +92,7 @@
                                 @endif
                                 <li>
                                     <a target="_self" href="{{ url('/logout') }}"
-                                       onclick="event.preventDefault();
+                                        onclick="event.preventDefault();
                                                document.getElementById('logout-form').submit();">
                                         Đăng Xuất
                                     </a>
@@ -196,10 +196,10 @@
     <div class="top-menu-mobile">
         <div class="container">
             <div class="row">
-                <div class="col-sm-6 col-6 left">
+                <div class="col-sm-10 col-10 text-center">
                     <a href="{{ url('/') }}"><img src="http://test.gmon.com.vn/?image=logo-2.png" alt="logo"/></a>
                 </div>
-                <div class="col-sm-6 col-6 right">
+                <div class="col-sm-2 col-2 right">
                     <a href="#menu" class="fa fa-bars"></a>
                     <nav id="menu">
                         <ul>

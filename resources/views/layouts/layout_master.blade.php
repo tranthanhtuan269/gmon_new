@@ -216,10 +216,10 @@
     <div class="top-menu-mobile">
         <div class="container">
             <div class="row">
-                <div class="col-sm-6 col-6 left">
+                <div class="col-sm-10 col-10 text-center">
                     <a href="{{ url('/') }}"><img src="http://test.gmon.com.vn/?image=logo-2.png" alt="logo"/></a>
                 </div>
-                <div class="col-sm-6 col-6 right">
+                <div class="col-sm-2 col-2 right">
                     <a href="#menu" class="fa fa-bars"></a>
                     <nav id="menu">
                       <ul>
@@ -253,11 +253,17 @@
                             <li><a href="{{ url('/') }}/user/cvsaved">Hồ sơ đã lưu</a></li>
                             <li><a href="{{ url('/') }}/user/cvsuggest">Hồ sơ được đề xuất</a></li>
                         @elseif(Auth::check() && Auth::user()->hasRole('user'))
+                            <li><a href="{{ url('/') }}/user/main">Trang chính</a></li>
                             @if($cv_id > 0)
                             <li><a target="_self" href="{{ url('/') }}/curriculumvitae/view/{{ $cv_id }}">Trang hồ sơ</a></li>
+                            <li><a href="{{ url('/') }}/curriculumvitae/{{ $cv_id }}/edit">Cập nhật hồ sơ</a></li>
                             @else
                             <li><a target="_self" href="{{ url('/') }}/curriculumvitae/create">Tạo hồ sơ</a></li>
                             @endif
+                            <li><a href="{{ url('/') }}/user/applied">Việc đã ứng tuyển</a></li>
+                            <li><a href="{{ url('/') }}/user/jobrelative">Việc làm phù hợp</a></li>
+                            <li><a href="{{ url('/') }}/user/companyfollow">Nhà tuyển dụng đã theo dõi</a></li>
+                            <li><a href="{{ url('/') }}/user/companynew">Nhà tuyển dụng mới</a></li>
                         @else 
 
                         @endif
@@ -281,60 +287,6 @@
     </div>
     
     @yield('content')
-    <div class="footer-homepage">
-        <div class="top-footer">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-4 footer-1 item">
-                        <div class="title">
-                            về gmon
-                        </div>
-                        <ul>
-                            <li><a href="http://news.gmon.vn/post/10/lich-su-phat-trien-gmon">Giới thiệu</a></li>
-                            <li><a href="{{ url('/') }}/showmore?job=new">Việc làm</a></li>
-                            <li><a href="{{ url('/') }}/showmore?company=new">Nhà tuyển dụng</a></li>
-                            <li><a href="{{ url('/') }}">Hồ sơ ứng viên</a></li>
-                        </ul>
-                    </div>
-                    <div class="col-md-4 footer-2 item">
-                        <div class="title">
-                            công cụ
-                        </div>
-                        <ul>
-                            <li><a href="{{ url('/') }}/privacy-policy">Quy định bảo mật</a></li>
-                            <li><a href="{{ url('/') }}/terms-of-service">Điều khoản sử dụng</a></li>
-                            <li><a href="{{ url('/') }}">Thông báo việc làm</a></li>
-                            <li><a href="{{ url('/') }}">Phản hồi</a></li>
-                            <li><a href="http://news.gmon.vn">Tư vấn nghề nghiệp</a></li>
-                        </ul>
-                    </div>
-                    <div class="col-md-4 footer-3 item">
-                        <div class="title">
-                            Về gmon
-                        </div>
-                        <ul>
-                            <li><a href="{{ url('/') }}"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-                            <li><a href="{{ url('/') }}"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>
-                            <li><a href="{{ url('/') }}"><i class="fa fa-youtube-play" aria-hidden="true"></i></a></li>
-                        </ul>
-                        <div style="font-size: 15px;">Giấy phép đăng ký kinh doanh số 0107560903</div>
-                        <div style="font-size: 15px;">Cấp lần đầu ngày 12/9/2016</div>
-                        <div style="font-size: 15px;">Nơi cấp: Sở Kế hoạch và Đầu tư thành phố Hà Nội</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="bottom-footer">
-            <div class="container">
-                <p><b>Công ty cổ phần giải pháp và công nghệ Gmon</b></p>
-                <p><b>Trụ sở chính:</b> Tầng 8, Tòa nhà Trần Phú, Dương Đình Nghệ, Cầu Giấy, Hà Nội</p>
-                <p><b>Điện thoại:</b> 0243.212.1515</p>
-                <p><b>VPĐD:</b> Số 31, Trần Phú, Hải Châu I, Hải Châu, Đà Nẵng</p>
-                <p><b>Điện thoại:</b> 0961 545 115</p>
-                <p><b>Email:</b> support@gmon.vn</p>
-            </div>
-        </div>
-    </div>
     <script type="text/javascript">
 
     function onCloseModalLogin() {
