@@ -118,7 +118,7 @@
             <div class="col-md-8 col-xs-12 info-job">
                 <div class="row simple-info">
                     <div class="col-md-12 col-xs-12 info-job-row">
-                        <h1 class="obj-name">
+                        <h1 id="job-name" class="obj-name">
                             {{ $job->name }}
                             @if(!Auth::check())
                                 <a id="join-btn" target="_self" href="javascript:void(0)" data-toggle="modal" data-target="#loginHeader" class="btn btn-sm btn-primary bt-join" data-id="{{ $job->id }}" @if($applied == 0)style="display:inline-block;" @else style="display:none;"@endif>Ứng tuyển ngay</a><a id="joined-btn" target="_self" href="javascript:void(0)" class="btn btn-sm btn-danger bt-joined" data-id="{{ $job->id }}" @if($applied == 0)style="display:none;" @else style="display:inline-block;"@endif>Đã ứng tuyển</a>
@@ -321,6 +321,9 @@
         var url_site = $('base').attr('href');
         window.onload = function ()
         {
+            $('html, body').animate({
+                scrollTop: $(".simple-info").offset().top
+            }, 2000);
             var w = screen.width;
             var w2 = $("#wrapper").outerWidth();
             var w3;

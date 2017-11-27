@@ -460,6 +460,8 @@ class CompanyController extends Controller {
                         'jobs.name as name', 
                         'jobs.number as number', 
                         'jobs.views as views', 
+                        'jobs.slug as slug', 
+                        'jobs.benefit as benefit', 
                         'jobs.applied as applied', 
                         'jobs.expiration_date as expiration_date', 
                         'salaries.name as salary', 
@@ -490,17 +492,9 @@ class CompanyController extends Controller {
                         ->get();
             }
 
-            if($company->template == 0){
-                return view('company.info', array('company' => $company, 'company_id' => $company_id, 'cv_id' => $cv_id, 'followed' => $followed, 'comments' => $comments, 'votes' => $star, 'template' => $company->template, 'jobs' => $jobs, 'jobsRelated' => $jobsRelated));
-            }else if($company->template == 1){
-                return view('company.view01', array('company' => $company, 'company_id' => $company_id, 'cv_id' => $cv_id, 'followed' => $followed, 'comments' => $comments, 'votes' => $star, 'template' => $company->template, 'jobs' => $jobs, 'jobsRelated' => $jobsRelated));
-            }else if($company->template == 2){
-                return view('company.view02', array('company' => $company, 'company_id' => $company_id, 'cv_id' => $cv_id, 'followed' => $followed, 'comments' => $comments, 'votes' => $star, 'template' => $company->template, 'jobs' => $jobs, 'jobsRelated' => $jobsRelated));
-            }else if($company->template == 3){
-                return view('company.view03', array('company' => $company, 'company_id' => $company_id, 'cv_id' => $cv_id, 'followed' => $followed, 'comments' => $comments, 'votes' => $star, 'template' => $company->template, 'jobs' => $jobs, 'jobsRelated' => $jobsRelated));
-            }else{
-                return view('company.info', array('company' => $company, 'company_id' => $company_id, 'cv_id' => $cv_id, 'followed' => $followed, 'comments' => $comments, 'votes' => $star, 'jobs' => $jobs, 'jobsRelated' => $jobsRelated));
-            }
+
+            return view('filter.company', array('company' => $company, 'company_id' => $company_id, 'cv_id' => $cv_id, 'followed' => $followed, 'comments' => $comments, 'votes' => $star, 'template' => $company->template, 'jobs' => $jobs, 'jobsRelated' => $jobsRelated));
+            
         }
         return view('errors.404');
     }

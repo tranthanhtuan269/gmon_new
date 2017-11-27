@@ -31,20 +31,20 @@
 
     #select-job-type{
       position: absolute;
-      top: 28px;
-      left: -6px;
+      top: 36px;
+      left: 0;
     }
 
     #select-city{
       position: absolute;
-      top: 28px;
-      left: -6px;
+      top: 36px;
+      left: 0;
     }
 
     #select-district{
       position: absolute;
-      top: 28px;
-      left: -6px;
+      top: 36px;
+      left: 0;
     }
 
     .fa-map-marker{
@@ -80,28 +80,29 @@
       padding: .25rem .5rem;
     }
 
-  .filter-box-show{
-    padding-left: 25px;
-    padding-right: 25px;
-  }
+    #select-city,
+    #select-district,
+    #select-job-type{
+      z-index: 9000;
+    }
 
-  .filter-box-hide{
-    padding-left: 25px;
-    padding-right: 25px;
-    display: none;
-  }
+    #select-city li,
+    #select-district li,
+    #select-job-type li{
+      margin: 0 10px;
+    }
 
-  #select-city,
-  #select-district,
-  #select-job-type{
-    z-index: 9000;
-  }
+    .filter-box-show{
+      padding-left: 25px;
+      padding-right: 25px;
+      margin-top: 10px;
+    }
 
-  #select-city li,
-  #select-district li,
-  #select-job-type li{
-    margin: 0 10px;
-  }
+    .filter-box-hide{
+      padding-left: 25px;
+      padding-right: 25px;
+      display: none;
+    }
 
 </style>
 
@@ -114,6 +115,7 @@
                   ->where('active', '=', 1)
                   ->select('id', 'name')
                   ->get();
+  // dd($cvs);
 ?>
 <div class="container product-list">
   <div class="row filter-box-show">
@@ -168,27 +170,90 @@
       </form>
   </div>
   </div>
-  @foreach($jobs as $job)
+
   <div class="row product-item">
-    <div class="col-12 holder-detail"><div class="show-time">{{ $job->expiration_date }}</div><a class="btn btn-sm btn-primary show-detail" href="{{ url('/') }}/job/{{ $job->id }}/{{ $job->slug }}">Chi tiết</a></div>
-    <div class="col-4 col-md-2"><img src="http://test.gmon.com.vn/?image={{ $job->logo }}" alt="Smiley face" height="100%" width="100%" class="logo-image"></div>
-    <div class="col-8 col-md-10 show-info">
-      <div class="row">
-        <div class="col-12"><a href="{{ url('/') }}/job/{{ $job->id }}/{{ $job->slug }}"><b style="color: #3a78e7; text-transform: capitalize;">{{ $job->name }}</b></a></div>
-        <div class="col-12"><a href="{{ url('/') }}/company/{{ $job->id }}/info"><span style="color:#0c7f44; text-transform: capitalize;">{{ $job->companyname }}</span></a></div>
-        <div class="col-12">Số lượng: {{ $job->number }}</div>
-        <div class="col-12">Kinh nghiệm: <span class="show-more">Xem thêm</span><span class="hide-more">Thu nhỏ</span></div>
+    <div class="col-12 image-company">
+      <img class="banner-img" src="http://test.gmon.com.vn/?image=1510704546.png" width="100%">
+      <img class="logo-img" src="http://test.gmon.com.vn/?image=1510704531.png" width="80px" height="80px">
+    </div>
+    <div class="col-12 company-info">
+      <h1 class="name-scholl">Trường mầm non Yên Hòa</h1>
+      <h3 class="address-scholl">213 Yên Hòa, Cầu Giấy, Hà Nội</h3>
+      <div class="number-student">Số lượng học sinh: 500</div>
+      <div class="link-web">http://doma.edu.vn</div>
+    </div>
+  </div>
+  <div class="row product-panel">
+    <div class="col-12 panel">
+      <div class="title-panel">Về chúng tôi</div>
+      <div class="content-panel">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum</div>
+    </div>
+    <div class="col-12 panel">
+      <div class="title-panel">Video</div>
+      <div class="content-panel">
+        <iframe src="https://www.youtube.com/embed/HFUcWEiIRbk" frameborder="0" allowfullscreen></iframe>
       </div>
     </div>
-    <div class="col-12 show-more-holder">
-      <div class="row">
-        <div class="col-12"><?php echo $job->benefit; ?></div>
+    <div class="col-12 panel">
+      <div class="title-panel">Tuyển dụng</div>
+      <div class="content-jobs">
+        @foreach($jobs as $job)
+        <div class="row product-item">
+          <div class="col-12 holder-detail"><div class="show-time">{{ $job->expiration_date }}</div><a class="btn btn-sm btn-primary show-detail" href="{{ url('/') }}/job/{{ $job->id }}/{{ $job->slug }}">Chi tiết</a></div>
+          <div class="col-4 col-md-2"><img src="http://test.gmon.com.vn/?image={{ $job->logo }}" alt="Smiley face" height="100%" width="100%" class="logo-image"></div>
+          <div class="col-8 col-md-10 show-info">
+            <div class="row">
+              <div class="col-12"><a href="{{ url('/') }}/job/{{ $job->id }}/{{ $job->slug }}"><b style="color: #3a78e7; text-transform: capitalize;">{{ $job->name }}</b></a></div>
+              <div class="col-12"><a href="{{ url('/') }}/company/{{ $job->id }}/info"><span style="color:#0c7f44; text-transform: capitalize;">{{ $job->companyname }}</span></a></div>
+              <div class="col-12">Số lượng: {{ $job->number }}</div>
+              <div class="col-12">Kinh nghiệm: <span class="show-more">Xem thêm</span><span class="hide-more">Thu nhỏ</span></div>
+            </div>
+          </div>
+          <div class="col-12 show-more-holder">
+            <div class="row">
+              <div class="col-12"><?php echo $job->benefit; ?></div>
+            </div>
+          </div>
+        </div>
+        @endforeach
       </div>
     </div>
   </div>
-  @endforeach
+
 </div>
+
 <style type="text/css">
+  .image-company{
+    position: relative;
+    padding: 0;
+  }
+
+  .banner-img{
+    padding: 11px;
+  }
+
+  .logo-img{
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    border: 1px solid #eee;
+    border-radius: 50%;
+  }
+
+  .company-info{
+    padding: 11px;
+  }
+
+  .name-scholl{
+    font-size: 20px;
+    color: #3a78e5;
+  }
+
+  .address-scholl{
+    font-size: 14px;
+    color: #0b7e43;
+  }
+
   .product-list{
     background-color: #fff;
     padding: 10px;
@@ -249,6 +314,46 @@
 
   .logo-image{
     border-radius: 50%;
+  }
+
+  .number-student,
+  .link-web{
+    font-size: 14px;
+  }
+
+  .product-panel{
+
+  }
+
+  .title-panel{
+    padding: 10px;
+    text-transform: uppercase;
+    font-weight: bold;
+    border: 1px solid #dcdcdc;
+    background-color: #f6f6f6;
+    margin: 10px 10px 0 10px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+  }
+
+  .content-panel{
+    padding: 10px;
+    margin: 0 10px;
+    border-left: 1px solid #dcdcdc;
+    border-right: 1px solid #dcdcdc;
+    border-bottom: 1px solid #dcdcdc;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+  }
+
+  .content-jobs{
+    padding: 1px 0 0 0;
+    margin: 0 10px;
+    border-left: 1px solid #dcdcdc;
+    border-right: 1px solid #dcdcdc;
+    border-bottom: 1px solid #dcdcdc;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
   }
 
 </style>
