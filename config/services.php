@@ -36,15 +36,15 @@ return [
     ],
 
     'facebook' => [
-        'client_id' => '212812479241763',
-        'client_secret' => '0194a76b837cb8ad9ce5a14c4d313f2e',
-        'redirect' => 'http://gmon.vn/auth/facebook/callback',
+        'client_id' => '132377877435843',
+        'client_secret' => 'c96be051ccc7f1bca4dc85eebc2ed686',
+        'redirect' => 'http://giaovien.gmon.vn/auth/facebook/callback',
     ],
 
     'google' => [
         'client_id' => '417199133117-sing5evaq5342lub46auitbd4utc3u3q.apps.googleusercontent.com',
         'client_secret' => 'PK2KHvX6JntcZ0G-fsSUgS47',
-        'redirect' => 'http://gmon.vn/auth/google/callback',
+        'redirect' => 'http://giaovien.gmon.vn/auth/google/callback',
     ],
 
 ];
