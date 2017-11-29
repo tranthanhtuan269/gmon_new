@@ -192,9 +192,8 @@
            </div>
        </div>
    </div>
-
     <div class="top-menu-mobile">
-        <div class="container">
+        <div class="container welcome-page">
             <div class="row">
                 <div class="col-sm-10 col-10 text-center">
                     <a href="{{ url('/') }}"><img src="http://test.gmon.com.vn/?image=logo-2.png" alt="logo"/></a>

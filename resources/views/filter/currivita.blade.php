@@ -173,29 +173,27 @@
 
   <div class="row product-item">
     <div class="col-12 image-company">
-      <img class="banner-img" src="http://test.gmon.com.vn/?image={{ $company->banner }}" width="100%">
-      <img class="logo-img" src="http://test.gmon.com.vn/?image={{ $company->logo }}" width="80px" height="80px">
+      <img class="banner-img" src="http://test.gmon.com.vn/?image=1510704546.png" width="100%">
+      <img class="logo-img" src="http://test.gmon.com.vn/?image=1510704531.png" width="80px" height="80px">
     </div>
     <div class="col-12 company-info">
-      <h1 class="name-scholl">{{ $company->name }}</h1>
-      <h3 class="address-scholl">{{ $company->address }}, {{ $company->district }}, {{ $company->city }}</h3>
-      <div class="number-student">Số lượng học sinh: {{ $company->size }}</div>
-      <div class="link-web">{{ $company->site_url }}</div>
+      <h1 class="name-scholl">Trường mầm non Yên Hòa</h1>
+      <h3 class="address-scholl">213 Yên Hòa, Cầu Giấy, Hà Nội</h3>
+      <div class="number-student">Số lượng học sinh: 500</div>
+      <div class="link-web">http://doma.edu.vn</div>
     </div>
   </div>
   <div class="row product-panel">
     <div class="col-12 panel">
       <div class="title-panel">Về chúng tôi</div>
-      <div class="content-panel"><?php echo $company->description; ?></div>
+      <div class="content-panel">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum</div>
     </div>
-    <?php if(strlen($company->youtube_link) > 2){ ?>
     <div class="col-12 panel">
       <div class="title-panel">Video</div>
       <div class="content-panel">
-        <iframe width="560" height="315" src="{{ str_replace('watch?v=','embed/',$company->youtube_link) }}" frameborder="0" allowfullscreen></iframe>
+        <iframe src="https://www.youtube.com/embed/HFUcWEiIRbk" frameborder="0" allowfullscreen></iframe>
       </div>
     </div>
-    <?php } ?>
     <div class="col-12 panel">
       <div class="title-panel">Tuyển dụng</div>
       <div class="content-jobs">

@@ -65,7 +65,7 @@ header .top-menu-mobile .right .fa {
 }
 
 .header-homepage {
-    background: url(../images/bg-header.jpg) no-repeat 50% fixed;
+    background: url(../images/bg-header2.jpg) no-repeat 50% fixed;
     background-size: cover;
     height: 650px;
     position: relative;
@@ -164,7 +164,14 @@ header .top-menu-mobile .right .fa {
 
 .header-homepage .top-menu-mobile {
     display: none;
-    padding-top: 20px
+    padding-top: 0;
+    height: 50px;
+}
+
+.header-homepage .top-menu-mobile .container {
+    background-color: #999;
+    padding-top: 5px;
+    padding-bottom: 5px;
 }
 
 .header-homepage .top-menu-mobile .right {

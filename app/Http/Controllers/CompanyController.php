@@ -492,7 +492,6 @@ class CompanyController extends Controller {
                         ->get();
             }
 
-
             return view('filter.company', array('company' => $company, 'company_id' => $company_id, 'cv_id' => $cv_id, 'followed' => $followed, 'comments' => $comments, 'votes' => $star, 'template' => $company->template, 'jobs' => $jobs, 'jobsRelated' => $jobsRelated));
             
         }
