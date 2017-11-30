@@ -396,7 +396,6 @@
             $('#register-btn').on('click');
                 if(msg.code == 200) {
                     location.reload();
-                    // window.location.replace("{{ url('/') }}");
                 }else if(msg.code == 201) {
                     $('#register-message').html('Email của bạn đã có người sử dụng!');
                 }else{

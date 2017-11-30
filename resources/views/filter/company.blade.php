@@ -117,283 +117,113 @@
                   ->get();
   // dd($cvs);
 ?>
-<div class="container show-curriculum-vitae-page" style="margin-top: 20px;">
-  <div class="row">
-      <div class="col-md-8">            
-          <div class="row curriculumvitae">
-              <div class="col-md-12">
-                  <div class="row main-top">
-                      <div class="col-md-5">
-                          <?php 
-                              if($curriculumvitae->avatarCV == null){
-                                  $avatar = $curriculumvitae->avatarU;
-                              }else{
-                                  $avatar = $curriculumvitae->avatarCV;
-                              }
-                          ?>
-                          @if(strlen($avatar) > 3)
-                          @if (strpos($avatar, 'https') !== false)
-                              <img src="{{ $avatar }}" width="200" height="200" class="img-circle">
-                          @else
-                          <img src="http://test.gmon.com.vn/?image={{ $avatar }}" width="200" height="200" class="img-circle
-                          ">
-                          @endif
-                          @else
-                          <img src="http://test.gmon.com.vn/?image=avatar.png" width="200" height="200" class="img-circle
-                          ">
-                          @endif
-                      </div>
-                      <div class="col-md-7">
-                          <div class="row">
-                              <div class="col-md-12">
-                                  <h2 class="text-upper">{{ $curriculumvitae->name }}</h2>
-                              </div>
-                          </div>
-                          <div class="row">
-                              <div class="col-md-12">
-                                  Ngày sinh: {{ $curriculumvitae->birthday }}
-                              </div>
-                          </div>
-                          <div class="row">
-                              <div class="col-md-12">
-                                  Giới tính: @if($curriculumvitae->gender == 0) Nữ @else Nam @endif
-                              </div>
-                          </div>
-                          <div class="row">
-                              <div class="col-md-12">
-                                  Tỉnh / Thành phố: {{ $curriculumvitae->city }}
-                              </div>
-                          </div>
-                          <div class="row">
-                              <div class="col-md-12">
-                                  Quận / Huyện: {{ $curriculumvitae->district }}
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-                  @if(strlen($curriculumvitae->education) > 3)
-                  <div class="row">
-                      <div class="col-md-12">
-                          <div class="panel">
-                              <div class="panel-heading">Quá trình học tập</div>
-                              <div class="panel-body">
-                                  <?php 
-                                      $curriculumvitae->education = ltrim($curriculumvitae->education, ';');
-                                      $educations = explode(";",$curriculumvitae->education);
-                                      foreach ($educations as $education) {
-                                          if(strlen($education) <= 3) continue;
-                                          $edu = json_decode($education);
-                                  ?>
-                                  <div class="row">
-                                      <div class="col-md-4">Trường học </div>
-                                      <div class="col-md-4">{{ $edu->truong_hoc }}</div>
-                                      <div class="col-md-4">@if( $edu->student_process == 0) Đang học @else Đã tốt nghiệp @endif</div>
-                                  </div>
-                                  <div class="row">
-                                      <div class="col-md-4">Thời gian học </div>
-                                      <div class="col-md-4">Từ {{ ($edu->thang_bat_dau > 0 && $edu->thang_bat_dau < 10) ? '0' . $edu->thang_bat_dau . '/' : '' }}{{ ($edu->thang_bat_dau > 0 && $edu->thang_bat_dau > 9) ? '' . $edu->thang_bat_dau . '/' : '' }}{{ $edu->nam_bat_dau }} </div>
-                                      <div class="col-md-4">@if( $edu->student_process == 0) Đến nay @else Đến {{ ($edu->thang_ket_thuc > 0 && $edu->thang_ket_thuc < 10) ? '0' . $edu->thang_ket_thuc . '/' : '' }}{{ ($edu->thang_ket_thuc > 0 && $edu->thang_ket_thuc > 9) ? '' . $edu->thang_ket_thuc . '/' : '' }}{{ $edu->nam_ket_thuc }} @endif </div>
-                                  </div>
-                                  @if( $edu->bang_cap != 2 && $edu->chuyen_nganh != "")
-                                  <div class="row">
-                                      <div class="col-md-4">Chuyên ngành </div>
-                                      <div class="col-md-8">{{ $edu->chuyen_nganh }} </div>
-                                  </div>
-                                  @endif
-                                  @if(isset($edu->loai_tot_nghiep) && $edu->loai_tot_nghiep != "--Chọn Loại tốt nghiệp--" && $edu->loai_tot_nghiep != "Chọn Loại tốt nghiệp")
-                                  <div class="row">
-                                      <div class="col-md-4">Thành tích học tập </div>
-                                      <div class="col-md-8">{{ $edu->loai_tot_nghiep }}</div>
-                                  </div>
-                                  @endif
-                                  <hr>
-                                  <?php 
-                                      }
-                                  ?>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-                  @endif
-                  @if(strlen($curriculumvitae->word_experience) > 3)
-                  <div class="row">
-                      <div class="col-md-12">
-                          <div class="panel">
-                              <div class="panel-heading">Kinh nghiệm làm việc</div>
-                              <div class="panel-body">
-                                  <?php 
-                                      $curriculumvitae->word_experience = ltrim($curriculumvitae->word_experience, ';');
-                                      if(substr($curriculumvitae->word_experience, -1) == ';'){
-                                          $curriculumvitae->word_experience=rtrim($curriculumvitae->word_experience,";");
-                                      }
-                                      $word_experiences = explode(";",$curriculumvitae->word_experience);
-                                      foreach ($word_experiences as $word_experience) {
-                                      $exp = json_decode($word_experience);
-                                  ?>
-                                  <div class="row">
-                                      <div class="col-md-12">
-                                          <div class="row">
-                                              <div class="col-md-5">Vị trí công việc</div>
-                                              <div class="col-md-7">{{ $exp->vi_tri }}</div>
-                                          </div>
-                                          <div class="row">
-                                              <div class="col-md-5">Tên đơn vị đã làm</div>
-                                              <div class="col-md-7">{{ $exp->ten_cong_ty }}</div>
-                                          </div>
-                                          <div class="row">
-                                              <div class="col-md-5">Thời gian làm</div>
-                                              <div class="col-md-7">Từ {{ $exp->thang_bat_dau_lam_viec }}/{{ $exp->nam_bat_dau_lam_viec }} Đến {{ $exp->thang_ket_thuc_lam_viec }}/{{ $exp->nam_ket_thuc_lam_viec }}</div>
-                                          </div>
-                                          @if(strlen($exp->mo_ta) > 0)
-                                          <div class="row">
-                                              <div class="col-md-5">Mô tả công việc</div>
-                                              <div class="col-md-7">{{ $exp->mo_ta }}</div>
-                                          </div>
-                                          @endif
-                                      </div>
-                                  </div>
-                                  <hr>
-                                  <?php 
-                                      }
-                                  ?>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-                  @endif
-                  @if(strlen($curriculumvitae->qualification) > 3)
-                  <div class="row">
-                      <div class="col-md-12">
-                          <div class="panel">
-                              <div class="panel-heading">Kỹ năng</div>
-                              <div class="panel-body">
-                                  <div class="row">
-                                  <?php 
-                                      $curriculumvitae->qualification = ltrim($curriculumvitae->qualification, ';');
-                                      $qualifications = explode(";",$curriculumvitae->qualification);
-                                  ?>
-                                      <div class="col-md-12">
-                                          @if(count($qualifications) > 1)
-                                          @for ($i = 0; $i < count($qualifications); $i++)
-                                              <?php
-                                                  if($qualifications[$i] != 'undefined'){
-                                                      $qual = json_decode($qualifications[$i]);
-                                                      echo ' - ' . $qual->ten_ky_nang . '<br />';
-                                                  }
-                                              ?>
-                                          @endfor
-                                          @else
-                                              <?php 
-                                              $qual = json_decode($qualifications[0]);
-                                              echo $qual->ten_ky_nang;
-                                              ?>
-                                          @endif
-                                      </div>
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-                  @endif
-                  @if(strlen($curriculumvitae->language) > 3)
-                  <div class="row">
-                      <div class="col-md-12">
-                          <div class="panel">
-                              <div class="panel-heading">Ngoại ngữ</div>
-                              <div class="panel-body">
-                                  <?php 
-                                      $curriculumvitae->language = ltrim($curriculumvitae->language, ';');
-                                      $languages = explode(";",$curriculumvitae->language);
-                                      foreach ($languages as $language) {
-                                      $lang = json_decode($language);
-                                  ?>
-                                  <div class="row">
-                                      <div class="col-md-6">{{ $lang->ten_ngoai_ngu }}</div>
-                                      <div class="col-md-6">{{ $lang->trinh_do_ngoai_ngu }}</div>
-                                  </div>
-                                  <hr>
-                                  <?php 
-                                      }
-                                  ?>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-                  @endif
-                  <div class="row">
-                      <div class="col-md-12">
-                          <div class="panel">
-                              <div class="panel-heading">Sở thích</div>
-                              <div class="panel-body">
-                                  <div class="row">
-                                      <div class="col-md-12"><?php echo $curriculumvitae->interests; ?></div>
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-                  <div class="row">
-                      <div class="col-md-12">
-                          <div class="panel">
-                              <div class="panel-heading">Tính cách</div>
-                              <div class="panel-body">
-                                  <div class="row">
-                                      <div class="col-md-12"><?php echo $curriculumvitae->references; ?></div>
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-                  @if(strlen($curriculumvitae->career_objective) > 1)
-                  <div class="row">
-                      <div class="col-md-12">
-                          <div class="panel">
-                              <div class="panel-heading">Mục đích làm việc?</div>
-                              <div class="panel-body">
-                                  <div class="row">
-                                      <div class="col-md-12">
-                                      <?php 
-                                          echo $curriculumvitae->career_objective;
-                                      ?>
-                                      </div>
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-                  @endif
-                  <div class="row">
-                      <div class="col-md-12">
-                          <div class="panel">
-                              <div class="panel-heading">Hoạt động ngoại khóa</div>
-                              <div class="panel-body">
-                                  <div class="row">
-                                      <div class="col-md-12"><?php echo $curriculumvitae->active; ?></div>
-                                  </div>
-                                  <div class="row">
-                                      <?php 
-                                          if(strlen($curriculumvitae->images) > 0){
-                                              $curriculumvitae->images = rtrim($curriculumvitae->images,";");
-                                              $images = explode(";",$curriculumvitae->images);
-                                              $i = 0;
-                                              foreach ($images as $image) {
-                                                  $i++;
-                                                  if($i%4 == 0) break;
-                                      ?>
-                                      <div class="col-md-4"><img id="image-{{ $i }}" class="image-cv" data-id="{{ $i }}" src="http://test.gmon.com.vn/?image={{ $image }}" width="100%" height="102"></div>
-                                      <?php 
-                                      }
-                                      }
-                                      ?>
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
+<div class="container product-list">
+  <div class="row filter-box-show">
+      <input type="text" class="form-control col-12" placeholder="Tìm kiếm...">
+  </div>
+  <div class="row filter-box-hide">
+    <div class="form-search">
+      <form class="form-inline">
+          <div class="form-group">
+              <div class="dropdown">
+                  <button id="select-job-type-btn" class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false" data-id="0">Chọn ngành nghề<span class="caret"></span></button>
+
+                  <ul id="select-job-type" class="dropdown-menu job-type-select">
+                      <li value="0">Chọn ngành nghề</li>
+                      @foreach($job_types as $job_type)
+                      <li value="{{ $job_type->id }}">{{ $job_type->name }}</li>
+                      @endforeach
+                  </ul>
+              </div>
+          </div>
+          <div class="form-group">
+              <div class="dropdown">
+                  <div class="dropdown">
+                      <button id="select-city-btn" class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
+                          Thành phố
+                      </button>
+
+                      <ul id="select-city" class="dropdown-menu city-select">
+                          <li value="0">Thành phố</li>
+                          @foreach($cities as $city)
+                          <li value="{{ $city->id }}">{{ $city->name }}</li>
+                          @endforeach
+                      </ul>
                   </div>
               </div>
           </div>
-      </div>
+          <div class="form-group">
+              <div class="dropdown">
+                  <button id="select-district-btn" class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
+                      Quận/Huyện
+                  </button>
+
+                  <ul id="select-district" class="dropdown-menu district-select">
+                      <li value="0">Quận/Huyện</li>
+                  </ul>
+              </div>
+          </div>
+          <div class="form-group submit">
+              <button type="submit" id="search-cv-btn" class="btn btn-primary btn-search">Tìm người</button>
+              <button type="submit" id="search-job-btn" class="btn btn-primary btn-search">Tìm việc</button>
+          </div>
+      </form>
   </div>
+  </div>
+
+  <div class="row product-item">
+    <div class="col-12 image-company">
+      <img class="banner-img" src="http://test.gmon.com.vn/?image={{ $company->banner }}" width="100%">
+      <img class="logo-img" src="http://test.gmon.com.vn/?image={{ $company->logo }}" width="80px" height="80px">
+    </div>
+    <div class="col-12 company-info">
+      <h1 class="name-scholl">{{ $company->name }}</h1>
+      <h3 class="address-scholl">{{ $company->address }} , {{ $company->district }}, {{ $company->city }}</h3>
+      <div class="number-student">Số lượng học sinh: {{ $company->size }}</div>
+      <div class="link-web">{{ $company->site_url }}</div>
+    </div>
+  </div>
+  <div class="row product-panel">
+    <div class="col-12 panel">
+      <div class="title-panel">Về chúng tôi</div>
+      <div class="content-panel"><?php echo $company->description; ?></div>
+    </div>
+    <?php 
+        if(strlen($company->youtube_link)>0){
+            ?>
+    <div class="col-12 panel">
+        <div class="title-panel">Video</div>
+        <div class="content-panel">
+          <iframe width="560" height="315" src="{{ str_replace('watch?v=','embed/',$company->youtube_link) }}" frameborder="0" allowfullscreen></iframe>
+        </div>
+    </div>
+    <?php } ?>
+    <div class="col-12 panel">
+      <div class="title-panel">Tuyển dụng</div>
+      <div class="content-jobs">
+        @foreach($jobs as $job)
+        <div class="row product-item">
+          <div class="col-12 holder-detail"><div class="show-time">{{ $job->expiration_date }}</div><a class="btn btn-sm btn-primary show-detail" href="{{ url('/') }}/job/{{ $job->id }}/{{ $job->slug }}">Chi tiết</a></div>
+          <div class="col-4 col-md-2"><img src="http://test.gmon.com.vn/?image={{ $job->logo }}" alt="Smiley face" height="100%" width="100%" class="logo-image"></div>
+          <div class="col-8 col-md-10 show-info">
+            <div class="row">
+              <div class="col-12"><a href="{{ url('/') }}/job/{{ $job->id }}/{{ $job->slug }}"><b style="color: #3a78e7; text-transform: capitalize;">{{ $job->name }}</b></a></div>
+              <div class="col-12"><a href="{{ url('/') }}/company/{{ $job->id }}/info"><span style="color:#0c7f44; text-transform: capitalize;">{{ $job->companyname }}</span></a></div>
+              <div class="col-12">Số lượng: {{ $job->number }}</div>
+              <div class="col-12">Kinh nghiệm: <span class="show-more">Xem thêm</span><span class="hide-more">Thu nhỏ</span></div>
+            </div>
+          </div>
+          <div class="col-12 show-more-holder">
+            <div class="row">
+              <div class="col-12"><?php echo $job->benefit; ?></div>
+            </div>
+          </div>
+        </div>
+        @endforeach
+      </div>
+    </div>
+  </div>
+
 </div>
 
 <style type="text/css">
