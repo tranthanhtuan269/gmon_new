@@ -154,20 +154,48 @@
       <div class="row">
         <div class="col-12"><a href="{{ url('/') }}/curriculumvitae/view/{{ $cv->id }}"><b style="color: #3a78e7;">{{ $cv->username }}</b></a></div>
         <div class="col-12"><span style="color:#0c7f44;">{{ $cv->school }}</span></div>
-        <div class="col-12">Sinh năm: {{ $cv->birthday }} / Giới tính: @if($cv->gender == 1) Nữ @else Nam @endif</div>
+        <div class="col-12">Sinh năm: {{ $cv->birthday }}</div>
+        <div class="col-12">Giới tính: @if($cv->gender == 1) Nữ @else Nam @endif</div>
         @if(strlen($cv->word_experience) > 2)
         <div class="col-12">Kinh nghiệm: <span class="show-more">Xem thêm</span><span class="hide-more">Thu nhỏ</span></div>
         @endif
       </div>
     </div>
     <div class="col-12 show-more-holder">
+    <?php 
+        $cv->word_experience = ltrim($cv->word_experience, ';');
+        if(substr($cv->word_experience, -1) == ';'){
+            $cv->word_experience=rtrim($cv->word_experience,";");
+        }
+        $word_experiences = explode(";",$cv->word_experience);
+        foreach ($word_experiences as $word_experience) {
+          $exp = json_decode($word_experience);
+
+    ?>
       <div class="row">
         <div class="col-12">
-          <?php
-              echo $cv->word_experience;
-          ?>
+          <img src="{{ $exp->company_image }}" width="100%">
+        </div>
+        <div class="col-12">
+          Tên công ty: <b>{{ $exp->ten_cong_ty }}</b>
+        </div>
+        <div class="col-12">
+          Vị trí: <b>{{ $exp->vi_tri }}</b>
+        </div>
+        <div class="col-12">
+          Từ: <b>{{ $exp->thang_bat_dau_lam_viec }}/{{ $exp->nam_bat_dau_lam_viec }}</b> Đến: <b>{{ $exp->thang_ket_thuc_lam_viec }}/{{ $exp->nam_ket_thuc_lam_viec }}</b>
+        </div>
+        <div class="col-12">
+          Địa chỉ: <b>{{ $exp->dia_chi_cong_ty }}</b>
+        </div>
+        <div class="col-12">
+          <?php echo $exp->mo_ta; ?>
         </div>
       </div>
+      <hr />
+    <?php 
+    }
+    ?>
     </div>
   </div>
   @endforeach

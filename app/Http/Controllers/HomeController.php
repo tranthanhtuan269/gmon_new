@@ -133,7 +133,7 @@ class HomeController extends Controller
                 $jobs = $jobGetObj->getJob($district, $city, $field, $job_type, $company, $cv, $vip, $from, $number_get);
 
                 // get cv of vip
-                $cvs = $cvGetObj->getCV($district, $city, $from, 10);
+                $cvs = $cvGetObj->getCV($district, $city, $job_type, $from, 10);
                 // get cv of vip
                 $companies = $companyGetObj->getCompany($district, $city, $field, $from, 20);
             }else{
@@ -161,7 +161,7 @@ class HomeController extends Controller
                 $jobsvip2 = $jobGetObj->getJob($district, $city, $field, $job_type, $company, $cv, 2, $from, $number_get);
 
                 // get cv of vip
-                $cvs = $cvGetObj->getCV($district, $city, $from, 10);
+                $cvs = $cvGetObj->getCV($district, $city, $job_type, $from, 10);
                 // get cv of vip
                 $companies = $companyGetObj->getCompany($district, $city, $field, $from, 20);
             }else{
@@ -180,7 +180,7 @@ class HomeController extends Controller
                 $jobsvip2 = $jobGetObj->getJob($district, $city, $field, $job_type, $company, $cv, 2, $from, $number_get);
 
                 // get cv of vip
-                $cvs = $cvGetObj->getCV($district, $city, $from, 10);
+                $cvs = $cvGetObj->getCV($district, $city, $job_type, $from, 10);
                 // get cv of vip
                 $companies = $companyGetObj->getCompany($district, $city, $field, $from, 20);
             }
@@ -396,18 +396,6 @@ class HomeController extends Controller
 
             $m->to($user->email, $user->name)->subject('Your Reminder!');
         });
-    }
-
-    public function support(){
-        return view('home.support01');
-    }
-
-    public function privacypolicy(){
-        return view('home.privacypolicy');
-    }
-
-    public function termsofservice(){
-        return view('home.termsofservice');
     }
 
     public function sendemail(){

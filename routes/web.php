@@ -53,10 +53,6 @@ Route::get('/getCVAppliedOfJob', 'HomeController@getCVAppliedByJobID');
 Route::get('/getCVAppliedNewOfJob', 'HomeController@getCVAppliedNewByJobID');
 Route::get('/getCVAppliedViewedOfJob', 'HomeController@getCVAppliedViewedByJobID');
 
-
-
-
-
 Route::resource('/branch', 'BranchController');
 Route::get('/hello', 'HomeController@homenew2');
 Route::get('/welcome', 'HomeController@homenew');

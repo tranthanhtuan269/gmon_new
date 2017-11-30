@@ -96,8 +96,6 @@ img.no-vote{
 }
 
 .curriculumvitae{
-    border: 1px solid #ccc;
-    border-radius: 5px;
     padding: 10px 0;
 }
 .curriculumvitae .main-top{
@@ -282,6 +280,11 @@ img.no-vote{
 .new-employer .list_item .contents .item-job .border-item .details .work-title .company-name{
     font-size: 18px;
     text-transform: uppercase;
+}
+
+.img-circle{
+    border-radius: 50%;
+    border:1px solid #eee;
 }
 
 
