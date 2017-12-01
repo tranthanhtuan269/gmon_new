@@ -10,11 +10,11 @@
                     <div class="panel-heading">company_type {{ $company_type->id }}</div>
                     <div class="panel-body">
 
-                        <a href="{{ url('/companytype/company_type') }}" title="Back"><button class="btn btn-warning btn-xs"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>
-                        <a href="{{ url('/companytype/company_type/' . $company_type->id . '/edit') }}" title="Edit company_type"><button class="btn btn-primary btn-xs"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></a>
+                        <a href="{{ url('/admin/companytype') }}" title="Back"><button class="btn btn-warning btn-xs"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>
+                        <a href="{{ url('/admin/companytype/' . $company_type->id . '/edit') }}" title="Edit company_type"><button class="btn btn-primary btn-xs"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></a>
                         {!! Form::open([
                             'method'=>'DELETE',
-                            'url' => ['companytype/company_type', $company_type->id],
+                            'url' => ['admin/companytype', $company_type->id],
                             'style' => 'display:inline'
                         ]) !!}
                             {!! Form::button('<i class="fa fa-trash-o" aria-hidden="true"></i> Delete', array(

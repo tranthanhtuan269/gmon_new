@@ -23,7 +23,7 @@ class CompanyTypeController extends Controller
 
         if (!empty($keyword)) {
             $company_type = CompanyType::where('name', 'LIKE', "%$keyword%")
-				->orWhere('key_word', 'LIKE', "%$keyword%")
+				->orWhere('slug', 'LIKE', "%$keyword%")
 				->paginate($perPage);
         } else {
             $company_type = CompanyType::paginate($perPage);
@@ -58,7 +58,7 @@ class CompanyTypeController extends Controller
 
         Session::flash('flash_message', 'company_type added!');
 
-        return redirect('companytype/company_type');
+        return redirect('admin/companytype');
     }
 
     /**
@@ -107,7 +107,7 @@ class CompanyTypeController extends Controller
 
         Session::flash('flash_message', 'company_type updated!');
 
-        return redirect('companytype/company_type');
+        return redirect('admin/companytype');
     }
 
     /**
@@ -123,6 +123,6 @@ class CompanyTypeController extends Controller
 
         Session::flash('flash_message', 'company_type deleted!');
 
-        return redirect('companytype/company_type');
+        return redirect('admin/companytype');
     }
 }

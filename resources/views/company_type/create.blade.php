@@ -21,7 +21,7 @@
                             </ul>
                         @endif
 
-                        {!! Form::open(['url' => '/companytype/company_type', 'class' => 'form-horizontal', 'files' => true]) !!}
+                        {!! Form::open(['url' => '/admin/companytype', 'class' => 'form-horizontal', 'files' => true]) !!}
 
                         @include ('company_type.form')
 

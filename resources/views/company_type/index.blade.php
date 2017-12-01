@@ -39,10 +39,10 @@
                                         <td>{{ $item->id }}</td>
                                         <td>{{ $item->name }}</td><td>{{ $item->key_word }}</td>
                                         <td>
-                                            <a href="{{ url('/companytype/company_type/' . $item->id . '/edit') }}" title="Edit company_type"><button class="btn btn-primary btn-xs"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></a>
+                                            <a href="{{ url('/admin/companytype/' . $item->id . '/edit') }}" title="Edit company_type"><button class="btn btn-primary btn-xs"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></a>
                                             {!! Form::open([
                                                 'method'=>'DELETE',
-                                                'url' => ['/companytype/company_type', $item->id],
+                                                'url' => ['/admin/companytype', $item->id],
                                                 'style' => 'display:inline'
                                             ]) !!}
                                                 {!! Form::button('<i class="fa fa-trash-o" aria-hidden="true"></i> Delete', array(

@@ -28,7 +28,7 @@ class CompanyType extends Model
      *
      * @var array
      */
-    protected $fillable = ['name', 'key_word'];
+    protected $fillable = ['name', 'slug'];
 
 
     /**
