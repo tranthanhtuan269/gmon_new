@@ -248,7 +248,8 @@
   }
 
   .logo-image{
-    border-radius: 50%;
+    border: 3px solid #fff;
+    border-radius: 8px;
   }
 
 </style>

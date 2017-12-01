@@ -240,8 +240,9 @@
     position: absolute;
     bottom: 20px;
     left: 20px;
-    border: 1px solid #eee;
-    border-radius: 50%;
+    border: 3px solid #eee;
+    border-radius: 8px;
+    padding: 2px;
   }
 
   .company-info{
