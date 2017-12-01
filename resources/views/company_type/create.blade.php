@@ -9,7 +9,7 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">Create New company_type</div>
                     <div class="panel-body">
-                        <a href="{{ url('/companytype/company_type') }}" title="Back"><button class="btn btn-warning btn-xs"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>
+                        <a href="{{ url('/admin/companytype') }}" title="Back"><button class="btn btn-warning btn-xs"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>
                         <br />
                         <br />
 
