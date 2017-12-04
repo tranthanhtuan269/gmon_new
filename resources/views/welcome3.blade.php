@@ -323,7 +323,38 @@
         </div>
     </div>
 </div>
+<?php
+  if(!Auth::guest()){
+  $roles = Auth::user()->roles()->get();
+  if(count($roles) == 0){
+    ?>
+
+<div class="modal fade" id="abc">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Chọn vị trí bạn muốn</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="btn btn-lg btn-primary permission-btn" data-permission="user" style="width: 100%;padding:10px;margin:10px 0;">Ứng viên</div>
+        <div class="btn btn-lg btn-primary permission-btn" data-permission="poster" style="width: 100%;padding:10px;margin:10px 0;">Nhà tuyển dụng</div>
+      </div>
+    </div>
+  </div>
+</div>
+  <?php
+  }
+  }
+  ?>
 <script type="text/javascript">
+    $(window).on('load',function(){
+          $('#abc').modal('show');
+          $('.modal-backdrop').css('z-index',0);
+    });
+
     function onCloseModalLogin() {
         $("#myModal").modal('toggle');
     }
@@ -447,71 +478,99 @@
     }
 
     $(document).ready(function(){
-        onOpenLogin();
-        $('#login-btn').click(function () {
-            loginFunc();
+      $('.permission-btn').click(function(){
+        var $role = $(this).attr('data-permission');
+
+        var permissionRequest = $.ajax({
+          headers: {
+              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          },
+          url: "{{ url('/') }}/user/setPermission",
+          method: "POST",
+          data: {
+              'role': $role
+          },
+          dataType: "json"
         });
 
-        $('#register-btn').click(function () {
-            registerFunc();
+        permissionRequest.done(function (msg) {
+          if(msg.code == 200) {
+            location.reload();
+          }else{
+            alert('Có 1 lỗi xảy ra khi lưu dữ liệu!');
+          }
         });
 
-        $('#select-job-type li').click(function(){
-            $('#select-job-type-btn').text($(this).text());
-            $('#select-job-type-btn').attr('data-id', $(this).val());
+        permissionRequest.fail(function (jqXHR, textStatus) {
+            alert("Request failed: " + textStatus);
         });
-        $('#select-city li').click(function(){
-            $('#select-city-btn').html('<span class="fa fa-map-marker"></span>' + $(this).text());
-            $('#select-city-btn').attr('data-id', $(this).val());
+      });
 
-            var citId = $(this).val();
-            var request = $.ajax({
-                url: "{{ url('') }}/getDistrictli/" + citId,
-                method: "GET",
-                dataType: "html"
+      onOpenLogin();
+      $('#login-btn').click(function () {
+        loginFunc();
+      });
+
+      $('#register-btn').click(function () {
+        registerFunc();
+      });
+
+      $('#select-job-type li').click(function(){
+        $('#select-job-type-btn').text($(this).text());
+        $('#select-job-type-btn').attr('data-id', $(this).val());
+      });
+      $('#select-city li').click(function(){
+        $('#select-city-btn').html('<span class="fa fa-map-marker"></span>' + $(this).text());
+        $('#select-city-btn').attr('data-id', $(this).val());
+
+        var citId = $(this).val();
+        var request = $.ajax({
+            url: "{{ url('') }}/getDistrictli/" + citId,
+            method: "GET",
+            dataType: "html"
+        });
+        request.done(function (msg) {
+            $("#select-district").html(msg);
+            $('#select-district li').off('click');
+            $('#select-district li').click(function(){
+                $('#select-district-btn').html('<span class="fa fa-map-marker"></span>' + $(this).text());
+                $('#select-district-btn').attr('data-id', $(this).val());
             });
-            request.done(function (msg) {
-                $("#select-district").html(msg);
-                $('#select-district li').off('click');
-                $('#select-district li').click(function(){
-                    $('#select-district-btn').html('<span class="fa fa-map-marker"></span>' + $(this).text());
-                    $('#select-district-btn').attr('data-id', $(this).val());
-                });
-            });
-            request.fail(function (jqXHR, textStatus) {
-                alert("Request failed: " + textStatus);
-            });
         });
+        request.fail(function (jqXHR, textStatus) {
+            alert("Request failed: " + textStatus);
+        });
+      });
 
-        $('.form-search .btn-search').click(function(){
-          
-            var new_link = '{{ url("/") }}/showmore?';
-            var search_type = $(this).attr('id') == 'search-cv-btn' ? 1 : 0;
-            var job_selected = $('#select-job-type-btn').attr('data-id');
-            var city_selected = $('#select-city-btn').attr('data-id');
-            var district_selected = $('#select-district-btn').attr('data-id');
+      $('.form-search .btn-search').click(function(){
+        
+        var new_link = '{{ url("/") }}/showmore?';
+        var search_type = $(this).attr('id') == 'search-cv-btn' ? 1 : 0;
+        var job_selected = $('#select-job-type-btn').attr('data-id');
+        var city_selected = $('#select-city-btn').attr('data-id');
+        var district_selected = $('#select-district-btn').attr('data-id');
 
-            if(job_selected > 0){
-                new_link = new_link + 'job_type=' + job_selected + '&search_type=' + search_type;
-                if(district_selected > 0){
-                    new_link += '&district=' + district_selected;
-                }else{
-                    if(city_selected > 0){
-                        new_link += '&city=' + city_selected;
-                    }
-                }
+        if(job_selected > 0){
+            new_link = new_link + 'job_type=' + job_selected + '&search_type=' + search_type;
+            if(district_selected > 0){
+                new_link += '&district=' + district_selected;
             }else{
-                if(district_selected > 0){
-                    new_link += 'district=' + district_selected + '&search_type=' + search_type;
-                }else{
-                    if(city_selected > 0){
-                        new_link += 'city=' + city_selected + '&search_type=' + search_type;
-                    }
+                if(city_selected > 0){
+                    new_link += '&city=' + city_selected;
                 }
             }
-            window.location.replace(new_link);
-            return false;
-        });
+        }else{
+            if(district_selected > 0){
+                new_link += 'district=' + district_selected + '&search_type=' + search_type;
+            }else{
+                if(city_selected > 0){
+                    new_link += 'city=' + city_selected + '&search_type=' + search_type;
+                }
+            }
+        }
+        window.location.replace(new_link);
+        return false;
+      });
     });
 </script>
 </body>

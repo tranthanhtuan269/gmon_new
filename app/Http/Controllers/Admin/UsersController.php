@@ -147,4 +147,14 @@ class UsersController extends Controller
 
         return redirect('admin/users');
     }
+
+    public function setPermission(Request $request){
+        if (\Auth::check()) {
+            if(isset($request['role'])){
+                \Auth::user()->assignRole($request['role']);
+                return \Response::json(array('code' => '200', 'message' => 'done'));
+            }
+        }
+        return \Response::json(array('code' => '403', 'message' => 'error'));
+    }
 }

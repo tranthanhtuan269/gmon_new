@@ -104,7 +104,7 @@ class RegisterController extends Controller
             ]);
 
             if($user_login){
-                $user_login->assignRole('poster');
+                // $user_login->assignRole('poster');
                 $dataUser = array('email'=>$socialUser->getEmail(), 'name'=>$socialUser->getName());
                 Mail::send('emails.registerUV', [], function($message) use ($dataUser) {
                     $message->from('support@gmon.com.vn', 'gmon.vn');
@@ -153,7 +153,7 @@ class RegisterController extends Controller
                 'id_fb' => $socialUser->getId()
             ]);
             if($user_login){
-                $user_login->assignRole('poster');
+                // $user_login->assignRole('poster');
                 if($socialUser->getEmail() != null){
                     $dataUser = array('email'=>$socialUser->getEmail(), 'name'=>$socialUser->getName());
                     Mail::send('emails.registerUV', [], function($message) use ($dataUser) {

@@ -26,6 +26,7 @@ Route::get('/user/applied', 'JobController@userapplied');
 Route::get('/user/jobrelative', 'JobController@userJobRelative');
 Route::get('/user/companyfollow', 'CompanyController@usercompanyfollow');
 Route::get('/user/companynew', 'CompanyController@usercompanynew');
+Route::post('/user/setPermission', 'Admin\UsersController@setPermission');
 Route::get('/getJobApply', 'JobController@getJobApply');
 Route::get('/getJobRelative', 'JobController@getJobRelative');
 Route::get('/getCompanyFollowed', 'CompanyController@getCompanyFollowed');
