@@ -304,13 +304,39 @@
         </div>
       </div>
     </div>
-    
+    <?php
+        if(!Auth::guest()){
+        $roles = Auth::user()->roles()->get();
+        if(count($roles) == 0){
+          ?>
+
+      <div class="modal fade" id="abc">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Chọn vị trí bạn muốn</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="btn btn-lg btn-primary permission-btn" data-permission="user" style="width: 100%;padding:10px;margin:10px 0;">Ứng viên</div>
+              <div class="btn btn-lg btn-primary permission-btn" data-permission="poster" style="width: 100%;padding:10px;margin:10px 0;">Nhà tuyển dụng</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <?php
+    }
+    }
+    ?>
     @yield('content')
     <script type="text/javascript">
 
-      $(window).on('load',function(){
-          $('#myModal').modal('show');
-      });
+    $(window).on('load',function(){
+        $('#abc').modal('show');
+        $('.modal-backdrop').css('z-index',0);
+    });
 
     function onCloseModalLogin() {
         $("#myModal").modal('toggle');
@@ -432,6 +458,34 @@
         }
     }
 
+    $('.permission-btn').click(function(){
+      var $role = $(this).attr('data-permission');
+
+      var permissionRequest = $.ajax({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        url: "{{ url('/') }}/user/setPermission",
+        method: "POST",
+        data: {
+            'role': $role
+        },
+        dataType: "json"
+      });
+
+      permissionRequest.done(function (msg) {
+        if(msg.code == 200) {
+          location.reload();
+        }else{
+          alert('Có 1 lỗi xảy ra khi lưu dữ liệu!');
+        }
+      });
+
+      permissionRequest.fail(function (jqXHR, textStatus) {
+          alert("Request failed: " + textStatus);
+      });
+    });
+    
     onOpenLogin();
     $('#login-btn').click(function () {
         loginFunc();
