@@ -1,10 +1,26 @@
-@extends('layouts.layout')
+@extends('layouts.layout_master')
 
 @section('content')
 <link rel="stylesheet" href="{{ url('/') }}/public/css/croppie.css">
+<style type="text/css">
+    .header-homepage{
+        background-image: none;
+    }
+    .floatLeft{
+        float: left;
+    }
+
+    .form-group{
+        min-height: 36px;
+    }
+
+    #add-branch{
+        margin: 10px 0;
+    }
+</style>
 <div class="container" style="margin-top: 15px;">
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-12">
             <div class="panel panel-default">
                 <div class="panel-heading">Tạo trang công ty</div>
                 <div class="panel-body">
@@ -16,11 +32,11 @@
                     </ul>
                     @endif
 
-                    {!! Form::open(['url' => '/company/store', 'class' => 'form-horizontal', 'files' => true, 'id' => 'create-company']) !!}
+                    {!! Form::open(['url' => '/company/store', 'class' => '', 'files' => true, 'id' => 'create-company']) !!}
 
                     <div class="form-group {{ $errors->has('banner') ? 'has-error' : ''}}">
 
-                        <div class="col-md-12">
+                        <div class="col-12">
                             <input type="hidden" id="banner" name="banner" value="">
                             <img src="" id="banner-image" class="img" style="height: 160px; width: 100%; background-color: #fff; border: 2px solid gray; border-radius: 5px;">
                             <input type="file" name="banner-img" id="banner-img" style="display: none;">
@@ -28,9 +44,9 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-2">
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-4">
                             <div class="form-group {{ $errors->has('logo') ? 'has-error' : ''}}">
-                                <div class="col-md-12">
+                                <div class="col-12">
                                     <input type="hidden" id="logo" name="logo" value="">
                                     <img src="" id="logo-image" class="img" style="height: 150px; width: 150px; background-color: #fff; border: 2px solid gray; border-radius: 5px;">
                                     <input type="file" name="logo-img" id="logo-img" style="display: none;">
@@ -38,33 +54,33 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-5">
+                        <div class="col-12 col-sm-6 col-md-8 col-lg-4">
                             <div class="form-group {{ $errors->has('name') ? 'has-error' : ''}}">
-                                <div class="col-md-12">
+                                <div class="col-12">
                                     {!! Form::text('name', null, ['class' => 'form-control', 'id' => 'company-name', 'placeholder' => 'Tên nhà tuyển dụng']) !!}
                                     {!! $errors->first('name', '<p class="help-block">:message</p>') !!}
                                 </div>
                             </div>
                             <div class="form-group {{ $errors->has('sub_name') ? 'has-error' : ''}}">
-                                <div class="col-md-12">
+                                <div class="col-12">
                                     {!! Form::text('sub_name', null, ['class' => 'form-control', 'id' => 'sub-name', 'placeholder' => 'Tên viết tắt']) !!}
                                     {!! $errors->first('sub_name', '<p class="help-block">:message</p>') !!}
                                 </div>
                             </div>
                             <div class="form-group {{ $errors->has('city') ? 'has-error' : ''}}">
-                                <div class="col-md-12">
+                                <div class="col-12">
                                     <select class="form-control" id="city" name="city"><option value="0">--Chọn Tỉnh / Thành Phố--</option><option value="1">Hà Nội</option><option value="2">Hồ Chí Minh</option><option value="3">Đà Nẵng</option><option value="4">Hải Phòng</option><option value="5">Cần Thơ</option><option value="6">An Giang</option><option value="7">Bà Rịa Vũng Tàu</option><option value="8">Bạc Liêu</option><option value="9">Bắc Cạn</option><option value="10">Bắc Giang</option><option value="11">Hải Dương</option><option value="12">Bắc Ninh</option><option value="13">Bến Tre</option><option value="14">Bình Dương</option><option value="15">Bình Định</option><option value="16">Bình Phước</option><option value="17">Bình Thuận</option><option value="18">Cà Mau</option><option value="19">Cao Bằng</option><option value="20">Đắk Lắk</option><option value="21">Đăk Nông</option><option value="22">Điện Biên</option><option value="23">Đồng Nai</option><option value="24">Đồng Tháp</option><option value="25">Gia Lai</option><option value="26">Hà Giang</option><option value="27">Hà Nam</option><option value="28">Hà Tĩnh</option><option value="29">Hậu Giang</option><option value="30">Hòa Bình</option><option value="31">Hưng Yên</option><option value="32">Khánh Hòa</option><option value="33">Kiên Giang</option><option value="34">Kon Tum</option><option value="35">Lai Châu</option><option value="36">Lâm Đồng</option><option value="37">Lạng Sơn</option><option value="38">Lào Cai</option><option value="39">Long An</option><option value="40">Nam Định</option><option value="41">Nghệ An</option><option value="42">Ninh Bình</option><option value="43">Ninh Thuận</option><option value="44">Phú Thọ</option><option value="45">Phú Yên</option><option value="46">Quảng Bình</option><option value="47">Quảng Nam</option><option value="48">Quảng Ngãi</option><option value="49">Quảng Ninh</option><option value="50">Quảng Trị</option><option value="51">Sóc Trăng</option><option value="52">Sơn La</option><option value="53">Tây Ninh</option><option value="54">Thái Bình</option><option value="55">Thái Nguyên</option><option value="56">Thanh Hóa</option><option value="57">Huế</option><option value="58">Tiền Giang</option><option value="59">Trà Vinh</option><option value="60">Tuyên Quang</option><option value="61">Vĩnh Long</option><option value="62">Vĩnh Phúc</option><option value="63">Yên Bái</option></select>
                                     {!! $errors->first('city', '<p class="help-block">:message</p>') !!}
                                 </div>
                             </div>
                             <div class="form-group {{ $errors->has('town') ? 'has-error' : ''}}">
-                                <div class="col-md-12">
+                                <div class="col-12">
                                     <select class="form-control" id="town" name="town"><option value="0">--Chọn Phường / Xã --</option></select>
                                     {!! $errors->first('town', '<p class="help-block">:message</p>') !!}
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-5">
+                        <div class="col-12 col-sm-6 col-md-8 col-lg-4">
                             <div class="form-group {{ $errors->has('tax_code') ? 'has-error' : ''}}">
                                 <div class="col-md-12">
                                     {!! Form::text('tax_code', null, ['class' => 'form-control', 'placeholder' => 'Mã số thuế']) !!}
@@ -72,7 +88,7 @@
                                 </div>
                             </div>
                             <div class="form-group {{ $errors->has('size') ? 'has-error' : ''}}">
-                                <div class="col-md-12">
+                                <div class="col-12">
                                     {!! Form::select('size', [
                                     '0' => 'Quy mô', 
                                     '1' => 'Dưới 20 người', 
@@ -85,13 +101,13 @@
                                 </div>
                             </div>
                             <div class="form-group {{ $errors->has('district') ? 'has-error' : ''}}">
-                                <div class="col-md-12">
+                                <div class="col-12">
                                     <select class="form-control" id="district" name="district"><option value="0">--Chọn Quận / Huyện --</option></select>
                                     {!! $errors->first('district', '<p class="help-block">:message</p>') !!}
                                 </div>
                             </div>
                             <div class="form-group {{ $errors->has('address') ? 'has-error' : ''}}">
-                                <div class="col-md-12">
+                                <div class="col-12">
                                     {!! Form::text('address', null, ['class' => 'form-control', 'id' => 'address', 'placeholder' => 'Số nhà và Đường']) !!}
                                     {!! $errors->first('address', '<p class="help-block">:message</p>') !!}
                                 </div>
@@ -100,7 +116,7 @@
                     </div>
                     
                     <div class="form-group {{ $errors->has('sologan') ? 'has-error' : ''}}">
-                        <div class="col-md-12">
+                        <div class="col-12">
                             {!! Form::text('sologan', null, ['class' => 'form-control', 'placeholder' => 'Khẩu hiệu']) !!}
                             {!! $errors->first('sologan', '<p class="help-block">:message</p>') !!}
                         </div>
@@ -115,23 +131,23 @@
                                 <div class="form-group" id="branch_content">
                                 </div>
                                 <div class="form-group">
-                                    <div class="col-md-5">
+                                    <div class="col-12 col-sm-4 col-md-6 col-lg-6 floatLeft">
                                         <input type="text" class="form-control" class="name_branch" id="name_branch" placeholder="Tên chi nhánh">
                                     </div>
-                                    <div class="col-md-5">
-                                        <input type="text" class="form-control" class="address_branch" id="address_branch" placeholder="Địa chỉ">
+                                    <div class="col-12 col-sm-4 col-md-6 col-lg-6 floatLeft">
+                                        <input type="text" class="form-control" class="address_branch" id="address_branch" placeholder="Số nhà - Đường ">
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <div class="col-md-5">
+                                    <div class="col-12 col-sm-6 col-md-6 col-lg-6 floatLeft">
                                         <select class="form-control" id="city_branch"><option value="0">--Chọn Tỉnh / Thành Phố--</option><option value="1">Hà Nội</option><option value="2">Hồ Chí Minh</option><option value="3">Đà Nẵng</option><option value="4">Hải Phòng</option><option value="5">Cần Thơ</option><option value="6">An Giang</option><option value="7">Bà Rịa Vũng Tàu</option><option value="8">Bạc Liêu</option><option value="9">Bắc Cạn</option><option value="10">Bắc Giang</option><option value="11">Hải Dương</option><option value="12">Bắc Ninh</option><option value="13">Bến Tre</option><option value="14">Bình Dương</option><option value="15">Bình Định</option><option value="16">Bình Phước</option><option value="17">Bình Thuận</option><option value="18">Cà Mau</option><option value="19">Cao Bằng</option><option value="20">Đắk Lắk</option><option value="21">Đăk Nông</option><option value="22">Điện Biên</option><option value="23">Đồng Nai</option><option value="24">Đồng Tháp</option><option value="25">Gia Lai</option><option value="26">Hà Giang</option><option value="27">Hà Nam</option><option value="28">Hà Tĩnh</option><option value="29">Hậu Giang</option><option value="30">Hòa Bình</option><option value="31">Hưng Yên</option><option value="32">Khánh Hòa</option><option value="33">Kiên Giang</option><option value="34">Kon Tum</option><option value="35">Lai Châu</option><option value="36">Lâm Đồng</option><option value="37">Lạng Sơn</option><option value="38">Lào Cai</option><option value="39">Long An</option><option value="40">Nam Định</option><option value="41">Nghệ An</option><option value="42">Ninh Bình</option><option value="43">Ninh Thuận</option><option value="44">Phú Thọ</option><option value="45">Phú Yên</option><option value="46">Quảng Bình</option><option value="47">Quảng Nam</option><option value="48">Quảng Ngãi</option><option value="49">Quảng Ninh</option><option value="50">Quảng Trị</option><option value="51">Sóc Trăng</option><option value="52">Sơn La</option><option value="53">Tây Ninh</option><option value="54">Thái Bình</option><option value="55">Thái Nguyên</option><option value="56">Thanh Hóa</option><option value="57">Huế</option><option value="58">Tiền Giang</option><option value="59">Trà Vinh</option><option value="60">Tuyên Quang</option><option value="61">Vĩnh Long</option><option value="62">Vĩnh Phúc</option><option value="63">Yên Bái</option></select>
                                         {!! $errors->first('city', '<p class="help-block">:message</p>') !!}
                                     </div>
-                                    <div class="col-md-5">
+                                    <div class="col-12 col-sm-6 col-md-6 col-lg-6 floatLeft">
                                         <select class="form-control" id="district_branch"><option value="0">--Chọn Quận / Huyện --</option></select>
                                         {!! $errors->first('district', '<p class="help-block">:message</p>') !!}
                                     </div>
-                                    <div class="col-md-2">
+                                    <div class="col-12 col-sm-6 col-md-6 col-lg-6 floatLeft">
                                         <div class="btn btn-primary" id="add-branch">Hoàn thành</div>
                                     </div>
                                 </div>
@@ -140,7 +156,7 @@
                     </div>
 
                     <div class="form-group {{ $errors->has('jobs') ? 'has-error' : ''}}">
-                        <div class="col-md-12">
+                        <div class="col-12">
                             <input type="hidden" id="jobs" name="jobs" value="">
                             <select class="form-control selectpicker" multiple title="Chọn lĩnh vực hoạt động">
                                 @foreach($company_types as $company_type)
@@ -152,10 +168,10 @@
                     </div>
 
                     <div class="form-group {{ $errors->has('description') ? 'has-error' : ''}}">
-                        <div class="col-md-12">
+                        <div class="col-12">
                             <label class="control-label">Thêm mô tả</label>
                         </div>
-                        <div class="col-md-12">
+                        <div class="col-12">
                             {!! Form::text('description', null, ['class' => 'form-control', 'id' => 'description']) !!}
                             {!! $errors->first('description', '<p class="help-block">:message</p>') !!}
                         </div>
@@ -212,22 +228,22 @@
                         </div>
                     </div>
                     <div class="form-group {{ $errors->has('site_url') ? 'has-error' : ''}}">
-                        <div class="col-md-12">
+                        <div class="col-12">
                             {!! Form::text('site_url', null, ['class' => 'form-control', 'id' => 'site_url', 'placeholder' => 'Thêm link website']) !!}
                             {!! $errors->first('site_url', '<p class="help-block">:message</p>') !!}
                         </div>
                     </div>
                     <div class="form-group {{ $errors->has('youtube_link') ? 'has-error' : ''}}">
-                        <div class="col-md-12">
+                        <div class="col-12">
                             {!! Form::text('youtube_link', null, ['class' => 'form-control', 'id' => 'youtube_link', 'placeholder' => 'Thêm video']) !!}
                             {!! $errors->first('youtube_link', '<p class="help-block">:message</p>') !!}
                         </div>
                     </div>
                     <div class="form-group {{ $errors->has('images') ? 'has-error' : ''}}">
-                        <div class="col-md-12">
+                        <div class="col-12">
                             <label class="control-label">Thêm ảnh</label>
                         </div>
-                        <div class="col-md-12">
+                        <div class="col-12">
                             <input type="hidden" name="images-plus-field" id="images-plus-field" value="">
                             <div id="images-plus"></div>
                             <img src="{{ url('/') }}/public/images/icons8-Add-Image-50.png" id="images" class="img" style="height: 50px; width: 50px;">
@@ -237,7 +253,7 @@
                     </div>
 
                     <div class="form-group">
-                        <div class="col-md-offset-4 col-md-4">
+                        <div class="col-12 col-sm-6 col-md-8 col-lg-4">
                             <button class="btn btn-primary" id="submit-btn">Tạo mới</button>
                             <a target="_self" href="{{ url('/home') }}" class="btn btn-primary">Trở về trang chủ</a>
                         </div>
@@ -258,15 +274,15 @@
                   <div class="panel-body">
 
                     <div class="row">
-                        <div class="col-md-12 text-center">
+                        <div class="col-12 text-center">
                             <div id="upload-banner-demo" style="width:100%"></div>
                             <input type="file" id="upload-banner" style="display: none;">
                         </div>
-                        <!-- <div class="col-md-3" style="padding-top:30px;">
+                        <!-- <div class="col-3" style="padding-top:30px;">
                             <button class="btn btn-default select-banner" style="margin: 10px 0;">Chọn Banner</button>
                             <button class="btn btn-success upload-banner-result">Cắt Banner</button>
                         </div>
-                        <div class="col-md-4" style="">
+                        <div class="col-4" style="">
                             <div id="upload-banner-i" style="background:#e1e1e1;width:200px;height:200px;margin-top: 30px;"></div>
                         </div> -->
                     </div>
@@ -302,15 +318,15 @@
                   <div class="panel-body">
 
                     <div class="row">
-                        <div class="col-md-5 text-center">
+                        <div class="col-5 text-center">
                             <div id="upload-logo-demo" style="width:350px"></div>
                         </div>
-                        <div class="col-md-3" style="padding-top:30px;">
+                        <div class="col-3" style="padding-top:30px;">
                             <input type="file" id="upload-logo" style="display: none;">
                             <button class="btn btn-default select-logo" style="margin: 10px 0;">Chọn Logo</button>
                             <button class="btn btn-success upload-logo-result">Cắt Logo</button>
                         </div>
-                        <div class="col-md-4" style="">
+                        <div class="col-4" style="">
                             <div id="upload-logo-i" style="background:#e1e1e1;width:200px;height:200px;margin-top: 30px;"></div>
                         </div>
                     </div>
@@ -330,6 +346,7 @@
     var src_banner = '';
     $('#logo-image').on('click', function (e) {
         $('.modal-show-logo').modal('show');
+        $('.modal-backdrop').css('z-index', 0);
     });
     $uploadLogoCrop = $('#upload-logo-demo').croppie({
         enableExif: true,
@@ -394,6 +411,7 @@
 
     $('#banner-image').on('click', function (e) {
         $('.modal-show-banner').modal('show');
+        $('.modal-backdrop').css('z-index', 0);
     });
     
     $uploadBannerCrop = $('#upload-banner-demo').croppie({
@@ -588,7 +606,7 @@ $(document).ready(function () {
         ret_arr['district_branch_name'] = district_branch_name;
         $('#branch').val($('#branch').val() + ';' + JSON.stringify(ret_arr))
 
-        var html = '<div class="col-md-12 branch-class"><label class="control-label"> - ' + name_branch 
+        var html = '<div class="col-12 branch-class"><label class="control-label"> - ' + name_branch 
         + ' tại ' + address_branch + ', ' 
         + district_branch_name + ', ' 
         + city_branch_name + '</label><span class="remove-branch-class"></span></div>';
