@@ -264,9 +264,8 @@
         </div>
     </div>
 </div>
-
-<div class="modal fade modal-show-banner" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
-    <div class="modal-dialog modal-lg" role="document">
+<div class="modal fade modal-show-banner" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-body">
                 <div class="panel panel-default">
@@ -278,13 +277,6 @@
                             <div id="upload-banner-demo" style="width:100%"></div>
                             <input type="file" id="upload-banner" style="display: none;">
                         </div>
-                        <!-- <div class="col-3" style="padding-top:30px;">
-                            <button class="btn btn-default select-banner" style="margin: 10px 0;">Chọn Banner</button>
-                            <button class="btn btn-success upload-banner-result">Cắt Banner</button>
-                        </div>
-                        <div class="col-4" style="">
-                            <div id="upload-banner-i" style="background:#e1e1e1;width:200px;height:200px;margin-top: 30px;"></div>
-                        </div> -->
                     </div>
                   </div>
                 </div>
@@ -417,12 +409,12 @@
     $uploadBannerCrop = $('#upload-banner-demo').croppie({
         enableExif: true,
         viewport: {
-            width: 699,
+            width: 643,
             height: 245,
             type: 'square'
         },
         boundary: {
-            width: 835,
+            width: 768,
             height: 350
         },
         showZoomer: true
