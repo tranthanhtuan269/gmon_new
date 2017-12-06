@@ -1,9 +1,61 @@
-@extends('layouts.layout')
+@extends('layouts.layout_master')
 
 @section('content')
 <script type="text/javascript" src="{{ url('/') }}/public//bower_components/moment/min/moment.min.js"></script>
 <script type="text/javascript" src="{{ url('/') }}/public//bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
 <link rel="stylesheet" href="{{ url('/') }}/public//bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" />
+<style type="text/css">
+    .header-homepage{
+        background-image: none;
+    }
+    .floatLeft{
+        float: left;
+    }
+
+    .form-group{
+        min-height: 36px;
+    }
+
+    #add-branch{
+        margin: 10px 0;
+    }
+
+    .panel {
+        margin-bottom: 20px;
+        background-color: #fff;
+        border: 1px solid transparent;
+        border-radius: 4px;
+        -webkit-box-shadow: 0 1px 1px rgba(0,0,0,.05);
+        box-shadow: 0 1px 1px rgba(0,0,0,.05);
+    }
+
+    .panel-default {
+        border-color: #ddd;
+    }
+
+    .panel-default>.panel-heading {
+        text-transform: capitalize;
+        color: #333;
+        background-color: #f5f5f5;
+        border-color: #ddd;
+        padding: 10px 15px;
+        border-bottom: 1px solid transparent;
+        border-top-left-radius: 3px;
+        border-top-right-radius: 3px;
+    }
+
+    .panel-body {
+        padding: 15px;
+    }
+
+    .control-label {
+        text-transform: capitalize;
+        display: inline-block;
+        max-width: 100%;
+        margin-bottom: 5px;
+        font-weight: 700;
+    }
+</style>
     <div class="container" style="margin-top: 15px;">
     <div class="row">
         <div class="col-md-12">
@@ -22,16 +74,17 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group {{ $errors->has('name') ? 'has-error' : ''}}">
-                                <div class="col-md-6">
+                                <div class="col-md-6 floatLeft">
                                     {!! Form::text('name', null, ['class' => 'form-control', 'placeholder' => 'Tên công việc', 'id' => 'job-name']) !!}
                                     {!! $errors->first('name', '<p class="help-block">:message</p>') !!}
                                 </div>
-                                <div class="col-md-6" style="margin-top:6px; text-transform: uppercase;">
+                                <div class="col-md-6 floatLeft" style="margin-top:6px; text-transform: uppercase;">
                                     <label for="companyName">tại {{ $company->name }}</label>
                                 </div>
                             </div>
                         </div>
 
+                        @if(count($branches) > 0)
                         <div class="col-md-12" id="select-branch">
                             <input type="hidden" id="branches" name="branches" value="">
                             <select class="form-control selectpicker" multiple title="Chọn chi nhánh tuyển dụng">
@@ -43,7 +96,8 @@
                             </select>
                             {!! $errors->first('branches', '<p class="help-block">:message</p>') !!}
                         </div>
-                        <div class="col-md-6">
+                        @endif
+                        <div class="col-md-6 floatLeft">
                             <div class="form-group {{ $errors->has('description') ? 'has-error' : ''}}">
                                 <div class="col-md-12">
                                     <label class="control-label">Mô tả công việc</label>
@@ -64,18 +118,14 @@
                             </div>
                             <div class="form-group {{ $errors->has('public') ? 'has-error' : ''}}">
                                 <div class="col-md-12">
-                                    <div class="form-group {{ $errors->has('number') ? 'has-error' : ''}}">
-                                        <div class="col-md-12">
-                                            {!! Form::number('number', null, ['class' => 'form-control', 'placeholder' => 'Số lượng']) !!}
-                                            {!! $errors->first('number', '<p class="help-block">:message</p>') !!}
-                                        </div>
-                                    </div>
+                                    {!! Form::number('number', null, ['class' => 'form-control', 'placeholder' => 'Số lượng']) !!}
+                                    {!! $errors->first('number', '<p class="help-block">:message</p>') !!}
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-6 floatLeft">
                             <div class="form-group {{ $errors->has('position') ? 'has-error' : ''}}">
-                                <div class="col-md-12">
+                                <div class="col-md-12 hidden-md-down">
                                     <label class="control-label"></label>
                                 </div>
                                 <div class="col-md-12">
