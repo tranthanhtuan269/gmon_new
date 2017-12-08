@@ -25,7 +25,7 @@ class CurriculumVitae extends Model
      *
      * @var array
      */
-    protected $fillable = ['user', 'avatar', 'birthday', 'gender', 'address', 'city', 'district', 'town', 'education','school', 'word_experience', 'language', 'interests', 'references', 'qualification', 'career_objective', 'images', 'active', 'time_can_work', 'salary_want', 'jobs', 'created_at'];
+    protected $fillable = ['user', 'avatar', 'birthday', 'gender', 'address', 'city', 'district', 'town', 'education','school', 'word_experience', 'language', 'interests', 'references', 'qualification', 'career_objective', 'images', 'active', 'time_can_work', 'salary_want', 'job_id', 'jobs', 'created_at'];
 
     public function getCV($district, $city, $from, $number_get){
         $sql = "SELECT 
