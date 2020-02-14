@@ -4,14 +4,14 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Comment extends Model
+class CommentCompany extends Model
 {
     /**
      * The database table used by the model.
      *
      * @var string
      */
-    protected $table = 'comments';
+    protected $table = 'comments_company';
 
     /**
     * The database primary key value.
